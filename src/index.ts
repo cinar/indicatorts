@@ -1,11 +1,11 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-export * from './backtest/backtest'
-export * from './backtest/companyResult'
-export * from './backtest/strategyInfo'
-export * from './backtest/strategyResult'
-export * from './backtest/strategyStats'
+export * from './backtest/backtest';
+export * from './backtest/companyResult';
+export * from './backtest/strategyInfo';
+export * from './backtest/strategyResult';
+export * from './backtest/strategyStats';
 export * from './chart/chart';
 export * from './chart/numRange';
 export * from './chart/numScaler';

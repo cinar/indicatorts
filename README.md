@@ -1,5 +1,5 @@
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.com/cinar/indicator.svg?branch=master)](https://travis-ci.com/cinar/indicatorts)
+[![Build Status](https://app.travis-ci.com/cinar/indicatorts.svg?branch=main)](https://app.travis-ci.com/cinar/indicatorts)
 
 # Indicator TS
 
