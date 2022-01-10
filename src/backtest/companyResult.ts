@@ -36,7 +36,7 @@ export function sortCompanyResults(
     sortBy: CompanyResultSortBy,
     ascending: boolean,
 ): CompanyResult[] {
-  let sorted: CompanyResult[];
+  let sorted: CompanyResult[] = [];
 
   switch (sortBy) {
     case CompanyResultSortBy.SYMBOL:

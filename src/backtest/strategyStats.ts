@@ -56,17 +56,14 @@ export function computeStrategyStats(companyResults: CompanyResult[]): StrategyS
 
   for (const companyResult of companyResults) {
     const strategyResult = companyResult.strategyResults[0];
-    let strategyStats: StrategyStats;
 
-    const foundStats = statsMap.get(strategyResult.info.name);
-    if (foundStats !== undefined) {
-      strategyStats = foundStats;
+    const strategyStats = statsMap.get(strategyResult.info.name);
+    if (strategyStats !== undefined) {
+      updateStrategyStats(strategyStats, strategyResult);
     } else {
-      strategyStats = newStrategyStats(strategyResult);
-      statsMap.set(strategyResult.info.name, strategyStats);
+      statsMap.set(strategyResult.info.name,
+          newStrategyStats(strategyResult));
     }
-
-    updateStrategyStats(strategyStats, strategyResult);
   }
 
   const statsArray = Array.from(statsMap.values());
@@ -99,7 +96,7 @@ export function sortStrategyStats(
     sortBy: StrategyStatsSortBy,
     ascending: boolean,
 ): StrategyStats[] {
-  let sorted: StrategyStats[];
+  let sorted: StrategyStats[] = [];
 
   switch (sortBy) {
     case StrategyStatsSortBy.STRATEGY:
