@@ -5,12 +5,12 @@
  * Checkes the values lenghts.
  * @param values values list.
  */
-export function checkSameLength(...values: number[][]) {
+export function checkSameLength(...values: number[][]): void {
   if (values.length > 0) {
     const length = values[0].length;
 
     for (let i = 1; i < values.length; i++) {
-      if (values[i].length != length) {
+      if (values[i].length !== length) {
         throw new Error(`values length at ${i} not ${length}`);
       }
     }

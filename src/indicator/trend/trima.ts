@@ -16,10 +16,10 @@ import {sma} from './sma';
  * @return trima values.
  */
 export function trima(period: number, values: number[]): number[] {
-  let n1: number;
-  let n2: number;
+  let n1 = 0;
+  let n2 = 0;
 
-  if (period % 2 == 0) {
+  if (period % 2 === 0) {
     n1 = period / 2;
     n2 = n1 + 1;
   } else {

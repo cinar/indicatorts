@@ -43,7 +43,7 @@ export class Chart {
    */
   constructor(id: string) {
     const canvas = document.getElementById(id);
-    if (canvas == null) {
+    if (canvas === null) {
       throw new Error('Canvas element not found');
     } else if (!(canvas instanceof HTMLCanvasElement)) {
       throw new Error('Not a canvas element');
@@ -52,7 +52,7 @@ export class Chart {
     this.canvas = canvas;
 
     const context = this.canvas.getContext('2d');
-    if (context == null) {
+    if (context === null) {
       throw new Error('Canvas context is null');
     }
 
@@ -71,7 +71,7 @@ export class Chart {
    * Add the data set.
    * @param dataSet data set.
    */
-  add(dataSet: DataSet) {
+  add(dataSet: DataSet): void {
     this.dataSets.set(dataSet.legend, dataSet);
     this.dateSetsChanged = true;
   }
@@ -93,7 +93,7 @@ export class Chart {
   /**
    * Draw canvas.
    */
-  draw() {
+  draw(): void {
     if (this.dateSetsChanged) {
       this.updateScalers();
       this.dateSetsChanged = false;
@@ -142,7 +142,7 @@ export class Chart {
    * @return at style.
    */
   private styleAtIndex(dataSet: DataSet, index: number): string {
-    if (dataSet.style == undefined) {
+    if (dataSet.style === undefined) {
       return DEFAULT_STYLE;
     } else if (Array.isArray(dataSet.style)) {
       return dataSet.style[index];
@@ -155,7 +155,7 @@ export class Chart {
    * Draws focus line and focused values.
    */
   private drawFocus() {
-    if (this.xFocus != NO_FOCUS) {
+    if (this.xFocus !== NO_FOCUS) {
       this.drawFocusLine();
       this.drawFocusedValues();
     }
@@ -185,7 +185,7 @@ export class Chart {
 
     for (const dataSet of this.dataSets.values()) {
       if ((index >= 0) && (index < dataSet.values.length)) {
-        const text = dataSet.legend + ' ' + roundDigits(2, dataSet.values[index]);
+        const text = dataSet.legend + ' ' + roundDigits(2, dataSet.values[index]).toString();
 
         this.context.fillStyle = this.styleAtIndex(dataSet, index);
         this.context.fillText(text, xOffset,
@@ -208,7 +208,7 @@ export class Chart {
    * Updates scalers.
    */
   private updateScalers() {
-    if (this.dataSets.size == 0) {
+    if (this.dataSets.size === 0) {
       return;
     }
 

@@ -41,5 +41,5 @@ export function daysLaterFrom(date: Date, days: number): Date {
  * @return month and day string.
  */
 export function toMonthAndDay(date: Date): string {
-  return (date.getMonth() + 1) + '/' + date.getDate();
+  return (date.getMonth() + 1).toString() + '/' + date.getDate().toString();
 }

@@ -58,8 +58,9 @@ export function computeStrategyStats(companyResults: CompanyResult[]): StrategyS
     const strategyResult = companyResult.strategyResults[0];
     let strategyStats: StrategyStats;
 
-    if (statsMap.has(strategyResult.info.name)) {
-      strategyStats = statsMap.get(strategyResult.info.name)!;
+    const foundStats = statsMap.get(strategyResult.info.name);
+    if (foundStats !== undefined) {
+      strategyStats = foundStats;
     } else {
       strategyStats = newStrategyStats(strategyResult);
       statsMap.set(strategyResult.info.name, strategyStats);

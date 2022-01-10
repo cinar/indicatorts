@@ -14,7 +14,7 @@ export function since(values: number[]): number[] {
     let count = 0;
 
     for (let i = 0; i < values.length; i++) {
-      if (last != values[i]) {
+      if (last !== values[i]) {
         last = values[i];
         count = 0;
       } else {

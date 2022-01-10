@@ -64,7 +64,7 @@ export function parabolicSar(
   for (let i = 1; i < psar.length; i++) {
     psar[i] = psar[i-1] - ((psar[i-1] - ep) * af);
 
-    if (trends[i-1] == Trend.FALLING) {
+    if (trends[i-1] === Trend.FALLING) {
       psar[i] = Math.max(psar[i], highs[i-1]);
       if (i > 1) {
         psar[i] = Math.max(psar[i], highs[i-2]);
@@ -94,9 +94,9 @@ export function parabolicSar(
       ep = Math.max(ep, highs[i]);
     }
 
-    if (trends[i] != trends[i-1]) {
+    if (trends[i] !== trends[i-1]) {
       af = PSAR_AF_STEP;
-    } else if ((prevEp != ep) && (af < PSAR_AF_MAX)) {
+    } else if ((prevEp !== ep) && (af < PSAR_AF_MAX)) {
       af += PSAR_AF_STEP;
     }
   }

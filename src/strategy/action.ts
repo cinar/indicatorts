@@ -19,9 +19,9 @@ export enum Action {
  */
 export function reverseActions(actions: Action[]): Action[] {
   return actions.map((action) => {
-    if (action == Action.BUY) {
+    if (action === Action.BUY) {
       return Action.SELL;
-    } else if (action == Action.SELL) {
+    } else if (action === Action.SELL) {
       return Action.BUY;
     } else {
       return Action.HOLD;
@@ -46,12 +46,12 @@ export function applyActions(closings: number[], actions: Action[]): number[] {
   let shares = 0;
 
   for (let i = 0; i < gains.length; i++) {
-    if (actions[i] == Action.BUY) {
+    if (actions[i] === Action.BUY) {
       if (balance > 0) {
         shares = balance / closings[i];
         balance = 0;
       }
-    } else if (actions[i] == Action.SELL) {
+    } else if (actions[i] === Action.SELL) {
       if (shares > 0) {
         balance = shares * closings[i];
         shares = 0;

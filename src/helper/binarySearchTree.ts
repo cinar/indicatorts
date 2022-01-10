@@ -28,14 +28,14 @@ export class BinarySearchTree {
    * Inserts the given value.
    * @param value numeric value.
    */
-  insert(value: number) {
+  insert(value: number): void {
     const node: TreeNode = {
       value: value,
       left: null,
       right: null,
     };
 
-    if (this.root == null) {
+    if (this.root === null) {
       this.root = node;
       return;
     }
@@ -45,14 +45,14 @@ export class BinarySearchTree {
 
     while (!found) {
       if (node.value <= current.value) {
-        if (current.left == null) {
+        if (current.left === null) {
           current.left = node;
           found = true;
         } else {
           current = current.left;
         }
       } else {
-        if (current.right == null) {
+        if (current.right === null) {
           current.right = node;
           found = true;
         } else {
@@ -73,8 +73,8 @@ export class BinarySearchTree {
       parent: null,
     };
 
-    while (info.node != null) {
-      if (value == info.node.value) {
+    while (info.node !== null) {
+      if (value === info.node.value) {
         this.removeNode(info);
         return true;
       } else {
@@ -97,7 +97,7 @@ export class BinarySearchTree {
    */
   min(): number {
     const minInfo = BinarySearchTree.minNode(this.root);
-    if (minInfo.node == null) {
+    if (minInfo.node === null) {
       throw new Error('Tree empty');
     }
 
@@ -110,7 +110,7 @@ export class BinarySearchTree {
    */
   max(): number {
     const maxInfo = BinarySearchTree.maxNode(this.root);
-    if (maxInfo.node == null) {
+    if (maxInfo.node === null) {
       throw new Error('Tree empty');
     }
 
@@ -122,32 +122,32 @@ export class BinarySearchTree {
    * @param info node info.
    */
   private removeNode(info: TreeNodeInfo) {
-    if (info.node == null) {
+    if (info.node === null) {
       return;
     }
 
-    if ((info.node.left != null) && ((info.node.right != null))) {
+    if ((info.node.left !== null) && ((info.node.right !== null))) {
       const minInfo = BinarySearchTree.minNode(info.node.right);
-      if (minInfo.parent == null) {
+      if (minInfo.parent === null) {
         minInfo.parent = info.node;
       }
 
       this.removeNode(minInfo);
-      if (minInfo.node != null) {
+      if (minInfo.node !== null) {
         info.node.value = minInfo.node.value;
       }
     } else {
-      let child: TreeNode | null;
+      let child: TreeNode | null = null;
 
-      if (info.node.left != null) {
+      if (info.node.left !== null) {
         child = info.node.left;
       } else {
         child = info.node.right;
       }
 
-      if (info.parent == null) {
+      if (info.parent === null) {
         this.root = child;
-      } else if (info.parent.left == info.node) {
+      } else if (info.parent.left === info.node) {
         info.parent.left = child;
       } else {
         info.parent.right = child;
@@ -166,10 +166,10 @@ export class BinarySearchTree {
       parent: null,
     };
 
-    if (root != null) {
+    if (root !== null) {
       info.node = root;
 
-      while (info.node.left != null) {
+      while (info.node.left !== null) {
         info.parent = info.node;
         info.node = info.node.left;
       }
@@ -189,10 +189,10 @@ export class BinarySearchTree {
       parent: null,
     };
 
-    if (root != null) {
+    if (root !== null) {
       info.node = root;
 
-      while (info.node.right != null) {
+      while (info.node.right !== null) {
         info.parent = info.node;
         info.node = info.node.right;
       }

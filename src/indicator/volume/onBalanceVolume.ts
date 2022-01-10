@@ -24,7 +24,7 @@ export function onBalanceVolume(
   const result = new Array<number>(closings.length);
 
   for (let i = 1; i < result.length; i++) {
-    if (i == 0) {
+    if (i === 0) {
       result[i] = 0;
     } else {
       result[i] = result[i-1];
