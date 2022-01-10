@@ -10,9 +10,9 @@ import {sma} from '../trend/sma';
  * Median Price = ((Low + High) / 2).
  * AO = 5-Period SMA - 34-Period SMA.
  *
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @return {number[]} awesome oscillator.
+ * @param highs high values.
+ * @param lows low values.
+ * @return awesome oscillator.
  */
 export function awesomeOscillator(highs: number[], lows: number[]): number[] {
   const medianPrice = divideBy(2, add(lows, highs));

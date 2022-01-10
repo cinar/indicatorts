@@ -8,8 +8,8 @@ import {accelerationBands} from '../../indicator/volatility/accelerationBands';
 /**
  * Acceleration bands strategy function.
  *
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function accelerationBandsStrategy(asset: Asset): Action[] {
   const ab = accelerationBands(

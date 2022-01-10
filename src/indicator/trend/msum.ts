@@ -3,9 +3,9 @@
 
 /**
  * Moving sum of the given values.
- * @param {number} period window period.
- * @param {number[]} values values array.
- * @return {number[]} sum values.
+ * @param period window period.
+ * @param values values array.
+ * @return sum values.
  */
 export function msum(period: number, values: number[]): number[] {
   const result = new Array<number>(values.length);

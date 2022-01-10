@@ -7,8 +7,8 @@ import {aroon} from '../../indicator/trend/aroon';
 
 /**
  * Aroon strategy.
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function aroonStrategy(asset: Asset): Action[] {
   const indicator = aroon(asset.highs, asset.lows);

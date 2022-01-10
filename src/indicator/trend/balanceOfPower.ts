@@ -11,11 +11,11 @@ import {divide, substract} from '../../helper/numArray';
  *
  * BOP = (Closing - Opening) / (High - Low)
  *
- * @param {number[]} openings opening values.
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @return {number[]} balance of power values.
+ * @param openings opening values.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @return balance of power values.
  */
 export function balanceOfPower(openings: number[], highs: number[],
     lows: number[], closings: number[]): number[] {

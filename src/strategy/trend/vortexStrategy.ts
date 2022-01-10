@@ -7,8 +7,8 @@ import {vortex} from '../../indicator/trend/vortex';
 
 /**
  * Vortex strategy.
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function vortexStrategy(asset: Asset): Action[] {
   const indicator = vortex(

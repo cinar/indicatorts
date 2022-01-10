@@ -5,9 +5,9 @@ import {BinarySearchTree} from '../../helper/binarySearchTree';
 
 /**
  * Moving max for the given period.
- * @param {number} period window period.
- * @param {number[]} values values array.
- * @return {number[]} moving max.
+ * @param period window period.
+ * @param values values array.
+ * @return moving max.
  */
 export function mmax(period: number, values: number[]): number[] {
   const result = new Array<number>(values.length);

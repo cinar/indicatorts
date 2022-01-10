@@ -3,9 +3,9 @@
 
 /**
  * Simple moving average (SMA).
- * @param {number} period window period.
- * @param {number[]} values values array.
- * @return {number[]} SMA values.
+ * @param period window period.
+ * @param values values array.
+ * @return SMA values.
  */
 export function sma(period: number, values: number[]): number[] {
   const result = new Array<number>(values.length);

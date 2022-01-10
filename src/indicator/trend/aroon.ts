@@ -30,9 +30,9 @@ export interface AroonResult {
  * Aroon Up = ((25 - Period Since Last 25 Period High) / 25) * 100
  * Aroon Down = ((25 - Period Since Last 25 Period Low) / 25) * 100
  *
- * @param {number[]} highs highs values.
- * @param {number[]} lows lows values.
- * @return {AroonResult} aroon result.
+ * @param highs highs values.
+ * @param lows lows values.
+ * @return aroon result.
  */
 export function aroon(highs: number[], lows: number[]): AroonResult {
   checkSameLength(highs, lows);

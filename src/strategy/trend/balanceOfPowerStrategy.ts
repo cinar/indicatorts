@@ -8,8 +8,8 @@ import {balanceOfPower} from '../../indicator/trend/balanceOfPower';
 /**
  * Balance of power strategy.
  *
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function balanceOfPowerStrategy(asset: Asset): Action[] {
   const bop = balanceOfPower(

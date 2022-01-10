@@ -9,9 +9,9 @@ import {StrategyResult} from './strategyResult';
 /**
  * Backtests the given strategies.
  *
- * @param {Asset} asset asset object.
- * @param {StrategyInfo[]} infos strategy infos.
- * @return {StrategyResult[]} strategy results.
+ * @param asset asset object.
+ * @param infos strategy infos.
+ * @return strategy results.
  */
 export function backtest(asset: Asset, infos: StrategyInfo[]): StrategyResult[] {
   const result = new Array<StrategyResult>(infos.length);

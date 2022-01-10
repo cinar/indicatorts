@@ -23,10 +23,10 @@ export interface ChandelierExitResult {
  * Long Exit = 22-Period SMA High - ATR(22) * 3
  * Chandelier Exit Short = 22-Period SMA Low + ATR(22) * 3
  *
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @return {ChandelierExitResult} chandelier exit.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @return chandelier exit.
  */
 export function chandelierExit(
     highs: number[],

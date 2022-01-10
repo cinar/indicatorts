@@ -8,8 +8,8 @@ import {chandeForecastOscillator} from '../../indicator/trend/chandeForecastOsci
 /**
  * Chande forecast oscillator strategy.
  *
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function chandeForecastOscillatorStrategy(asset: Asset): Action[] {
   const cfo = chandeForecastOscillator(asset.closings);

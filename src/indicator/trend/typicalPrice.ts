@@ -10,10 +10,10 @@ import {add, divideBy} from '../../helper/numArray';
  *
  * TPI = (High + Low + Closing) / 3
  *
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @return {number[]} tpi values.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @return tpi values.
  */
 export function typicalPrice(
     highs: number[],

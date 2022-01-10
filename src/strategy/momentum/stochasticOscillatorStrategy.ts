@@ -8,8 +8,8 @@ import {stochasticOscillator} from '../../indicator/momentum/stochasticOscillato
 /**
  * Stochastic oscillator strategy function.
  *
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function stochasticOscillatorStrategy(asset: Asset): Action[] {
   const so = stochasticOscillator(

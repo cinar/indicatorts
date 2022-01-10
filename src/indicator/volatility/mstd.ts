@@ -4,9 +4,9 @@
 /**
  * Moving strandard deviation function.
  *
- * @param {number} period window period.
- * @param {number[]} values value array.
- * @return {number[]} std values.
+ * @param period window period.
+ * @param values value array.
+ * @return std values.
  */
 export function mstd(period: number, values: number[]): number[] {
   const result = new Array<number>(values.length);

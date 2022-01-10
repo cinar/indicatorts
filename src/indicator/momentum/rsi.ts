@@ -11,8 +11,8 @@ import {sma} from '../trend/sma';
  * RS = Average Gain / Average Loss
  * RSI = 100 - (100 / (1 + RS))
  *
- * @param {number[]} closings closing values.
- * @return {number[]} rsi values.
+ * @param closings closing values.
+ * @return rsi values.
  */
 export function rsi(closings: number[]): number[] {
   const gains = new Array<number>(closings.length);

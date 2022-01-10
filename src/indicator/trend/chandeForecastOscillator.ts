@@ -14,8 +14,8 @@ import {linearRegressionUsingLeastSquare, movingLinearRegressionUsingLeastSquare
  * R = Linreg(Closing)
  * CFO = ((Closing - R) / Closing) * 100
  *
- * @param {number[]} closings closing values.
- * @return {number[]} cfo values.
+ * @param closings closing values.
+ * @return cfo values.
  */
 export function chandeForecastOscillator(closings: number[]): number[] {
   const x = generateNumbers(0, closings.length, 1);
@@ -37,9 +37,9 @@ export function chandeForecastOscillator(closings: number[]): number[] {
  * R = Linreg(Closing)
  * CFO = ((Closing - R) / Closing) * 100
  *
- * @param {number} period window period.
- * @param {number[]} closings closing values.
- * @return {number[]} moving cfo.
+ * @param period window period.
+ * @param closings closing values.
+ * @return moving cfo.
  */
 export function movingChandeForecastOscillator(period: number, closings: number[]): number[] {
   const x = generateNumbers(0, closings.length, 1);

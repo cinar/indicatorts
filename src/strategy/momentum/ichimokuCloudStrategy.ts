@@ -8,8 +8,8 @@ import {ichimokuCloud} from '../../indicator/momentum/ichimokuCloud';
 /**
  * Ichimoku cloud.
  *
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function ichimokuCloudStrategy(asset: Asset): Action[] {
   const indicator = ichimokuCloud(

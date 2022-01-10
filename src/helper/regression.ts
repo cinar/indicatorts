@@ -29,9 +29,9 @@ export interface MovingLeastSquareResult {
  * m = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX)
  * b = (sumY - m * sumX) / n
  *
- * @param {number[]} x x values.
- * @param {number[]} y y values.
- * @return {LeastSquareResult} least square result object.
+ * @param x x values.
+ * @param y y values.
+ * @return least square result object.
  */
 export function leastSquare(x: number[], y: number[]): LeastSquareResult {
   checkSameLength(x, y);
@@ -68,10 +68,10 @@ export function leastSquare(x: number[], y: number[]): LeastSquareResult {
  * m = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX)
  * b = (sumY - m * sumX) / n
  *
- * @param {number} period window period.
- * @param {number[]} x x values.
- * @param {number[]} y y values.
- * @return {MovingLeastSquareResult} moving least square result.
+ * @param period window period.
+ * @param x x values.
+ * @param y y values.
+ * @return moving least square result.
  */
 export function movingLeastSquare(
     period: number,
@@ -124,9 +124,9 @@ export function movingLeastSquare(
  *
  * y = mx + b
  *
- * @param {number[]} x x values.
- * @param {number[]} y y values.
- * @return {number[]} regression values.
+ * @param x x values.
+ * @param y y values.
+ * @return regression values.
  */
 export function linearRegressionUsingLeastSquare(x: number[], y: number[]): number[] {
   const ls = leastSquare(x, y);
@@ -139,10 +139,10 @@ export function linearRegressionUsingLeastSquare(x: number[], y: number[]): numb
  *
  * y = mx + b
  *
- * @param {number} period window period.
- * @param {number[]} x x values.
- * @param {number[]} y y values.
- * @return {number[]} regression values.
+ * @param period window period.
+ * @param x x values.
+ * @param y y values.
+ * @return regression values.
  */
 export function movingLinearRegressionUsingLeastSquare(
     period: number,

@@ -18,6 +18,11 @@ module.exports = {
   'rules': {
     'max-len': 'off',
     'no-unused-vars': 'off',
+    'valid-jsdoc': ['error', {
+      'requireReturnType': false,
+      'requireParamType': false,
+      'requireReturn': false,
+    }],
     '@typescript-eslint/no-unused-vars': 'error',
   },
 };

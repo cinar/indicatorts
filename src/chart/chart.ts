@@ -39,10 +39,19 @@ export class Chart {
 
   /**
    * Constructor.
-   * @param {string} id canvas id.
+   * @param id canvas id.
    */
   constructor(id: string) {
-    this.canvas = document.getElementById(id) as HTMLCanvasElement;
+    const element = document.getElementById(id);
+    if (element == null) {
+      throw new Error('Canvas element not found');
+    }
+
+    if (!(element instanceof HTMLCanvasElement)) {
+      throw new Error('Not a canvas element');
+    }
+
+    this.canvas = element as HTMLCanvasElement;
     this.context = this.canvas.getContext('2d')!;
     this.dataSets = new Map<string, DataSet>();
     this.dateSetsChanged = false;
@@ -56,7 +65,7 @@ export class Chart {
 
   /**
    * Add the data set.
-   * @param {DataSet} dataSet data set.
+   * @param dataSet data set.
    */
   add(dataSet: DataSet) {
     this.dataSets.set(dataSet.legend, dataSet);
@@ -65,8 +74,8 @@ export class Chart {
 
   /**
    * Removes the data set by the given legend.
-   * @param {string} legend data set legend value.
-   * @return {boolean} data set is removed.
+   * @param legend data set legend value.
+   * @return data set is removed.
    */
   remove(legend: string): boolean {
     const found = this.dataSets.delete(legend);
@@ -124,9 +133,9 @@ export class Chart {
 
   /**
    * Style at given index.
-   * @param {DataSet} dataSet data set.
-   * @param {number} index at index.
-   * @return {string} at style.
+   * @param dataSet data set.
+   * @param index at index.
+   * @return at style.
    */
   private styleAtIndex(dataSet: DataSet, index: number): string {
     if (dataSet.style == undefined) {
@@ -185,7 +194,7 @@ export class Chart {
 
   /**
    * Calculates the chart height.
-   * @return {number} chart height.
+   * @return chart height.
    */
   private chartHeight(): number {
     return this.canvas.height - LEGEND_HEIGHT;
@@ -216,7 +225,7 @@ export class Chart {
 
   /**
    * On mouse move event.
-   * @param {MouseEvent} ev mouse event.
+   * @param ev mouse event.
    */
   private onMouseMove(ev: MouseEvent) {
     const clientRect = this.canvas.getBoundingClientRect();

@@ -27,10 +27,10 @@ export interface IchimokuCloudResult {
  * Senkou Span B (Leading Span B) = (52-Period High + 52-Period Low) / 2
  * Chikou Span (Lagging Span) = Closing plotted 26 days in the past.
  *
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @return {IchimokuCloudResult} ichimoku cloud result object.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @return ichimoku cloud result object.
  */
 export function ichimokuCloud(
     highs: number[],

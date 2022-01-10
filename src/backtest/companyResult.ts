@@ -26,10 +26,10 @@ export enum CompanyResultSortBy {
 /**
  * Sorts the company results.
  *
- * @param {CompanyResult[]} companyResults company results.
- * @param {CompanyResultSortBy} sortBy sort by.
- * @param {boolean} ascending toggle.
- * @return {CompanyResult[]} sorted results.
+ * @param companyResults company results.
+ * @param sortBy sort by.
+ * @param ascending toggle.
+ * @return sorted results.
  */
 export function sortCompanyResults(
     companyResults: CompanyResult[],

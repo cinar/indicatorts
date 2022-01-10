@@ -10,8 +10,8 @@ export class NumRange {
 
   /**
    * Constructor.
-   * @param {number} min min value.
-   * @param {number} max max value.
+   * @param min min value.
+   * @param max max value.
    */
   constructor(min: number, max: number) {
     this.min = min;
@@ -20,7 +20,7 @@ export class NumRange {
 
   /**
    * Gets the min value.
-   * @return {number} min value.
+   * @return min value.
    */
   getMin(): number {
     return this.min;
@@ -28,7 +28,7 @@ export class NumRange {
 
   /**
    * Gets the max value.
-   * @return {number} max value.
+   * @return max value.
    */
   getMax(): number {
     return this.max;
@@ -36,7 +36,7 @@ export class NumRange {
 
   /**
    * Calculates the span of the range.
-   * @return {number} span value.
+   * @return span value.
    */
   span(): number {
     return this.max - this.min;
@@ -44,8 +44,8 @@ export class NumRange {
 
   /**
    * Merge function merges the given ranges.
-   * @param {NumRange[]} ranges range objects.
-   * @return {NumRange} merged ranges.
+   * @param ranges range objects.
+   * @return merged ranges.
    */
   static merge(ranges: NumRange[]): NumRange {
     return ranges.reduce((p, c) => new NumRange(
@@ -56,8 +56,8 @@ export class NumRange {
 
   /**
    * From function returns the range of the values.
-   * @param {number[]} values values array.
-   * @return {NumRange} range of the values.
+   * @param values values array.
+   * @return range of the values.
    */
   static from(values: number[]): NumRange {
     return new NumRange(

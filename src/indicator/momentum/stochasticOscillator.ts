@@ -22,10 +22,10 @@ export interface StochasticOscillator {
  * K = (Closing - Lowest Low) / (Highest High - Lowest Low) * 100
  * D = 3-Period SMA of K
  *
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @return {StochasticOscillator} stochastic oscillator result object.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @return stochastic oscillator result object.
  */
 export function stochasticOscillator(
     highs: number[],

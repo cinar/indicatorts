@@ -14,8 +14,8 @@ export enum Action {
 
 /**
  * Reverses the given actions.
- * @param {Action[]} actions strategy actions.
- * @return {Action[]} reversed actions.
+ * @param actions strategy actions.
+ * @return reversed actions.
  */
 export function reverseActions(actions: Action[]): Action[] {
   return actions.map((action) => {
@@ -32,9 +32,9 @@ export function reverseActions(actions: Action[]): Action[] {
 /**
  * Apply the actions on the closing values to calculate gains.
  *
- * @param {number[]} closings closing values.
- * @param {Action[]} actions strategy actions.
- * @return {number[]} strategy gains.
+ * @param closings closing values.
+ * @param actions strategy actions.
+ * @return strategy gains.
  */
 export function applyActions(closings: number[], actions: Action[]): number[] {
   checkSameLength(closings, actions);

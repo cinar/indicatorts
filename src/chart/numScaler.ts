@@ -13,8 +13,8 @@ export class NumScaler {
 
   /**
    * Constructor.
-   * @param {NumRange} from from range.
-   * @param {NumRange} to to range.
+   * @param from from range.
+   * @param to to range.
    */
   constructor(from: NumRange, to: NumRange) {
     this.fromDelta = from.getMin();
@@ -24,8 +24,8 @@ export class NumScaler {
 
   /**
    * Scales the given number.
-   * @param {number} n current value.
-   * @return {number} scaled value.
+   * @param n current value.
+   * @return scaled value.
    */
   scale(n: number): number {
     return ((n - this.fromDelta) * this.multiplier) + this.toDelta;
@@ -33,8 +33,8 @@ export class NumScaler {
 
   /**
    * Descales the given number.
-   * @param {number} n scaled value.
-   * @return {number} descaled value.
+   * @param n scaled value.
+   * @return descaled value.
    */
   descale(n: number): number {
     return ((n - this.toDelta) / this.multiplier) + this.fromDelta;

@@ -7,8 +7,8 @@ import {defaultKdj} from '../../indicator/trend/kdj';
 
 /**
  * KDJ strategy.
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function kdjStrategy(asset: Asset): Action[] {
   const kdjResult = defaultKdj(asset.highs, asset.lows, asset.closings);

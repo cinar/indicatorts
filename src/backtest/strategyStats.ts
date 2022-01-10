@@ -19,8 +19,8 @@ export interface StrategyStats {
 /**
  * New strategy stats from strategy result.
  *
- * @param {StrategyResult} result strategy result.
- * @return {StrategyStats} strategy stats.
+ * @param result strategy result.
+ * @return strategy stats.
  */
 function newStrategyStats(result: StrategyResult): StrategyStats {
   return {
@@ -35,8 +35,8 @@ function newStrategyStats(result: StrategyResult): StrategyStats {
 /**
  * Updates strategy stats using strategy result.
  *
- * @param {StrategyStats} stats strategy stats.
- * @param {StrategyResult} result strategy result.
+ * @param stats strategy stats.
+ * @param result strategy result.
  */
 function updateStrategyStats(stats: StrategyStats, result: StrategyResult) {
   stats.score++;
@@ -48,8 +48,8 @@ function updateStrategyStats(stats: StrategyStats, result: StrategyResult) {
 /**
  * Computes the strategy stats.
  *
- * @param {CompanyResult[]} companyResults company results.
- * @return {StrategyStats[]} stats array.
+ * @param companyResults company results.
+ * @return stats array.
  */
 export function computeStrategyStats(companyResults: CompanyResult[]): StrategyStats[] {
   const statsMap = new Map<string, StrategyStats>();
@@ -88,10 +88,10 @@ export enum StrategyStatsSortBy {
 /**
  * Sorts the strategy stats.
  *
- * @param {StrategyStats[]} strategyStats strategy stats.
- * @param {StrategyStatsSortBy} sortBy sort by.
- * @param {boolean} ascending ascending toggle.
- * @return {StrategyStats[]} sorted stats.
+ * @param strategyStats strategy stats.
+ * @param sortBy sort by.
+ * @param ascending ascending toggle.
+ * @return sorted stats.
  */
 export function sortStrategyStats(
     strategyStats: StrategyStats[],

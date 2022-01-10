@@ -8,8 +8,8 @@ import {defaultProjectionOscillator} from '../../indicator/volatility/projection
 /**
  * Projection oscillator strategy function.
  *
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function projectionOscillatorStrategy(asset: Asset): Action[] {
   const po = defaultProjectionOscillator(

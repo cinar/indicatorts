@@ -3,8 +3,8 @@
 
 /**
  * To ISO date string.
- * @param {Date} date date object.
- * @return {string} ISO date.
+ * @param date date object.
+ * @return ISO date.
  */
 export function toISODateString(date: Date): string {
   return date.toISOString().substring(0, 10);
@@ -12,8 +12,8 @@ export function toISODateString(date: Date): string {
 
 /**
  * DaysAgo function returns a date for the given days ago.
- * @param {number} days days ago.
- * @return {Date} date object.
+ * @param days days ago.
+ * @return date object.
  */
 export function daysAgo(days: number): Date {
   const ago = new Date();
@@ -24,9 +24,9 @@ export function daysAgo(days: number): Date {
 /**
  * DaysLaterFrom function returns a date later from given
  * date in given days.
- * @param {Date} date date object.
- * @param {number} days days later.
- * @return {Date} date object.
+ * @param date date object.
+ * @param days days later.
+ * @return date object.
  */
 export function daysLaterFrom(date: Date, days: number): Date {
   const later = new Date(date);
@@ -37,8 +37,8 @@ export function daysLaterFrom(date: Date, days: number): Date {
 /**
  * ToMonthAndDay function returns string representation of
  * the date as month and day.
- * @param {Date} date date boject.
- * @return {string} month and day string.
+ * @param date date boject.
+ * @return month and day string.
  */
 export function toMonthAndDay(date: Date): string {
   return (date.getMonth() + 1) + '/' + date.getDate();

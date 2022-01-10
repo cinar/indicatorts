@@ -9,8 +9,8 @@ import {Trend} from '../../indicator/trend';
 /**
  * Parabolic SAR strategy function.
  *
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function parabolicSarStrategy(asset: Asset): Action[] {
   const psar = parabolicSar(

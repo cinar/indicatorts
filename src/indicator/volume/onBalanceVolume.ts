@@ -11,9 +11,9 @@ import {checkSameLength} from '../../helper/numArray';
  * OBV = OBV-Prev +       0, if Closing = Closing-Prev
  *                  -volume, if Closing < Closing-Prev
  *
- * @param {number[]} closings closing values.
- * @param {number[]} volumes volume values.
- * @return {number[]} obv values.
+ * @param closings closing values.
+ * @param volumes volume values.
+ * @return obv values.
  */
 export function onBalanceVolume(
     closings: number[],

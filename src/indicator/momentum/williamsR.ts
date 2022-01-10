@@ -14,10 +14,10 @@ const PERIOD = 14;
  *
  * Buy when -80 and below. Sell when -20 and above.
  *
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @return {number[]} wr values.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @return wr values.
  */
 export function williamsR(
     highs: number[],

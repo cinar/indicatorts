@@ -7,8 +7,8 @@ import {macd} from '../../indicator/trend/macd';
 
 /**
  * MACD strategy.
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function macdStrategy(asset: Asset): Action[] {
   const macdResult = macd(asset.closings);

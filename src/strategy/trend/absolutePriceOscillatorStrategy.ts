@@ -8,8 +8,8 @@ import {absolutePriceOscillator, defaultAbsolutePriceOscillator} from '../../ind
 /**
  * Runs the APO strategy based on the indicator.
  *
- * @param {number[]} indicator APO indicator.
- * @return {Action[]} strategy actions.
+ * @param indicator APO indicator.
+ * @return strategy actions.
  */
 function runStrategy(indicator: number[]): Action[] {
   const result = new Array<number>(indicator.length);
@@ -30,10 +30,10 @@ function runStrategy(indicator: number[]): Action[] {
 /**
  * Absolute Price Oscillator (APO) strategy function.
  *
- * @param {number} fastPeriod fast period.
- * @param {number} slowPeriod slow period.
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param fastPeriod fast period.
+ * @param slowPeriod slow period.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function absolutePriceOscillatorStrategy(
     fastPeriod: number,
@@ -50,8 +50,8 @@ export function absolutePriceOscillatorStrategy(
 /**
  * Default Absolute Price Oscillator (APO) strategy.
  *
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function defaultAbsolutePriceOscillatorStrategy(asset: Asset): Action[] {
   return runStrategy(defaultAbsolutePriceOscillator(asset.closings));

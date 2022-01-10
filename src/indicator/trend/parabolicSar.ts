@@ -40,10 +40,10 @@ export interface ParabolicSar {
  *
  * Based on video https://www.youtube.com/watch?v=MuEpGBAH7pw&t=0s.
  *
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @return {ParabolicSar} psar result.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @return psar result.
  */
 export function parabolicSar(
     highs: number[],

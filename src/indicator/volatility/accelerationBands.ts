@@ -21,10 +21,10 @@ export interface AccelerationBands {
  * Middle Band = SMA(Closing)
  * Lower Band = SMA(Low * (1 - 4 * (High - Low) / (High + Low)))
  *
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @return {AccelerationBands} acceleration band.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @return acceleration band.
  */
 export function accelerationBands(
     highs: number[],

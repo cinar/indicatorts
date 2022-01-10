@@ -8,8 +8,8 @@ import {williamsR} from '../../indicator/momentum/williamsR';
 /**
  * Williams R strategy function.
  *
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function williamsRStrategy(asset: Asset): Action[] {
   const wr = williamsR(

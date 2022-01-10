@@ -3,9 +3,9 @@
 
 /**
  * Exponential moving average (EMA).
- * @param {number} period window period.
- * @param {number[]} values values array.
- * @return {number[]} EMA values.
+ * @param period window period.
+ * @param values values array.
+ * @return EMA values.
  */
 export function ema(period: number, values: number[]): number[] {
   const result = new Array<number>(values.length);

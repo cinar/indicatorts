@@ -11,9 +11,9 @@ import {sma} from './sma';
  * If period is odd:
  *   TRIMA = SMA((period + 1) / 2, SMA((period + 1) / 2, values))
  *
- * @param {number} period window period.
- * @param {number[]} values values array.
- * @return {number[]} trima values.
+ * @param period window period.
+ * @param values values array.
+ * @return trima values.
  */
 export function trima(period: number, values: number[]): number[] {
   let n1: number;

@@ -31,13 +31,13 @@ export interface KdjResult {
  * D = Sma(K, dPeriod)
  * J = (3 * K) - (2 * D)
  *
- * @param {number} rPeriod r period.
- * @param {number} kPeriod k period.
- * @param {number} dPeriod d period.
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @return {KdjResult} kdj result.
+ * @param rPeriod r period.
+ * @param kPeriod k period.
+ * @param dPeriod d period.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @return kdj result.
  */
 export function kdj(
     rPeriod: number,
@@ -67,10 +67,10 @@ export function kdj(
  * The defaultKdj function calculates KDJ based on default periods
  * consisting of rPeriod of 9, kPeriod of 3, and dPeriod of 3.
  *
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @return {KdjResult} kdj result.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @return kdj result.
  */
 export function defaultKdj(
     highs: number[],

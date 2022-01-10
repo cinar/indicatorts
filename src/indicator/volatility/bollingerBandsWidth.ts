@@ -25,8 +25,8 @@ export interface BollingerBandsWidth {
  *
  * Band Width = (Upper Band - Lower Band) / Middle Band
  *
- * @param {BollingerBands} bb bollinger bands.
- * @return {BollingerBandsWidth} bollinger bands width result.
+ * @param bb bollinger bands.
+ * @return bollinger bands width result.
  */
 export function bollingerBandsWidth(bb: BollingerBands): BollingerBandsWidth {
   const bandWidth = divide(

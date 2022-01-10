@@ -26,7 +26,7 @@ export class BinarySearchTree {
 
   /**
    * Inserts the given value.
-   * @param {number} value numeric value.
+   * @param value numeric value.
    */
   insert(value: number) {
     const node: TreeNode = {
@@ -64,8 +64,8 @@ export class BinarySearchTree {
 
   /**
    * Removes the given value.
-   * @param {number} value numeric value.
-   * @return {boolean} value removed.
+   * @param value numeric value.
+   * @return value removed.
    */
   remove(value: number): boolean {
     const info: TreeNodeInfo = {
@@ -93,7 +93,7 @@ export class BinarySearchTree {
 
   /**
    * Min value.
-   * @return {number} min value.
+   * @return min value.
    */
   min(): number {
     const minInfo = BinarySearchTree.minNode(this.root);
@@ -106,7 +106,7 @@ export class BinarySearchTree {
 
   /**
    * Max value.
-   * @return {number} max value.
+   * @return max value.
    */
   max(): number {
     const maxInfo = BinarySearchTree.maxNode(this.root);
@@ -119,7 +119,7 @@ export class BinarySearchTree {
 
   /**
    * Removes the node info.
-   * @param {TreeNodeInfo} info node info.
+   * @param info node info.
    */
   private removeNode(info: TreeNodeInfo) {
     if (info.node == null) {
@@ -157,8 +157,8 @@ export class BinarySearchTree {
 
   /**
    * Min node function returns the min node and its parent.
-   * @param {TreeNode} root root node.
-   * @return {TreeNodeInfo} node info.
+   * @param root root node.
+   * @return node info.
    */
   private static minNode(root: TreeNode | null): TreeNodeInfo {
     const info: TreeNodeInfo = {
@@ -180,8 +180,8 @@ export class BinarySearchTree {
 
   /**
    * Max node funection returns the mac node and its parent.
-   * @param {TreeNode} root root node.
-   * @return {TreeNodeInfo} node info.
+   * @param root root node.
+   * @return node info.
    */
   private static maxNode(root: TreeNode | null): TreeNodeInfo {
     const info: TreeNodeInfo = {

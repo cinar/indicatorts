@@ -22,13 +22,13 @@ export interface ChaikinOscillator {
  *
  * CO = Ema(fastPeriod, AD) - Ema(slowPeriod, AD)
  *
- * @param {number} fastPeriod fast period.
- * @param {number} slowPeriod slow period.
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @param {number[]} volumes volume values.
- * @return {CoResult} chaikin oscillator.
+ * @param fastPeriod fast period.
+ * @param slowPeriod slow period.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @param volumes volume values.
+ * @return chaikin oscillator.
  */
 export function chaikinOscillator(
     fastPeriod: number,
@@ -51,11 +51,11 @@ export function chaikinOscillator(
  * The defaultChaikinOscillator function calculates Chaikin Oscillator
  * with the most frequently used fast and short periods, 3 and 10.
  *
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @param {number[]} volumes volume values.
- * @return {CoResult} chaikin oscillator.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @param volumes volume values.
+ * @return chaikin oscillator.
  */
 export function defaultChaikinOscillator(
     highs: number[],

@@ -20,11 +20,11 @@ export interface AtrResult {
  * TR = Max((High - Low), (High - Closing), (Closing - Low))
  * ATR = SMA TR
  *
- * @param {number} period window period.
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @return {AtrResult} atr result.const ATR_PERIOD = 14;
+ * @param period window period.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @return atr result.const ATR_PERIOD = 14;
 
  */
 export function atr(

@@ -27,12 +27,12 @@ export interface ProjectionOscillator {
  * PO = 100 * (Closing - PL) / (PU - PL)
  * SPO = EMA(smooth, PO)
  *
- * @param {number} period window period.
- * @param {number} smooth smooth period.
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @return {ProjectionOscillator} projection oscillator.
+ * @param period window period.
+ * @param smooth smooth period.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @return projection oscillator.
  */
 export function projectionOscillator(
     period: number,
@@ -62,10 +62,10 @@ export function projectionOscillator(
 
 /**
  * Default projection oscillator function.
- * @param {number[]} highs high values.
- * @param {number[]} lows lows values.
- * @param {number[]} closings closing values.
- * @return {PoResult} projection oscillator.
+ * @param highs high values.
+ * @param lows lows values.
+ * @param closings closing values.
+ * @return projection oscillator.
  */
 export function defaultProjectionOscillator(
     highs: number[],

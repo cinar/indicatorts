@@ -8,8 +8,8 @@ import {bollingerBands} from '../../indicator/volatility/bollingerBands';
 /**
  * Bollinger bands strategy function.
  *
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function bollingerBandsStrategy(asset: Asset): Action[] {
   const bb = bollingerBands(asset.closings);

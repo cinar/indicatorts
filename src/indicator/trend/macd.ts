@@ -15,8 +15,8 @@ export interface MacdResult {
  * MACD = 12-Period EMA - 26-Period EMA.
  * Signal = 9-Period EMA of MACD.
  *
- * @param {number[]} closings closing values.
- * @return {MacdResult} macd result.
+ * @param closings closing values.
+ * @return macd result.
  */
 export function macd(closings: number[]): MacdResult {
   const ema12 = ema(12, closings);

@@ -5,9 +5,9 @@ import {BinarySearchTree} from '../../helper/binarySearchTree';
 
 /**
  * Moving min for the given period.
- * @param {number} period window period.
- * @param {number[]} values values array.
- * @return {number[]} moving min.
+ * @param period window period.
+ * @param values values array.
+ * @return moving min.
  */
 export function mmin(period: number, values: number[]): number[] {
   const result = new Array<number>(values.length);

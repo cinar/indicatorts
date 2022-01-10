@@ -3,8 +3,8 @@
 
 /**
  * Since value is changed.
- * @param {nunber[]} values values array.
- * @return {number[]} since changed.
+ * @param values values array.
+ * @return since changed.
  */
 export function since(values: number[]): number[] {
   const result = new Array<number>(values.length);

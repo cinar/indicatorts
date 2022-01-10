@@ -9,9 +9,9 @@ import {ema} from './ema';
  *
  * DEMA = (2 * EMA(values)) - EMA(EMA(values))
  *
- * @param {number} period window period.
- * @param {number[]} values values array.
- * @return {number[]} dema values.
+ * @param period window period.
+ * @param values values array.
+ * @return dema values.
  */
 export function dema(period: number, values: number[]): number[] {
   const ema1 = ema(period, values);

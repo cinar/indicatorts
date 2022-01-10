@@ -23,8 +23,8 @@ export interface BollingerBands {
  * Upper Band = 20-Period SMA + 2 (20-Period Std)
  * Lower Band = 20-Period SMA - 2 (20-Period Std)
  *
- * @param {number[]} closings closing values.
- * @return {BollingerBands} bollinger bands.
+ * @param closings closing values.
+ * @return bollinger bands.
  */
 export function bollingerBands(closings: number[]): BollingerBands {
   const std2 = multiplyBy(2, mstd(BB_PERIOD, closings));

@@ -9,10 +9,10 @@ import {sma} from './sma';
  *
  * QS = Sma(Closing - Opening)
  *
- * @param {number} period window period.
- * @param {number[]} openings openinig values.
- * @param {number[]} closings closing values.
- * @return {number[]} qstick values.
+ * @param period window period.
+ * @param openings openinig values.
+ * @param closings closing values.
+ * @return qstick values.
  */
 export function qstick(period: number, openings: number[],
     closings: number[]): number[] {

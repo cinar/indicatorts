@@ -8,8 +8,8 @@ import {typicalPrice} from '../../indicator/trend/typicalPrice';
 /**
  * Typical price strategy function.
  *
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function typicalPriceStrategy(asset: Asset): Action[] {
   const tpi = typicalPrice(

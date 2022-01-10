@@ -12,11 +12,11 @@ import {divide, multiply, substract} from '../../helper/numArray';
  * MFV = MFM * Period Volume
  * AD = Previous AD + CMFV
  *
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @param {number[]} volume volume values.
- * @return {number[]} ad values.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @param volume volume values.
+ * @return ad values.
  */
 export function accumulationDistribution(
     highs: number[],

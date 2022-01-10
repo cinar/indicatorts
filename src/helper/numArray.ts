@@ -3,7 +3,7 @@
 
 /**
  * Checkes the values lenghts.
- * @param {number[]} values values list.
+ * @param values values list.
  */
 export function checkSameLength(...values: number[][]) {
   if (values.length > 0) {
@@ -19,8 +19,8 @@ export function checkSameLength(...values: number[][]) {
 
 /**
  * Absolute values of the given values.
- * @param {number[]} values values array.
- * @return {number[]} absolute values.
+ * @param values values array.
+ * @return absolute values.
  */
 export function abs(values: number[]): number[] {
   return values.map((value) => Math.abs(value));
@@ -28,9 +28,9 @@ export function abs(values: number[]): number[] {
 
 /**
  * Adds values2 to values1.
- * @param {number[]} values1 values one.
- * @param {number[]} values2 values two.
- * @return {number[]} result array.
+ * @param values1 values one.
+ * @param values2 values two.
+ * @return result array.
  */
 export function add(values1: number[], values2: number[]): number[] {
   checkSameLength(values1, values2);
@@ -46,9 +46,9 @@ export function add(values1: number[], values2: number[]): number[] {
 
 /**
  * Adds n to values.
- * @param {number} n add value.
- * @param {number[]} values values array.
- * @return {number[]} result array.
+ * @param n add value.
+ * @param values values array.
+ * @return result array.
  */
 export function addBy(n: number, values: number[]): number[] {
   const result = new Array<number>(values.length);
@@ -62,9 +62,9 @@ export function addBy(n: number, values: number[]): number[] {
 
 /**
  * Divides values1 by values2.
- * @param {number[]} values1 values one.
- * @param {number[]} values2 values two.
- * @return {number[]} result array.
+ * @param values1 values one.
+ * @param values2 values two.
+ * @return result array.
  */
 export function divide(values1: number[], values2: number[]): number[] {
   checkSameLength(values1, values2);
@@ -80,9 +80,9 @@ export function divide(values1: number[], values2: number[]): number[] {
 
 /**
  * Divides values by n.
- * @param {number} n divide value.
- * @param {number[]} values values array.
- * @return {number[]} result array.
+ * @param n divide value.
+ * @param values values array.
+ * @return result array.
  */
 export function divideBy(n: number, values: number[]): number[] {
   const result = new Array<number>(values.length);
@@ -96,9 +96,9 @@ export function divideBy(n: number, values: number[]): number[] {
 
 /**
  * Multiply values1 by values2.
- * @param {number[]} values1 values one.
- * @param {number[]} values2 values two.
- * @return {number[]} result array.
+ * @param values1 values one.
+ * @param values2 values two.
+ * @return result array.
  */
 export function multiply(values1: number[], values2: number[]): number[] {
   checkSameLength(values1, values2);
@@ -114,9 +114,9 @@ export function multiply(values1: number[], values2: number[]): number[] {
 
 /**
  * Multiply values by n.
- * @param {number} n multiply value.
- * @param {number[]} values values array.
- * @return {number[]} result array.
+ * @param n multiply value.
+ * @param values values array.
+ * @return result array.
  */
 export function multiplyBy(n: number, values: number[]): number[] {
   const result = new Array<number>(values.length);
@@ -130,9 +130,9 @@ export function multiplyBy(n: number, values: number[]): number[] {
 
 /**
  * Substracts values2 from values1.
- * @param {number[]} values1 values one.
- * @param {number[]} values2 values two.
- * @return {number[]} result array.
+ * @param values1 values one.
+ * @param values2 values two.
+ * @return result array.
  */
 export function substract(values1: number[], values2: number[]): number[] {
   checkSameLength(values1, values2);
@@ -148,9 +148,9 @@ export function substract(values1: number[], values2: number[]): number[] {
 
 /**
  * Substractes n from values.
- * @param {number} n substract value.
- * @param {number[]} values values array.
- * @return {number[]} result array.
+ * @param n substract value.
+ * @param values values array.
+ * @return result array.
  */
 export function substractBy(n: number, values: number[]): number[] {
   const result = new Array<number>(values.length);
@@ -164,9 +164,9 @@ export function substractBy(n: number, values: number[]): number[] {
 
 /**
  * Shifts values right by given amount.
- * @param {number} n shift amount.
- * @param {number[]} values values array.
- * @return {number[]} shifted values.
+ * @param n shift amount.
+ * @param values values array.
+ * @return shifted values.
  */
 export function shiftRightBy(n: number, values: number[]): number[] {
   const result = new Array<number>(values.length);
@@ -184,8 +184,8 @@ export function shiftRightBy(n: number, values: number[]): number[] {
 
 /**
  * Transpose of given values.
- * @param {number[]} values values arrays.
- * @return {number[]} transposed values.
+ * @param values values arrays.
+ * @return transposed values.
  */
 export function transpose(...values: number[][]): number[][] {
   checkSameLength(...values);
@@ -204,8 +204,8 @@ export function transpose(...values: number[][]): number[][] {
 
 /**
  * Max value of rows.
- * @param {number[]} values values arrays.
- * @return {number[]} max rows.
+ * @param values values arrays.
+ * @return max rows.
  */
 export function max(...values: number[][]): number[] {
   return transpose(...values).map((row) => Math.max(...row));
@@ -213,9 +213,9 @@ export function max(...values: number[][]): number[] {
 
 /**
  * Rounds the value to given number of digits.
- * @param {number} digits digits number.
- * @param {number} value numeric value.
- * @return {number} rounded value.
+ * @param digits digits number.
+ * @param value numeric value.
+ * @return rounded value.
  */
 export function roundDigits(digits: number, value: number): number {
   const n = Math.pow(10, digits);
@@ -224,9 +224,9 @@ export function roundDigits(digits: number, value: number): number {
 
 /**
  * Rounds the values to given number of digits.
- * @param {number} digits digits number.
- * @param {number[]} values values array.
- * @return {number[]} rounded values.
+ * @param digits digits number.
+ * @param values values array.
+ * @return rounded values.
  */
 export function roundDigitsAll(digits: number, values: number[]): number[] {
   return values.map((value) => roundDigits(digits, value));
@@ -235,10 +235,10 @@ export function roundDigitsAll(digits: number, values: number[]): number[] {
 /**
  * Generates numbers.
  *
- * @param {number} begin begin number.
- * @param {number} end end number.
- * @param {number} step step number.
- * @return {number[]} generated numbers.
+ * @param begin begin number.
+ * @param end end number.
+ * @param step step number.
+ * @return generated numbers.
  */
 export function generateNumbers(
     begin: number,
@@ -257,9 +257,9 @@ export function generateNumbers(
 /**
  * Power of the given bases to the exponent.
  *
- * @param {number[]} bases base values.
- * @param {number} exponent exponent value.
- * @return {number[]} power values.
+ * @param bases base values.
+ * @param exponent exponent value.
+ * @return power values.
  */
 export function pow(bases: number[], exponent: number): number[] {
   return bases.map((base) => Math.pow(base, exponent));
@@ -267,8 +267,8 @@ export function pow(bases: number[], exponent: number): number[] {
 
 /**
  * Square roots of values.
- * @param {number[]} values value array.
- * @return {number[]} square roots.
+ * @param values value array.
+ * @return square roots.
  */
 export function sqrt(values: number[]): number[] {
   return values.map((value) => Math.sqrt(value));

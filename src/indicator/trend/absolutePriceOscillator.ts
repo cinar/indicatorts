@@ -14,10 +14,10 @@ import {ema} from './ema';
  * Slow = EMA(slowPeriod, values)
  * APO = Fast - Slow
  *
- * @param {number} fastPeriod fast period.
- * @param {number} slowPeriod slow period.
- * @param {number[]} values values array.
- * @return {number[]} apo array.
+ * @param fastPeriod fast period.
+ * @param slowPeriod slow period.
+ * @param values values array.
+ * @return apo array.
  */
 export function absolutePriceOscillator(
     fastPeriod: number,
@@ -33,8 +33,8 @@ export function absolutePriceOscillator(
 /**
  * Default APO function calculates APO with frequently used fast period 14,
  * and slow period 30.
- * @param {number[]} values values array.
- * @return {number[]} apo array.
+ * @param values values array.
+ * @return apo array.
  */
 export function defaultAbsolutePriceOscillator(values: number[]): number[] {
   return absolutePriceOscillator(14, 30, values);

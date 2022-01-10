@@ -35,10 +35,10 @@ export interface VortexResult {
  *
  * Based on https://school.stockcharts.com/doku.php?id=technical_indicators:vortex_indicator
  *
- * @param {number[]} highs high values.
- * @param {number[]} lows low values.
- * @param {number[]} closings closing values.
- * @return {VortexResult} vortex result.
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @return vortex result.
  */
 export function vortex(
     highs: number[],

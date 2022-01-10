@@ -8,8 +8,8 @@ import {awesomeOscillator} from '../../indicator/momentum/awesomeOscillator';
 /**
  * Awesome oscillator strategy function.
  *
- * @param {Asset} asset asset object.
- * @return {Action[]} strategy actions.
+ * @param asset asset object.
+ * @return strategy actions.
  */
 export function awesomeOscillatorStrategy(asset: Asset): Action[] {
   const os = awesomeOscillator(asset.highs, asset.lows);

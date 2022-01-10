@@ -16,8 +16,8 @@ export interface Asset {
 /**
  * New asset with length.
  *
- * @param {number} length asset length.
- * @return {Asset} asset object.
+ * @param length asset length.
+ * @return asset object.
  */
 export function newAssetWithLength(length: number): Asset {
   return {
@@ -33,9 +33,9 @@ export function newAssetWithLength(length: number): Asset {
 /**
  * Concats the given assets.
  *
- * @param {Asset} asset1 first asset.
- * @param {Asset} asset2 second asset.
- * @return {Asset} new asset.
+ * @param asset1 first asset.
+ * @param asset2 second asset.
+ * @return new asset.
  */
 export function concatAssets(asset1: Asset, asset2: Asset): Asset {
   return {

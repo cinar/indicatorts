@@ -10,7 +10,7 @@ export default {
     {
       file: 'dist/index.es.js',
       format: 'es',
-    }
+    },
   ],
   plugins: [
     ts(),
