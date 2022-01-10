@@ -1,0 +1,45 @@
+{
+  "name": "indicatorts",
+  "version": "1.0.0",
+  "description": "Stock technical indicators and strategies in TypeScript for browser and server programs.",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "lint": "eslint --ignore-path .gitignore .",
+    "fix": "eslint --fix --ext .ts src",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cinar/indicatorts.git"
+  },
+  "keywords": [
+    "technical",
+    "analysis",
+    "indicators",
+    "strategies"
+  ],
+  "author": "Onur Cinar <onur.cinar@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cinar/indicatorts/issues"
+  },
+  "homepage": "https://github.com/cinar/indicatorts#readme",
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.9.0",
+    "@typescript-eslint/parser": "^5.9.0",
+    "eslint": "^8.6.0",
+    "eslint-config-google": "^0.14.0",
+    "jest": "^27.4.5",
+    "rollup": "^2.63.0",
+    "rollup-plugin-ts": "^2.0.5",
+    "ts-jest": "^27.1.2",
+    "typescript": "^4.4.3"
+  }
+}
