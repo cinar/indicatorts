@@ -42,17 +42,21 @@ export class Chart {
    * @param id canvas id.
    */
   constructor(id: string) {
-    const element = document.getElementById(id);
-    if (element == null) {
+    const canvas = document.getElementById(id);
+    if (canvas == null) {
       throw new Error('Canvas element not found');
-    }
-
-    if (!(element instanceof HTMLCanvasElement)) {
+    } else if (!(canvas instanceof HTMLCanvasElement)) {
       throw new Error('Not a canvas element');
     }
 
-    this.canvas = element as HTMLCanvasElement;
-    this.context = this.canvas.getContext('2d')!;
+    this.canvas = canvas;
+
+    const context = this.canvas.getContext('2d');
+    if (context == null) {
+      throw new Error('Canvas context is null');
+    }
+
+    this.context = context;
     this.dataSets = new Map<string, DataSet>();
     this.dateSetsChanged = false;
     this.xScaler = new NumScaler(DEFAULT_RANGE, DEFAULT_RANGE);
