@@ -19,6 +19,7 @@ import {vortexStrategy} from '../strategy/trend/vortexStrategy';
 import {accelerationBandsStrategy} from '../strategy/volatility/accelerationBandsStrategy';
 import {bollingerBandsStrategy} from '../strategy/volatility/bollingerBandsStrategy';
 import {projectionOscillatorStrategy} from '../strategy/volatility/projectionOscillatorStrategy';
+import {moneyFlowIndexStrategy} from '../strategy/volume/moneyFlowIndexStrategy';
 
 /**
   * Strategy info.
@@ -99,5 +100,9 @@ export const STRATEGY_INFOS: StrategyInfo[] = [
   {
     name: 'Projection Oscillator',
     strategy: projectionOscillatorStrategy,
+  },
+  {
+    name: 'Money Flow Index',
+    strategy: moneyFlowIndexStrategy,
   },
 ];

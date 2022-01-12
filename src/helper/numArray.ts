@@ -183,6 +183,26 @@ export function shiftRightBy(n: number, values: number[]): number[] {
 }
 
 /**
+ * Change between the current value and the value n before.
+ * @param n shift amount.
+ * @param values values array.
+ * @returns changes array.
+ */
+export function changes(n: number, values: number[]): number[] {
+  return substract(values, shiftRightBy(n, values));
+}
+
+/**
+ * Extracts the sign of the values. Returns 1 for the
+ * positive and zero, and -1 for the negative.
+ * @param values values array.
+ * @return sign values.
+ */
+export function extractSigns(values: number[]): number[] {
+  return values.map((value) => (value >= 0) ? 1 : -1);
+}
+
+/**
  * Transpose of given values.
  * @param values values arrays.
  * @return transposed values.

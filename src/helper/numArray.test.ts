@@ -94,6 +94,22 @@ describe('Number Array', () => {
     deepStrictEqual(actual, expected);
   });
 
+  it('should be able to compute changes', () => {
+    const values = [1, 2, 1, 5, 2, 4, 8, 8, 10, 4];
+    const expected = [1, 1, -1, 4, -3, 2, 4, 0, 2, -6];
+
+    const actual = NumArray.changes(1, values);
+    deepStrictEqual(actual, expected);
+  });
+
+  it('should be able to extract signs', () => {
+    const values = [1, -2, 3, 4, -5, 0, 6, -8, -9, 10];
+    const expected = [1, -1, 1, 1, -1, 1, 1, -1, -1, 1];
+
+    const actual = NumArray.extractSigns(values);
+    deepStrictEqual(actual, expected);
+  });
+
   it('should be able to transpose values', () => {
     const values1 = [1, 3, 5, 7];
     const values2 = [2, 4, 6, 8];

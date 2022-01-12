@@ -57,6 +57,7 @@ The following list of indicators are currently supported by this package:
 
 - [Accumulation/Distribution (A/D)](src/indicator/volume/index.md#accumulationdistribution-ad)
 - [On-Balance Volume (OBV)](src/indicator/volume/index.md#on-balance-volume-obv)
+- [Money Flow Index (MFI)](src/indicator/volume/index.md#money-flow-index-mfi)
 
 ## Strategies Provided
 
@@ -97,6 +98,10 @@ The following list of strategies are currently supported by this package:
 - [Acceleration Bands Strategy](src/strategy/volatility/index.md#acceleration-bands-strategy)
 - [Bollinger Bands Strategy](src/strategy/volatility/index.md#bollinger-bands-strategy)
 - [Projection Oscillator Strategy](src/strategy/volatility/index.md#projection-oscillator-strategy)
+
+### Volume Strategies
+
+- [Money Flow Index Strategy](src/strategy/volume/index.md#money-flow-index-strategy)
 
 ## Backtest
 

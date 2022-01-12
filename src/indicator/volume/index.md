@@ -4,6 +4,7 @@ Volumne indicators measure the strength of a trend based the volume.
 
 - [Accumulation/Distribution (A/D)](#accumulationdistribution-ad)
 - [On-Balance Volume (OBV)](#on-balance-volume-obv)
+- [Money Flow Index (MFI)](#money-flow-index-mfi)
 
 #### Accumulation/Distribution (A/D)
 
@@ -40,6 +41,24 @@ import {onBalanceVolume} from 'indicatorts';
 
 const result = onBalanceVolume(closings, volumes);
 ```
+
+#### Money Flow Index (MFI)
+
+The [moneyFlowIndex](./moneyFlowIndex.ts) function analyzes both the closing price and the volume to measure to identify overbought and oversold states. It is similar to the Relative Strength Index (RSI), but it also uses the volume.
+
+```
+Raw Money Flow = Typical Price * Volume
+Money Ratio = Positive Money Flow / Negative Money Flow
+Money Flow Index = 100 - (100 / (1 + Money Ratio))
+```
+
+```TypeScript
+import {moneyFlowIndex} from 'indicatorts';
+
+const result = moneyFlowIndex(14, highs, lows, closings, volumes);
+```
+
+The [defaultMoneyFlowIndex](./moneyFlowIndex.ts) function uses the default period of 14.
 
 ## Disclaimer
 
