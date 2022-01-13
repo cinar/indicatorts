@@ -3,8 +3,9 @@
 Volumne indicators measure the strength of a trend based the volume.
 
 - [Accumulation/Distribution (A/D)](#accumulationdistribution-ad)
-- [On-Balance Volume (OBV)](#on-balance-volume-obv)
+- [Force Index (FI)](#force-index-fi)
 - [Money Flow Index (MFI)](#money-flow-index-mfi)
+- [On-Balance Volume (OBV)](#on-balance-volume-obv)
 
 #### Accumulation/Distribution (A/D)
 
@@ -26,20 +27,26 @@ import {accumulationDistribution} from 'indicatorts';
 const result = accumulationDistribution(highs, lows, closings, volumes);
 ```
 
-#### On-Balance Volume (OBV)
+#### Force Index (FI)
 
-The [onBalanceVolume](./onBalanceVolume.ts) function calculates a technical trading momentum indicator that uses volume flow to predict changes in stock price.
+The [forceIndex](./forceIndex.ts) uses the closing price and the volume to assess the power behind a move and identify turning points.
 
 ```
-                  volume, if Closing > Closing-Prev
-OBV = OBV-Prev +       0, if Closing = Closing-Prev
-                 -volume, if Closing < Closing-Prev
+Force Index = EMA(period, (Current - Previous) * Volume)
 ```
 
 ```TypeScript
-import {onBalanceVolume} from 'indicatorts';
+import {forceIndex} from 'indicatorts';
 
-const result = onBalanceVolume(closings, volumes);
+const result = forceIndex(period, closings, volumes);
+```
+
+The [defaultForceIndex](./forceIndex.ts) function uses the default period of 13.
+
+```TypeScript
+import {defaultForceIndex} from 'indicatorts';
+
+const result = defaultForceIndex(closings, volumes);
 ```
 
 #### Money Flow Index (MFI)
@@ -59,6 +66,22 @@ const result = moneyFlowIndex(14, highs, lows, closings, volumes);
 ```
 
 The [defaultMoneyFlowIndex](./moneyFlowIndex.ts) function uses the default period of 14.
+
+#### On-Balance Volume (OBV)
+
+The [onBalanceVolume](./onBalanceVolume.ts) function calculates a technical trading momentum indicator that uses volume flow to predict changes in stock price.
+
+```
+                  volume, if Closing > Closing-Prev
+OBV = OBV-Prev +       0, if Closing = Closing-Prev
+                 -volume, if Closing < Closing-Prev
+```
+
+```TypeScript
+import {onBalanceVolume} from 'indicatorts';
+
+const result = onBalanceVolume(closings, volumes);
+```
 
 ## Disclaimer
 
