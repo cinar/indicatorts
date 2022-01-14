@@ -3,6 +3,7 @@
 Volumne indicators measure the strength of a trend based the volume.
 
 - [Accumulation/Distribution (A/D)](#accumulationdistribution-ad)
+- [Ease of Movement (EMV)](#ease-of-movement-emv)
 - [Force Index (FI)](#force-index-fi)
 - [Money Flow Index (MFI)](#money-flow-index-mfi)
 - [On-Balance Volume (OBV)](#on-balance-volume-obv)
@@ -25,6 +26,31 @@ Based on [Accumulation/Distribution Indicator (A/D)](https://www.investopedia.co
 import {accumulationDistribution} from 'indicatorts';
 
 const result = accumulationDistribution(highs, lows, closings, volumes);
+```
+
+#### Ease of Movement (EMV)
+
+The [easeOfMovement](./easeOfMovement.ts) is a volume based oscillator measuring the ease of price movement.
+
+```
+Distance Moved = ((High + Low) / 2) - ((Priod High + Prior Low) /2)
+Box Ratio = ((Volume / 100000000) / (High - Low))
+EMV(1) = Distance Moved / Box Ratio
+EMV(14) = SMA(14, EMV(1))
+```
+
+```TypeScript
+import {easeOfMovement} from 'indicatorts';
+
+const result = easeOfMovement(period, highs, lows, volumes);
+```
+
+The [defaultEaseOfMovement](./easeOfMovement.ts) functio uses the default period of 14.
+
+```TypeScript
+import {defaultEaseOfMovement} from 'indicatorts';
+
+const result = defaultEaseOfMovement(highs, lows, volumes);
 ```
 
 #### Force Index (FI)

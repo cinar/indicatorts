@@ -48,6 +48,7 @@ export * from './indicator/volatility/chandelierExit';
 export * from './indicator/volatility/mstd';
 export * from './indicator/volatility/projectionOscillator';
 export * from './indicator/volume/accumulationDistribution';
+export * from './indicator/volume/easeOfMovement';
 export * from './indicator/volume/forceIndex';
 export * from './indicator/volume/moneyFlowIndex';
 export * from './indicator/volume/onBalanceVolume';
