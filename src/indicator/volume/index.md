@@ -8,6 +8,7 @@ Volumne indicators measure the strength of a trend based the volume.
 - [Money Flow Index (MFI)](#money-flow-index-mfi)
 - [On-Balance Volume (OBV)](#on-balance-volume-obv)
 - [Volume Price Trend (VPT)](#volume-price-trend-vpt)
+- [Volume Weighted Average Price (VWAP)](#volume-weighted-average-price-vwap)
 
 #### Accumulation/Distribution (A/D)
 
@@ -122,6 +123,20 @@ VPT = Previous VPT + (Volume * (Current Closing - Previous Closing) / Previous C
 import {volumePriceTrend} from 'indicatorts';
 
 const result = volumePriceTrend(closings, volumes);
+```
+
+#### Volume Weighted Average Price (VWAP)
+
+The [volumeWeightedAveragePrice](./volumeWeightedAveragePrice.ts) provides the average price the asset has traded.
+
+```
+VWAP = Sum(Closing * Volume) / Sum(Volume)
+```
+
+```TypeScript
+import {volumeWeightedAveragePrice} from 'indicatorts';
+
+const result = volumeWeightedAveragePrice(period, closings, volumes);
 ```
 
 ## Disclaimer

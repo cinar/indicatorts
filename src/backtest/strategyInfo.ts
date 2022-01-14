@@ -22,6 +22,7 @@ import {projectionOscillatorStrategy} from '../strategy/volatility/projectionOsc
 import {easeOfMovementStrategy} from '../strategy/volume/easeOfMovementStrategy';
 import {forceIndexStrategy} from '../strategy/volume/forceIndexStrategy';
 import {moneyFlowIndexStrategy} from '../strategy/volume/moneyFlowIndexStrategy';
+import {volumeWeightedAveragePriceStrategy} from '../strategy/volume/volumeWeightedAveragePriceStrategy';
 
 /**
   * Strategy info.
@@ -114,5 +115,9 @@ export const STRATEGY_INFOS: StrategyInfo[] = [
   {
     name: 'Money Flow Index',
     strategy: moneyFlowIndexStrategy,
+  },
+  {
+    name: 'Volume Weighted Average Price',
+    strategy: volumeWeightedAveragePriceStrategy,
   },
 ];

@@ -7,7 +7,7 @@ import {sma} from '../trend/sma';
 /**
  * Default period for EMV.
  */
-export const DEFAULT_PERIOD = 14;
+export const EMV_DEFAULT_PERIOD = 14;
 
 /**
  * The Ease of Movement (EMV) is a volume based oscillator measuring
@@ -49,5 +49,5 @@ export function defaultEaseOfMovement(
     lows: number[],
     volumes: number[],
 ): number[] {
-  return easeOfMovement(DEFAULT_PERIOD, highs, lows, volumes);
+  return easeOfMovement(EMV_DEFAULT_PERIOD, highs, lows, volumes);
 }
