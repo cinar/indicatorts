@@ -7,6 +7,7 @@ Volumne indicators measure the strength of a trend based the volume.
 - [Force Index (FI)](#force-index-fi)
 - [Money Flow Index (MFI)](#money-flow-index-mfi)
 - [On-Balance Volume (OBV)](#on-balance-volume-obv)
+- [Volume Price Trend (VPT)](#volume-price-trend-vpt)
 
 #### Accumulation/Distribution (A/D)
 
@@ -107,6 +108,20 @@ OBV = OBV-Prev +       0, if Closing = Closing-Prev
 import {onBalanceVolume} from 'indicatorts';
 
 const result = onBalanceVolume(closings, volumes);
+```
+
+#### Volume Price Trend (VPT)
+
+The [volumePriceTrend](./volumePriceTrend.ts) provides a correlation between the volume and the price.
+
+```
+VPT = Previous VPT + (Volume * (Current Closing - Previous Closing) / Previous Closing)
+```
+
+```TypeScript
+import {volumePriceTrend} from 'indicatorts';
+
+const result = volumePriceTrend(closings, volumes);
 ```
 
 ## Disclaimer

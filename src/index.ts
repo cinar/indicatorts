@@ -52,6 +52,7 @@ export * from './indicator/volume/easeOfMovement';
 export * from './indicator/volume/forceIndex';
 export * from './indicator/volume/moneyFlowIndex';
 export * from './indicator/volume/onBalanceVolume';
+export * from './indicator/volume/volumePriceTrend';
 export * from './strategy/action';
 export * from './strategy/asset';
 export * from './strategy/buyAndHoldStrategy';
