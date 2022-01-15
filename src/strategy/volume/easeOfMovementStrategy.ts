@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {defaultEaseOfMovement} from '../../index';
+import {defaultEaseOfMovement} from '../../indicator/volume/easeOfMovement';
 import {Action} from '../action';
 import {Asset} from '../asset';
 
