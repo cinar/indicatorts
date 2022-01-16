@@ -59,6 +59,7 @@ The following list of indicators are currently supported by this package:
 - [Ease of Movement (EMV)](src/indicator/volume/index.md#ease-of-movement-emv)
 - [Force Index (FI)](src/indicator/volume/index.md#force-index-fi)
 - [Money Flow Index (MFI)](src/indicator/volume/index.md#money-flow-index-mfi)
+- [Negative Volume Index (NVI)](src/indicator/volume/index.md#negative-volume-index-nvi)
 - [On-Balance Volume (OBV)](src/indicator/volume/index.md#on-balance-volume-obv)
 - [Volume Price Trend (VPT)](src/indicator/volume/index.md#volume-price-trend-vpt)
 - [Volume Weighted Average Price (VWAP)](src/indicator/volume/index.md#volume-weighted-average-price-vwap)
@@ -108,6 +109,7 @@ The following list of strategies are currently supported by this package:
 - [Ease of Movement Strategy](src/strategy/volume/index.md#ease-of-movement-strategy)
 - [Force Index Strategy](src/strategy/volume/index.md#force-index-strategy)
 - [Money Flow Index Strategy](src/strategy/volume/index.md#money-flow-index-strategy)
+- [Negative Volume Index Strategy](src/strategy/volume/index.md#negative-volume-index-strategy)
 - [Volume Weighted Average Price Strategy](src/strategy/volume/index.md#volume-weighted-average-price-strategy)
 
 ## Backtest

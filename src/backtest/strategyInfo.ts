@@ -1,6 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
+import {negativeVolumeIndexStrategy} from '../index';
 import {buyAndHoldStrategy} from '../strategy/buyAndHoldStrategy';
 import {awesomeOscillatorStrategy} from '../strategy/momentum/awesomeOscillatorStrategy';
 import {ichimokuCloudStrategy} from '../strategy/momentum/ichimokuCloudStrategy';
@@ -115,6 +116,10 @@ export const STRATEGY_INFOS: StrategyInfo[] = [
   {
     name: 'Money Flow Index',
     strategy: moneyFlowIndexStrategy,
+  },
+  {
+    name: 'Negative Volume Index (NVI)',
+    strategy: negativeVolumeIndexStrategy,
   },
   {
     name: 'Volume Weighted Average Price',

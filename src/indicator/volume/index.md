@@ -6,6 +6,7 @@ Volumne indicators measure the strength of a trend based the volume.
 - [Ease of Movement (EMV)](#ease-of-movement-emv)
 - [Force Index (FI)](#force-index-fi)
 - [Money Flow Index (MFI)](#money-flow-index-mfi)
+- [Negative Volume Index (NVI)](#negative-volume-index-nvi)
 - [On-Balance Volume (OBV)](#on-balance-volume-obv)
 - [Volume Price Trend (VPT)](#volume-price-trend-vpt)
 - [Volume Weighted Average Price (VWAP)](#volume-weighted-average-price-vwap)
@@ -94,6 +95,26 @@ const result = moneyFlowIndex(14, highs, lows, closings, volumes);
 ```
 
 The [defaultMoneyFlowIndex](./moneyFlowIndex.ts) function uses the default period of 14.
+
+#### Negative Volume Index (NVI)
+
+The [negativeVolumeIndex](./negativeVolumeIndex.ts) function calculates a cumulative indicator using the change in volume to decide when the smart money is active.
+
+```
+If Volume is greather than Previous Volume:
+
+    NVI = Previous NVI
+
+Otherwise:
+
+    NVI = Previous NVI + (((Closing - Previous Closing) / Previous Closing) * Previous NVI)
+```
+
+```TypeScript
+import {negativeVolumeIndex} from 'indicatorts';
+
+const nvi = negativeVolumeIndex(closings, volumes);
+```
 
 #### On-Balance Volume (OBV)
 
