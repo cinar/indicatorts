@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {chaikinMoneyFlow} from '../../index';
+import {chaikinMoneyFlow} from '../../indicator/volume/chaikinMoneyFlow';
 import {Action} from '../action';
 import {Asset} from '../asset';
 
