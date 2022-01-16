@@ -1,7 +1,6 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {negativeVolumeIndexStrategy} from '../index';
 import {buyAndHoldStrategy} from '../strategy/buyAndHoldStrategy';
 import {awesomeOscillatorStrategy} from '../strategy/momentum/awesomeOscillatorStrategy';
 import {ichimokuCloudStrategy} from '../strategy/momentum/ichimokuCloudStrategy';
@@ -20,9 +19,11 @@ import {vortexStrategy} from '../strategy/trend/vortexStrategy';
 import {accelerationBandsStrategy} from '../strategy/volatility/accelerationBandsStrategy';
 import {bollingerBandsStrategy} from '../strategy/volatility/bollingerBandsStrategy';
 import {projectionOscillatorStrategy} from '../strategy/volatility/projectionOscillatorStrategy';
+import {chaikinMoneyFlowStrategy} from '../strategy/volume/chaikinMoneyFlowStrategy';
 import {easeOfMovementStrategy} from '../strategy/volume/easeOfMovementStrategy';
 import {forceIndexStrategy} from '../strategy/volume/forceIndexStrategy';
 import {moneyFlowIndexStrategy} from '../strategy/volume/moneyFlowIndexStrategy';
+import {negativeVolumeIndexStrategy} from '../strategy/volume/negativeVolumeIndexStrategy';
 import {volumeWeightedAveragePriceStrategy} from '../strategy/volume/volumeWeightedAveragePriceStrategy';
 
 /**
@@ -104,6 +105,10 @@ export const STRATEGY_INFOS: StrategyInfo[] = [
   {
     name: 'Projection Oscillator',
     strategy: projectionOscillatorStrategy,
+  },
+  {
+    name: 'Chaikin Money Flow (CMF)',
+    strategy: chaikinMoneyFlowStrategy,
   },
   {
     name: 'Ease of Movement (EMV)',
