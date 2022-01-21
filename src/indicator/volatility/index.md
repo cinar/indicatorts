@@ -9,6 +9,7 @@ Volatility indicators measure the rate of movement regardless of its direction.
 - [Chandelier Exit](#chandelier-exit)
 - [Moving Standard Deviation (Std)](#moving-standard-deviation-std)
 - [Projection Oscillator (PO)](#projection-oscillator-po)
+- [Ulcer Index (UI)](#ulcer-index-ui)
 
 #### Acceleration Bands
 
@@ -115,6 +116,31 @@ SPO = EMA(smooth, PO)
 import {projectionOscillator} from 'indicatorts';
 
 const result = projectionOscillator(period, smooth, highs, lows, closings);
+```
+
+#### Ulcer Index (UI)
+
+The [ulcerIndex](./ulcerIndex.ts) measures downside risk. The index increases in value as the price moves farther away from a recent high and falls as the price rises to new highs.
+
+```
+High Closings = Max(period, Closings)
+Percentage Drawdown = 100 * ((Closings - High Closings) / High Closings)
+Squared Average = Sma(period, Percent Drawdown * Percent Drawdown)
+Ulcer Index = Sqrt(Squared Average)
+```
+
+```TypeScript
+import {ulcerIndex} from 'indicatorts';
+
+const result = ulcerIndex(period, closings);
+```
+
+The [defaultUlcerIndex](./ulcerIndex.ts) measures the ulcer index with the default period of 14.
+
+```TypeScript
+import {defaultUlcerIndex} from 'indicatorts';
+
+const result = defaultUlcerIndex(closings);
 ```
 
 ## Disclaimer

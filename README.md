@@ -52,6 +52,7 @@ The following list of indicators are currently supported by this package:
 - [Chandelier Exit](src/indicator/volatility/index.md#chandelier-exit)
 - [Moving Standard Deviation (Std)](src/indicator/volatility/index.md#moving-standard-deviation-std)
 - [Projection Oscillator (PO)](src/indicator/volatility/index.md#projection-oscillator-po)
+- [Ulcer Index (UI)](src/indicator/volatility/index.md#ulcer-index-ui)
 
 ### Volume Indicators
 
