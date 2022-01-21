@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {checkSameLength} from '../../helper/numArray';
+import { checkSameLength } from '../../helper/numArray';
 
 /**
  * On-Balance Volume (OBV). It is a technical trading momentum indicator that
@@ -16,8 +16,8 @@ import {checkSameLength} from '../../helper/numArray';
  * @return obv values.
  */
 export function onBalanceVolume(
-    closings: number[],
-    volumes: number[],
+  closings: number[],
+  volumes: number[]
 ): number[] {
   checkSameLength(closings, volumes);
 
@@ -27,11 +27,11 @@ export function onBalanceVolume(
     if (i === 0) {
       result[i] = 0;
     } else {
-      result[i] = result[i-1];
+      result[i] = result[i - 1];
 
-      if (closings[i] > closings[i-1]) {
+      if (closings[i] > closings[i - 1]) {
         result[i] += volumes[i];
-      } else if (closings[i] < closings[i-1]) {
+      } else if (closings[i] < closings[i - 1]) {
         result[i] -= volumes[i];
       }
     }

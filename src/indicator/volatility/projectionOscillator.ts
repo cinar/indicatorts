@@ -1,11 +1,18 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {add, divide, generateNumbers, multiply, multiplyBy, substract} from '../../helper/numArray';
-import {movingLeastSquare} from '../../helper/regression';
-import {ema} from '../trend/ema';
-import {mmax} from '../trend/mmax';
-import {mmin} from '../trend/mmin';
+import {
+  add,
+  divide,
+  generateNumbers,
+  multiply,
+  multiplyBy,
+  substract,
+} from '../../helper/numArray';
+import { movingLeastSquare } from '../../helper/regression';
+import { ema } from '../trend/ema';
+import { mmax } from '../trend/mmax';
+import { mmin } from '../trend/mmin';
 
 /**
  * Projection oscillator result object.
@@ -35,11 +42,11 @@ export interface ProjectionOscillator {
  * @return projection oscillator.
  */
 export function projectionOscillator(
-    period: number,
-    smooth: number,
-    highs: number[],
-    lows: number[],
-    closings: number[],
+  period: number,
+  smooth: number,
+  highs: number[],
+  lows: number[],
+  closings: number[]
 ): ProjectionOscillator {
   const x = generateNumbers(0, closings.length, 1);
   const lsHighs = movingLeastSquare(period, x, highs);
@@ -51,7 +58,10 @@ export function projectionOscillator(
   const pu = mmax(period, vHighs);
   const pl = mmin(period, vLows);
 
-  const po = divide(multiplyBy(100, substract(closings, pl)), substract(pu, pl));
+  const po = divide(
+    multiplyBy(100, substract(closings, pl)),
+    substract(pu, pl)
+  );
   const spo = ema(smooth, po);
 
   return {
@@ -68,9 +78,9 @@ export function projectionOscillator(
  * @return projection oscillator.
  */
 export function defaultProjectionOscillator(
-    highs: number[],
-    lows: number[],
-    closings: number[],
+  highs: number[],
+  lows: number[],
+  closings: number[]
 ): ProjectionOscillator {
   return projectionOscillator(14, 3, highs, lows, closings);
 }

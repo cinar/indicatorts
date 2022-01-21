@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {Asset} from './asset';
-import {concatAssets, newAssetWithLength} from './asset';
+import { Asset } from './asset';
+import { concatAssets, newAssetWithLength } from './asset';
 
 describe('Asset object', () => {
   it('should be able to provide a new asset with length', () => {
@@ -37,7 +37,12 @@ describe('Asset object', () => {
     };
 
     const expected: Asset = {
-      dates: [new Date(2021, 11, 1), new Date(2021, 11, 2), new Date(2021, 11, 3), new Date(2021, 11, 4)],
+      dates: [
+        new Date(2021, 11, 1),
+        new Date(2021, 11, 2),
+        new Date(2021, 11, 3),
+        new Date(2021, 11, 4),
+      ],
       openings: [1, 2, 3, 4],
       closings: [100, 200, 300, 400],
       highs: [1000, 2000, 3000, 4000],

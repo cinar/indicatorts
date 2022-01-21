@@ -208,7 +208,7 @@ const result = qstick(period, openings, closings);
 
 #### Random Index (KDJ)
 
-The [kdj](./kdj.ts) function calculates the KDJ  indicator, also known as the Random Index. KDJ is calculated similar to the Stochastic Oscillator with the difference of having the J line. It is used to analyze the trend and entry points.
+The [kdj](./kdj.ts) function calculates the KDJ indicator, also known as the Random Index. KDJ is calculated similar to the Stochastic Oscillator with the difference of having the J line. It is used to analyze the trend and entry points.
 
 The K and D lines show if the asset is overbought when they crosses above 80%, and oversold when they crosses below 20%. The J line represents the divergence.
 

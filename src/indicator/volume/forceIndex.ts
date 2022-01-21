@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {changes, multiply} from '../../helper/numArray';
-import {ema} from '../trend/ema';
+import { changes, multiply } from '../../helper/numArray';
+import { ema } from '../trend/ema';
 
 /**
  * The Force Index (FI) uses the closing price and the volume to assess
@@ -16,9 +16,9 @@ import {ema} from '../trend/ema';
  * @return force index.
  */
 export function forceIndex(
-    period: number,
-    closings: number[],
-    volumes: number[],
+  period: number,
+  closings: number[],
+  volumes: number[]
 ): number[] {
   return ema(period, multiply(changes(1, closings), volumes));
 }
@@ -31,8 +31,8 @@ export function forceIndex(
  * @return force index.
  */
 export function defaultForceIndex(
-    closings: number[],
-    volumes: number[],
+  closings: number[],
+  volumes: number[]
 ): number[] {
   return forceIndex(13, closings, volumes);
 }

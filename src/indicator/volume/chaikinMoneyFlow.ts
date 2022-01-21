@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {divide, multiply, substract} from '../../helper/numArray';
-import {msum} from '../trend/msum';
+import { divide, multiply, substract } from '../../helper/numArray';
+import { msum } from '../trend/msum';
 
 /**
  * Default period of CMF.
@@ -24,20 +24,22 @@ export const CMF_DEFAULT_PERIOD = 20;
  * @returns cmf values.
  */
 export function chaikinMoneyFlow(
-    highs: number[],
-    lows: number[],
-    closings: number[],
-    volumes: number[],
+  highs: number[],
+  lows: number[],
+  closings: number[],
+  volumes: number[]
 ): number[] {
   const moneyFlowMultipler = divide(
-      substract(substract(closings, lows), substract(highs, closings)),
-      substract(highs, lows));
+    substract(substract(closings, lows), substract(highs, closings)),
+    substract(highs, lows)
+  );
 
   const moneyFlowVolume = multiply(moneyFlowMultipler, volumes);
 
   const cmf = divide(
-      msum(CMF_DEFAULT_PERIOD, moneyFlowVolume),
-      msum(CMF_DEFAULT_PERIOD, volumes));
+    msum(CMF_DEFAULT_PERIOD, moneyFlowVolume),
+    msum(CMF_DEFAULT_PERIOD, volumes)
+  );
 
   return cmf;
 }

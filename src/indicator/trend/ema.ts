@@ -17,7 +17,7 @@ export function ema(period: number, values: number[]): number[] {
     result[0] = values[0];
 
     for (let i = 1; i < result.length; i++) {
-      result[i] = (values[i] * k) + (result[i - 1] * m);
+      result[i] = values[i] * k + result[i - 1] * m;
     }
   }
 

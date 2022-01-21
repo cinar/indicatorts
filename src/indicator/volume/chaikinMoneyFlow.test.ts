@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {roundDigitsAll} from '../../index';
-import {chaikinMoneyFlow} from './chaikinMoneyFlow';
+import { roundDigitsAll } from '../../index';
+import { chaikinMoneyFlow } from './chaikinMoneyFlow';
 
 describe('Chaikin Money Flow (CMF)', () => {
   it('should be able to compute CMF', () => {

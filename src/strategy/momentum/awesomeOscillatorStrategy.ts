@@ -1,9 +1,9 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {Asset} from '../asset';
-import {Action} from '../action';
-import {awesomeOscillator} from '../../indicator/momentum/awesomeOscillator';
+import { Asset } from '../asset';
+import { Action } from '../action';
+import { awesomeOscillator } from '../../indicator/momentum/awesomeOscillator';
 
 /**
  * Awesome oscillator strategy function.

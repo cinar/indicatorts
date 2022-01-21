@@ -1,12 +1,12 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {substract} from '../../helper/numArray';
-import {ema} from './ema';
+import { substract } from '../../helper/numArray';
+import { ema } from './ema';
 
 export interface MacdResult {
-  macdLine: number[],
-  signalLine: number[]
+  macdLine: number[];
+  signalLine: number[];
 }
 
 /**

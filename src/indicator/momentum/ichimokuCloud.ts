@@ -1,9 +1,14 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {add, checkSameLength, divideBy, shiftRightBy} from '../../helper/numArray';
-import {mmax} from '../trend/mmax';
-import {mmin} from '../trend/mmin';
+import {
+  add,
+  checkSameLength,
+  divideBy,
+  shiftRightBy,
+} from '../../helper/numArray';
+import { mmax } from '../trend/mmax';
+import { mmin } from '../trend/mmin';
 
 /**
  * Ichimoku cloud result object.
@@ -33,9 +38,9 @@ export interface IchimokuCloudResult {
  * @return ichimoku cloud result object.
  */
 export function ichimokuCloud(
-    highs: number[],
-    lows: number[],
-    closings: number[],
+  highs: number[],
+  lows: number[],
+  closings: number[]
 ): IchimokuCloudResult {
   checkSameLength(highs, lows, closings);
 

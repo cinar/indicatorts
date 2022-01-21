@@ -1,18 +1,18 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {checkSameLength} from '../../helper/numArray';
-import {Trend} from '../trend';
+import { checkSameLength } from '../../helper/numArray';
+import { Trend } from '../trend';
 
 const PSAR_AF_STEP = 0.02;
-const PSAR_AF_MAX = 0.20;
+const PSAR_AF_MAX = 0.2;
 
 /**
  * Parabolic SAR result object.
  */
 export interface ParabolicSar {
   trends: Trend[];
-  psar: number[]
+  psar: number[];
 }
 
 /**
@@ -46,9 +46,9 @@ export interface ParabolicSar {
  * @return psar result.
  */
 export function parabolicSar(
-    highs: number[],
-    lows: number[],
-    closings: number[],
+  highs: number[],
+  lows: number[],
+  closings: number[]
 ): ParabolicSar {
   checkSameLength(highs, lows, closings);
 
@@ -62,21 +62,21 @@ export function parabolicSar(
   let ep = lows[0];
 
   for (let i = 1; i < psar.length; i++) {
-    psar[i] = psar[i-1] - ((psar[i-1] - ep) * af);
+    psar[i] = psar[i - 1] - (psar[i - 1] - ep) * af;
 
-    if (trends[i-1] === Trend.FALLING) {
-      psar[i] = Math.max(psar[i], highs[i-1]);
+    if (trends[i - 1] === Trend.FALLING) {
+      psar[i] = Math.max(psar[i], highs[i - 1]);
       if (i > 1) {
-        psar[i] = Math.max(psar[i], highs[i-2]);
+        psar[i] = Math.max(psar[i], highs[i - 2]);
       }
 
       if (highs[i] >= psar[i]) {
         psar[i] = ep;
       }
     } else {
-      psar[i] = Math.min(psar[i], lows[i-1]);
+      psar[i] = Math.min(psar[i], lows[i - 1]);
       if (i > 1) {
-        psar[i] = Math.min(psar[i], lows[i-2]);
+        psar[i] = Math.min(psar[i], lows[i - 2]);
       }
 
       if (lows[i] <= psar[i]) {
@@ -94,9 +94,9 @@ export function parabolicSar(
       ep = Math.max(ep, highs[i]);
     }
 
-    if (trends[i] !== trends[i-1]) {
+    if (trends[i] !== trends[i - 1]) {
       af = PSAR_AF_STEP;
-    } else if ((prevEp !== ep) && (af < PSAR_AF_MAX)) {
+    } else if (prevEp !== ep && af < PSAR_AF_MAX) {
       af += PSAR_AF_STEP;
     }
   }

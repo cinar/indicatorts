@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {checkSameLength} from '../helper/numArray';
+import { checkSameLength } from '../helper/numArray';
 
 /**
  * Strategy action.
@@ -58,7 +58,8 @@ export function applyActions(closings: number[], actions: Action[]): number[] {
       }
     }
 
-    gains[i] = ((shares * closings[i]) + balance - initialBalance) / initialBalance;
+    gains[i] =
+      (shares * closings[i] + balance - initialBalance) / initialBalance;
   }
 
   return gains;

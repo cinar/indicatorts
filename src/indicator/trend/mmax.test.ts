@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {deepStrictEqual} from 'assert';
-import {mmax} from './mmax';
+import { deepStrictEqual } from 'assert';
+import { mmax } from './mmax';
 
 describe('Moving Max', () => {
   it('should be able to compute max', () => {

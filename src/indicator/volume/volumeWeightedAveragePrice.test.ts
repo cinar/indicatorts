@@ -1,8 +1,11 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {roundDigitsAll} from '../../index';
-import {defaultVolumeWeightedAveragePrice, volumeWeightedAveragePrice} from './volumeWeightedAveragePrice';
+import { roundDigitsAll } from '../../index';
+import {
+  defaultVolumeWeightedAveragePrice,
+  volumeWeightedAveragePrice,
+} from './volumeWeightedAveragePrice';
 
 describe('Volume Weighted Average Price', () => {
   it('should be able to compute VWAP', () => {

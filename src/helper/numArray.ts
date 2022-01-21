@@ -199,7 +199,7 @@ export function changes(n: number, values: number[]): number[] {
  * @return sign values.
  */
 export function extractSigns(values: number[]): number[] {
-  return values.map((value) => (value >= 0) ? 1 : -1);
+  return values.map((value) => (value >= 0 ? 1 : -1));
 }
 
 /**
@@ -261,14 +261,14 @@ export function roundDigitsAll(digits: number, values: number[]): number[] {
  * @return generated numbers.
  */
 export function generateNumbers(
-    begin: number,
-    end: number,
-    step: number,
+  begin: number,
+  end: number,
+  step: number
 ): number[] {
   const result = new Array<number>((end - begin) / step);
 
   for (let i = 0; i < result.length; i++) {
-    result[i] = begin + (step * i);
+    result[i] = begin + step * i;
   }
 
   return result;

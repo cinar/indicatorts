@@ -1,8 +1,15 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {abs, checkSameLength, divide, max, shiftRightBy, substract} from '../../helper/numArray';
-import {msum} from './msum';
+import {
+  abs,
+  checkSameLength,
+  divide,
+  max,
+  shiftRightBy,
+  substract,
+} from '../../helper/numArray';
+import { msum } from './msum';
 
 const VORTEX_PERIOD = 14;
 
@@ -10,8 +17,8 @@ const VORTEX_PERIOD = 14;
  * Vortex result.
  */
 export interface VortexResult {
-  plusVi: number[],
-  minusVi: number[]
+  plusVi: number[];
+  minusVi: number[];
 }
 
 /**
@@ -41,9 +48,9 @@ export interface VortexResult {
  * @return vortex result.
  */
 export function vortex(
-    highs: number[],
-    lows: number[],
-    closings: number[],
+  highs: number[],
+  lows: number[],
+  closings: number[]
 ): VortexResult {
   checkSameLength(highs, lows, closings);
 
@@ -56,9 +63,9 @@ export function vortex(
   const minusVmSum = msum(VORTEX_PERIOD, minusVm);
 
   const tr = max(
-      substract(highs, lows),
-      abs(substract(highs, prevClosings)),
-      abs(substract(lows, prevClosings)),
+    substract(highs, lows),
+    abs(substract(highs, prevClosings)),
+    abs(substract(lows, prevClosings))
   );
 
   const trSum = msum(VORTEX_PERIOD, tr);

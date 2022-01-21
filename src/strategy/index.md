@@ -13,7 +13,6 @@ The strategies are where the results from one or more indicators gets combined t
 - [Strategy Function](#strategy-function)
 - [Buy and Hold Strategy](#buy-and-hold-strategy)
 
-
 #### Asset
 
 The stragies operates on an [Asset](./asset.ts) with the following members.
@@ -87,8 +86,8 @@ const actions = [
 
 const result = reverseActions(actions);
 // [
-// 	Actions.BUY, 
-// 	Actions.HOLD, 
+// 	Actions.BUY,
+// 	Actions.HOLD,
 // 	Actions.SELL
 // ];
 ```

@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {roundDigitsAll} from '../../helper/numArray';
-import {volumePriceTrend} from './volumePriceTrend';
+import { roundDigitsAll } from '../../helper/numArray';
+import { volumePriceTrend } from './volumePriceTrend';
 
 describe('Volume Price Trend (VPT)', () => {
   it('should be able to compute VPT', () => {

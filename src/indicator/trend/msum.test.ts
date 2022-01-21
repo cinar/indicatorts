@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {deepStrictEqual} from 'assert';
-import {msum} from './msum';
+import { deepStrictEqual } from 'assert';
+import { msum } from './msum';
 
 describe('Moving Sum', () => {
   it('should be able to compute sum', () => {

@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {checkSameLength} from '../../helper/numArray';
+import { checkSameLength } from '../../helper/numArray';
 
 /**
  * Starting value for NVI.
@@ -30,8 +30,8 @@ export const NVI_DEFAULT_PERIOD = 255;
  * @returns nvi values.
  */
 export function negativeVolumeIndex(
-    closings: number[],
-    volumes: number[],
+  closings: number[],
+  volumes: number[]
 ): number[] {
   checkSameLength(closings, volumes);
 
@@ -40,10 +40,12 @@ export function negativeVolumeIndex(
   for (let i = 0; i < nvi.length; i++) {
     if (i === 0) {
       nvi[i] = NVI_STARTING_VALUE;
-    } else if (volumes[i-1] < volumes[i]) {
-      nvi[i] = nvi[i-1];
+    } else if (volumes[i - 1] < volumes[i]) {
+      nvi[i] = nvi[i - 1];
     } else {
-      nvi[i] = nvi[i-1] + (((closings[i] - closings[i-1]) / closings[i-1]) * nvi[i-1]);
+      nvi[i] =
+        nvi[i - 1] +
+        ((closings[i] - closings[i - 1]) / closings[i - 1]) * nvi[i - 1];
     }
   }
 

@@ -1,9 +1,17 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {addBy, changes, divide, extractSigns, multiply, multiplyBy, pow} from '../../helper/numArray';
-import {msum} from '../trend/msum';
-import {typicalPrice} from '../trend/typicalPrice';
+import {
+  addBy,
+  changes,
+  divide,
+  extractSigns,
+  multiply,
+  multiplyBy,
+  pow,
+} from '../../helper/numArray';
+import { msum } from '../trend/msum';
+import { typicalPrice } from '../trend/typicalPrice';
 
 /**
  * The Money Flow Index (MFI) analyzes both the closing price and the volume
@@ -22,25 +30,29 @@ import {typicalPrice} from '../trend/typicalPrice';
  * @return money flow index values.
  */
 export function moneyFlowIndex(
-    period: number,
-    highs: number[],
-    lows: number[],
-    closings: number[],
-    volumes: number[],
+  period: number,
+  highs: number[],
+  lows: number[],
+  closings: number[],
+  volumes: number[]
 ): number[] {
   const rawMoneyFlow = multiply(typicalPrice(highs, lows, closings), volumes);
 
   const signs = extractSigns(changes(1, rawMoneyFlow));
   const moneyFlow = multiply(signs, rawMoneyFlow);
 
-  const positiveMoneyFlow = moneyFlow.map((value) => (value >= 0) ? value : 0);
-  const negativeMoneyFlow = moneyFlow.map((value) => (value < 0) ? value : 0);
+  const positiveMoneyFlow = moneyFlow.map((value) => (value >= 0 ? value : 0));
+  const negativeMoneyFlow = moneyFlow.map((value) => (value < 0 ? value : 0));
 
   const moneyRatio = divide(
-      msum(period, positiveMoneyFlow),
-      msum(period, negativeMoneyFlow));
+    msum(period, positiveMoneyFlow),
+    msum(period, negativeMoneyFlow)
+  );
 
-  const moneyFlowIndex = addBy(100, multiplyBy(-100, pow(addBy(1, moneyRatio), -1)));
+  const moneyFlowIndex = addBy(
+    100,
+    multiplyBy(-100, pow(addBy(1, moneyRatio), -1))
+  );
 
   return moneyFlowIndex;
 }
@@ -55,10 +67,10 @@ export function moneyFlowIndex(
  * @return money flow index values.
  */
 export function defaultMoneyFlowIndex(
-    highs: number[],
-    lows: number[],
-    closings: number[],
-    volumes: number[],
+  highs: number[],
+  lows: number[],
+  closings: number[],
+  volumes: number[]
 ): number[] {
   return moneyFlowIndex(14, highs, lows, closings, volumes);
 }
