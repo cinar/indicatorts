@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {add, addBy, checkSameLength, multiply, multiplyBy} from './numArray';
+import { add, addBy, checkSameLength, multiply, multiplyBy } from './numArray';
 
 /**
  * Least square result object.
@@ -49,8 +49,8 @@ export function leastSquare(x: number[], y: number[]): LeastSquareResult {
   }
 
   const n = x.length;
-  const m = ((n * sumXY) - (sumX * sumY)) / ((n * sumX2) - (sumX * sumX));
-  const b = (sumY - (m * sumX)) / n;
+  const m = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+  const b = (sumY - m * sumX) / n;
 
   return {
     m,
@@ -74,9 +74,9 @@ export function leastSquare(x: number[], y: number[]): LeastSquareResult {
  * @return moving least square result.
  */
 export function movingLeastSquare(
-    period: number,
-    x: number[],
-    y: number[],
+  period: number,
+  x: number[],
+  y: number[]
 ): MovingLeastSquareResult {
   checkSameLength(x, y);
 
@@ -97,16 +97,16 @@ export function movingLeastSquare(
     let n = i + 1;
 
     if (i >= period) {
-      sumX -= x[i-period];
-      sumX2 -= x[i-period] * x[i-period];
-      sumY -= y[i-period];
-      sumXY -= x[i-period] * y[i-period];
+      sumX -= x[i - period];
+      sumX2 -= x[i - period] * x[i - period];
+      sumY -= y[i - period];
+      sumXY -= x[i - period] * y[i - period];
       n = period;
     }
 
     if (i > 0) {
-      m[i] = ((n * sumXY) - (sumX * sumY)) / ((n * sumX2) - (sumX * sumX));
-      b[i] = (sumY - (m[i] * sumX)) / n;
+      m[i] = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+      b[i] = (sumY - m[i] * sumX) / n;
     } else {
       m[i] = 0;
       b[i] = 0;
@@ -128,7 +128,10 @@ export function movingLeastSquare(
  * @param y y values.
  * @return regression values.
  */
-export function linearRegressionUsingLeastSquare(x: number[], y: number[]): number[] {
+export function linearRegressionUsingLeastSquare(
+  x: number[],
+  y: number[]
+): number[] {
   const ls = leastSquare(x, y);
   const lr = addBy(ls.b, multiplyBy(ls.m, x));
   return lr;
@@ -145,9 +148,9 @@ export function linearRegressionUsingLeastSquare(x: number[], y: number[]): numb
  * @return regression values.
  */
 export function movingLinearRegressionUsingLeastSquare(
-    period: number,
-    x: number[],
-    y: number[],
+  period: number,
+  x: number[],
+  y: number[]
 ): number[] {
   const ls = movingLeastSquare(period, x, y);
   const lr = add(multiply(ls.m, x), ls.b);

@@ -1,9 +1,9 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {Asset} from '../asset';
-import {Action} from '../action';
-import {typicalPrice} from '../../indicator/trend/typicalPrice';
+import { Asset } from '../asset';
+import { Action } from '../action';
+import { typicalPrice } from '../../indicator/trend/typicalPrice';
 
 /**
  * Typical price strategy function.
@@ -12,11 +12,7 @@ import {typicalPrice} from '../../indicator/trend/typicalPrice';
  * @return strategy actions.
  */
 export function typicalPriceStrategy(asset: Asset): Action[] {
-  const tpi = typicalPrice(
-      asset.highs,
-      asset.lows,
-      asset.closings,
-  );
+  const tpi = typicalPrice(asset.highs, asset.lows, asset.closings);
 
   const actions = new Array<Action>(tpi.length);
   actions[0] = Action.HOLD;

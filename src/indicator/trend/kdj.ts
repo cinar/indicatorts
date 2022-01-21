@@ -1,18 +1,18 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {divide, multiplyBy, substract} from '../../helper/numArray';
-import {mmin} from './mmin';
-import {mmax} from './mmax';
-import {sma} from './sma';
+import { divide, multiplyBy, substract } from '../../helper/numArray';
+import { mmin } from './mmin';
+import { mmax } from './mmax';
+import { sma } from './sma';
 
 /**
  * KDJ result.
  */
 export interface KdjResult {
-  k: number[],
-  d: number[],
-  j: number[]
+  k: number[];
+  d: number[];
+  j: number[];
 }
 
 /**
@@ -40,17 +40,20 @@ export interface KdjResult {
  * @return kdj result.
  */
 export function kdj(
-    rPeriod: number,
-    kPeriod: number,
-    dPeriod: number,
-    highs: number[],
-    lows: number[],
-    closings: number[],
+  rPeriod: number,
+  kPeriod: number,
+  dPeriod: number,
+  highs: number[],
+  lows: number[],
+  closings: number[]
 ): KdjResult {
   const highest = mmax(rPeriod, highs);
   const lowest = mmin(rPeriod, lows);
 
-  const rsv = multiplyBy(100, divide(substract(closings, lowest), substract(highest, lowest)));
+  const rsv = multiplyBy(
+    100,
+    divide(substract(closings, lowest), substract(highest, lowest))
+  );
 
   const k = sma(kPeriod, rsv);
   const d = sma(dPeriod, k);
@@ -73,9 +76,9 @@ export function kdj(
  * @return kdj result.
  */
 export function defaultKdj(
-    highs: number[],
-    lows: number[],
-    closings: number[],
+  highs: number[],
+  lows: number[],
+  closings: number[]
 ): KdjResult {
   return kdj(9, 3, 3, highs, lows, closings);
 }

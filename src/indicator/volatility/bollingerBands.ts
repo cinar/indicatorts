@@ -1,9 +1,9 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {add, multiplyBy, substract} from '../../helper/numArray';
-import {sma} from '../trend/sma';
-import {mstd} from './mstd';
+import { add, multiplyBy, substract } from '../../helper/numArray';
+import { sma } from '../trend/sma';
+import { mstd } from './mstd';
 
 const BB_PERIOD = 20;
 

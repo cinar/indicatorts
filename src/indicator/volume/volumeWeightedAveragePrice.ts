@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {divide, multiply} from '../../helper/numArray';
-import {msum} from '../trend/msum';
+import { divide, multiply } from '../../helper/numArray';
+import { msum } from '../trend/msum';
 
 /**
  * Default period for VWAP.
@@ -21,11 +21,14 @@ export const VWAP_DEFAULT_PERIOD = 14;
  * @returns vwap values.
  */
 export function volumeWeightedAveragePrice(
-    period: number,
-    closings: number[],
-    volumes: number[],
+  period: number,
+  closings: number[],
+  volumes: number[]
 ): number[] {
-  return divide(msum(period, multiply(closings, volumes)), msum(period, volumes));
+  return divide(
+    msum(period, multiply(closings, volumes)),
+    msum(period, volumes)
+  );
 }
 
 /**
@@ -36,8 +39,8 @@ export function volumeWeightedAveragePrice(
  * @returns vwap values.
  */
 export function defaultVolumeWeightedAveragePrice(
-    closings: number[],
-    volumes: number[],
+  closings: number[],
+  volumes: number[]
 ): number[] {
   return volumeWeightedAveragePrice(VWAP_DEFAULT_PERIOD, closings, volumes);
 }

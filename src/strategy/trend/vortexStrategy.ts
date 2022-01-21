@@ -1,9 +1,9 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {Asset} from '../asset';
-import {Action} from '../action';
-import {vortex} from '../../indicator/trend/vortex';
+import { Asset } from '../asset';
+import { Action } from '../action';
+import { vortex } from '../../indicator/trend/vortex';
 
 /**
  * Vortex strategy.
@@ -11,11 +11,7 @@ import {vortex} from '../../indicator/trend/vortex';
  * @return strategy actions.
  */
 export function vortexStrategy(asset: Asset): Action[] {
-  const indicator = vortex(
-      asset.highs,
-      asset.lows,
-      asset.closings,
-  );
+  const indicator = vortex(asset.highs, asset.lows, asset.closings);
 
   const actions = new Array<Action>(indicator.plusVi.length);
 

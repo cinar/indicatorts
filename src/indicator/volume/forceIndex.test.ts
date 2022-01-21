@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {roundDigitsAll} from '../../helper/numArray';
-import {defaultForceIndex, forceIndex} from './forceIndex';
+import { roundDigitsAll } from '../../helper/numArray';
+import { defaultForceIndex, forceIndex } from './forceIndex';
 
 describe('Force Index', () => {
   it('should be able to compute FI', () => {

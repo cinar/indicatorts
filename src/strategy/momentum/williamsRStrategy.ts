@@ -1,9 +1,9 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {Asset} from '../asset';
-import {Action} from '../action';
-import {williamsR} from '../../indicator/momentum/williamsR';
+import { Asset } from '../asset';
+import { Action } from '../action';
+import { williamsR } from '../../indicator/momentum/williamsR';
 
 /**
  * Williams R strategy function.
@@ -12,11 +12,7 @@ import {williamsR} from '../../indicator/momentum/williamsR';
  * @return strategy actions.
  */
 export function williamsRStrategy(asset: Asset): Action[] {
-  const wr = williamsR(
-      asset.highs,
-      asset.lows,
-      asset.closings,
-  );
+  const wr = williamsR(asset.highs, asset.lows, asset.closings);
 
   return wr.map((value) => {
     if (value <= -80) {

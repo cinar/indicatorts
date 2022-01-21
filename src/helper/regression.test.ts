@@ -1,9 +1,13 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {deepStrictEqual, strictEqual} from 'assert';
-import {roundDigits, roundDigitsAll} from './numArray';
-import {leastSquare, linearRegressionUsingLeastSquare, movingLeastSquare} from './regression';
+import { deepStrictEqual, strictEqual } from 'assert';
+import { roundDigits, roundDigitsAll } from './numArray';
+import {
+  leastSquare,
+  linearRegressionUsingLeastSquare,
+  movingLeastSquare,
+} from './regression';
 
 describe('Linear Regressin', () => {
   it('should be able to compute the least square', () => {

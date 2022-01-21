@@ -12,8 +12,5 @@ export default {
       format: 'es',
     },
   ],
-  plugins: [
-    ts(),
-  ],
+  plugins: [ts()],
 };
-

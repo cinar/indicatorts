@@ -1,10 +1,10 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {Asset} from '../asset';
-import {Action} from '../action';
-import {parabolicSar} from '../../indicator/trend/parabolicSar';
-import {Trend} from '../../indicator/trend';
+import { Asset } from '../asset';
+import { Action } from '../action';
+import { parabolicSar } from '../../indicator/trend/parabolicSar';
+import { Trend } from '../../indicator/trend';
 
 /**
  * Parabolic SAR strategy function.
@@ -13,11 +13,7 @@ import {Trend} from '../../indicator/trend';
  * @return strategy actions.
  */
 export function parabolicSarStrategy(asset: Asset): Action[] {
-  const psar = parabolicSar(
-      asset.highs,
-      asset.lows,
-      asset.closings,
-  );
+  const psar = parabolicSar(asset.highs, asset.lows, asset.closings);
 
   return psar.trends.map((trend) => {
     switch (trend) {

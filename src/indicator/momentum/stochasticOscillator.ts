@@ -1,10 +1,10 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {divide, multiplyBy, substract} from '../../helper/numArray';
-import {mmin} from '../trend/mmin';
-import {mmax} from '../trend/mmax';
-import {sma} from '../trend/sma';
+import { divide, multiplyBy, substract } from '../../helper/numArray';
+import { mmin } from '../trend/mmin';
+import { mmax } from '../trend/mmax';
+import { sma } from '../trend/sma';
 
 /**
  * Stochastic oscillator result object.
@@ -28,17 +28,20 @@ export interface StochasticOscillator {
  * @return stochastic oscillator result object.
  */
 export function stochasticOscillator(
-    highs: number[],
-    lows: number[],
-    closings: number[],
+  highs: number[],
+  lows: number[],
+  closings: number[]
 ): StochasticOscillator {
   const highestHigh14 = mmax(14, highs);
   const lowestLow14 = mmin(14, lows);
 
-  const k = multiplyBy(100,
-      divide(
-          substract(closings, lowestLow14),
-          substract(highestHigh14, lowestLow14)));
+  const k = multiplyBy(
+    100,
+    divide(
+      substract(closings, lowestLow14),
+      substract(highestHigh14, lowestLow14)
+    )
+  );
 
   const d = sma(3, k);
 

@@ -1,10 +1,10 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {applyActions} from '../strategy/action';
-import {Asset} from '../strategy/asset';
-import {StrategyInfo} from './strategyInfo';
-import {StrategyResult} from './strategyResult';
+import { applyActions } from '../strategy/action';
+import { Asset } from '../strategy/asset';
+import { StrategyInfo } from './strategyInfo';
+import { StrategyResult } from './strategyResult';
 
 /**
  * Backtests the given strategies.
@@ -13,7 +13,10 @@ import {StrategyResult} from './strategyResult';
  * @param infos strategy infos.
  * @return strategy results.
  */
-export function backtest(asset: Asset, infos: StrategyInfo[]): StrategyResult[] {
+export function backtest(
+  asset: Asset,
+  infos: StrategyInfo[]
+): StrategyResult[] {
   const result = new Array<StrategyResult>(infos.length);
 
   for (let i = 0; i < result.length; i++) {

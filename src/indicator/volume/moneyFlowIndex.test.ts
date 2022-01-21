@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {roundDigitsAll} from '../../helper/numArray';
-import {moneyFlowIndex} from './moneyFlowIndex';
+import { roundDigitsAll } from '../../helper/numArray';
+import { moneyFlowIndex } from './moneyFlowIndex';
 
 describe('Money Flow Index (MFI)', () => {
   it('should be able to compute MFI', () => {

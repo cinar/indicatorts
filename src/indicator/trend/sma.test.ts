@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {deepStrictEqual} from 'assert';
-import {sma} from './sma';
+import { deepStrictEqual } from 'assert';
+import { sma } from './sma';
 
 describe('Simple Moving Average (SMA)', () => {
   it('should be able to compute SMA', () => {
