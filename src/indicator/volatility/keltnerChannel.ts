@@ -1,8 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { multiplyBy } from '../../../dist/index';
-import { add, substract } from '../../helper/numArray';
+import { add, multiplyBy, substract } from '../../helper/numArray';
 import { ema } from '../trend/ema';
 import { atr } from './atr';
 
