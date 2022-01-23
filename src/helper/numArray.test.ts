@@ -85,6 +85,15 @@ describe('Number Array', () => {
     deepStrictEqual(actual, expected);
   });
 
+  it('should be able to shift and fill values', () => {
+    const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const expected = [1, 1, 1, 2, 3, 4, 5, 6, 7, 8];
+    const n = 2;
+
+    const actual = NumArray.shiftRightAndFillBy(n, values[0], values);
+    deepStrictEqual(actual, expected);
+  });
+
   it('should be able to shift values', () => {
     const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const expected = [0, 0, 1, 2, 3, 4, 5, 6, 7, 8];

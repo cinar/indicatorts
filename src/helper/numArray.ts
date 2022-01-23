@@ -163,23 +163,38 @@ export function substractBy(n: number, values: number[]): number[] {
 }
 
 /**
- * Shifts values right by given amount.
+ * Shift values right by given amount and fill with value.
  * @param n shift amount.
+ * @param fill fill value.
  * @param values values array.
- * @return shifted values.
+ * @returns shifted and filled values.
  */
-export function shiftRightBy(n: number, values: number[]): number[] {
+export function shiftRightAndFillBy(
+  n: number,
+  fill: number,
+  values: number[]
+): number[] {
   const result = new Array<number>(values.length);
 
   for (let i = 0; i < result.length; i++) {
     if (i < n) {
-      result[i] = 0;
+      result[i] = fill;
     } else {
       result[i] = values[i - n];
     }
   }
 
   return result;
+}
+
+/**
+ * Shifts values right by given amount.
+ * @param n shift amount.
+ * @param values values array.
+ * @return shifted values.
+ */
+export function shiftRightBy(n: number, values: number[]): number[] {
+  return shiftRightAndFillBy(n, 0, values);
 }
 
 /**

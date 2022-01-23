@@ -6,7 +6,6 @@ Trend indicators measure the direction and strength of a trend.
 - [Aroon Indicator](#aroon-indicator)
 - [Balance of Power (BOP)](trend_indicators.md#balance-of-power-bop)
 - [Chande Forecast Oscillator (CFO)](#chande-forecast-oscillator-cfo)
-- [Community Channel Index (CMI)](#community-channel-index-cmi)
 - [Double Exponential Moving Average (DEMA)](#double-exponential-moving-average-dema)
 - [Exponential Moving Average (EMA)](#exponential-moving-average-ema)
 - [Moving Average Convergence Divergence (MACD)](#moving-average-convergence-divergence-macd)
@@ -18,8 +17,9 @@ Trend indicators measure the direction and strength of a trend.
 - [Random Index (KDJ)](#random-index-kdj)
 - [Simple Moving Average (SMA)](#simple-moving-average-sma)
 - [Since Change](#since-change)
-- [Triangular Moving Average (TRIMA)](#triangular-moving-average-trima)
 - [Triple Exponential Moving Average (TEMA)](#triple-exponential-moving-average-tema)
+- [Triangular Moving Average (TRIMA)](#triangular-moving-average-trima)
+- [Triple Exponential Average (TRIX)](#triple-exponential-average-trix)
 - [Typical Price](#typical-price)
 - [Vortex Indicator](#vortex-indicator)
 
@@ -86,30 +86,6 @@ Based on [Chande Forecast Oscillator Formula, Strategy](https://www.stockmaniacs
 import {chandeForecastOscillator} from 'indicatorts';
 
 const cfo = chandeForecastOscillator(closings);
-```
-
-#### Community Channel Index (CMI)
-
-The [communityChannelIndex](./communityChannelIndex.ts) is a momentum-based oscillator used to help determine when an investment vehicle is reaching a condition of being overbought or oversold.
-
-```
-Moving Average = Sma(Period, Typical Price)
-Mean Deviation = Sma(Period, Abs(Typical Price - Moving Average))
-CMI = (Typical Price - Moving Average) / (0.015 * Mean Deviation)
-```
-
-```TypeScript
-import {communityChannelIndex} from 'indicatorts';
-
-const result = communityChannelIndex(period, highs, lows, closings);
-```
-
-The [defaultCommunityChannelIndex](./communityChannelIndex.ts) calculates with the period of 20.
-
-```TypeScript
-import {defaultCommunityChannelIndex} from 'indicatorts';
-
-const result = defaultCommunityChannelIndex(highs, lows, closings);
 ```
 
 #### Double Exponential Moving Average (DEMA)
@@ -278,6 +254,27 @@ import {since} from 'indicatorts';
 const result = since(values);
 ```
 
+#### Triple Exponential Moving Average (TEMA)
+
+The [tema](./tema.ts) function calculates the Triple Exponential Moving Average (TEMA) for a given period.
+
+The triple exponential moving average (TEMA) was designed to smooth value fluctuations, thereby making it easier to identify trends without the lag associated with traditional moving averages. It does this by taking multiple exponential moving averages (EMA) of the original EMA and subtracting out some of the lag.
+
+```
+TEMA = (3 * EMA1) - (3 * EMA2) + EMA3
+EMA1 = EMA(values)
+EMA2 = EMA(EMA1)
+EMA3 = EMA(EMA2)
+```
+
+```TypeScript
+import {tema} from 'indicatorts';
+
+const result = tema(period, values);
+```
+
+Based on [Triple Exponential Moving Average (TEMA)](https://www.investopedia.com/terms/t/triple-exponential-moving-average.asp).
+
 #### Triangular Moving Average (TRIMA)
 
 The [trima](./trima.ts) function calculates the Triangular Moving Average (TRIMA) for a given period.
@@ -299,26 +296,22 @@ const result = trima(period, values);
 
 Based on [Triangular Moving Average](https://tulipindicators.org/trima).
 
-#### Triple Exponential Moving Average (TEMA)
+#### Triple Exponential Average (TRIX)
 
-The [tema](./tema.ts) function calculates the Triple Exponential Moving Average (TEMA) for a given period.
-
-The triple exponential moving average (TEMA) was designed to smooth value fluctuations, thereby making it easier to identify trends without the lag associated with traditional moving averages. It does this by taking multiple exponential moving averages (EMA) of the original EMA and subtracting out some of the lag.
+The [trix](./trix.ts) indicator is an oscillator used to identify oversold and overbought markets, and it can also be used as a momentum indicator. Like many oscillators, TRIX oscillates around a zero line.
 
 ```
-TEMA = (3 * EMA1) - (3 * EMA2) + EMA3
-EMA1 = EMA(values)
-EMA2 = EMA(EMA1)
-EMA3 = EMA(EMA2)
+EMA1 = EMA(period, values)
+EMA2 = EMA(period, EMA1)
+EMA3 = EMA(period, EMA2)
+TRIX = (EMA3 - Previous EMA3) / Previous EMA3
 ```
 
 ```TypeScript
-import {tema} from 'indicatorts';
+import {trix} from 'indicatorts';
 
-const result = tema(period, values);
+const result = trix(period, values);
 ```
-
-Based on [Triple Exponential Moving Average (TEMA)](https://www.investopedia.com/terms/t/triple-exponential-moving-average.asp).
 
 #### Typical Price
 
