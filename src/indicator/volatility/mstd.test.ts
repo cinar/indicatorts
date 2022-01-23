@@ -1,9 +1,9 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {deepStrictEqual} from 'assert';
-import {roundDigitsAll} from '../../helper/numArray';
-import {mstd} from './mstd';
+import { deepStrictEqual } from 'assert';
+import { roundDigitsAll } from '../../helper/numArray';
+import { mstd } from './mstd';
 
 describe('Standard deviation', () => {
   it('should be able to compute std', () => {

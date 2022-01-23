@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {roundDigitsAll} from '../../index';
-import {defaultEaseOfMovement} from './easeOfMovement';
+import { roundDigitsAll } from '../../index';
+import { defaultEaseOfMovement } from './easeOfMovement';
 
 describe('Ease of Movement (EMV)', () => {
   it('should be able to compute EMV', () => {

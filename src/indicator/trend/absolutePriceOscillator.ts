@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {substract} from '../../helper/numArray';
-import {ema} from './ema';
+import { substract } from '../../helper/numArray';
+import { ema } from './ema';
 
 /**
  * Absolute Price Oscillator (APO) function calculates the technical indicator
@@ -20,9 +20,9 @@ import {ema} from './ema';
  * @return apo array.
  */
 export function absolutePriceOscillator(
-    fastPeriod: number,
-    slowPeriod: number,
-    values: number[],
+  fastPeriod: number,
+  slowPeriod: number,
+  values: number[]
 ): number[] {
   const fast = ema(fastPeriod, values);
   const slow = ema(slowPeriod, values);

@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {deepStrictEqual} from 'assert';
-import {since} from './since';
+import { deepStrictEqual } from 'assert';
+import { since } from './since';
 
 describe('Since last change count', () => {
   it('should be able to compute since', () => {

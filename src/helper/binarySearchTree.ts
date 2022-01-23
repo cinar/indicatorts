@@ -126,7 +126,7 @@ export class BinarySearchTree {
       return;
     }
 
-    if ((info.node.left !== null) && ((info.node.right !== null))) {
+    if (info.node.left !== null && info.node.right !== null) {
       const minInfo = BinarySearchTree.minNode(info.node.right);
       if (minInfo.parent === null) {
         minInfo.parent = info.node;

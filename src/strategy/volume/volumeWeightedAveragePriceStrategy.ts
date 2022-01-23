@@ -1,10 +1,10 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {substract} from '../../helper/numArray';
-import {defaultVolumeWeightedAveragePrice} from '../../indicator/volume/volumeWeightedAveragePrice';
-import {Action} from '../action';
-import {Asset} from '../asset';
+import { substract } from '../../helper/numArray';
+import { defaultVolumeWeightedAveragePrice } from '../../indicator/volume/volumeWeightedAveragePrice';
+import { Action } from '../action';
+import { Asset } from '../asset';
 
 /**
  * Volume weighted average price strategy uses the values that are generated
@@ -16,10 +16,7 @@ import {Asset} from '../asset';
  * @returns strategy actions.
  */
 export function volumeWeightedAveragePriceStrategy(asset: Asset): Action[] {
-  const vwap = defaultVolumeWeightedAveragePrice(
-      asset.closings,
-      asset.volumes,
-  );
+  const vwap = defaultVolumeWeightedAveragePrice(asset.closings, asset.volumes);
 
   const diff = substract(vwap, asset.closings);
 

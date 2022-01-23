@@ -1,9 +1,9 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {Asset} from '../asset';
-import {Action} from '../action';
-import {balanceOfPower} from '../../indicator/trend/balanceOfPower';
+import { Asset } from '../asset';
+import { Action } from '../action';
+import { balanceOfPower } from '../../indicator/trend/balanceOfPower';
 
 /**
  * Balance of power strategy.
@@ -13,10 +13,10 @@ import {balanceOfPower} from '../../indicator/trend/balanceOfPower';
  */
 export function balanceOfPowerStrategy(asset: Asset): Action[] {
   const bop = balanceOfPower(
-      asset.openings,
-      asset.highs,
-      asset.lows,
-      asset.closings,
+    asset.openings,
+    asset.highs,
+    asset.lows,
+    asset.closings
   );
 
   return bop.map((value) => {

@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {deepStrictEqual, strictEqual} from 'assert';
+import { deepStrictEqual, strictEqual } from 'assert';
 import * as NumArray from './numArray';
 
 describe('Number Array', () => {
@@ -113,7 +113,12 @@ describe('Number Array', () => {
   it('should be able to transpose values', () => {
     const values1 = [1, 3, 5, 7];
     const values2 = [2, 4, 6, 8];
-    const expected = [[1, 2], [3, 4], [5, 6], [7, 8]];
+    const expected = [
+      [1, 2],
+      [3, 4],
+      [5, 6],
+      [7, 8],
+    ];
 
     const actual = NumArray.transpose(values1, values2);
     deepStrictEqual(actual, expected);
@@ -138,9 +143,9 @@ describe('Number Array', () => {
   });
 
   it('should be able to round digits for all', () => {
-    const values = [1.2345, 2.5194, 4.1025, 6.7790];
+    const values = [1.2345, 2.5194, 4.1025, 6.779];
     const digits = 2;
-    const expected = [1.23, 2.52, 4.10, 6.78];
+    const expected = [1.23, 2.52, 4.1, 6.78];
 
     const actual = NumArray.roundDigitsAll(digits, values);
     deepStrictEqual(actual, expected);

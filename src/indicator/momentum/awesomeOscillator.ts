@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {add, divideBy, substract} from '../../helper/numArray';
-import {sma} from '../trend/sma';
+import { add, divideBy, substract } from '../../helper/numArray';
+import { sma } from '../trend/sma';
 
 /**
  * Awesome Oscillator.

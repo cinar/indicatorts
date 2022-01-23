@@ -6,7 +6,7 @@
 
 Indicator is a TypeScript module providing various stock technical analysis indicators, strategies, and a backtest framework for trading.
 
-*This is a clone of my [Indicator Go](https://github.com/cinar/indicator) Golang module.*
+_This is a clone of my [Indicator Go](https://github.com/cinar/indicator) Golang module._
 
 ## Indicators Provided
 

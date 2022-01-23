@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {add, divideBy} from '../../helper/numArray';
+import { add, divideBy } from '../../helper/numArray';
 
 /**
  * The Typical Price. It is another approximation of
@@ -16,9 +16,9 @@ import {add, divideBy} from '../../helper/numArray';
  * @return tpi values.
  */
 export function typicalPrice(
-    highs: number[],
-    lows: number[],
-    closings: number[],
+  highs: number[],
+  lows: number[],
+  closings: number[]
 ): number[] {
   return divideBy(3, add(add(highs, lows), closings));
 }

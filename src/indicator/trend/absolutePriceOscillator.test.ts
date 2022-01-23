@@ -1,9 +1,9 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {deepStrictEqual} from 'assert';
-import {roundDigitsAll} from '../../helper/numArray';
-import {absolutePriceOscillator} from './absolutePriceOscillator';
+import { deepStrictEqual } from 'assert';
+import { roundDigitsAll } from '../../helper/numArray';
+import { absolutePriceOscillator } from './absolutePriceOscillator';
 
 describe('Absolute Price Oscillator (APO)', () => {
   it('should be able to compute APO', () => {

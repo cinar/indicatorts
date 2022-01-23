@@ -1,9 +1,9 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {roundDigits} from '../helper/numArray';
-import {NumRange} from './numRange';
-import {NumScaler} from './numScaler';
+import { roundDigits } from '../helper/numArray';
+import { NumRange } from './numRange';
+import { NumScaler } from './numScaler';
 
 const DEFAULT_STYLE = 'black';
 const DEFAULT_WIDTH = 1;
@@ -19,10 +19,10 @@ const DEFAULT_RANGE = new NumRange(0, 1);
  * Data set.
  */
 export interface DataSet {
-  legend: string,
-  values: number[],
-  style?: string | string[],
-  width?: number,
+  legend: string;
+  values: number[];
+  style?: string | string[];
+  width?: number;
 }
 
 /**
@@ -184,14 +184,16 @@ export class Chart {
     this.context.textBaseline = 'bottom';
 
     for (const dataSet of this.dataSets.values()) {
-      if ((index >= 0) && (index < dataSet.values.length)) {
-        const text = dataSet.legend + ' ' + roundDigits(2, dataSet.values[index]).toString();
+      if (index >= 0 && index < dataSet.values.length) {
+        const text =
+          dataSet.legend +
+          ' ' +
+          roundDigits(2, dataSet.values[index]).toString();
 
         this.context.fillStyle = this.styleAtIndex(dataSet, index);
-        this.context.fillText(text, xOffset,
-            this.canvas.height - LEGEND_GAP);
+        this.context.fillText(text, xOffset, this.canvas.height - LEGEND_GAP);
 
-        xOffset += (this.context.measureText(text).width + LEGEND_GAP);
+        xOffset += this.context.measureText(text).width + LEGEND_GAP;
       }
     }
   }
@@ -213,17 +215,18 @@ export class Chart {
     }
 
     this.xScaler = new NumScaler(
-        new NumRange(0, Math.max(
-            ...Array.from(this.dataSets.values(), (d) => d.values.length)),
-        ),
-        new NumRange(0, this.canvas.width),
+      new NumRange(
+        0,
+        Math.max(...Array.from(this.dataSets.values(), (d) => d.values.length))
+      ),
+      new NumRange(0, this.canvas.width)
     );
 
     this.yScaler = new NumScaler(
-        NumRange.merge(
-            Array.from(this.dataSets.values(), (d) => NumRange.from(d.values)),
-        ),
-        new NumRange(0, this.chartHeight()),
+      NumRange.merge(
+        Array.from(this.dataSets.values(), (d) => NumRange.from(d.values))
+      ),
+      new NumRange(0, this.chartHeight())
     );
   }
 

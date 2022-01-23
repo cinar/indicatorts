@@ -1,9 +1,15 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {divide, multiply, multiplyBy, sqrt, substract} from '../../helper/numArray';
-import {mmax} from '../trend/mmax';
-import {sma} from '../trend/sma';
+import {
+  divide,
+  multiply,
+  multiplyBy,
+  sqrt,
+  substract,
+} from '../../helper/numArray';
+import { mmax } from '../trend/mmax';
+import { sma } from '../trend/sma';
 
 /**
  * Default period for UI.
@@ -26,8 +32,14 @@ export const UI_DEFAULT_PERIOD = 14;
  */
 export function ulcerIndex(period: number, closings: number[]): number[] {
   const highClosings = mmax(period, closings);
-  const percentageDrawdown = multiplyBy(100, divide(substract(closings, highClosings), highClosings));
-  const squaredAverage = sma(period, multiply(percentageDrawdown, percentageDrawdown));
+  const percentageDrawdown = multiplyBy(
+    100,
+    divide(substract(closings, highClosings), highClosings)
+  );
+  const squaredAverage = sma(
+    period,
+    multiply(percentageDrawdown, percentageDrawdown)
+  );
   const ui = sqrt(squaredAverage);
 
   return ui;
@@ -42,4 +54,3 @@ export function ulcerIndex(period: number, closings: number[]): number[] {
 export function defaultUlcerIndex(closings: number[]): number[] {
   return ulcerIndex(UI_DEFAULT_PERIOD, closings);
 }
-

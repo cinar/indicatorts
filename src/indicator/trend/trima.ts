@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {sma} from './sma';
+import { sma } from './sma';
 
 /**
  * Trima function calculates the Triangular Moving Average (TRIMA).

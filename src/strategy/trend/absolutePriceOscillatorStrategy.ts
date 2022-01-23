@@ -1,9 +1,12 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {Asset} from '../asset';
-import {Action} from '../action';
-import {absolutePriceOscillator, defaultAbsolutePriceOscillator} from '../../indicator/trend/absolutePriceOscillator';
+import { Asset } from '../asset';
+import { Action } from '../action';
+import {
+  absolutePriceOscillator,
+  defaultAbsolutePriceOscillator,
+} from '../../indicator/trend/absolutePriceOscillator';
 
 /**
  * Runs the APO strategy based on the indicator.
@@ -36,15 +39,13 @@ function runStrategy(indicator: number[]): Action[] {
  * @return strategy actions.
  */
 export function absolutePriceOscillatorStrategy(
-    fastPeriod: number,
-    slowPeriod: number,
-    asset: Asset,
+  fastPeriod: number,
+  slowPeriod: number,
+  asset: Asset
 ): Action[] {
-  return runStrategy(absolutePriceOscillator(
-      fastPeriod,
-      slowPeriod,
-      asset.closings,
-  ));
+  return runStrategy(
+    absolutePriceOscillator(fastPeriod, slowPeriod, asset.closings)
+  );
 }
 
 /**

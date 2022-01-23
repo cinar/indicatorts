@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {daysLaterFrom, toISODateString} from './date';
+import { daysLaterFrom, toISODateString } from './date';
 
 describe('Date helpers', () => {
   it('should be able to compute iso', () => {

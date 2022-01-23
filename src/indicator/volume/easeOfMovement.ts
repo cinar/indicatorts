@@ -1,8 +1,14 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {add, changes, divide, divideBy, substract} from '../../helper/numArray';
-import {sma} from '../trend/sma';
+import {
+  add,
+  changes,
+  divide,
+  divideBy,
+  substract,
+} from '../../helper/numArray';
+import { sma } from '../trend/sma';
 
 /**
  * Default period for EMV.
@@ -25,10 +31,10 @@ export const EMV_DEFAULT_PERIOD = 14;
  * @return ease of movement values.
  */
 export function easeOfMovement(
-    period: number,
-    highs: number[],
-    lows: number[],
-    volumes: number[],
+  period: number,
+  highs: number[],
+  lows: number[],
+  volumes: number[]
 ): number[] {
   const distanceMoved = changes(1, divideBy(2, add(highs, lows)));
   const boxRatio = divide(divideBy(100000000, volumes), substract(highs, lows));
@@ -45,9 +51,9 @@ export function easeOfMovement(
  * @return ease of movement values.
  */
 export function defaultEaseOfMovement(
-    highs: number[],
-    lows: number[],
-    volumes: number[],
+  highs: number[],
+  lows: number[],
+  volumes: number[]
 ): number[] {
   return easeOfMovement(EMV_DEFAULT_PERIOD, highs, lows, volumes);
 }

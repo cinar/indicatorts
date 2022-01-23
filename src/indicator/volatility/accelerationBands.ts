@@ -1,8 +1,16 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {add, addBy, checkSameLength, divide, multiply, multiplyBy, substract} from '../../helper/numArray';
-import {sma} from '../trend/sma';
+import {
+  add,
+  addBy,
+  checkSameLength,
+  divide,
+  multiply,
+  multiplyBy,
+  substract,
+} from '../../helper/numArray';
+import { sma } from '../trend/sma';
 
 /**
  * Acceleration bands result object.
@@ -27,9 +35,9 @@ export interface AccelerationBands {
  * @return acceleration band.
  */
 export function accelerationBands(
-    highs: number[],
-    lows: number[],
-    closings: number[],
+  highs: number[],
+  lows: number[],
+  closings: number[]
 ): AccelerationBands {
   checkSameLength(highs, lows, closings);
 

@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {strictEqual} from 'assert';
-import {BinarySearchTree} from './binarySearchTree';
+import { strictEqual } from 'assert';
+import { BinarySearchTree } from './binarySearchTree';
 
 describe('Binary Search Tree (BST)', () => {
   it('should be able to compute min', () => {
@@ -18,7 +18,7 @@ describe('Binary Search Tree (BST)', () => {
     for (let i = values.length - 1; i > 0; i--) {
       const removed = bst.remove(values[i]);
       strictEqual(removed, true);
-      strictEqual(bst.min(), expected[i-1]);
+      strictEqual(bst.min(), expected[i - 1]);
     }
   });
   it('should be able to compute max', () => {
@@ -34,7 +34,7 @@ describe('Binary Search Tree (BST)', () => {
     for (let i = values.length - 1; i > 0; i--) {
       const removed = bst.remove(values[i]);
       strictEqual(removed, true);
-      strictEqual(bst.max(), expected[i-1]);
+      strictEqual(bst.max(), expected[i - 1]);
     }
   });
 });

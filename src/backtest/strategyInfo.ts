@@ -1,34 +1,34 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {buyAndHoldStrategy} from '../strategy/buyAndHoldStrategy';
-import {awesomeOscillatorStrategy} from '../strategy/momentum/awesomeOscillatorStrategy';
-import {ichimokuCloudStrategy} from '../strategy/momentum/ichimokuCloudStrategy';
-import {stochasticOscillatorStrategy} from '../strategy/momentum/stochasticOscillatorStrategy';
-import {williamsRStrategy} from '../strategy/momentum/williamsRStrategy';
-import {StrategyFunction} from '../strategy/strategyFunction';
-import {defaultAbsolutePriceOscillatorStrategy} from '../strategy/trend/absolutePriceOscillatorStrategy';
-import {aroonStrategy} from '../strategy/trend/aroonStrategy';
-import {balanceOfPowerStrategy} from '../strategy/trend/balanceOfPowerStrategy';
-import {chandeForecastOscillatorStrategy} from '../strategy/trend/chandeForecastOscillatorStrategy';
-import {kdjStrategy} from '../strategy/trend/kdjStrategy';
-import {macdStrategy} from '../strategy/trend/macdStrategy';
-import {parabolicSarStrategy} from '../strategy/trend/parabolicSarStrategy';
-import {typicalPriceStrategy} from '../strategy/trend/typicalPriceStrategy';
-import {vortexStrategy} from '../strategy/trend/vortexStrategy';
-import {accelerationBandsStrategy} from '../strategy/volatility/accelerationBandsStrategy';
-import {bollingerBandsStrategy} from '../strategy/volatility/bollingerBandsStrategy';
-import {projectionOscillatorStrategy} from '../strategy/volatility/projectionOscillatorStrategy';
-import {chaikinMoneyFlowStrategy} from '../strategy/volume/chaikinMoneyFlowStrategy';
-import {easeOfMovementStrategy} from '../strategy/volume/easeOfMovementStrategy';
-import {forceIndexStrategy} from '../strategy/volume/forceIndexStrategy';
-import {moneyFlowIndexStrategy} from '../strategy/volume/moneyFlowIndexStrategy';
-import {negativeVolumeIndexStrategy} from '../strategy/volume/negativeVolumeIndexStrategy';
-import {volumeWeightedAveragePriceStrategy} from '../strategy/volume/volumeWeightedAveragePriceStrategy';
+import { buyAndHoldStrategy } from '../strategy/buyAndHoldStrategy';
+import { awesomeOscillatorStrategy } from '../strategy/momentum/awesomeOscillatorStrategy';
+import { ichimokuCloudStrategy } from '../strategy/momentum/ichimokuCloudStrategy';
+import { stochasticOscillatorStrategy } from '../strategy/momentum/stochasticOscillatorStrategy';
+import { williamsRStrategy } from '../strategy/momentum/williamsRStrategy';
+import { StrategyFunction } from '../strategy/strategyFunction';
+import { defaultAbsolutePriceOscillatorStrategy } from '../strategy/trend/absolutePriceOscillatorStrategy';
+import { aroonStrategy } from '../strategy/trend/aroonStrategy';
+import { balanceOfPowerStrategy } from '../strategy/trend/balanceOfPowerStrategy';
+import { chandeForecastOscillatorStrategy } from '../strategy/trend/chandeForecastOscillatorStrategy';
+import { kdjStrategy } from '../strategy/trend/kdjStrategy';
+import { macdStrategy } from '../strategy/trend/macdStrategy';
+import { parabolicSarStrategy } from '../strategy/trend/parabolicSarStrategy';
+import { typicalPriceStrategy } from '../strategy/trend/typicalPriceStrategy';
+import { vortexStrategy } from '../strategy/trend/vortexStrategy';
+import { accelerationBandsStrategy } from '../strategy/volatility/accelerationBandsStrategy';
+import { bollingerBandsStrategy } from '../strategy/volatility/bollingerBandsStrategy';
+import { projectionOscillatorStrategy } from '../strategy/volatility/projectionOscillatorStrategy';
+import { chaikinMoneyFlowStrategy } from '../strategy/volume/chaikinMoneyFlowStrategy';
+import { easeOfMovementStrategy } from '../strategy/volume/easeOfMovementStrategy';
+import { forceIndexStrategy } from '../strategy/volume/forceIndexStrategy';
+import { moneyFlowIndexStrategy } from '../strategy/volume/moneyFlowIndexStrategy';
+import { negativeVolumeIndexStrategy } from '../strategy/volume/negativeVolumeIndexStrategy';
+import { volumeWeightedAveragePriceStrategy } from '../strategy/volume/volumeWeightedAveragePriceStrategy';
 
 /**
-  * Strategy info.
-  */
+ * Strategy info.
+ */
 export interface StrategyInfo {
   name: string;
   strategy: StrategyFunction;

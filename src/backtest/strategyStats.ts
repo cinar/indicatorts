@@ -1,9 +1,9 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {CompanyResult} from './companyResult';
-import {StrategyInfo} from './strategyInfo';
-import {StrategyResult} from './strategyResult';
+import { CompanyResult } from './companyResult';
+import { StrategyInfo } from './strategyInfo';
+import { StrategyResult } from './strategyResult';
 
 /**
  * Strategy stats.
@@ -51,7 +51,9 @@ function updateStrategyStats(stats: StrategyStats, result: StrategyResult) {
  * @param companyResults company results.
  * @return stats array.
  */
-export function computeStrategyStats(companyResults: CompanyResult[]): StrategyStats[] {
+export function computeStrategyStats(
+  companyResults: CompanyResult[]
+): StrategyStats[] {
   const statsMap = new Map<string, StrategyStats>();
 
   for (const companyResult of companyResults) {
@@ -61,8 +63,7 @@ export function computeStrategyStats(companyResults: CompanyResult[]): StrategyS
     if (strategyStats !== undefined) {
       updateStrategyStats(strategyStats, strategyResult);
     } else {
-      statsMap.set(strategyResult.info.name,
-          newStrategyStats(strategyResult));
+      statsMap.set(strategyResult.info.name, newStrategyStats(strategyResult));
     }
   }
 
@@ -80,7 +81,7 @@ export enum StrategyStatsSortBy {
   SCORE,
   MIN,
   MAX,
-  AVERAGE
+  AVERAGE,
 }
 
 /**
@@ -92,15 +93,17 @@ export enum StrategyStatsSortBy {
  * @return sorted stats.
  */
 export function sortStrategyStats(
-    strategyStats: StrategyStats[],
-    sortBy: StrategyStatsSortBy,
-    ascending: boolean,
+  strategyStats: StrategyStats[],
+  sortBy: StrategyStatsSortBy,
+  ascending: boolean
 ): StrategyStats[] {
   let sorted: StrategyStats[] = [];
 
   switch (sortBy) {
     case StrategyStatsSortBy.STRATEGY:
-      sorted = strategyStats.sort((a, b) => a.strategyInfo.name.localeCompare(b.strategyInfo.name));
+      sorted = strategyStats.sort((a, b) =>
+        a.strategyInfo.name.localeCompare(b.strategyInfo.name)
+      );
       break;
 
     case StrategyStatsSortBy.SCORE:

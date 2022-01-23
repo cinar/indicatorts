@@ -1,9 +1,9 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {divide, substract} from '../../helper/numArray';
-import {ema} from '../trend/ema';
-import {BollingerBands} from './bollingerBands';
+import { divide, substract } from '../../helper/numArray';
+import { ema } from '../trend/ema';
+import { BollingerBands } from './bollingerBands';
 
 const PERIOD = 90;
 
@@ -30,8 +30,9 @@ export interface BollingerBandsWidth {
  */
 export function bollingerBandsWidth(bb: BollingerBands): BollingerBandsWidth {
   const bandWidth = divide(
-      substract(bb.upperBand, bb.lowerBand),
-      bb.middleBand);
+    substract(bb.upperBand, bb.lowerBand),
+    bb.middleBand
+  );
 
   const bandWidthEma90 = ema(PERIOD, bandWidth);
 

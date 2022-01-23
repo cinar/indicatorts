@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {multiplyBy, substract} from '../../helper/numArray';
-import {ema} from './ema';
+import { multiplyBy, substract } from '../../helper/numArray';
+import { ema } from './ema';
 
 /**
  * Dema calculates the Double Exponential Moving Average (DEMA).

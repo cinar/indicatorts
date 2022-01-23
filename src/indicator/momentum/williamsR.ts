@@ -1,9 +1,9 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {divide, multiplyBy, substract} from '../../helper/numArray';
-import {mmax} from '../trend/mmax';
-import {mmin} from '../trend/mmin';
+import { divide, multiplyBy, substract } from '../../helper/numArray';
+import { mmax } from '../trend/mmax';
+import { mmin } from '../trend/mmin';
 
 const PERIOD = 14;
 
@@ -20,14 +20,14 @@ const PERIOD = 14;
  * @return wr values.
  */
 export function williamsR(
-    highs: number[],
-    lows: number[],
-    closings: number[],
+  highs: number[],
+  lows: number[],
+  closings: number[]
 ): number[] {
   const highestHigh = mmax(PERIOD, highs);
   const lowestLow = mmin(PERIOD, lows);
-  return multiplyBy(-100,
-      divide(
-          substract(highestHigh, closings),
-          substract(highestHigh, lowestLow)));
+  return multiplyBy(
+    -100,
+    divide(substract(highestHigh, closings), substract(highestHigh, lowestLow))
+  );
 }

@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {deepStrictEqual} from 'assert';
-import {mmin} from './mmin';
+import { deepStrictEqual } from 'assert';
+import { mmin } from './mmin';
 
 describe('Moving Min', () => {
   it('should be able to compute min', () => {

@@ -48,10 +48,9 @@ export class NumRange {
    * @return merged ranges.
    */
   static merge(ranges: NumRange[]): NumRange {
-    return ranges.reduce((p, c) => new NumRange(
-        Math.min(p.min, c.min),
-        Math.max(p.max, c.max),
-    ));
+    return ranges.reduce(
+      (p, c) => new NumRange(Math.min(p.min, c.min), Math.max(p.max, c.max))
+    );
   }
 
   /**
@@ -60,10 +59,6 @@ export class NumRange {
    * @return range of the values.
    */
   static from(values: number[]): NumRange {
-    return new NumRange(
-        Math.min(...values),
-        Math.max(...values),
-    );
+    return new NumRange(Math.min(...values), Math.max(...values));
   }
 }
-

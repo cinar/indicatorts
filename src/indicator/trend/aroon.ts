@@ -1,10 +1,15 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {addBy, checkSameLength, divideBy, multiplyBy} from '../../helper/numArray';
-import {since} from './since';
-import {mmin} from './mmin';
-import {mmax} from './mmax';
+import {
+  addBy,
+  checkSameLength,
+  divideBy,
+  multiplyBy,
+} from '../../helper/numArray';
+import { since } from './since';
+import { mmin } from './mmin';
+import { mmax } from './mmax';
 
 /**
  * Aroon period.
@@ -15,8 +20,8 @@ const AROON_PERIOD = 25;
  * Aroon result.
  */
 export interface AroonResult {
-  up: number[],
-  down: number[],
+  up: number[];
+  down: number[];
 }
 
 /**
@@ -40,11 +45,15 @@ export function aroon(highs: number[], lows: number[]): AroonResult {
   const sinceLastHigh = since(mmax(AROON_PERIOD, highs));
   const sinceLastLow = since(mmin(AROON_PERIOD, lows));
 
-  const up = multiplyBy(100,
-      divideBy(AROON_PERIOD, addBy(AROON_PERIOD, multiplyBy(-1, sinceLastHigh))));
+  const up = multiplyBy(
+    100,
+    divideBy(AROON_PERIOD, addBy(AROON_PERIOD, multiplyBy(-1, sinceLastHigh)))
+  );
 
-  const down = multiplyBy(100,
-      divideBy(AROON_PERIOD, addBy(AROON_PERIOD, multiplyBy(-1, sinceLastLow))));
+  const down = multiplyBy(
+    100,
+    divideBy(AROON_PERIOD, addBy(AROON_PERIOD, multiplyBy(-1, sinceLastLow)))
+  );
 
   return {
     up,

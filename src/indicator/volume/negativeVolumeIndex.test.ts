@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {roundDigitsAll} from '../../index';
-import {negativeVolumeIndex} from './negativeVolumeIndex';
+import { roundDigitsAll } from '../../index';
+import { negativeVolumeIndex } from './negativeVolumeIndex';
 
 describe('Negative Volume Index (NVI)', () => {
   it('should be able to compute NVI', () => {

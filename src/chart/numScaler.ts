@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {NumRange} from './numRange';
+import { NumRange } from './numRange';
 
 /**
  * Numeric scaler.
@@ -28,7 +28,7 @@ export class NumScaler {
    * @return scaled value.
    */
   scale(n: number): number {
-    return ((n - this.fromDelta) * this.multiplier) + this.toDelta;
+    return (n - this.fromDelta) * this.multiplier + this.toDelta;
   }
 
   /**
@@ -37,6 +37,6 @@ export class NumScaler {
    * @return descaled value.
    */
   descale(n: number): number {
-    return ((n - this.toDelta) / this.multiplier) + this.fromDelta;
+    return (n - this.toDelta) / this.multiplier + this.fromDelta;
   }
 }

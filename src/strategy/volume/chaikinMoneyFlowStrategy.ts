@@ -1,9 +1,9 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {chaikinMoneyFlow} from '../../indicator/volume/chaikinMoneyFlow';
-import {Action} from '../action';
-import {Asset} from '../asset';
+import { chaikinMoneyFlow } from '../../indicator/volume/chaikinMoneyFlow';
+import { Action } from '../action';
+import { Asset } from '../asset';
 
 /**
  * The chaikin money flow strategy uses the cmf values that are generated
@@ -16,10 +16,10 @@ import {Asset} from '../asset';
  */
 export function chaikinMoneyFlowStrategy(asset: Asset): Action[] {
   const cmf = chaikinMoneyFlow(
-      asset.highs,
-      asset.lows,
-      asset.closings,
-      asset.volumes,
+    asset.highs,
+    asset.lows,
+    asset.closings,
+    asset.volumes
   );
 
   return cmf.map((value) => {

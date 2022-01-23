@@ -11,7 +11,7 @@
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint --ignore-path .gitignore .",
-    "fix": "eslint --fix --ext .ts src",
+    "fix": "prettier --ignore-path .gitignore --write . ; eslint --fix --ext .ts src",
     "test": "jest"
   },
   "repository": {
@@ -32,11 +32,12 @@
   "homepage": "https://github.com/cinar/indicatorts#readme",
   "devDependencies": {
     "@types/jest": "^27.0.3",
-    "@typescript-eslint/eslint-plugin": "^5.9.0",
-    "@typescript-eslint/parser": "^5.9.0",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
     "eslint": "^8.6.0",
-    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.3.0",
     "jest": "^27.4.5",
+    "prettier": "^2.5.1",
     "rollup": "^2.63.0",
     "rollup-plugin-ts": "^2.0.5",
     "ts-jest": "^27.1.2",

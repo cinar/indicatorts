@@ -1,10 +1,10 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {add, multiplyBy, substract} from '../../helper/numArray';
-import {mmax} from '../trend/mmax';
-import {mmin} from '../trend/mmin';
-import {atr} from './atr';
+import { add, multiplyBy, substract } from '../../helper/numArray';
+import { mmax } from '../trend/mmax';
+import { mmin } from '../trend/mmin';
+import { atr } from './atr';
 
 const PERIOD = 22;
 
@@ -29,9 +29,9 @@ export interface ChandelierExitResult {
  * @return chandelier exit.
  */
 export function chandelierExit(
-    highs: number[],
-    lows: number[],
-    closings: number[],
+  highs: number[],
+  lows: number[],
+  closings: number[]
 ): ChandelierExitResult {
   const atrResult = atr(PERIOD, highs, lows, closings);
   const atrLine3 = multiplyBy(3, atrResult.atrLine);
