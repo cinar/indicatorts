@@ -7,6 +7,7 @@ Volatility indicators measure the rate of movement regardless of its direction.
 - [Bollinger Band Width](#bollinger-band-width)
 - [Bollinger Bands](#bollinger-bands)
 - [Chandelier Exit](#chandelier-exit)
+- [Keltner Channel (KC)](#keltner-channel-kc)
 - [Moving Standard Deviation (Std)](#moving-standard-deviation-std)
 - [Projection Oscillator (PO)](#projection-oscillator-po)
 - [Ulcer Index (UI)](#ulcer-index-ui)
@@ -87,6 +88,30 @@ Chandelier Exit Short = 22-Period SMA Low + ATR(22) * 3
 import {chandelierExit} from 'indicatorts';
 
 const result = chandelierExit(highs, lows, closings);
+```
+
+#### Keltner Channel (KC)
+
+The [keltnerChannel](./keltnerChannel.ts) provides volatility-based bands that are placed on either side of an asset's price and can aid in determining the direction of a trend.
+
+```
+Middle Line = EMA(period, closings)
+Upper Band = EMA(period, closings) + 2 * ATR(period, highs, lows, closings)
+Lower Band = EMA(period, closings) - 2 * ATR(period, highs, lows, closings)
+```
+
+```TypeScript
+import {keltnerChannel} from 'indicatorts';
+
+const result = keltnerChannel(period, highs, lows, closings);
+```
+
+The [defaultKeltnerChannel](./keltnerChannel.ts) calculates it with the default period of 20.
+
+```TypeScript
+import {defaultKeltnerChannel} from 'indicatorts';
+
+const result = defaultKeltnerChannel(highs, lows, closings);
 ```
 
 #### Moving Standard Deviation (Std)

@@ -25,7 +25,6 @@ export interface AtrResult {
  * @param lows low values.
  * @param closings closing values.
  * @return atr result.const ATR_PERIOD = 14;
-
  */
 export function atr(
   period: number,
