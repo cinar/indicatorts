@@ -39,6 +39,7 @@ export * from './indicator/trend/since';
 export * from './indicator/trend/sma';
 export * from './indicator/trend/tema';
 export * from './indicator/trend/trima';
+export * from './indicator/trend/trix';
 export * from './indicator/trend/typicalPrice';
 export * from './indicator/trend/vortex';
 export * from './indicator/volatility/accelerationBands';
