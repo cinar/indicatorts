@@ -6,6 +6,7 @@ Trend indicators measure the direction and strength of a trend.
 - [Aroon Indicator](#aroon-indicator)
 - [Balance of Power (BOP)](trend_indicators.md#balance-of-power-bop)
 - [Chande Forecast Oscillator (CFO)](#chande-forecast-oscillator-cfo)
+- [Community Channel Index (CMI)](#community-channel-index-cmi)
 - [Double Exponential Moving Average (DEMA)](#double-exponential-moving-average-dema)
 - [Exponential Moving Average (EMA)](#exponential-moving-average-ema)
 - [Moving Average Convergence Divergence (MACD)](#moving-average-convergence-divergence-macd)
@@ -85,6 +86,30 @@ Based on [Chande Forecast Oscillator Formula, Strategy](https://www.stockmaniacs
 import {chandeForecastOscillator} from 'indicatorts';
 
 const cfo = chandeForecastOscillator(closings);
+```
+
+#### Community Channel Index (CMI)
+
+The [communityChannelIndex](./communityChannelIndex.ts) is a momentum-based oscillator used to help determine when an investment vehicle is reaching a condition of being overbought or oversold.
+
+```
+Moving Average = Sma(Period, Typical Price)
+Mean Deviation = Sma(Period, Abs(Typical Price - Moving Average))
+CMI = (Typical Price - Moving Average) / (0.015 * Mean Deviation)
+```
+
+```TypeScript
+import {communityChannelIndex} from 'indicatorts';
+
+const result = communityChannelIndex(period, highs, lows, closings);
+```
+
+The [defaultCommunityChannelIndex](./communityChannelIndex.ts) calculates with the period of 20.
+
+```TypeScript
+import {defaultCommunityChannelIndex} from 'indicatorts';
+
+const result = defaultCommunityChannelIndex(highs, lows, closings);
 ```
 
 #### Double Exponential Moving Average (DEMA)

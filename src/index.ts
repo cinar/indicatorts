@@ -25,6 +25,7 @@ export * from './indicator/trend/absolutePriceOscillator';
 export * from './indicator/trend/aroon';
 export * from './indicator/trend/balanceOfPower';
 export * from './indicator/trend/chandeForecastOscillator';
+export * from './indicator/trend/communityChannelIndex';
 export * from './indicator/trend/dema';
 export * from './indicator/trend/ema';
 export * from './indicator/trend/kdj';
