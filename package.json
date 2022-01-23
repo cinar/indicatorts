@@ -19,10 +19,26 @@
     "url": "git+ssh://git@github.com/cinar/indicatorts.git"
   },
   "keywords": [
-    "technical",
     "analysis",
+    "bollinger-bands",
+    "finance",
+    "financial-instruments",
     "indicators",
-    "strategies"
+    "indicators",
+    "macd",
+    "quant",
+    "quantative-finance",
+    "quantative-trading",
+    "stock-analysis",
+    "stock-market",
+    "strategies",
+    "technical",
+    "technical-analysis",
+    "technical-analysis-indicators",
+    "technical-analysis-library",
+    "trading-algorithms",
+    "trading-strategies",
+    "yahoo-finance"
   ],
   "author": "Onur Cinar <onur.cinar@gmail.com>",
   "license": "MIT",
