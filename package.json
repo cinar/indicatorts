@@ -11,7 +11,7 @@
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint --ignore-path .gitignore .",
-    "fix": "prettier --write . ; eslint --fix --ext .ts src",
+    "fix": "prettier --ignore-path .gitignore --write . ; eslint --fix --ext .ts src",
     "test": "jest"
   },
   "repository": {
