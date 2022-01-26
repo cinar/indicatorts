@@ -10,7 +10,7 @@ describe('Money Flow Index (MFI)', () => {
     const lows = [6, 7, 9, 12, 10];
     const closings = [9, 11, 7, 10, 8];
     const volumes = [100, 110, 80, 120, 90];
-    const expected = [100, 100, 406.85, 207.69, 266.67];
+    const expected = [100, 100, 57.01, 65.85, 61.54];
     const period = 2;
 
     const actual = moneyFlowIndex(period, highs, lows, closings, volumes);

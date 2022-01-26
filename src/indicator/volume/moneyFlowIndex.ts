@@ -46,7 +46,7 @@ export function moneyFlowIndex(
 
   const moneyRatio = divide(
     msum(period, positiveMoneyFlow),
-    msum(period, negativeMoneyFlow)
+    msum(period, multiplyBy(-1, negativeMoneyFlow))
   );
 
   const moneyFlowIndex = addBy(
