@@ -9,6 +9,7 @@ Trend indicators measure the direction and strength of a trend.
 - [Community Channel Index (CMI)](#community-channel-index-cmi)
 - [Double Exponential Moving Average (DEMA)](#double-exponential-moving-average-dema)
 - [Exponential Moving Average (EMA)](#exponential-moving-average-ema)
+- [Mass Index (MI)](#mass-index-mi)
 - [Moving Average Convergence Divergence (MACD)](#moving-average-convergence-divergence-macd)
 - [Moving Max](#moving-max)
 - [Moving Min](#moving-min)
@@ -137,6 +138,23 @@ The [ema](./ema.ts) function calculates the exponential moving average for a giv
 import {ema} from 'indicatorts';
 
 const result = ema(period, values);
+```
+
+#### Mass Index (MI)
+
+The [massIndex](./massIndex.ts) uses the high-low range to identify trend reversals based on range expansions.
+
+```
+Singe EMA = EMA(9, Highs - Lows)
+Double EMA = EMA(9, Single EMA)
+Ratio = Single EMA / Double EMA
+MI = Sum(25, Ratio)
+```
+
+```TypeScript
+import {massIndex} from 'indicatorts';
+
+const result = massIndex(highs, lows);
 ```
 
 #### Moving Average Convergence Divergence (MACD)

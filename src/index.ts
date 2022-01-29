@@ -30,6 +30,7 @@ export * from './indicator/trend/dema';
 export * from './indicator/trend/ema';
 export * from './indicator/trend/kdj';
 export * from './indicator/trend/macd';
+export * from './indicator/trend/massIndex';
 export * from './indicator/trend/mmax';
 export * from './indicator/trend/mmin';
 export * from './indicator/trend/msum';
