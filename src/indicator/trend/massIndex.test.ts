@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { roundDigitsAll } from '../../../dist/index';
+import { roundDigitsAll } from '../../helper/numArray';
 import { massIndex } from './massIndex';
 
 describe('Mass Index', () => {
