@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { sma } from '../trend/sma';
+import { rma } from '../trend/rma';
 
 /**
  * Relative Strength Index (RSI). It is a momentum indicator that measures
@@ -30,8 +30,8 @@ export function rsi(closings: number[]): number[] {
     }
   }
 
-  const meanGains = sma(14, gains);
-  const meanLosses = sma(14, losses);
+  const meanGains = rma(14, gains);
+  const meanLosses = rma(14, losses);
 
   const r = new Array<number>(closings.length);
   const rs = new Array<number>(closings.length);

@@ -29,6 +29,7 @@ The following list of indicators are currently supported by this package:
 - [Parabolic SAR](src/indicator/trend/index.md#parabolic-sar)
 - [Qstick](src/indicator/trend/index.md#qstick)
 - [Random Index (KDJ)](src/indicator/trend/index.md#random-index-kdj)
+- [Rolling Moving Average (RMA)](src/indicator/trend/index.md#rolling-moving-average-rma)
 - [Simple Moving Average (SMA)](src/indicator/trend/index.md#simple-moving-average-sma)
 - [Since Change](src/indicator/trend/index.md#since-change)
 - [Triple Exponential Moving Average (TEMA)](src/indicator/trend/index.md#triple-exponential-moving-average-tema)

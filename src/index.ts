@@ -37,6 +37,7 @@ export * from './indicator/trend/msum';
 export * from './indicator/trend/parabolicSar';
 export * from './indicator/trend/qstick';
 export * from './indicator/trend/since';
+export * from './indicator/trend/rma';
 export * from './indicator/trend/sma';
 export * from './indicator/trend/tema';
 export * from './indicator/trend/trima';
