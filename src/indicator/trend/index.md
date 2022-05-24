@@ -17,6 +17,7 @@ Trend indicators measure the direction and strength of a trend.
 - [Parabolic SAR](#parabolic-sar)
 - [Qstick](trend_indicator.md#qstick)
 - [Random Index (KDJ)](#random-index-kdj)
+- [Rolling Moving Average (RMA)](#rolling-moving-average-rma)
 - [Simple Moving Average (SMA)](#simple-moving-average-sma)
 - [Since Change](#since-change)
 - [Triple Exponential Moving Average (TEMA)](#triple-exponential-moving-average-tema)
@@ -273,6 +274,21 @@ By default, _rPeriod_ of 9, _kPeriod_ of 3, and _dPeriod_ of 3 are used. The [de
 import {defaultKdj} from 'indicatorts';
 
 const result = defaultKdj(highs, lows, closings);
+```
+
+#### Rolling Moving Average (RMA)
+
+The [rma](./rma.ts) function calculates the rolling moving average for a given period.
+
+```
+R[0] to R[p-1] is SMA(values)
+R[p] and after is R[i] = ((R[i-1]*(p-1)) + v[i]) / p
+```
+
+```TypeScript
+import {rma} from 'indicatorts';
+
+const result = rma(period, values);
 ```
 
 #### Simple Moving Average (SMA)
