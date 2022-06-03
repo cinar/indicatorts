@@ -7,6 +7,7 @@ Momentum indicators measure the speed of movement.
 - [Custom RSI](#custom-rsi)
 - [Ichimoku Cloud](#ichimoku-cloud)
 - [Relative Strength Index (RSI)](#relative-strength-index-rsi)
+- [RSI 2](#rsi-2)
 - [Stochastic Oscillator](#stochastic-oscillator)
 - [Williams R](#williams-r)
 
@@ -87,6 +88,16 @@ RSI = 100 - (100 / (1 + RS))
 import {rsi} from 'indicatorts';
 
 const result = rsi(closings);
+```
+
+#### RSI 2
+
+The [rsi2](./rsi2.ts) function calculates a RSI with 2 period that provides a mean-reversion trading strategy. It is developed by Larry Connors.
+
+```TypeScript
+import {rsi2} from 'indicatorts';
+
+const result = rsi2(closings);
 ```
 
 #### Stochastic Oscillator
