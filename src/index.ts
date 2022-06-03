@@ -18,6 +18,7 @@ export * from './indicator/momentum/awesomeOscillator';
 export * from './indicator/momentum/chaikinOscillator';
 export * from './indicator/momentum/ichimokuCloud';
 export * from './indicator/momentum/rsi';
+export * from './indicator/momentum/rsi2';
 export * from './indicator/momentum/stochasticOscillator';
 export * from './indicator/momentum/williamsR';
 export * from './indicator/trend';

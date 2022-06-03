@@ -45,6 +45,7 @@ The following list of indicators are currently supported by this package:
 - [Custom RSI](src/indicator/momentum/index.md#custom-rsi)
 - [Ichimoku Cloud](src/indicator/momentum/index.md#ichimoku-cloud)
 - [Relative Strength Index (RSI)](src/indicator/momentum/index.md#relative-strength-index-rsi)
+- [RSI 2](src/indicator/momentum/index.md#rsi-2)
 - [Stochastic Oscillator](src/indicator/momentum/index.md#stochastic-oscillator)
 - [Williams R](src/indicator/momentum/index.md#williams-r)
 
