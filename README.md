@@ -42,6 +42,7 @@ The following list of indicators are currently supported by this package:
 
 - [Awesome Oscillator](src/indicator/momentum/index.md#awesome-oscillator)
 - [Chaikin Oscillator](src/indicator/momentum/index.md#chaikin-oscillator)
+- [Custom RSI](src/indicator/momentum/index.md#custom-rsi)
 - [Ichimoku Cloud](src/indicator/momentum/index.md#ichimoku-cloud)
 - [Relative Strength Index (RSI)](src/indicator/momentum/index.md#relative-strength-index-rsi)
 - [Stochastic Oscillator](src/indicator/momentum/index.md#stochastic-oscillator)

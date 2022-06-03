@@ -4,17 +4,18 @@
 import { rma } from '../trend/rma';
 
 /**
- * Relative Strength Index (RSI). It is a momentum indicator that measures
- * the magnitude of recent price changes to evaluate overbought and
- * oversold conditions.
+ * Custom RSI. It is a momentum indicator that measures the magnitude of
+ * recent price changes to evaluate overbought and oversold conditions
+ * using the given window period.
  *
  * RS = Average Gain / Average Loss
  * RSI = 100 - (100 / (1 + RS))
  *
+ * @param period window period.
  * @param closings closing values.
  * @return rsi values.
  */
-export function rsi(closings: number[]): number[] {
+export function customRsi(period: number, closings: number[]): number[] {
   const gains = new Array<number>(closings.length);
   const losses = new Array<number>(closings.length);
 
@@ -30,8 +31,8 @@ export function rsi(closings: number[]): number[] {
     }
   }
 
-  const meanGains = rma(14, gains);
-  const meanLosses = rma(14, losses);
+  const meanGains = rma(period, gains);
+  const meanLosses = rma(period, losses);
 
   const r = new Array<number>(closings.length);
   const rs = new Array<number>(closings.length);
@@ -42,4 +43,19 @@ export function rsi(closings: number[]): number[] {
   }
 
   return r;
+}
+
+/**
+ * Relative Strength Index (RSI). It is a momentum indicator that measures
+ * the magnitude of recent price changes to evaluate overbought and
+ * oversold conditions using the window period of 14.
+ *
+ * RS = Average Gain / Average Loss
+ * RSI = 100 - (100 / (1 + RS))
+ *
+ * @param closings closing values.
+ * @return rsi values.
+ */
+export function rsi(closings: number[]): number[] {
+  return customRsi(14, closings);
 }

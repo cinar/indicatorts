@@ -4,6 +4,7 @@ Momentum indicators measure the speed of movement.
 
 - [Awesome Oscillator](#awesome-oscillator)
 - [Chaikin Oscillator](#chaikin-oscillator)
+- [Custom RSI](#custom-rsi)
 - [Ichimoku Cloud](#ichimoku-cloud)
 - [Relative Strength Index (RSI)](#relative-strength-index-rsi)
 - [Stochastic Oscillator](#stochastic-oscillator)
@@ -40,6 +41,21 @@ const result = chaikinOscillator(fastPeriod, slowPeriod, highs, lows, closings);
 
 Most frequently used fast and short periods are 3 and 10. The [defaultChaikinOscillator](./chaikinOscillator.ts) function calculates Chaikin Oscillator with those periods.
 
+#### Custom RSI
+
+The [customRsi](./rsi.ts) function calculates Relative Strength Index (RSI), a momentum indicator that measures the magnitude of recent price changes to evaluate overbought and oversold conditions using the given window period.
+
+```
+RS = Average Gain / Average Loss
+RSI = 100 - (100 / (1 + RS))
+```
+
+```TypeScript
+import {customRsi} from 'indicatorts';
+
+const result = customRsi(period, closings);
+```
+
 #### Ichimoku Cloud
 
 The [ichimokuCloud](./ichimokuCloud.ts), also known as Ichimoku Kinko Hyo, calculates a versatile indicator that defines support and resistence, identifies tred direction, gauges momentum, and provides trading signals.
@@ -60,7 +76,7 @@ const result = ichimokuCloud(highs, lows, closings);
 
 #### Relative Strength Index (RSI)
 
-The [rsi](./rsi.ts) function calculates a momentum indicator that measures the magnitude of recent price changes to evaluate overbought and oversold conditions.
+The [rsi](./rsi.ts) function calculates a momentum indicator that measures the magnitude of recent price changes to evaluate overbought and oversold conditions using the window period of 14.
 
 ```
 RS = Average Gain / Average Loss
