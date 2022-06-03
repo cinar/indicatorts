@@ -69,6 +69,7 @@ export * from './strategy/asset';
 export * from './strategy/buyAndHoldStrategy';
 export * from './strategy/momentum/awesomeOscillatorStrategy';
 export * from './strategy/momentum/ichimokuCloudStrategy';
+export * from './strategy/momentum/rsi2Strategy';
 export * from './strategy/momentum/stochasticOscillatorStrategy';
 export * from './strategy/momentum/williamsRStrategy';
 export * from './strategy/strategyFunction';

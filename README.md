@@ -105,6 +105,7 @@ The following list of strategies are currently supported by this package:
 
 - [Awesome Oscillator Strategy](src/strategy/momentum/index.md#awesome-oscillator-strategy)
 - [Ichimoku Cloud Strategy](src/strategy/momentum/index.md#ichimoku-cloud-strategy)
+- [RSI 2 Stategy](src/strategy/momentum/index.md#rsi-2-strategy)
 - [Stochastic Oscillator Strategy](src/strategy/momentum/index.md#stochastic-oscillator-strategy)
 - [Williams R Strategy](src/strategy/momentum/index.md#williams-r-strategy)
 
