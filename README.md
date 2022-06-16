@@ -1,6 +1,7 @@
 [![npm version](https://badge.fury.io/js/indicatorts.svg)](https://badge.fury.io/js/indicatorts)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://app.travis-ci.com/cinar/indicatorts.svg?branch=main)](https://app.travis-ci.com/cinar/indicatorts)
+[![codecov](https://codecov.io/gh/cinar/indicatorts/branch/main/graph/badge.svg?token=302HZICPD0)](https://codecov.io/gh/cinar/indicatorts)
 
 # Indicator TS
 
