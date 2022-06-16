@@ -3,23 +3,24 @@ name: Test and Coverage
 on: [push, pull_request]
 
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-  - name: Checkout repository
-  - uses: actions/checkout@v2
-    with:
-      fetch-depth: 2
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 2
 
-  - name: Setup node
-  - uses: actions/setup-node@v1
-    with:
-      node-version: 16.x
+    - name: Setup node
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 16.x
 
-  - name: Installing dependencies
-    run: npm install
+    - name: Installing dependencies
+      run: npm install
 
-  - name: Run test
-    run: npm test -- --coverage
+    - name: Run test
+      run: npm test -- --coverage
 
-  - name: Upload coverage to Codecov
-    uses: codecov/codecov-action@v3
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
