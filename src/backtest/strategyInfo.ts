@@ -1,12 +1,16 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
+import { StrategyFunction } from '../strategy/strategyFunction';
+// buy and hold
 import { buyAndHoldStrategy } from '../strategy/buyAndHoldStrategy';
+// momentum
 import { awesomeOscillatorStrategy } from '../strategy/momentum/awesomeOscillatorStrategy';
 import { ichimokuCloudStrategy } from '../strategy/momentum/ichimokuCloudStrategy';
+import { rsi2Strategy } from '../strategy/momentum/rsi2Strategy';
 import { stochasticOscillatorStrategy } from '../strategy/momentum/stochasticOscillatorStrategy';
 import { williamsRStrategy } from '../strategy/momentum/williamsRStrategy';
-import { StrategyFunction } from '../strategy/strategyFunction';
+// trend
 import { defaultAbsolutePriceOscillatorStrategy } from '../strategy/trend/absolutePriceOscillatorStrategy';
 import { aroonStrategy } from '../strategy/trend/aroonStrategy';
 import { balanceOfPowerStrategy } from '../strategy/trend/balanceOfPowerStrategy';
@@ -16,9 +20,11 @@ import { macdStrategy } from '../strategy/trend/macdStrategy';
 import { parabolicSarStrategy } from '../strategy/trend/parabolicSarStrategy';
 import { typicalPriceStrategy } from '../strategy/trend/typicalPriceStrategy';
 import { vortexStrategy } from '../strategy/trend/vortexStrategy';
+// volatility
 import { accelerationBandsStrategy } from '../strategy/volatility/accelerationBandsStrategy';
 import { bollingerBandsStrategy } from '../strategy/volatility/bollingerBandsStrategy';
 import { projectionOscillatorStrategy } from '../strategy/volatility/projectionOscillatorStrategy';
+// volume
 import { chaikinMoneyFlowStrategy } from '../strategy/volume/chaikinMoneyFlowStrategy';
 import { easeOfMovementStrategy } from '../strategy/volume/easeOfMovementStrategy';
 import { forceIndexStrategy } from '../strategy/volume/forceIndexStrategy';
@@ -38,13 +44,19 @@ export interface StrategyInfo {
  * Strategy infos.
  */
 export const STRATEGY_INFOS: StrategyInfo[] = [
+  // buy and hold
   {
     name: 'Buy Hold',
     strategy: buyAndHoldStrategy,
   },
+  // momentum
   {
     name: 'Awesome Oscillator',
     strategy: awesomeOscillatorStrategy,
+  },
+  {
+    name: 'RSI 2',
+    strategy: rsi2Strategy,
   },
   {
     name: 'Ichimoku Cloud',
@@ -58,6 +70,7 @@ export const STRATEGY_INFOS: StrategyInfo[] = [
     name: 'Williams R',
     strategy: williamsRStrategy,
   },
+  // trend
   {
     name: 'Absolute Price Oscillator (APO)',
     strategy: defaultAbsolutePriceOscillatorStrategy,
@@ -94,6 +107,7 @@ export const STRATEGY_INFOS: StrategyInfo[] = [
     name: 'Vortex Strategy',
     strategy: vortexStrategy,
   },
+  // volatility
   {
     name: 'Acceleration Bands',
     strategy: accelerationBandsStrategy,
@@ -106,6 +120,7 @@ export const STRATEGY_INFOS: StrategyInfo[] = [
     name: 'Projection Oscillator',
     strategy: projectionOscillatorStrategy,
   },
+  // volume
   {
     name: 'Chaikin Money Flow (CMF)',
     strategy: chaikinMoneyFlowStrategy,
