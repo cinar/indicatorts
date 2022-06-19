@@ -17,6 +17,7 @@ export * from './helper/regression';
 export * from './indicator/momentum/awesomeOscillator';
 export * from './indicator/momentum/chaikinOscillator';
 export * from './indicator/momentum/ichimokuCloud';
+export * from './indicator/momentum/percentagePriceOscillator';
 export * from './indicator/momentum/percentageVolumeOscillator';
 export * from './indicator/momentum/rsi';
 export * from './indicator/momentum/rsi2';
