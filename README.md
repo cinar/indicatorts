@@ -45,6 +45,7 @@ The following list of indicators are currently supported by this package:
 - [Chaikin Oscillator](src/indicator/momentum/index.md#chaikin-oscillator)
 - [Custom RSI](src/indicator/momentum/index.md#custom-rsi)
 - [Ichimoku Cloud](src/indicator/momentum/index.md#ichimoku-cloud)
+- [Percentage Price Oscillator (PPO)](src/indicator/momentum/index.md#percentage-price-oscillator-ppo)
 - [Percentage Volume Oscillator (PVO)](src/indicator/momentum/index.md#percentage-volume-oscillator-pvo)
 - [Relative Strength Index (RSI)](src/indicator/momentum/index.md#relative-strength-index-rsi)
 - [RSI 2](src/indicator/momentum/index.md#rsi-2)

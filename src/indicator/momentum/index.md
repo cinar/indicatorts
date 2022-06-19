@@ -6,6 +6,7 @@ Momentum indicators measure the speed of movement.
 - [Chaikin Oscillator](#chaikin-oscillator)
 - [Custom RSI](#custom-rsi)
 - [Ichimoku Cloud](#ichimoku-cloud)
+- [Percentage Price Oscillator (PPO)](#percentage-price-oscillator-ppo)
 - [Percentage Volume Oscillator (PVO)](#percentage-volume-oscillator-pvo)
 - [Relative Strength Index (RSI)](#relative-strength-index-rsi)
 - [RSI 2](#rsi-2)
@@ -74,6 +75,35 @@ Chikou Span (Lagging Span) = Closing plotted 26 days in the past.
 import {ichimokuCloud} from 'indicatorts';
 
 const result = ichimokuCloud(highs, lows, closings);
+```
+
+#### Percentage Price Oscillator (PPO)
+
+The [percentagePriceOscillator](./percentagePriceOscillator.ts) function calculates a momentum oscillator for the price It is used to indicate the ups and downs based on the price. A breakout is confirmed when PPO is positive.
+
+```
+PPO = ((EMA(fastPeriod, prices) - EMA(slowPeriod, prices)) / EMA(longPeriod, prices)) * 100
+Signal = EMA(9, PPO)
+Histogram = PPO - Signal
+```
+
+```TypeScript
+import {percentagePriceOscillator} from 'indicatorts';
+
+const result = percentagePriceOscillator(
+    fastPeriod,
+    slowPeriod,
+    signalPeriod,
+    prices
+);
+```
+
+The [defaultPercentagePriceOscillator](./percentagePriceOscillator.ts) function calculates it with the default periods of 12, 26, 9.
+
+```TypeScript
+import {defaultPercentagePriceOscillator} from 'indicatorts';
+
+const result = defaultPercentagePriceOscillator(prices);
 ```
 
 #### Percentage Volume Oscillator (PVO)
