@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { add, multiplyBy, substract } from '../../helper/numArray';
+import { add, multiplyBy, subtract } from '../../helper/numArray';
 import { mmax } from '../trend/mmax';
 import { mmin } from '../trend/mmin';
 import { atr } from './atr';
@@ -38,7 +38,7 @@ export function chandelierExit(
   const highestHigh = mmax(PERIOD, highs);
   const lowestLow = mmin(PERIOD, lows);
 
-  const exitLong = substract(highestHigh, atrLine3);
+  const exitLong = subtract(highestHigh, atrLine3);
   const exitShort = add(lowestLow, atrLine3);
 
   return {

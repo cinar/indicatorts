@@ -67,21 +67,21 @@ describe('Number Array', () => {
     deepStrictEqual(actual, expected);
   });
 
-  it('should be able to substract values', () => {
+  it('should be able to subtract values', () => {
     const values1 = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
     const values2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const expected = [9, 18, 27, 36, 45, 54, 63, 72, 81, 90];
 
-    const actual = NumArray.substract(values1, values2);
+    const actual = NumArray.subtract(values1, values2);
     deepStrictEqual(actual, expected);
   });
 
-  it('should be able to substract by', () => {
+  it('should be able to subtract by', () => {
     const values = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
     const expected = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99];
     const n = 1;
 
-    const actual = NumArray.substractBy(n, values);
+    const actual = NumArray.subtractBy(n, values);
     deepStrictEqual(actual, expected);
   });
 

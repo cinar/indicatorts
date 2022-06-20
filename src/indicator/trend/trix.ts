@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { divide, shiftRightAndFillBy, substract } from '../../helper/numArray';
+import { divide, shiftRightAndFillBy, subtract } from '../../helper/numArray';
 import { ema } from './ema';
 
 /**
@@ -24,6 +24,6 @@ export function trix(period: number, values: number[]): number[] {
   const ema2 = ema(period, ema1);
   const ema3 = ema(period, ema2);
   const previous = shiftRightAndFillBy(1, ema3[0], ema3);
-  const trix = divide(substract(ema3, previous), previous);
+  const trix = divide(subtract(ema3, previous), previous);
   return trix;
 }

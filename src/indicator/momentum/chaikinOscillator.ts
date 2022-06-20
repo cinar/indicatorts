@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { substract } from '../../helper/numArray';
+import { subtract } from '../../helper/numArray';
 import { ema } from '../trend/ema';
 import { accumulationDistribution } from '../volume/accumulationDistribution';
 
@@ -39,7 +39,7 @@ export function chaikinOscillator(
   volumes: number[]
 ): ChaikinOscillator {
   const ad = accumulationDistribution(highs, lows, closings, volumes);
-  const co = substract(ema(fastPeriod, ad), ema(slowPeriod, ad));
+  const co = subtract(ema(fastPeriod, ad), ema(slowPeriod, ad));
 
   return {
     ad,

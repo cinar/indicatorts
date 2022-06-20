@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { divide, multiplyBy, substract } from '../../helper/numArray';
+import { divide, multiplyBy, subtract } from '../../helper/numArray';
 import { mmin } from './mmin';
 import { mmax } from './mmax';
 import { sma } from './sma';
@@ -52,12 +52,12 @@ export function kdj(
 
   const rsv = multiplyBy(
     100,
-    divide(substract(closings, lowest), substract(highest, lowest))
+    divide(subtract(closings, lowest), subtract(highest, lowest))
   );
 
   const k = sma(kPeriod, rsv);
   const d = sma(dPeriod, k);
-  const j = substract(multiplyBy(3, k), multiplyBy(2, d));
+  const j = subtract(multiplyBy(3, k), multiplyBy(2, d));
 
   return {
     k,

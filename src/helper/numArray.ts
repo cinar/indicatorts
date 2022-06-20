@@ -129,12 +129,12 @@ export function multiplyBy(n: number, values: number[]): number[] {
 }
 
 /**
- * Substracts values2 from values1.
+ * Subtracts values2 from values1.
  * @param values1 values one.
  * @param values2 values two.
  * @return result array.
  */
-export function substract(values1: number[], values2: number[]): number[] {
+export function subtract(values1: number[], values2: number[]): number[] {
   checkSameLength(values1, values2);
 
   const result = new Array<number>(values1.length);
@@ -147,12 +147,12 @@ export function substract(values1: number[], values2: number[]): number[] {
 }
 
 /**
- * Substractes n from values.
- * @param n substract value.
+ * Subtractes n from values.
+ * @param n subtract value.
  * @param values values array.
  * @return result array.
  */
-export function substractBy(n: number, values: number[]): number[] {
+export function subtractBy(n: number, values: number[]): number[] {
   const result = new Array<number>(values.length);
 
   for (let i = 0; i < values.length; i++) {
@@ -204,7 +204,7 @@ export function shiftRightBy(n: number, values: number[]): number[] {
  * @returns changes array.
  */
 export function changes(n: number, values: number[]): number[] {
-  return substract(values, shiftRightBy(n, values));
+  return subtract(values, shiftRightBy(n, values));
 }
 
 /**

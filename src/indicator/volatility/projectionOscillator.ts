@@ -7,7 +7,7 @@ import {
   generateNumbers,
   multiply,
   multiplyBy,
-  substract,
+  subtract,
 } from '../../helper/numArray';
 import { movingLeastSquare } from '../../helper/regression';
 import { ema } from '../trend/ema';
@@ -59,8 +59,8 @@ export function projectionOscillator(
   const pl = mmin(period, vLows);
 
   const po = divide(
-    multiplyBy(100, substract(closings, pl)),
-    substract(pu, pl)
+    multiplyBy(100, subtract(closings, pl)),
+    subtract(pu, pl)
   );
   const spo = ema(smooth, po);
 

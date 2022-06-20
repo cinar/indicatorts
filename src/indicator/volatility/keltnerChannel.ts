@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { add, multiplyBy, substract } from '../../helper/numArray';
+import { add, multiplyBy, subtract } from '../../helper/numArray';
 import { ema } from '../trend/ema';
 import { atr } from './atr';
 
@@ -45,7 +45,7 @@ export function keltnerChannel(
 
   const middleLine = ema(period, closings);
   const upperBand = add(middleLine, atr2);
-  const lowerBand = substract(middleLine, atr2);
+  const lowerBand = subtract(middleLine, atr2);
 
   return {
     middleLine,

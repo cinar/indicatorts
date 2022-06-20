@@ -7,7 +7,7 @@ import {
   divide,
   max,
   shiftRightBy,
-  substract,
+  subtract,
 } from '../../helper/numArray';
 import { msum } from './msum';
 
@@ -56,16 +56,16 @@ export function vortex(
 
   const prevClosings = shiftRightBy(1, closings);
 
-  const plusVm = abs(substract(highs, shiftRightBy(1, lows)));
-  const minusVm = abs(substract(lows, shiftRightBy(1, highs)));
+  const plusVm = abs(subtract(highs, shiftRightBy(1, lows)));
+  const minusVm = abs(subtract(lows, shiftRightBy(1, highs)));
 
   const plusVmSum = msum(VORTEX_PERIOD, plusVm);
   const minusVmSum = msum(VORTEX_PERIOD, minusVm);
 
   const tr = max(
-    substract(highs, lows),
-    abs(substract(highs, prevClosings)),
-    abs(substract(lows, prevClosings))
+    subtract(highs, lows),
+    abs(subtract(highs, prevClosings)),
+    abs(subtract(lows, prevClosings))
   );
 
   const trSum = msum(VORTEX_PERIOD, tr);

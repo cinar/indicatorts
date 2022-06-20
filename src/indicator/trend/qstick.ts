@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { substract } from '../../helper/numArray';
+import { subtract } from '../../helper/numArray';
 import { sma } from './sma';
 
 /**
@@ -19,5 +19,5 @@ export function qstick(
   openings: number[],
   closings: number[]
 ): number[] {
-  return sma(period, substract(closings, openings));
+  return sma(period, subtract(closings, openings));
 }

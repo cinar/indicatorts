@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { divide, multiply, substract } from '../../helper/numArray';
+import { divide, multiply, subtract } from '../../helper/numArray';
 
 /**
  * Accumulation/Distribution Indicator (A/D). Cumulative indicator
@@ -25,8 +25,8 @@ export function accumulationDistribution(
   volume: number[]
 ): number[] {
   const mfm = divide(
-    substract(substract(closings, lows), substract(highs, closings)),
-    substract(highs, lows)
+    subtract(subtract(closings, lows), subtract(highs, closings)),
+    subtract(highs, lows)
   );
 
   const mfv = multiply(mfm, volume);

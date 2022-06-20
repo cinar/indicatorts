@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { divide, multiplyBy, substract } from '../../helper/numArray';
+import { divide, multiplyBy, subtract } from '../../helper/numArray';
 import { ema } from '../trend/ema';
 
 /** Default fast period value. */
@@ -46,9 +46,9 @@ export function percentageVolumeOscillator(
   const fastEma = ema(fastPeriod, volumes);
   const slowEma = ema(slowPeriod, volumes);
 
-  const pvo = multiplyBy(100, divide(substract(fastEma, slowEma), slowEma));
+  const pvo = multiplyBy(100, divide(subtract(fastEma, slowEma), slowEma));
   const signal = ema(signalPeriod, pvo);
-  const histogram = substract(pvo, signal);
+  const histogram = subtract(pvo, signal);
 
   return {
     pvo,

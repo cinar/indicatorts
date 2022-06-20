@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { add, multiplyBy, substract } from '../../helper/numArray';
+import { add, multiplyBy, subtract } from '../../helper/numArray';
 import { ema } from './ema';
 
 /**
@@ -22,7 +22,7 @@ export function tema(period: number, values: number[]): number[] {
   const ema3 = ema(period, ema2);
 
   const temaLine = add(
-    substract(multiplyBy(3, ema1), multiplyBy(3, ema2)),
+    subtract(multiplyBy(3, ema1), multiplyBy(3, ema2)),
     ema3
   );
 

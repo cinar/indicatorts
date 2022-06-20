@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { divide, multiply, substract } from '../../helper/numArray';
+import { divide, multiply, subtract } from '../../helper/numArray';
 import { msum } from '../trend/msum';
 
 /**
@@ -30,8 +30,8 @@ export function chaikinMoneyFlow(
   volumes: number[]
 ): number[] {
   const moneyFlowMultipler = divide(
-    substract(substract(closings, lows), substract(highs, closings)),
-    substract(highs, lows)
+    subtract(subtract(closings, lows), subtract(highs, closings)),
+    subtract(highs, lows)
   );
 
   const moneyFlowVolume = multiply(moneyFlowMultipler, volumes);

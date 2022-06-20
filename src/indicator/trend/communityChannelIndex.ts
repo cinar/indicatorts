@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { abs, divide, multiplyBy, substract } from '../../helper/numArray';
+import { abs, divide, multiplyBy, subtract } from '../../helper/numArray';
 import { sma } from './sma';
 import { typicalPrice } from './typicalPrice';
 
@@ -33,8 +33,8 @@ export function communityChannelIndex(
 ): number[] {
   const tp = typicalPrice(highs, lows, closings);
   const ma = sma(period, tp);
-  const md = sma(period, abs(substract(tp, ma)));
-  const cci = divide(substract(tp, ma), multiplyBy(0.015, md));
+  const md = sma(period, abs(subtract(tp, ma)));
+  const cci = divide(subtract(tp, ma), multiplyBy(0.015, md));
   return cci;
 }
 

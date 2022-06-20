@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { substract } from '../../helper/numArray';
+import { subtract } from '../../helper/numArray';
 import { ema } from './ema';
 
 /**
@@ -26,7 +26,7 @@ export function absolutePriceOscillator(
 ): number[] {
   const fast = ema(fastPeriod, values);
   const slow = ema(slowPeriod, values);
-  const apo = substract(fast, slow);
+  const apo = subtract(fast, slow);
   return apo;
 }
 

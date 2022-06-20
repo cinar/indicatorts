@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { multiplyBy, substract } from '../../helper/numArray';
+import { multiplyBy, subtract } from '../../helper/numArray';
 import { ema } from './ema';
 
 /**
@@ -17,7 +17,7 @@ export function dema(period: number, values: number[]): number[] {
   const ema1 = ema(period, values);
   const ema2 = ema(period, ema1);
 
-  const dema = substract(multiplyBy(2, ema1), ema2);
+  const dema = subtract(multiplyBy(2, ema1), ema2);
 
   return dema;
 }

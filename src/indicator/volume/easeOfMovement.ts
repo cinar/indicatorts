@@ -6,7 +6,7 @@ import {
   changes,
   divide,
   divideBy,
-  substract,
+  subtract,
 } from '../../helper/numArray';
 import { sma } from '../trend/sma';
 
@@ -37,7 +37,7 @@ export function easeOfMovement(
   volumes: number[]
 ): number[] {
   const distanceMoved = changes(1, divideBy(2, add(highs, lows)));
-  const boxRatio = divide(divideBy(100000000, volumes), substract(highs, lows));
+  const boxRatio = divide(divideBy(100000000, volumes), subtract(highs, lows));
   const emv = sma(period, divide(distanceMoved, boxRatio));
   return emv;
 }
