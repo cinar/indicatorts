@@ -1,7 +1,8 @@
 [![npm version](https://badge.fury.io/js/indicatorts.svg)](https://badge.fury.io/js/indicatorts)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://app.travis-ci.com/cinar/indicatorts.svg?branch=main)](https://app.travis-ci.com/cinar/indicatorts)
+[![Build Status](https://github.com/cinar/indicatorts/actions/workflows/ci.yml/badge.svg)](https://github.com/cinar/indicatorts/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/cinar/indicatorts/branch/main/graph/badge.svg?token=302HZICPD0)](https://codecov.io/gh/cinar/indicatorts)
+[![CodeQL Analysis](https://github.com/cinar/indicatorts/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cinar/indicatorts/actions/workflows/codeql-analysis.yml)
 
 # Indicator TS
 
