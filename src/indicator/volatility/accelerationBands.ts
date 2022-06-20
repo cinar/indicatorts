@@ -8,7 +8,7 @@ import {
   divide,
   multiply,
   multiplyBy,
-  substract,
+  subtract,
 } from '../../helper/numArray';
 import { sma } from '../trend/sma';
 
@@ -41,7 +41,7 @@ export function accelerationBands(
 ): AccelerationBands {
   checkSameLength(highs, lows, closings);
 
-  const k = divide(substract(highs, lows), add(highs, lows));
+  const k = divide(subtract(highs, lows), add(highs, lows));
 
   const upperBand = sma(20, multiply(highs, addBy(1, multiplyBy(4, k))));
   const middleBand = sma(20, closings);

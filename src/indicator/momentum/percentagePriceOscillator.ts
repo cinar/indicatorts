@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { divide, multiplyBy, substract } from '../../helper/numArray';
+import { divide, multiplyBy, subtract } from '../../helper/numArray';
 import { ema } from '../trend/ema';
 
 /** Default fast period value. */
@@ -46,9 +46,9 @@ export function percentagePriceOscillator(
   const fastEma = ema(fastPeriod, prices);
   const slowEma = ema(slowPeriod, prices);
 
-  const ppo = multiplyBy(100, divide(substract(fastEma, slowEma), slowEma));
+  const ppo = multiplyBy(100, divide(subtract(fastEma, slowEma), slowEma));
   const signal = ema(signalPeriod, ppo);
-  const histogram = substract(ppo, signal);
+  const histogram = subtract(ppo, signal);
 
   return {
     ppo,

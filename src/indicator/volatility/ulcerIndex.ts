@@ -6,7 +6,7 @@ import {
   multiply,
   multiplyBy,
   sqrt,
-  substract,
+  subtract,
 } from '../../helper/numArray';
 import { mmax } from '../trend/mmax';
 import { sma } from '../trend/sma';
@@ -34,7 +34,7 @@ export function ulcerIndex(period: number, closings: number[]): number[] {
   const highClosings = mmax(period, closings);
   const percentageDrawdown = multiplyBy(
     100,
-    divide(substract(closings, highClosings), highClosings)
+    divide(subtract(closings, highClosings), highClosings)
   );
   const squaredAverage = sma(
     period,

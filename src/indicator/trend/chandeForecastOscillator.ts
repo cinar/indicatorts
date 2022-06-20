@@ -5,7 +5,7 @@ import {
   divide,
   generateNumbers,
   multiplyBy,
-  substract,
+  subtract,
 } from '../../helper/numArray';
 import {
   linearRegressionUsingLeastSquare,
@@ -28,7 +28,7 @@ import {
 export function chandeForecastOscillator(closings: number[]): number[] {
   const x = generateNumbers(0, closings.length, 1);
   const r = linearRegressionUsingLeastSquare(x, closings);
-  const cfo = multiplyBy(100, divide(substract(closings, r), closings));
+  const cfo = multiplyBy(100, divide(subtract(closings, r), closings));
   return cfo;
 }
 
@@ -55,6 +55,6 @@ export function movingChandeForecastOscillator(
 ): number[] {
   const x = generateNumbers(0, closings.length, 1);
   const r = movingLinearRegressionUsingLeastSquare(period, x, closings);
-  const cfo = multiplyBy(100, divide(substract(closings, r), closings));
+  const cfo = multiplyBy(100, divide(subtract(closings, r), closings));
   return cfo;
 }

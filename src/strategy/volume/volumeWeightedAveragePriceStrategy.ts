@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { substract } from '../../helper/numArray';
+import { subtract } from '../../helper/numArray';
 import { defaultVolumeWeightedAveragePrice } from '../../indicator/volume/volumeWeightedAveragePrice';
 import { Action } from '../action';
 import { Asset } from '../asset';
@@ -18,7 +18,7 @@ import { Asset } from '../asset';
 export function volumeWeightedAveragePriceStrategy(asset: Asset): Action[] {
   const vwap = defaultVolumeWeightedAveragePrice(asset.closings, asset.volumes);
 
-  const diff = substract(vwap, asset.closings);
+  const diff = subtract(vwap, asset.closings);
 
   return diff.map((value) => {
     if (value > 0) {

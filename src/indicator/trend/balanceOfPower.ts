@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { divide, substract } from '../../helper/numArray';
+import { divide, subtract } from '../../helper/numArray';
 
 /**
  * The Balance of Power (BOP) function calculates the strength of buying and
@@ -23,5 +23,5 @@ export function balanceOfPower(
   lows: number[],
   closings: number[]
 ): number[] {
-  return divide(substract(closings, openings), substract(highs, lows));
+  return divide(subtract(closings, openings), subtract(highs, lows));
 }

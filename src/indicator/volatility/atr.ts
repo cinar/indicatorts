@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { checkSameLength, max, substract } from '../../helper/numArray';
+import { checkSameLength, max, subtract } from '../../helper/numArray';
 import { sma } from '../../indicator/trend/sma';
 
 /**
@@ -35,9 +35,9 @@ export function atr(
   checkSameLength(highs, lows, closings);
 
   const trLine = max(
-    substract(highs, lows),
-    substract(highs, closings),
-    substract(closings, lows)
+    subtract(highs, lows),
+    subtract(highs, closings),
+    subtract(closings, lows)
   );
 
   const atrLine = sma(period, trLine);

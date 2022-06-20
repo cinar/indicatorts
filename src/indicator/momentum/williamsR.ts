@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { divide, multiplyBy, substract } from '../../helper/numArray';
+import { divide, multiplyBy, subtract } from '../../helper/numArray';
 import { mmax } from '../trend/mmax';
 import { mmin } from '../trend/mmin';
 
@@ -28,6 +28,6 @@ export function williamsR(
   const lowestLow = mmin(PERIOD, lows);
   return multiplyBy(
     -100,
-    divide(substract(highestHigh, closings), substract(highestHigh, lowestLow))
+    divide(subtract(highestHigh, closings), subtract(highestHigh, lowestLow))
   );
 }

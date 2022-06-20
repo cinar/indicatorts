@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { add, divideBy, substract } from '../../helper/numArray';
+import { add, divideBy, subtract } from '../../helper/numArray';
 import { sma } from '../trend/sma';
 
 /**
@@ -18,6 +18,6 @@ export function awesomeOscillator(highs: number[], lows: number[]): number[] {
   const medianPrice = divideBy(2, add(lows, highs));
   const sma5 = sma(5, medianPrice);
   const sma34 = sma(34, medianPrice);
-  const ao = substract(sma5, sma34);
+  const ao = subtract(sma5, sma34);
   return ao;
 }

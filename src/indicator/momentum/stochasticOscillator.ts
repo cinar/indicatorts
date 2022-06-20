@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { divide, multiplyBy, substract } from '../../helper/numArray';
+import { divide, multiplyBy, subtract } from '../../helper/numArray';
 import { mmin } from '../trend/mmin';
 import { mmax } from '../trend/mmax';
 import { sma } from '../trend/sma';
@@ -38,8 +38,8 @@ export function stochasticOscillator(
   const k = multiplyBy(
     100,
     divide(
-      substract(closings, lowestLow14),
-      substract(highestHigh14, lowestLow14)
+      subtract(closings, lowestLow14),
+      subtract(highestHigh14, lowestLow14)
     )
   );
 

@@ -5,7 +5,7 @@ import {
   divide,
   multiply,
   shiftRightAndFillBy,
-  substract,
+  subtract,
 } from '../../helper/numArray';
 import { msum } from '../trend/msum';
 
@@ -26,7 +26,7 @@ export function volumePriceTrend(
   const previousClosings = shiftRightAndFillBy(1, closings[0], closings);
   const vpt = multiply(
     volumes,
-    divide(substract(closings, previousClosings), previousClosings)
+    divide(subtract(closings, previousClosings), previousClosings)
   );
   return msum(vpt.length, vpt);
 }

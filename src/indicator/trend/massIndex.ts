@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { divide, substract } from '../../helper/numArray';
+import { divide, subtract } from '../../helper/numArray';
 import { ema } from './ema';
 import { msum } from './msum';
 
@@ -19,7 +19,7 @@ import { msum } from './msum';
  * @returns mi values.
  */
 export function massIndex(highs: number[], lows: number[]): number[] {
-  const ema1 = ema(9, substract(highs, lows));
+  const ema1 = ema(9, subtract(highs, lows));
   const ema2 = ema(9, ema1);
   const ratio = divide(ema1, ema2);
   const mi = msum(25, ratio);
