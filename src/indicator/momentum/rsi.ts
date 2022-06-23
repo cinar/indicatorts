@@ -33,9 +33,6 @@ export function customRsi(period: number, closings: number[]): number[] {
     }
   }
 
-  console.log(`Gains: ${gains}`);
-  console.log(`Losses: ${losses}`);
-
   const meanGains = rma(period, gains);
   const meanLosses = rma(period, losses);
 
