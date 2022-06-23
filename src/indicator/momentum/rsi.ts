@@ -19,6 +19,8 @@ export function customRsi(period: number, closings: number[]): number[] {
   const gains = new Array<number>(closings.length);
   const losses = new Array<number>(closings.length);
 
+  gains[0] = losses[0] = 0;
+
   for (let i = 1; i < closings.length; i++) {
     const difference = closings[i] - closings[i - 1];
 
@@ -37,7 +39,9 @@ export function customRsi(period: number, closings: number[]): number[] {
   const r = new Array<number>(closings.length);
   const rs = new Array<number>(closings.length);
 
-  for (let i = 0; i < closings.length; i++) {
+  r[0] = rs[0] = 0;
+
+  for (let i = 1; i < closings.length; i++) {
     rs[i] = meanGains[i] / meanLosses[i];
     r[i] = 100 - 100 / (1 + rs[i]);
   }

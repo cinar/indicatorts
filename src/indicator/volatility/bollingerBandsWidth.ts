@@ -29,10 +29,7 @@ export interface BollingerBandsWidth {
  * @return bollinger bands width result.
  */
 export function bollingerBandsWidth(bb: BollingerBands): BollingerBandsWidth {
-  const bandWidth = divide(
-    subtract(bb.upperBand, bb.lowerBand),
-    bb.middleBand
-  );
+  const bandWidth = divide(subtract(bb.upperBand, bb.lowerBand), bb.middleBand);
 
   const bandWidthEma90 = ema(PERIOD, bandWidth);
 
