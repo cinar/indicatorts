@@ -1,6 +1,8 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
+import { sma } from '../trend/sma';
+
 /**
  * Moving strandard deviation function.
  *
@@ -10,27 +12,19 @@
  */
 export function mstd(period: number, values: number[]): number[] {
   const result = new Array<number>(values.length);
-
-  let sum = 0;
+  const averages = sma(period, values);
 
   for (let i = 0; i < values.length; i++) {
-    sum += values[i];
+    result[i] = 0;
 
     if (i >= period - 1) {
-      if (i >= period) {
-        sum -= values[i - period];
+      let sum = 0;
+
+      for (let k = i - (period - 1); k <= i; k++) {
+        sum += (values[k] - averages[i]) * (values[k] - averages[i]);
       }
 
-      const average = sum / period;
-      let ss = 0;
-
-      for (let j = 0; j < period; j++) {
-        ss += Math.pow(values[i - j] - average, 2);
-      }
-
-      result[i] = Math.sqrt(ss / period);
-    } else {
-      result[i] = 0;
+      result[i] = Math.sqrt(sum / period);
     }
   }
 
