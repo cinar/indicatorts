@@ -38,6 +38,7 @@ The following list of indicators are currently supported by this package:
 - [Triangular Moving Average (TRIMA)](src/indicator/trend/index.md#triangular-moving-average-trima)
 - [Triple Exponential Average (TRIX)](#triple-exponential-average-trix)
 - [Typical Price](src/indicator/trend/index.md#typical-price)
+- [Volume Weighted Moving Average (VWMA)](src/indicator/trend/index.md#volume-weighted-moving-average-vwma)
 - [Vortex Indicator](src/indicator/trend/index.md#vortex-indicator)
 
 ### Momentum Indicators
