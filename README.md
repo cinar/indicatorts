@@ -104,6 +104,7 @@ The following list of strategies are currently supported by this package:
 - [KDJ Strategy](src/strategy/trend/index.md#kdj-strategy)
 - [Parabolic SAR Strategy](src/strategy/trend/index.md#parabolic-sar-strategy)
 - [Typical Price Strategy](src/strategy/trend/index.md#typical-price-strategy)
+- [Volume Weighted Moving Average (VWMA) Strategy](src/strategy/trend/index.md#volume-weighted-moving-average-vwma-strategy)
 - [Vortex Strategy](src/strategy/trend/index.md#vortex-strategy)
 
 ### Momentum Strategies

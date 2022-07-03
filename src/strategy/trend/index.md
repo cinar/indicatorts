@@ -10,6 +10,7 @@ Trend strategies generate signals based on a trend indicator.
 - [KDJ Strategy](#kdj-strategy)
 - [Parabolic SAR Strategy](#parabolic-sar-strategy)
 - [Typical Price Strategy](#typical-price-strategy)
+- [Volume Weighted Moving Average (VWMA) Strategy](#volume-weighted-moving-average-vwma-strategy)
 - [Vortex Strategy](#vortex-strategy)
 
 #### Absolute Price Oscillator Strategy
