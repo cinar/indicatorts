@@ -16,15 +16,15 @@ import { DEFAULT_VWMA_PERIOD, vwma } from '../../indicator/trend/vwma';
  * @returns strategy actions.
  */
 export function wvmaStrategy(period: number, asset: Asset): Action[] {
-  const s = sma(period, asset.closings);
-  const w = vwma(period, asset.closings, asset.volumes);
+  const smaValues = sma(period, asset.closings);
+  const vwmaValues = vwma(period, asset.closings, asset.volumes);
 
-  const result = new Array<Action>(w.length);
+  const result = new Array<Action>(vwmaValues.length);
 
   for (let i = 0; i < result.length; i++) {
-    if (w[i] > s[i]) {
+    if (vwmaValues[i] > smaValues[i]) {
       result[i] = Action.BUY;
-    } else if (w[i] < s[i]) {
+    } else if (vwmaValues[i] < smaValues[i]) {
       result[i] = Action.SELL;
     } else {
       result[i] = Action.HOLD;
