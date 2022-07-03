@@ -24,6 +24,7 @@ Trend indicators measure the direction and strength of a trend.
 - [Triangular Moving Average (TRIMA)](#triangular-moving-average-trima)
 - [Triple Exponential Average (TRIX)](#triple-exponential-average-trix)
 - [Typical Price](#typical-price)
+- [Volume Weighted Moving Average (VWMA)](#volume-weighted-moving-average-vwma)
 - [Vortex Indicator](#vortex-indicator)
 
 #### Absolute Price Oscillator (APO)
@@ -382,6 +383,20 @@ Typical Price = (High + Low + Closing) / 3
 import {typicalPrice} from 'indicatorts';
 
 const result = typicalPrice(highs, lows, closings);
+```
+
+#### Volume Weighted Moving Average (VWMA)
+
+The [vwma](./vwma.ts) function calculates the Volume Weighted Moving Average (VWMA) averaging the price data with an emphasis on volume, meaning areas with higher volume will have a greater weight.
+
+```
+VWMA = Sum(Price * Volume) / Sum(Volume) for a given Period.
+```
+
+```TypeScript
+import {vwma} from 'indicatorts';
+
+const result = vwma(period, closings, volumes);
 ```
 
 #### Vortex Indicator
