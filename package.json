@@ -9,7 +9,10 @@
     "/dist"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "npm run build-esm; npm run build-cjs; npm run build-types",
+    "build-esm": "esbuild src/index.ts --bundle --outdir=dist --platform=browser --format=esm --minify --sourcemap",
+    "build-cjs": "esbuild src/index.ts --bundle --outdir=dist --platform=node --format=cjs --minify --sourcemap",
+    "build-types": "tsc --emitDeclarationOnly --declaration --outDir dist",
     "lint": "eslint --ignore-path .gitignore .",
     "fix": "prettier --ignore-path .gitignore --write . ; eslint --fix --ext .ts src",
     "test": "jest"
@@ -50,12 +53,11 @@
     "@types/jest": "^28.1.4",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
+    "esbuild": "^0.14.48",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
     "jest": "^28.1.2",
     "prettier": "^2.7.1",
-    "rollup": "^2.75.7",
-    "rollup-plugin-ts": "^3.0.2",
     "ts-jest": "^28.0.5",
     "typescript": "^4.7.4"
   }
