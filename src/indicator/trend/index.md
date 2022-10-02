@@ -43,7 +43,7 @@ import {absolutePriceOscillator} from 'indicatorts';
 const result = absolutePriceOscillator(fastPeriod, slowPeriod, values);
 ```
 
-Most frequently used fast and short periods are 14 and 30. The [defaultAbsolutePriceOscillator](./absolutePriceOscillator.ts) function calculates APO with those periods.
+Most frequently used fast and slow periods are 14 and 30. The [defaultAbsolutePriceOscillator](./absolutePriceOscillator.ts) function calculates APO with those periods.
 
 #### Aroon Indicator
 
