@@ -16,11 +16,17 @@ jobs:
         with:
           node-version: 16.x
 
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
       - name: Installing dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Run test
-        run: npm test -- --coverage
+        run: pnpm test -- --coverage
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
+
