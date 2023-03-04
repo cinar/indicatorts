@@ -17,7 +17,7 @@ jobs:
           node-version: 16
 
       - name: Install PNPM
-        uses: pnpm/setup-node@v2
+        uses: pnpm/action-node@v2
         with:
           version: 7
 
