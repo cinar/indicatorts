@@ -22,7 +22,7 @@ jobs:
           version: 7
 
       - name: Installing dependencies
-        run: pnpm ci
+        run: pnpm install
 
       - name: Run test
         run: pnpm test -- --coverage
