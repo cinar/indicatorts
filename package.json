@@ -9,7 +9,8 @@
     "/dist"
   ],
   "scripts": {
-    "build": "npm run build-esm; npm run build-cjs; npm run build-types",
+    "preinstall": "npx only-allow pnpm",
+    "build": "pnpm run build-esm; pnpm run build-cjs; pnpm run build-types",
     "build-esm": "esbuild src/index.ts --bundle --outdir=dist --platform=browser --format=esm --minify --sourcemap",
     "build-cjs": "esbuild src/index.ts --bundle --outdir=dist --platform=node --format=cjs --minify --sourcemap",
     "build-types": "tsc --emitDeclarationOnly --declaration --outDir dist",
