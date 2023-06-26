@@ -8,6 +8,7 @@ Momentum indicators measure the speed of movement.
 - [Ichimoku Cloud](#ichimoku-cloud)
 - [Percentage Price Oscillator (PPO)](#percentage-price-oscillator-ppo)
 - [Percentage Volume Oscillator (PVO)](#percentage-volume-oscillator-pvo)
+- [Price Rate of CHange (ROC)](#price-rate-of-change-roc)
 - [Relative Strength Index (RSI)](#relative-strength-index-rsi)
 - [RSI 2](#rsi-2)
 - [Stochastic Oscillator](#stochastic-oscillator)
@@ -134,6 +135,26 @@ import {defaultPercentageVolumeOscillator} from 'indicatorts';
 
 const result = defaultPercentageVolumeOscillator(volumes);
 ```
+
+#### Price Rate of Change (ROC)
+
+The [roc](./priceRateOfChange.ts) function calculates a unbounded momentum indicator for the closing prices. A rising ROC above zero typically indicates an uptrend whereas a falling ROC below zero indicates a downtrend. 
+
+```
+ROC[i] = 0 when i < period
+ROC[i] = (close[i] / close[i-period] - 1) * 100 when i >= period
+```
+
+```TypeScript
+import {roc} from 'indicatorts';
+
+const result = roc(
+    period,
+    close
+);
+```
+
+Ensure that the array `close` does not contain $0$ to avoid division by 0 errors.
 
 #### Relative Strength Index (RSI)
 
