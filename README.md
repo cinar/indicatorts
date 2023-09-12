@@ -58,7 +58,7 @@ The following list of indicators are currently supported by this package:
 ### Volatility Indicators
 
 - [Acceleration Bands](src/indicator/volatility/index.md#acceleration-bands)
-- [Actual True Range (ATR)](src/indicator/volatility/index.md#actual-true-range-atr)
+- [Average True Range (ATR)](src/indicator/volatility/index.md#average-true-range-atr)
 - [Bollinger Band Width](src/indicator/volatility/index.md#bollinger-band-width)
 - [Bollinger Bands](src/indicator/volatility/index.md#bollinger-bands)
 - [Chandelier Exit](src/indicator/volatility/index.md#chandelier-exit)
