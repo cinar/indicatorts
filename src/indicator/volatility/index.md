@@ -3,7 +3,7 @@
 Volatility indicators measure the rate of movement regardless of its direction.
 
 - [Acceleration Bands](#acceleration-bands)
-- [Actual True Range (ATR)](#actual-true-range-atr)
+- [Average True Range (ATR)](#actual-true-range-atr)
 - [Bollinger Band Width](#bollinger-band-width)
 - [Bollinger Bands](#bollinger-bands)
 - [Chandelier Exit](#chandelier-exit)
@@ -29,7 +29,7 @@ import {accelerationBands} from 'indicatorts';
 const result = accelerationBands(highs, lows, closings);
 ```
 
-#### Actual True Range (ATR)
+#### Average True Range (ATR)
 
 The [atr](./atr.ts) function calculates a technical analysis indicator that measures market volatility by decomposing the entire range of stock prices for that period.
 
