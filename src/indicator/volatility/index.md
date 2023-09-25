@@ -3,7 +3,7 @@
 Volatility indicators measure the rate of movement regardless of its direction.
 
 - [Acceleration Bands](#acceleration-bands)
-- [Average True Range (ATR)](#actual-true-range-atr)
+- [Average True Range (ATR)](#average-true-range-atr)
 - [Bollinger Band Width](#bollinger-band-width)
 - [Bollinger Bands](#bollinger-bands)
 - [Chandelier Exit](#chandelier-exit)
