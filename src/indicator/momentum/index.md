@@ -138,7 +138,7 @@ const result = defaultPercentageVolumeOscillator(volumes);
 
 #### Price Rate of Change (ROC)
 
-The [roc](./priceRateOfChange.ts) function calculates a unbounded momentum indicator for the closing prices. A rising ROC above zero typically indicates an uptrend whereas a falling ROC below zero indicates a downtrend. 
+The [roc](./priceRateOfChange.ts) function calculates a unbounded momentum indicator for the closing prices. A rising ROC above zero typically indicates an uptrend whereas a falling ROC below zero indicates a downtrend.
 
 ```
 ROC[i] = 0 when i < period
