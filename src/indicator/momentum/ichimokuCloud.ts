@@ -22,6 +22,16 @@ export interface IchimokuCloudResult {
 }
 
 /**
+ * Optional configuration of parameters
+ */
+export interface IchimokuCloudConfig {
+  short?: number;
+  medium?: number;
+  long?: number;
+  close?: number;
+}
+
+/**
  * Ichimoku Cloud. Also known as Ichimoku Kinko Hyo, is a versatile indicator
  * that defines support and resistence, identifies trend direction, gauges
  * momentum, and provides trading signals.
@@ -35,20 +45,32 @@ export interface IchimokuCloudResult {
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
+ * @param config configuration.
  * @return ichimoku cloud result object.
  */
 export function ichimokuCloud(
   highs: number[],
   lows: number[],
-  closings: number[]
+  closings: number[],
+  config: IchimokuCloudConfig = {}
 ): IchimokuCloudResult {
   checkSameLength(highs, lows, closings);
 
-  const conversionLine = divideBy(2, add(mmax(9, highs), mmin(9, lows)));
-  const baseLine = divideBy(2, add(mmax(26, highs), mmin(26, lows)));
+  const { short, medium, long, close } = {
+    short: 9,
+    medium: 26,
+    long: 52,
+    close: 26,
+    ...config,
+  };
+  const conversionLine = divideBy(
+    2,
+    add(mmax(short, highs), mmin(short, lows))
+  );
+  const baseLine = divideBy(2, add(mmax(medium, highs), mmin(medium, lows)));
   const leadingSpanA = divideBy(2, add(conversionLine, baseLine));
-  const leadingSpanB = divideBy(2, add(mmax(52, highs), mmin(52, lows)));
-  const laggingSpan = shiftRightBy(26, closings);
+  const leadingSpanB = divideBy(2, add(mmax(long, highs), mmin(long, lows)));
+  const laggingSpan = shiftRightBy(close, closings);
 
   return {
     conversionLine,

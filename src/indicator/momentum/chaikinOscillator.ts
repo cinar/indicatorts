@@ -14,6 +14,14 @@ export interface ChaikinOscillator {
 }
 
 /**
+ * Optional configuration of parameters
+ */
+export interface ChaikinOscillatorConfig {
+  fast?: number;
+  slow?: number;
+}
+
+/**
  * The ChaikinOscillator function measures the momentum of the
  * Accumulation/Distribution (A/D) using the Moving Average
  * Convergence Divergence (MACD) formula. It takes the
@@ -22,46 +30,23 @@ export interface ChaikinOscillator {
  *
  * CO = Ema(fastPeriod, AD) - Ema(slowPeriod, AD)
  *
- * @param fastPeriod fast period.
- * @param slowPeriod slow period.
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
  * @param volumes volume values.
+ * @param config configuration.
  * @return chaikin oscillator.
  */
 export function chaikinOscillator(
-  fastPeriod: number,
-  slowPeriod: number,
   highs: number[],
   lows: number[],
   closings: number[],
-  volumes: number[]
+  volumes: number[],
+  config: ChaikinOscillatorConfig = {}
 ): ChaikinOscillator {
+  const finalConfig = { fast: 3, slow: 10, ...config };
   const ad = accumulationDistribution(highs, lows, closings, volumes);
-  const co = subtract(ema(fastPeriod, ad), ema(slowPeriod, ad));
+  const co = subtract(ema(finalConfig.fast, ad), ema(finalConfig.slow, ad));
 
-  return {
-    ad,
-    co,
-  };
-}
-
-/**
- * The defaultChaikinOscillator function calculates Chaikin Oscillator
- * with the most frequently used fast and short periods, 3 and 10.
- *
- * @param highs high values.
- * @param lows low values.
- * @param closings closing values.
- * @param volumes volume values.
- * @return chaikin oscillator.
- */
-export function defaultChaikinOscillator(
-  highs: number[],
-  lows: number[],
-  closings: number[],
-  volumes: number[]
-): ChaikinOscillator {
-  return chaikinOscillator(3, 10, highs, lows, closings, volumes);
+  return { ad, co };
 }
