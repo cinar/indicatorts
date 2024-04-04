@@ -26,7 +26,8 @@ AO = 5-Period SMA - 34-Period SMA.
 ```TypeScript
 import {awesomeOscillator} from 'indicatorts';
 
-const result = awesomeOscillator(highs, lows);
+const optionalConfig =  { fast: 5, slow: 34 };
+const result = awesomeOscillator(highs, lows, optionalConfig);
 ```
 
 #### Chaikin Oscillator
@@ -40,10 +41,11 @@ CO = Ema(fastPeriod, AD) - Ema(slowPeriod, AD)
 ```TypeScript
 import {chaikinOscillator} from 'indicatorts';
 
-const result = chaikinOscillator(fastPeriod, slowPeriod, highs, lows, closings);
+const optionalConfig =  { fast: 3, slow: 10 };
+const result = chaikinOscillator(highs, lows, closings, volumes, optionalConfig);
 ```
 
-Most frequently used fast and short periods are 3 and 10. The [defaultChaikinOscillator](./chaikinOscillator.ts) function calculates Chaikin Oscillator with those periods.
+Most frequently used fast and short periods are 3 and 10.
 
 #### Custom RSI
 
@@ -75,7 +77,17 @@ Chikou Span (Lagging Span) = Closing plotted 26 days in the past.
 ```TypeScript
 import {ichimokuCloud} from 'indicatorts';
 
-const result = ichimokuCloud(highs, lows, closings);
+const result = ichimokuCloud(
+    highs,
+    lows,
+    closings,
+    {
+        short: 9,
+        medium: 26,
+        long: 52,
+        close: 26,
+    }
+);
 ```
 
 #### Percentage Price Oscillator (PPO)

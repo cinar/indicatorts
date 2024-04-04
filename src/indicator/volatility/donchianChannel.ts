@@ -22,7 +22,7 @@ export interface DonchianChannelResult {
  * an asset, and the area between the upper and lower bands
  * represents the Donchian Channel.
  *
- * Upper Channel = Mmax(period, closings)
+ * Upper Channel = Mmax(closings, { period })
  * Lower Channel = Mmin(period, closings)
  * Middle Channel = (Upper Channel + Lower Channel) / 2
  *
@@ -34,7 +34,7 @@ export function donchianChannel(
   period: number,
   closings: number[]
 ): DonchianChannelResult {
-  const upperChannel = mmax(period, closings);
+  const upperChannel = mmax(closings, { period });
   const lowerChannel = mmin(period, closings);
   const middleChannel = divideBy(2, add(upperChannel, lowerChannel));
 

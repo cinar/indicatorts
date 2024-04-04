@@ -65,11 +65,17 @@ export function ichimokuCloud(
   };
   const conversionLine = divideBy(
     2,
-    add(mmax(short, highs), mmin(short, lows))
+    add(mmax(highs, { period: short }), mmin(short, lows))
   );
-  const baseLine = divideBy(2, add(mmax(medium, highs), mmin(medium, lows)));
+  const baseLine = divideBy(
+    2,
+    add(mmax(highs, { period: medium }), mmin(medium, lows))
+  );
   const leadingSpanA = divideBy(2, add(conversionLine, baseLine));
-  const leadingSpanB = divideBy(2, add(mmax(long, highs), mmin(long, lows)));
+  const leadingSpanB = divideBy(
+    2,
+    add(mmax(highs, { period: long }), mmin(long, lows))
+  );
   const laggingSpan = shiftRightBy(close, closings);
 
   return {

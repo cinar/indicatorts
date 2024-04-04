@@ -176,12 +176,12 @@ const result = macd(closings);
 
 #### Moving Max
 
-The [mmax](./mmax.ts) function gives the maximum value within the given moving period. It can be used to get the moving maximum closing price and other values.
+The [mmax](./mmax.ts) function gives the maximum value within the given moving period. It can be used to get the moving maximum closing price and other values. Passing a configuration object with the period is also possible, but is optional. The default period is `4`.
 
 ```TypeScript
 import {mmax} from 'indicatorts';
 
-const result = mmax(period, values);
+const result = mmax(values, { period: 4 });
 ```
 
 #### Moving Min

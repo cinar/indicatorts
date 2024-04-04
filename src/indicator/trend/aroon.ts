@@ -42,7 +42,7 @@ export interface AroonResult {
 export function aroon(highs: number[], lows: number[]): AroonResult {
   checkSameLength(highs, lows);
 
-  const sinceLastHigh = since(mmax(AROON_PERIOD, highs));
+  const sinceLastHigh = since(mmax(highs, { period: AROON_PERIOD }));
   const sinceLastLow = since(mmin(AROON_PERIOD, lows));
 
   const up = multiplyBy(

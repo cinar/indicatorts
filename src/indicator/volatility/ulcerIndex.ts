@@ -31,7 +31,7 @@ export const UI_DEFAULT_PERIOD = 14;
  * @returns ui values.
  */
 export function ulcerIndex(period: number, closings: number[]): number[] {
-  const highClosings = mmax(period, closings);
+  const highClosings = mmax(closings, { period });
   const percentageDrawdown = multiplyBy(
     100,
     divide(subtract(closings, highClosings), highClosings)
