@@ -36,7 +36,7 @@ export function chandelierExit(
   const atrResult = atr(PERIOD, highs, lows, closings);
   const atrLine3 = multiplyBy(3, atrResult.atrLine);
   const highestHigh = mmax(highs, { period: PERIOD });
-  const lowestLow = mmin(PERIOD, lows);
+  const lowestLow = mmin(lows, { period: PERIOD });
 
   const exitLong = subtract(highestHigh, atrLine3);
   const exitShort = add(lowestLow, atrLine3);

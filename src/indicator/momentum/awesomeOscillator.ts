@@ -13,6 +13,15 @@ export interface AwesomeOscillatorConfig {
 }
 
 /**
+ * The default configuration.
+ */
+export const AwesomeOscillatorDefaultConfig: Required<AwesomeOscillatorConfig> =
+  {
+    fast: 5,
+    slow: 34,
+  };
+
+/**
  * Awesome Oscillator.
  *
  * Median Price = ((Low + High) / 2).
@@ -28,10 +37,10 @@ export function awesomeOscillator(
   lows: number[],
   config: AwesomeOscillatorConfig = {}
 ): number[] {
-  const finalConfig = { fast: 5, slow: 34, ...config };
+  const { fast, slow } = { ...AwesomeOscillatorDefaultConfig, ...config };
   const medianPrice = divideBy(2, add(lows, highs));
-  const smaFast = sma(finalConfig.fast, medianPrice);
-  const smaSlow = sma(finalConfig.slow, medianPrice);
+  const smaFast = sma(fast, medianPrice);
+  const smaSlow = sma(slow, medianPrice);
   const ao = subtract(smaFast, smaSlow);
   return ao;
 }

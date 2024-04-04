@@ -4,12 +4,27 @@
 import { BinarySearchTree } from '../../helper/binarySearchTree';
 
 /**
+ * Optional configuration of MovingMin parameters.
+ */
+export interface MovingMinConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of MovingMin.
+ */
+export const MovingMinDefaultConfig: Required<MovingMinConfig> = {
+  period: 4,
+};
+
+/**
  * Moving min for the given period.
  * @param period window period.
  * @param values values array.
  * @return moving min.
  */
-export function mmin(period: number, values: number[]): number[] {
+export function mmin(values: number[], config: MovingMinConfig = {}): number[] {
+  const { period } = { ...MovingMinDefaultConfig, ...config };
   const result = new Array<number>(values.length);
   const bst = new BinarySearchTree();
 

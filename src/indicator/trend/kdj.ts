@@ -48,7 +48,7 @@ export function kdj(
   closings: number[]
 ): KdjResult {
   const highest = mmax(highs, { period: rPeriod });
-  const lowest = mmin(rPeriod, lows);
+  const lowest = mmin(lows, { period: rPeriod });
 
   const rsv = multiplyBy(
     100,

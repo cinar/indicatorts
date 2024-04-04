@@ -32,15 +32,12 @@ export function stochasticOscillator(
   lows: number[],
   closings: number[]
 ): StochasticOscillator {
-  const highestHigh14 = mmax(highs, { period: 14 });
-  const lowestLow14 = mmin(14, lows);
+  const highestHigh = mmax(highs, { period: 14 });
+  const lowestLow = mmin(lows, { period: 14 });
 
   const k = multiplyBy(
     100,
-    divide(
-      subtract(closings, lowestLow14),
-      subtract(highestHigh14, lowestLow14)
-    )
+    divide(subtract(closings, lowestLow), subtract(highestHigh, lowestLow))
   );
 
   const d = sma(3, k);

@@ -23,7 +23,7 @@ export interface DonchianChannelResult {
  * represents the Donchian Channel.
  *
  * Upper Channel = Mmax(closings, { period })
- * Lower Channel = Mmin(period, closings)
+ * Lower Channel = Mmin(closings, { period })
  * Middle Channel = (Upper Channel + Lower Channel) / 2
  *
  * @param period window period.
@@ -35,7 +35,7 @@ export function donchianChannel(
   closings: number[]
 ): DonchianChannelResult {
   const upperChannel = mmax(closings, { period });
-  const lowerChannel = mmin(period, closings);
+  const lowerChannel = mmin(closings, { period });
   const middleChannel = divideBy(2, add(upperChannel, lowerChannel));
 
   return {

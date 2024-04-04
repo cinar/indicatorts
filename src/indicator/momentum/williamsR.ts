@@ -25,7 +25,7 @@ export function williamsR(
   closings: number[]
 ): number[] {
   const highestHigh = mmax(highs, { period: PERIOD });
-  const lowestLow = mmin(PERIOD, lows);
+  const lowestLow = mmin(lows, { period: PERIOD });
   return multiplyBy(
     -100,
     divide(subtract(highestHigh, closings), subtract(highestHigh, lowestLow))

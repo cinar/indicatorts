@@ -22,6 +22,15 @@ export interface ChaikinOscillatorConfig {
 }
 
 /**
+ * The default configuration.
+ */
+export const ChaikinOscillatorDefaultConfig: Required<ChaikinOscillatorConfig> =
+  {
+    fast: 3,
+    slow: 10,
+  };
+
+/**
  * The ChaikinOscillator function measures the momentum of the
  * Accumulation/Distribution (A/D) using the Moving Average
  * Convergence Divergence (MACD) formula. It takes the
@@ -44,9 +53,9 @@ export function chaikinOscillator(
   volumes: number[],
   config: ChaikinOscillatorConfig = {}
 ): ChaikinOscillator {
-  const finalConfig = { fast: 3, slow: 10, ...config };
+  const { fast, slow } = { ...ChaikinOscillatorDefaultConfig, ...config };
   const ad = accumulationDistribution(highs, lows, closings, volumes);
-  const co = subtract(ema(finalConfig.fast, ad), ema(finalConfig.slow, ad));
+  const co = subtract(ema(fast, ad), ema(slow, ad));
 
   return { ad, co };
 }

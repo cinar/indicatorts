@@ -186,12 +186,12 @@ const result = mmax(values, { period: 4 });
 
 #### Moving Min
 
-The [mmin](./mmin.ts) function gives the minimum value within the given moving period. It can be used to get the moving minimum closing price and other values.
+The [mmin](./mmin.ts) function gives the minimum value within the given moving period. It can be used to get the moving minimum closing price and other values. Passing a configuration object with the period is also possible, but is optional. The default period is `4`.
 
 ```TypeScript
 import {mmin} from 'indicatorts';
 
-const result = mmin(period, values);
+const result = mmin(values, { period: 4});
 ```
 
 #### Moving Sum
