@@ -3,15 +3,29 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { vortex } from '../../indicator/trend/vortex';
+import {
+  VortexConfig,
+  VortexDefaultConfig,
+  vortex,
+} from '../../indicator/trend/vortex';
 
 /**
  * Vortex strategy.
  * @param asset asset object.
+ * @param config configuration.
  * @return strategy actions.
  */
-export function vortexStrategy(asset: Asset): Action[] {
-  const indicator = vortex(asset.highs, asset.lows, asset.closings);
+export function vortexStrategy(
+  asset: Asset,
+  config: VortexConfig = {}
+): Action[] {
+  const strategyConfig = { ...VortexDefaultConfig, ...config };
+  const indicator = vortex(
+    asset.highs,
+    asset.lows,
+    asset.closings,
+    strategyConfig
+  );
 
   const actions = new Array<Action>(indicator.plusVi.length);
 

@@ -13,16 +13,16 @@ import {
 } from '../../helper/regression';
 
 /**
- * Optional configuration of ChangeForecastOscillator parameters.
+ * Optional configuration of ChandeForecastOscillator parameters.
  */
-export interface ChangeForecastOscillatorConfig {
+export interface ChandeForecastOscillatorConfig {
   period?: number;
 }
 
 /**
- * The default configuration of ChangeForecastOscillator.
+ * The default configuration of ChandeForecastOscillator.
  */
-export const ChangeForecastOscillatorDefaultConfig: Required<ChangeForecastOscillatorConfig> =
+export const ChandeForecastOscillatorDefaultConfig: Required<ChandeForecastOscillatorConfig> =
   {
     period: 4,
   };
@@ -66,9 +66,9 @@ export function chandeForecastOscillator(closings: number[]): number[] {
  */
 export function movingChandeForecastOscillator(
   closings: number[],
-  config: ChangeForecastOscillatorConfig = {}
+  config: ChandeForecastOscillatorConfig = {}
 ): number[] {
-  const { period } = { ...ChangeForecastOscillatorDefaultConfig, ...config };
+  const { period } = { ...ChandeForecastOscillatorDefaultConfig, ...config };
   const x = generateNumbers(0, closings.length, 1);
   const r = movingLinearRegressionUsingLeastSquare(period, x, closings);
   const cfo = multiplyBy(100, divide(subtract(closings, r), closings));

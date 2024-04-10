@@ -20,9 +20,9 @@ import {
  * @returns strategy actions.
  */
 export function vwmaStrategy(asset: Asset, config: VWMAConfig = {}): Action[] {
-  const { period } = { ...VWMADefaultConfig, ...config };
-  const smaValues = sma(asset.closings, { period });
-  const vwmaValues = vwma(asset.closings, asset.volumes, { period });
+  const strategyConfig = { ...VWMADefaultConfig, ...config };
+  const smaValues = sma(asset.closings, strategyConfig);
+  const vwmaValues = vwma(asset.closings, asset.volumes, strategyConfig);
 
   const result = new Array<Action>(vwmaValues.length);
 

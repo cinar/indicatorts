@@ -3,15 +3,21 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { macd } from '../../indicator/trend/macd';
+import {
+  MacdConfig,
+  MacdDefaultConfig,
+  macd,
+} from '../../indicator/trend/macd';
 
 /**
  * MACD strategy.
  * @param asset asset object.
+ * @param config configuration.
  * @return strategy actions.
  */
-export function macdStrategy(asset: Asset): Action[] {
-  const macdResult = macd(asset.closings);
+export function macdStrategy(asset: Asset, config: MacdConfig = {}): Action[] {
+  const strategyConfig = { ...MacdDefaultConfig, ...config };
+  const macdResult = macd(asset.closings, strategyConfig);
   const actions = new Array<number>(macdResult.macdLine.length);
 
   for (let i = 0; i < actions.length; i++) {

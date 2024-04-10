@@ -10,28 +10,6 @@ import {
 } from '../../indicator/trend/absolutePriceOscillator';
 
 /**
- * Runs the APO strategy based on the indicator.
- *
- * @param indicator APO indicator.
- * @return strategy actions.
- */
-function runStrategy(indicator: number[]): Action[] {
-  const result = new Array<number>(indicator.length);
-
-  for (let i = 0; i < result.length; i++) {
-    if (indicator[i] > 0) {
-      result[i] = Action.BUY;
-    } else if (indicator[i] < 0) {
-      result[i] = Action.SELL;
-    } else {
-      result[i] = Action.HOLD;
-    }
-  }
-
-  return result;
-}
-
-/**
  * Absolute Price Oscillator (APO) strategy function.
  *
  * @param asset asset object.
@@ -46,5 +24,18 @@ export function absolutePriceOscillatorStrategy(
     ...AbsolutePriceOscillatorDefaultConfig,
     ...config,
   };
-  return runStrategy(absolutePriceOscillator(asset.closings, { fast, slow }));
+  const indicator = absolutePriceOscillator(asset.closings, { fast, slow });
+  const actions = new Array<Action>(indicator.length);
+
+  for (let i = 0; i < actions.length; i++) {
+    if (indicator[i] > 0) {
+      actions[i] = Action.BUY;
+    } else if (indicator[i] < 0) {
+      actions[i] = Action.SELL;
+    } else {
+      actions[i] = Action.HOLD;
+    }
+  }
+
+  return actions;
 }

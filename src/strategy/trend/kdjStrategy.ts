@@ -12,12 +12,13 @@ import { KdjConfig, KdjDefaultConfig, kdj } from '../../indicator/trend/kdj';
  * @return strategy actions.
  */
 export function kdjStrategy(asset: Asset, config: KdjConfig = {}): Action[] {
-  const { rPeriod, kPeriod, dPeriod } = { ...KdjDefaultConfig, ...config };
-  const kdjResult = kdj(asset.highs, asset.lows, asset.closings, {
-    rPeriod,
-    kPeriod,
-    dPeriod,
-  });
+  const strategyConfig = { ...KdjDefaultConfig, ...config };
+  const kdjResult = kdj(
+    asset.highs,
+    asset.lows,
+    asset.closings,
+    strategyConfig
+  );
   const actions = new Array<Action>(kdjResult.k.length);
 
   for (let i = 0; i < actions.length; i++) {
