@@ -1,7 +1,11 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { chaikinMoneyFlow } from '../../indicator/volume/chaikinMoneyFlow';
+import {
+  ChaikinMoneyFlowConfig,
+  ChaikinMoneyFlowDefaultConfig,
+  chaikinMoneyFlow,
+} from '../../indicator/volume/chaikinMoneyFlow';
 import { Action } from '../action';
 import { Asset } from '../asset';
 
@@ -12,14 +16,20 @@ import { Asset } from '../asset';
  * greather than zero, a HOLD action otherwise.
  *
  * @param asset asset object.
+ * @param config configuration.
  * @returns strategy actions.
  */
-export function chaikinMoneyFlowStrategy(asset: Asset): Action[] {
+export function chaikinMoneyFlowStrategy(
+  asset: Asset,
+  config: ChaikinMoneyFlowConfig = {}
+): Action[] {
+  const strategyConfig = { ...ChaikinMoneyFlowDefaultConfig, ...config };
   const cmf = chaikinMoneyFlow(
     asset.highs,
     asset.lows,
     asset.closings,
-    asset.volumes
+    asset.volumes,
+    strategyConfig
   );
 
   return cmf.map((value) => {

@@ -24,13 +24,14 @@ export function negativeVolumeIndexStrategy(
   asset: Asset,
   config: NegativeVolumeIndexConfig = {}
 ): Action[] {
-  const { start, period } = { ...NegativeVolumeIndexDefaultConfig, ...config };
-  const nvi = negativeVolumeIndex(asset.closings, asset.volumes, {
-    start,
-    period,
-  });
+  const strategyConfig = { ...NegativeVolumeIndexDefaultConfig, ...config };
+  const nvi = negativeVolumeIndex(
+    asset.closings,
+    asset.volumes,
+    strategyConfig
+  );
 
-  const nvi255 = ema(nvi, { period });
+  const nvi255 = ema(nvi, { period: strategyConfig.period });
 
   const actions = new Array<Action>(nvi.length);
 

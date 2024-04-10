@@ -2,7 +2,11 @@
 // https://github.com/cinar/indicatorts
 
 import { subtract } from '../../helper/numArray';
-import { volumeWeightedAveragePrice } from '../../indicator/volume/volumeWeightedAveragePrice';
+import {
+  VolumeWeightedAveragePriceConfig,
+  VolumeWeightedAveragePriceDefaultConfig,
+  volumeWeightedAveragePrice,
+} from '../../indicator/volume/volumeWeightedAveragePrice';
 import { Action } from '../action';
 import { Asset } from '../asset';
 
@@ -13,10 +17,22 @@ import { Asset } from '../asset';
  * the closing is below the VWAP, a HOLD action otherwise.
  *
  * @param asset asset object.
+ * @param config configuration.
  * @returns strategy actions.
  */
-export function volumeWeightedAveragePriceStrategy(asset: Asset): Action[] {
-  const vwap = volumeWeightedAveragePrice(asset.closings, asset.volumes);
+export function volumeWeightedAveragePriceStrategy(
+  asset: Asset,
+  config: VolumeWeightedAveragePriceConfig = {}
+): Action[] {
+  const strategyConfig = {
+    ...VolumeWeightedAveragePriceDefaultConfig,
+    ...config,
+  };
+  const vwap = volumeWeightedAveragePrice(
+    asset.closings,
+    asset.volumes,
+    strategyConfig
+  );
 
   const diff = subtract(vwap, asset.closings);
 
