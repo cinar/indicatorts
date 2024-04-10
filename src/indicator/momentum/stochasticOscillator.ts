@@ -15,6 +15,23 @@ export interface StochasticOscillator {
 }
 
 /**
+ * Optional configuration of StochasticOscillator parameters.
+ */
+export interface StochasticOscillatorConfig {
+  kPeriod?: number;
+  dPeriod?: number;
+}
+
+/**
+ * The default configuration of StochasticOscillator.
+ */
+export const StochasticOscillatorDefaultConfig: Required<StochasticOscillatorConfig> =
+  {
+    kPeriod: 14,
+    dPeriod: 3,
+  };
+
+/**
  * Stochastic Oscillator. It is a momentum indicator that shows the
  * location of the closing relative to high-low range over a
  * set number of periods.
@@ -25,22 +42,28 @@ export interface StochasticOscillator {
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
+ * @param config configuration.
  * @return stochastic oscillator result object.
  */
 export function stochasticOscillator(
   highs: number[],
   lows: number[],
-  closings: number[]
+  closings: number[],
+  config: StochasticOscillatorConfig = {}
 ): StochasticOscillator {
-  const highestHigh = mmax(highs, { period: 14 });
-  const lowestLow = mmin(lows, { period: 14 });
+  const { kPeriod, dPeriod } = {
+    ...StochasticOscillatorDefaultConfig,
+    ...config,
+  };
+  const highestHigh = mmax(highs, { period: kPeriod });
+  const lowestLow = mmin(lows, { period: kPeriod });
 
   const k = multiplyBy(
     100,
     divide(subtract(closings, lowestLow), subtract(highestHigh, lowestLow))
   );
 
-  const d = sma(k, { period: 3 });
+  const d = sma(k, { period: dPeriod });
 
   return {
     k,

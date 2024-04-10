@@ -47,7 +47,7 @@ const result = chaikinOscillator(highs, lows, closings, volumes, optionalConfig)
 
 Most frequently used fast and short periods are 3 and 10.
 
-#### Custom RSI
+#### RSI
 
 The [customRsi](./rsi.ts) function calculates Relative Strength Index (RSI), a momentum indicator that measures the magnitude of recent price changes to evaluate overbought and oversold conditions using the given window period.
 
@@ -57,9 +57,9 @@ RSI = 100 - (100 / (1 + RS))
 ```
 
 ```TypeScript
-import {customRsi} from 'indicatorts';
+import {rsi} from 'indicatorts';
 
-const result = customRsi(period, closings);
+const result = rsi(closings, { period: 14 });
 ```
 
 #### Ichimoku Cloud

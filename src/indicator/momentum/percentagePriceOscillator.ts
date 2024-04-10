@@ -4,15 +4,6 @@
 import { divide, multiplyBy, subtract } from '../../helper/numArray';
 import { ema } from '../trend/ema';
 
-/** Default fast period value. */
-const DEFAULT_FAST_PERIOD = 12;
-
-/** Default slow period value. */
-const DEFAULT_SLOW_PERIOD = 26;
-
-/** Default signal period value. */
-const DEFAULT_SIGNAL_PERIOD = 9;
-
 /**
  * Percentage price oscillator result.
  */
@@ -23,6 +14,25 @@ export interface PercentagePriceOscillator {
 }
 
 /**
+ * Optional configuration of PercentagePriceOscillator parameters.
+ */
+export interface PercentagePriceOscillatorConfig {
+  fast?: number;
+  slow?: number;
+  signal?: number;
+}
+
+/**
+ * The default configuration of PercentagePriceOscillator.
+ */
+export const PercentagePriceOscillatorDefaultConfig: Required<PercentagePriceOscillatorConfig> =
+  {
+    fast: 12,
+    slow: 26,
+    signal: 9,
+  };
+
+/**
  * Percentage Price Oscillator (PPO). It is a momentum oscillator for the price.
  * It is used to indicate the ups and downs based on the price. A breakout is
  * confirmed when PPO is positive.
@@ -31,18 +41,19 @@ export interface PercentagePriceOscillator {
  * Signal = EMA(9, PVO)
  * Histogram = PVO - Signal
  *
- * @param fastPeriod fast period.
- * @param slowPeriod slow period.
- * @param signalPeriod signal period.
  * @param prices price values.
+ * @param config configuration.
  * @returns oscillator result.
  */
 export function percentagePriceOscillator(
-  fastPeriod: number,
-  slowPeriod: number,
-  signalPeriod: number,
-  prices: number[]
+  prices: number[],
+  config: PercentagePriceOscillatorConfig = {}
 ): PercentagePriceOscillator {
+  const {
+    fast: fastPeriod,
+    slow: slowPeriod,
+    signal: signalPeriod,
+  } = { ...PercentagePriceOscillatorDefaultConfig, ...config };
   const fastEma = ema(prices, { period: fastPeriod });
   const slowEma = ema(prices, { period: slowPeriod });
 
@@ -55,21 +66,4 @@ export function percentagePriceOscillator(
     signal,
     histogram,
   };
-}
-
-/**
- * Default Percentage Price Oscillator calculates it with the default periods of 12, 26, 9.
- *
- * @param prices price values.
- * @returns oscillator result.
- */
-export function defaultPercentagePriceOscillator(
-  prices: number[]
-): PercentagePriceOscillator {
-  return percentagePriceOscillator(
-    DEFAULT_FAST_PERIOD,
-    DEFAULT_SLOW_PERIOD,
-    DEFAULT_SIGNAL_PERIOD,
-    prices
-  );
 }

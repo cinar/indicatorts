@@ -3,7 +3,7 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { customRsi } from './rsi';
+import { rsi } from './rsi';
 
 describe('Relative Strength Index (RSI)', () => {
   it('should be able to compute the custom RSI', () => {
@@ -16,7 +16,7 @@ describe('Relative Strength Index (RSI)', () => {
       61.11, 63.16, 65.13, 70.28, 71.78, 74.54,
     ];
 
-    const actual = customRsi(14, closings);
+    const actual = rsi(closings, { period: 14 });
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
 });

@@ -4,14 +4,24 @@
 import { divide, multiplyBy, subtract } from '../../helper/numArray';
 import { ema } from '../trend/ema';
 
-/** Default fast period value. */
-const DEFAULT_FAST_PERIOD = 12;
+/**
+ * Optional configuration of PercentageVolumeOscillator parameters.
+ */
+export interface PercentageVolumeOscillatorConfig {
+  fast?: number;
+  slow?: number;
+  signal?: number;
+}
 
-/** Default slow period value. */
-const DEFAULT_SLOW_PERIOD = 26;
-
-/** Default signal period value. */
-const DEFAULT_SIGNAL_PERIOD = 9;
+/**
+ * The default configuration of PercentageVolumeOscillator.
+ */
+export const PercentageVolumeOscillatorDefaultConfig: Required<PercentageVolumeOscillatorConfig> =
+  {
+    fast: 12,
+    slow: 26,
+    signal: 9,
+  };
 
 /**
  * Percentage volume oscillator result.
@@ -31,18 +41,19 @@ export interface PercentageVolumeOscillator {
  * Signal = EMA(9, PVO)
  * Histogram = PVO - Signal
  *
- * @param fastPeriod fast period.
- * @param slowPeriod slow period.
- * @param signalPeriod signal period.
  * @param volumes volume values.
+ * @param config configuration.
  * @returns oscillator result.
  */
 export function percentageVolumeOscillator(
-  fastPeriod: number,
-  slowPeriod: number,
-  signalPeriod: number,
-  volumes: number[]
+  volumes: number[],
+  config: PercentageVolumeOscillatorConfig = {}
 ): PercentageVolumeOscillator {
+  const {
+    fast: fastPeriod,
+    slow: slowPeriod,
+    signal: signalPeriod,
+  } = { ...PercentageVolumeOscillatorDefaultConfig, ...config };
   const fastEma = ema(volumes, { period: fastPeriod });
   const slowEma = ema(volumes, { period: slowPeriod });
 
@@ -55,21 +66,4 @@ export function percentageVolumeOscillator(
     signal,
     histogram,
   };
-}
-
-/**
- * Default Percentage Volume Oscillator calculates it with the default periods of 12, 26, 9.
- *
- * @param volumes volume values.
- * @returns oscillator result.
- */
-export function defaultPercentageVolumeOscillator(
-  volumes: number[]
-): PercentageVolumeOscillator {
-  return percentageVolumeOscillator(
-    DEFAULT_FAST_PERIOD,
-    DEFAULT_SLOW_PERIOD,
-    DEFAULT_SIGNAL_PERIOD,
-    volumes
-  );
 }

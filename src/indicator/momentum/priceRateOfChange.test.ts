@@ -8,7 +8,7 @@ describe('Price Rate of Change (ROC)', () => {
     const expected = [0, 0, 0, 300, -33.33, 0, -25];
     const period = 3;
 
-    const actual = roc(period, values);
+    const actual = roc(values, { period });
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
 });

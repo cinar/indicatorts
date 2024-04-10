@@ -3,7 +3,7 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { defaultPercentageVolumeOscillator } from './percentageVolumeOscillator';
+import { percentageVolumeOscillator } from './percentageVolumeOscillator';
 
 describe('Percent Volume Oscillator (PVO)', () => {
   it('should be able to compute pvo', () => {
@@ -53,7 +53,7 @@ describe('Percent Volume Oscillator (PVO)', () => {
       -2.15, -2.51, -3.05, -3.45, -3.73, -3.56, -2.14, -0.6, -0.9,
     ];
 
-    const actual = defaultPercentageVolumeOscillator(volumes);
+    const actual = percentageVolumeOscillator(volumes);
     deepStrictEqual(roundDigitsAll(2, actual.pvo), expectedPvo);
     deepStrictEqual(roundDigitsAll(2, actual.signal), expectedSignal);
     deepStrictEqual(roundDigitsAll(2, actual.histogram), expectedHistogram);
