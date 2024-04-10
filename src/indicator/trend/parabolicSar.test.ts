@@ -3,7 +3,7 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { Trend } from '../trend';
+import { Trend } from '../types';
 import { psar } from './parabolicSar';
 
 describe('Parabolic SAR (SAR)', () => {

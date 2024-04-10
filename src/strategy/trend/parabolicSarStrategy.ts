@@ -8,7 +8,7 @@ import {
   PSARDefaultConfig,
   psar,
 } from '../../indicator/trend/parabolicSar';
-import { Trend } from '../../indicator/trend';
+import { Trend } from '../../indicator/types';
 
 /**
  * Parabolic SAR strategy function.

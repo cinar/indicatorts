@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { checkSameLength } from '../../helper/numArray';
-import { Trend } from '../trend';
+import { Trend } from '../types';
 
 /**
  * Parabolic SAR result object.
