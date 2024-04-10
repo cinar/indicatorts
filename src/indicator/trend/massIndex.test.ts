@@ -4,8 +4,10 @@
 import { roundDigitsAll } from '../../helper/numArray';
 import { mi } from './massIndex';
 
-describe('Mass Index', () => {
-  it('should be able to compute MI', () => {
+describe('Mass Index (MI)', () => {
+  // TODO: Test - with a config
+
+  it('should be able to compute without a config', () => {
     const highs = [10, 9, 12, 14, 12];
     const lows = [6, 7, 9, 12, 10];
     const expected = [1, 1.92, 2.83, 3.69, 4.52];

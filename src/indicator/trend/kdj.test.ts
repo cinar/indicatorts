@@ -5,8 +5,10 @@ import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { kdj } from './kdj';
 
-describe('KDJ indicator', () => {
-  it('should be able to compute KDJ', () => {
+describe('KDJ', () => {
+  // TODO: Test - with a config
+
+  it('should be able to compute without a config', () => {
     const lows = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const highs = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
     const closings = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];

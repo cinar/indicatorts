@@ -4,15 +4,14 @@
 import { roundDigitsAll } from '../../index';
 import { dc } from './donchianChannel';
 
-describe('Donchian Channel', () => {
-  it('should be able to compute DC', () => {
+describe('Donchian Channel (DC)', () => {
+  it('should be able to compute with a config', () => {
     const closings = [9, 11, 7, 10, 8];
-    const period = 4;
     const expectedUpperChannel = [9, 11, 11, 11, 11];
     const expectedMiddleChannel = [9, 10, 9, 9, 9];
     const expectedLowerChannel = [9, 9, 7, 7, 7];
 
-    const actual = dc(closings, { period });
+    const actual = dc(closings, { period: 4 });
     expect(roundDigitsAll(2, actual.upperChannel)).toStrictEqual(
       expectedUpperChannel
     );
@@ -23,4 +22,6 @@ describe('Donchian Channel', () => {
       expectedLowerChannel
     );
   });
+
+  // TODO: Test - without a config
 });

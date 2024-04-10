@@ -4,8 +4,10 @@
 import { roundDigitsAll } from '../../helper/numArray';
 import { kc } from './keltnerChannel';
 
-describe('Keltner Channel', () => {
-  it('should be able to compute KC', () => {
+describe('Keltner Channel (KC)', () => {
+  // TODO: Test - with a config
+
+  it('should be able to compute without a config', () => {
     const highs = [10, 9, 12, 14, 12];
     const lows = [6, 7, 9, 12, 10];
     const closings = [9, 11, 7, 10, 8];

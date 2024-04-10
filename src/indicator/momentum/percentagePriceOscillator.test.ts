@@ -6,7 +6,9 @@ import { roundDigitsAll } from '../../helper/numArray';
 import { ppo } from './percentagePriceOscillator';
 
 describe('Percent Price Oscillator (PPO)', () => {
-  it('should be able to compute ppo', () => {
+  // TODO: Test - with a config
+
+  it('should be able to compute without a config', () => {
     const prices = [
       3674.84, 3666.77, 3789.99, 3735.48, 3749.63, 3900.86, 4017.82, 4115.77,
       4160.68, 4121.43, 4108.54, 4176.82, 4101.23, 4132.15, 4158.24, 4057.84,

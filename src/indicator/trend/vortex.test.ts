@@ -6,7 +6,9 @@ import { roundDigitsAll } from '../../helper/numArray';
 import { vortex } from './vortex';
 
 describe('Vortex Indicator', () => {
-  it('should be able to compute vortex', () => {
+  // TODO: Test - with a config
+
+  it('should be able to compute without a config', () => {
     const highs = [1404.14, 1405.95, 1405.98, 1405.87, 1410.03];
     const lows = [1396.13, 1398.8, 1395.62, 1397.32, 1400.6];
     const closings = [1402.22, 1402.8, 1405.87, 1404.11, 1403.93];

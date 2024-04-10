@@ -15,8 +15,7 @@
     "build-types": "tsc --emitDeclarationOnly --declaration --outDir dist/types",
     "lint": "eslint --ignore-path .gitignore .",
     "fix": "prettier --ignore-path .gitignore --write . ; eslint --fix --ext .ts src",
-    "test": "jest",
-    "coverage": "jest --coverage"
+    "test": "jest"
   },
   "repository": {
     "type": "git",

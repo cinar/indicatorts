@@ -5,8 +5,10 @@ import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { bb } from './bollingerBands';
 
-describe('Bollinger Bands', () => {
-  it('should be able to compute the bollinger bands', () => {
+describe('Bollinger Bands (BB)', () => {
+  // TODO: Test - with a config
+
+  it('should be able to compute the without a config', () => {
     const closings = [
       2, 4, 6, 8, 12, 14, 16, 18, 20, 2, 4, 6, 8, 12, 14, 16, 18, 20, 2, 4, 6,
       8, 12, 14, 16, 18, 20, 2, 4, 6, 8, 12, 14, 16, 18, 20,

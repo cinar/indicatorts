@@ -6,7 +6,7 @@ import { roundDigitsAll } from '../../helper/numArray';
 import { rsi } from './rsi';
 
 describe('Relative Strength Index (RSI)', () => {
-  it('should be able to compute the custom RSI', () => {
+  it('should be able to compute with a config', () => {
     const closings = [
       10, 12, 11, 11, 14, 16, 18, 17, 18, 19, 16, 14, 14, 15, 16, 19, 20, 22,
     ];
@@ -19,4 +19,6 @@ describe('Relative Strength Index (RSI)', () => {
     const actual = rsi(closings, { period: 14 });
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
+
+  // TODO: Test - without a config
 });

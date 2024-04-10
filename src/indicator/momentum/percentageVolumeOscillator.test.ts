@@ -6,7 +6,9 @@ import { roundDigitsAll } from '../../helper/numArray';
 import { pvo } from './percentageVolumeOscillator';
 
 describe('Percent Volume Oscillator (PVO)', () => {
-  it('should be able to compute pvo', () => {
+  // TODO: Test - with a config
+
+  it('should be able to compute without a config', () => {
     const volumes = [
       6954, 4511, 4474, 4126, 4572, 3936, 3192, 3090, 3476, 3852, 3107, 3604,
       4145, 5192, 3560, 3961, 4322, 3901, 3392, 4278, 4212, 4428, 3846, 3824,

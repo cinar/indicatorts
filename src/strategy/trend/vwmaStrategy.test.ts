@@ -6,8 +6,8 @@ import { Asset } from '../asset';
 import { Action } from '../action';
 import { vwmaStrategy } from './vwmaStrategy';
 
-describe('VWMA stategy', () => {
-  it('should be able to compute strategy', () => {
+describe('Volume Weighted Moving Average (VWMA) stategy', () => {
+  it('should be able to compute with a config', () => {
     const asset: Asset = {
       dates: [],
       openings: [],
@@ -23,9 +23,10 @@ describe('VWMA stategy', () => {
       Action.SELL,
       Action.SELL,
     ];
-    const period = 3;
 
-    const actual = vwmaStrategy(asset, { period });
+    const actual = vwmaStrategy(asset, { period: 3 });
     deepStrictEqual(actual, expected);
   });
+
+  // TODO: Test - without a config
 });

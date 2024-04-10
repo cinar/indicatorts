@@ -5,7 +5,9 @@ import { roundDigitsAll } from '../../index';
 import { cmf } from './chaikinMoneyFlow';
 
 describe('Chaikin Money Flow (CMF)', () => {
-  it('should be able to compute CMF', () => {
+  // TODO: Test - with a config
+
+  it('should be able to compute without a config', () => {
     const highs = [10, 9, 12, 14, 12];
     const lows = [6, 7, 9, 12, 10];
     const volumes = [100, 110, 80, 120, 90];

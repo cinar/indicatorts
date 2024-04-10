@@ -10,7 +10,7 @@ describe('Ichimoku Cloud', () => {
   const lows = [1, 2, 3, 4, 5, 6, 7, 8];
   const closings = [5, 6, 7, 8, 9, 10, 11, 12];
 
-  it('should be able to compute ichimoku', () => {
+  it('should be able to compute with a config', () => {
     const conversionLine = [5.5, 6, 7, 8, 9, 10, 11, 12];
     const baseLine = [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9];
     const leadingSpanA = [5.5, 6, 6.75, 7.5, 8.25, 9, 9.75, 10.5];
@@ -30,7 +30,7 @@ describe('Ichimoku Cloud', () => {
     deepStrictEqual(roundDigitsAll(2, actual.laggingSpan), laggingSpan);
   });
 
-  it('should be able to compute ichimoku with defaults', () => {
+  it('should be able to compute without a config', () => {
     const conversionLine = [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9];
     const baseLine = [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9];
     const leadingSpanA = [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9];

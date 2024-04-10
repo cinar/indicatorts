@@ -4,9 +4,9 @@
 import { Asset } from '../asset';
 import { Action } from '../action';
 import {
-  SARConfig,
-  SARDefaultConfig,
-  sar,
+  PSARConfig,
+  PSARDefaultConfig,
+  psar,
 } from '../../indicator/trend/parabolicSar';
 import { Trend } from '../../indicator/trend';
 
@@ -17,9 +17,9 @@ import { Trend } from '../../indicator/trend';
  * @param config configuration.
  * @return strategy actions.
  */
-export function sarStrategy(asset: Asset, config: SARConfig = {}): Action[] {
-  const strategyConfig = { ...SARDefaultConfig, ...config };
-  const result = sar(asset.highs, asset.lows, asset.closings, strategyConfig);
+export function psarStrategy(asset: Asset, config: PSARConfig = {}): Action[] {
+  const strategyConfig = { ...PSARDefaultConfig, ...config };
+  const result = psar(asset.highs, asset.lows, asset.closings, strategyConfig);
 
   return result.trends.map((trend) => {
     switch (trend) {
@@ -36,4 +36,4 @@ export function sarStrategy(asset: Asset, config: SARConfig = {}): Action[] {
 }
 
 // Export full name
-export { sarStrategy as parabolicSARStrategy };
+export { psarStrategy as parabolicSARStrategy };

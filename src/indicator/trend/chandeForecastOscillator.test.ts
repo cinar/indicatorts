@@ -6,7 +6,9 @@ import { roundDigitsAll } from '../../helper/numArray';
 import { cfo } from './chandeForecastOscillator';
 
 describe('Chande Forecast Oscillator (CFO)', () => {
-  it('should be able to compute CFO', () => {
+  // TODO: Test - with a config
+
+  it('should be able to compute without a config', () => {
     const closings = [1, 5, 12, 20];
     const expected = [110, -26, -5.8333, 4.5];
     const actual = cfo(closings);

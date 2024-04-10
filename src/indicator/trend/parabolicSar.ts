@@ -7,7 +7,7 @@ import { Trend } from '../trend';
 /**
  * Parabolic SAR result object.
  */
-export interface SARResult {
+export interface PSARResult {
   trends: Trend[];
   psar: number[];
 }
@@ -15,7 +15,7 @@ export interface SARResult {
 /**
  * Optional configuration of parabolic SAR parameters.
  */
-export interface SARConfig {
+export interface PSARConfig {
   step?: number;
   max?: number;
 }
@@ -23,7 +23,7 @@ export interface SARConfig {
 /**
  * The default configuration of parabolic SAR.
  */
-export const SARDefaultConfig: Required<SARConfig> = {
+export const PSARDefaultConfig: Required<PSARConfig> = {
   step: 0.02,
   max: 0.2,
 };
@@ -59,16 +59,16 @@ export const SARDefaultConfig: Required<SARConfig> = {
  * @param config configuration.
  * @return psar result.
  */
-export function sar(
+export function psar(
   highs: number[],
   lows: number[],
   closings: number[],
-  config: SARConfig = {}
-): SARResult {
+  config: PSARConfig = {}
+): PSARResult {
   checkSameLength(highs, lows, closings);
 
   const { step, max } = {
-    ...SARDefaultConfig,
+    ...PSARDefaultConfig,
     ...config,
   };
   const trends = new Array<Trend>(highs.length);
@@ -127,4 +127,4 @@ export function sar(
 }
 
 // Export full name
-export { sar as parabolicSAR };
+export { psar as parabolicSAR };

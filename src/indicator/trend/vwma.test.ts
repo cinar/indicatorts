@@ -5,18 +5,17 @@ import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { vwma } from './vwma';
 
-describe('Volume Weighted Moving Average', () => {
-  it('should be able to compute VWMA', () => {
+describe('Volume Weighted Moving Average (VWMA)', () => {
+  it('should be able to compute with a config', () => {
     const closings = [20, 21, 21, 19, 16];
     const volumes = [100, 50, 40, 50, 100];
     const expected = [20, 20.33, 20.47, 20.29, 17.84];
-    const period = 3;
 
-    const actual = vwma(closings, volumes, { period });
+    const actual = vwma(closings, volumes, { period: 3 });
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
 
-  it('should be able to compute default', () => {
+  it('should be able to compute without a config', () => {
     const closings = [20, 21, 21, 19, 16];
     const volumes = [100, 50, 40, 50, 100];
     const expected = [20, 20.33, 20.47, 20.17, 18.94];

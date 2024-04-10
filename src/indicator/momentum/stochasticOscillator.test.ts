@@ -5,8 +5,10 @@ import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { stoch } from './stochasticOscillator';
 
-describe('Stochastic Oscillator', () => {
-  it('should be able to compute result', () => {
+describe('Stochastic Oscillator (STOCH)', () => {
+  // TODO: Test - with a config
+
+  it('should be able to compute without a config', () => {
     const highs = [
       127.01, 127.62, 126.59, 127.35, 128.17, 128.43, 127.37, 126.42, 126.9,
       126.85, 125.65, 125.72, 127.16, 127.72, 127.69, 128.22, 128.27, 128.09,

@@ -5,8 +5,10 @@ import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { bop } from './balanceOfPower';
 
-describe('Balance of Powers (BOM)', () => {
-  it('should be able to compute BOM', () => {
+describe('Balance of Powers (BOP)', () => {
+  // TODO: Test - with a config
+
+  it('should be able to compute without a config', () => {
     const openings = [10, 20, 15, 50];
     const highs = [40, 25, 20, 60];
     const lows = [4, 10, 5, 6];

@@ -5,7 +5,9 @@ import { roundDigitsAll } from '../../index';
 import { emv } from './easeOfMovement';
 
 describe('Ease of Movement (EMV)', () => {
-  it('should be able to compute EMV', () => {
+  // TODO: Test - with a config
+
+  it('should be able to compute without a config', () => {
     const highs = [10, 9, 12, 14, 12];
     const lows = [6, 7, 9, 12, 10];
     const volumes = [100, 110, 80, 120, 90];
