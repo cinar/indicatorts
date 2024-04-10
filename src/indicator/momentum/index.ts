@@ -6,6 +6,7 @@ export * from './chaikinOscillator';
 export * from './ichimokuCloud';
 export * from './percentagePriceOscillator';
 export * from './percentageVolumeOscillator';
+export * from './priceRateOfChange';
 export * from './relativeStrengthIndex';
 export * from './stochasticOscillator';
 export * from './williamsR';

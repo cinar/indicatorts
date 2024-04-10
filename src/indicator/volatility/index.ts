@@ -10,4 +10,5 @@ export * from './donchianChannel';
 export * from './keltnerChannel';
 export * from './movingStandardDeviation';
 export * from './projectionOscillator';
+export * from './trueRange';
 export * from './ulcerIndex';
