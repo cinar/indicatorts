@@ -4,8 +4,8 @@
 import { Asset } from '../asset';
 import { Action } from '../action';
 import {
-  BollingerBandsConfig,
-  BollingerBandsDefaultConfig,
+  BBConfig,
+  BBDefaultConfig,
   bb,
 } from '../../indicator/volatility/bollingerBands';
 
@@ -16,11 +16,8 @@ import {
  * @param config configuration.
  * @return strategy actions.
  */
-export function bbStrategy(
-  asset: Asset,
-  config: BollingerBandsConfig = {}
-): Action[] {
-  const strategyConfig = { ...BollingerBandsDefaultConfig, ...config };
+export function bbStrategy(asset: Asset, config: BBConfig = {}): Action[] {
+  const strategyConfig = { ...BBDefaultConfig, ...config };
   const result = bb(asset.closings, strategyConfig);
 
   const actions = new Array<Action>(result.upperBand.length);

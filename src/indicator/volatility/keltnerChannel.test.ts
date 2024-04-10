@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { roundDigitsAll } from '../../helper/numArray';
-import { keltnerChannel } from './keltnerChannel';
+import { kc } from './keltnerChannel';
 
 describe('Keltner Channel', () => {
   it('should be able to compute KC', () => {
@@ -13,7 +13,7 @@ describe('Keltner Channel', () => {
     const expectedUpperBand = [17, 15.19, 14.98, 17.08, 16.18];
     const expectedLowerBand = [1, 3.19, 2.98, 1.08, 1.78];
 
-    const actual = keltnerChannel(highs, lows, closings);
+    const actual = kc(highs, lows, closings);
     expect(roundDigitsAll(2, actual.middleLine)).toStrictEqual(
       expectedMiddleLine
     );

@@ -34,5 +34,7 @@ export function qstick(
   config: QstickConfig = {}
 ): number[] {
   const { period } = { ...QstickDefaultConfig, ...config };
-  return sma(subtract(closings, openings), { period });
+  const result = sma(subtract(closings, openings), { period });
+
+  return result;
 }

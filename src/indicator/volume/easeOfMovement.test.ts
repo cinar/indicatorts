@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { roundDigitsAll } from '../../index';
-import { easeOfMovement } from './easeOfMovement';
+import { emv } from './easeOfMovement';
 
 describe('Ease of Movement (EMV)', () => {
   it('should be able to compute EMV', () => {
@@ -11,7 +11,7 @@ describe('Ease of Movement (EMV)', () => {
     const volumes = [100, 110, 80, 120, 90];
     const expected = [32000000, 16000000, 13791666.67, 11385416.67, 8219444.44];
 
-    const actual = easeOfMovement(highs, lows, volumes);
+    const actual = emv(highs, lows, volumes);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 });

@@ -8,7 +8,7 @@ import { mstd } from './mstd';
 /**
  * Bollinger bands result object.
  */
-export interface BollingerBandsResult {
+export interface BBResult {
   upperBand: number[];
   middleBand: number[];
   lowerBand: number[];
@@ -17,14 +17,14 @@ export interface BollingerBandsResult {
 /**
  * Optional configuration of Bollinger bands parameters.
  */
-export interface BollingerBandsConfig {
+export interface BBConfig {
   period?: number;
 }
 
 /**
  * The default configuration of Bollinger bands.
  */
-export const BollingerBandsDefaultConfig: Required<BollingerBandsConfig> = {
+export const BBDefaultConfig: Required<BBConfig> = {
   period: 20,
 };
 
@@ -39,11 +39,8 @@ export const BollingerBandsDefaultConfig: Required<BollingerBandsConfig> = {
  * @param config configuration.
  * @return bollinger bands.
  */
-export function bb(
-  closings: number[],
-  config: BollingerBandsConfig = {}
-): BollingerBandsResult {
-  const { period } = { ...BollingerBandsDefaultConfig, ...config };
+export function bb(closings: number[], config: BBConfig = {}): BBResult {
+  const { period } = { ...BBDefaultConfig, ...config };
   const std2 = multiplyBy(2, mstd(closings, { period }));
   const middleBand = sma(closings, { period });
   const upperBand = add(middleBand, std2);

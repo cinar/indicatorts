@@ -3,7 +3,7 @@
 
 import { subtract } from '../../helper/numArray';
 import { ema } from '../trend/ema';
-import { accumulationDistribution } from '../volume/accumulationDistribution';
+import { ad } from '../volume/accumulationDistribution';
 
 /**
  * Chaikin oscillator result object.
@@ -53,10 +53,13 @@ export function cmo(
   config: CMOConfig = {}
 ): CMOResult {
   const { fast, slow } = { ...CMODefaultConfig, ...config };
-  const ad = accumulationDistribution(highs, lows, closings, volumes);
-  const co = subtract(ema(ad, { period: fast }), ema(ad, { period: slow }));
+  const adResult = ad(highs, lows, closings, volumes);
+  const coResult = subtract(
+    ema(adResult, { period: fast }),
+    ema(adResult, { period: slow })
+  );
 
-  return { ad, co };
+  return { ad: adResult, co: coResult };
 }
 
 // Export full name

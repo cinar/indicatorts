@@ -49,8 +49,9 @@ export function ui(closings: number[], config: UIConfig = {}): number[] {
   const squaredAverage = sma(multiply(percentageDrawdown, percentageDrawdown), {
     period,
   });
+  const result = sqrt(squaredAverage);
 
-  return sqrt(squaredAverage);
+  return result;
 }
 
 // Export full name

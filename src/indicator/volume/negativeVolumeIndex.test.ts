@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { roundDigitsAll } from '../../index';
-import { negativeVolumeIndex } from './negativeVolumeIndex';
+import { nvi } from './negativeVolumeIndex';
 
 describe('Negative Volume Index (NVI)', () => {
   it('should be able to compute NVI', () => {
@@ -10,7 +10,7 @@ describe('Negative Volume Index (NVI)', () => {
     const volumes = [100, 110, 80, 120, 90];
     const expected = [1000, 1000, 636.36, 636.36, 509.09];
 
-    const actual = negativeVolumeIndex(closings, volumes);
+    const actual = nvi(closings, volumes);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 });

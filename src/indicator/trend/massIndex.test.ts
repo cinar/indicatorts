@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { roundDigitsAll } from '../../helper/numArray';
-import { massIndex } from './massIndex';
+import { mi } from './massIndex';
 
 describe('Mass Index', () => {
   it('should be able to compute MI', () => {
@@ -10,7 +10,7 @@ describe('Mass Index', () => {
     const lows = [6, 7, 9, 12, 10];
     const expected = [1, 1.92, 2.83, 3.69, 4.52];
 
-    const actual = massIndex(highs, lows);
+    const actual = mi(highs, lows);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 });

@@ -25,7 +25,9 @@ export function vpt(closings: number[], volumes: number[]): number[] {
     volumes,
     divide(subtract(closings, previousClosings), previousClosings)
   );
-  return msum(vpt, { period: vpt.length });
+  const result = msum(vpt, { period: vpt.length });
+
+  return result;
 }
 
 // Export full name

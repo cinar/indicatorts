@@ -4,8 +4,8 @@
 import { Asset } from '../asset';
 import { Action } from '../action';
 import {
-  AccelerationBandsConfig,
-  AccelerationBandsDefaultConfig,
+  ABConfig,
+  ABDefaultConfig,
   ab,
 } from '../../indicator/volatility/accelerationBands';
 
@@ -16,11 +16,8 @@ import {
  * @param config configuration.
  * @return strategy actions.
  */
-export function abStrategy(
-  asset: Asset,
-  config: AccelerationBandsConfig = {}
-): Action[] {
-  const strategyConfig = { ...AccelerationBandsDefaultConfig, ...config };
+export function abStrategy(asset: Asset, config: ABConfig = {}): Action[] {
+  const strategyConfig = { ...ABDefaultConfig, ...config };
   const result = ab(asset.highs, asset.lows, asset.closings, strategyConfig);
 
   const actions = new Array<number>(result.upperBand.length);

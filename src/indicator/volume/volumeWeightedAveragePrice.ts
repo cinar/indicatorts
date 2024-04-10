@@ -35,10 +35,12 @@ export function vwap(
   config: VWAPConfig = {}
 ): number[] {
   const { period } = { ...VWAPDefaultConfig, ...config };
-  return divide(
+  const result = divide(
     msum(multiply(closings, volumes), { period }),
     msum(volumes, { period })
   );
+
+  return result;
 }
 
 // Export full name

@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { roundDigitsAll } from '../../helper/numArray';
-import { moneyFlowIndex } from './moneyFlowIndex';
+import { mfi } from './moneyFlowIndex';
 
 describe('Money Flow Index (MFI)', () => {
   it('should be able to compute MFI', () => {
@@ -13,7 +13,7 @@ describe('Money Flow Index (MFI)', () => {
     const expected = [100, 100, 57.01, 65.85, 61.54];
     const period = 2;
 
-    const actual = moneyFlowIndex(highs, lows, closings, volumes, { period });
+    const actual = mfi(highs, lows, closings, volumes, { period });
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 });

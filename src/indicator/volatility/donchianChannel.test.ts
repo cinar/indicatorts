@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { roundDigitsAll } from '../../index';
-import { donchianChannel } from './donchianChannel';
+import { dc } from './donchianChannel';
 
 describe('Donchian Channel', () => {
   it('should be able to compute DC', () => {
@@ -12,7 +12,7 @@ describe('Donchian Channel', () => {
     const expectedMiddleChannel = [9, 10, 9, 9, 9];
     const expectedLowerChannel = [9, 9, 7, 7, 7];
 
-    const actual = donchianChannel(closings, { period });
+    const actual = dc(closings, { period });
     expect(roundDigitsAll(2, actual.upperChannel)).toStrictEqual(
       expectedUpperChannel
     );

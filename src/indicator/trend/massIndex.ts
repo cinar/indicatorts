@@ -44,9 +44,9 @@ export function mi(
   const ema1 = ema(subtract(highs, lows), { period: emaPeriod });
   const ema2 = ema(ema1, { period: emaPeriod });
   const ratio = divide(ema1, ema2);
-  const mi = msum(ratio, { period: miPeriod });
+  const result = msum(ratio, { period: miPeriod });
 
-  return mi;
+  return result;
 }
 
 // Export full name

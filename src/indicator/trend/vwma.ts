@@ -36,10 +36,12 @@ export function vwma(
   config: VWMAConfig = {}
 ): number[] {
   const { period } = { ...VWMADefaultConfig, ...config };
-  return divide(
+  const result = divide(
     msum(multiply(closings, volumes), { period }),
     msum(volumes, { period })
   );
+
+  return result;
 }
 
 // Export full name

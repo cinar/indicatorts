@@ -36,12 +36,9 @@ export function tema(values: number[], config: TEMAConfig = {}): number[] {
   const ema2 = ema(ema1, { period });
   const ema3 = ema(ema2, { period });
 
-  const temaLine = add(
-    subtract(multiplyBy(3, ema1), multiplyBy(3, ema2)),
-    ema3
-  );
+  const result = add(subtract(multiplyBy(3, ema1), multiplyBy(3, ema2)), ema3);
 
-  return temaLine;
+  return result;
 }
 
 // Export full name

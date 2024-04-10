@@ -17,7 +17,7 @@ import { balanceOfPowerStrategy } from '../strategy/trend/balanceOfPowerStrategy
 import { chandeForecastOscillatorStrategy } from '../strategy/trend/chandeForecastOscillatorStrategy';
 import { kdjStrategy } from '../strategy/trend/kdjStrategy';
 import { macdStrategy } from '../strategy/trend/macdStrategy';
-import { parabolicSARStrategy } from '../strategy/trend/parabolicSarStrategy';
+import { sarStrategy } from '../strategy/trend/parabolicSarStrategy';
 import { typicalPriceStrategy } from '../strategy/trend/typicalPriceStrategy';
 import { vortexStrategy } from '../strategy/trend/vortexStrategy';
 // volatility
@@ -97,7 +97,7 @@ export const STRATEGY_INFOS: StrategyInfo[] = [
   },
   {
     name: 'Parabolic SAR',
-    strategy: parabolicSARStrategy,
+    strategy: sarStrategy,
   },
   {
     name: 'Typical Price',

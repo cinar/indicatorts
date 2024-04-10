@@ -41,7 +41,9 @@ export function apo(values: number[], config: APOConfig = {}): number[] {
   };
   const fast = ema(values, { period: fastPeriod });
   const slow = ema(values, { period: slowPeriod });
-  return subtract(fast, slow);
+  const result = subtract(fast, slow);
+
+  return result;
 }
 
 // Export full name

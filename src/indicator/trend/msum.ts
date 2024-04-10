@@ -4,14 +4,14 @@
 /**
  * Optional configuration of moving sum parameters.
  */
-export interface MSUMConfig {
+export interface MSumConfig {
   period?: number;
 }
 
 /**
  * The default configuration of moving sum.
  */
-export const MSUMDefaultConfig: Required<MSUMConfig> = {
+export const MSumDefaultConfig: Required<MSumConfig> = {
   period: 4,
 };
 
@@ -21,8 +21,8 @@ export const MSUMDefaultConfig: Required<MSUMConfig> = {
  * @param config configuration.
  * @return sum values.
  */
-export function msum(values: number[], config: MSUMConfig = {}): number[] {
-  const { period } = { ...MSUMDefaultConfig, ...config };
+export function msum(values: number[], config: MSumConfig = {}): number[] {
+  const { period } = { ...MSumDefaultConfig, ...config };
   const result = new Array<number>(values.length);
   let sum = 0;
 

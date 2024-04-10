@@ -48,8 +48,9 @@ export function emv(
   const { period } = { ...EMVDefaultConfig, ...config };
   const distanceMoved = changes(1, divideBy(2, add(highs, lows)));
   const boxRatio = divide(divideBy(100000000, volumes), subtract(highs, lows));
-  const emv = sma(divide(distanceMoved, boxRatio), { period });
-  return emv;
+  const result = sma(divide(distanceMoved, boxRatio), { period });
+
+  return result;
 }
 
 // Export full name

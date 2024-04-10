@@ -44,21 +44,21 @@ export function nvi(
   checkSameLength(closings, volumes);
 
   const { start } = { ...NVIDefaultConfig, ...config };
-  const nvi = new Array<number>(closings.length);
+  const result = new Array<number>(closings.length);
 
-  for (let i = 0; i < nvi.length; i++) {
+  for (let i = 0; i < result.length; i++) {
     if (i === 0) {
-      nvi[i] = start;
+      result[i] = start;
     } else if (volumes[i - 1] < volumes[i]) {
-      nvi[i] = nvi[i - 1];
+      result[i] = result[i - 1];
     } else {
-      nvi[i] =
-        nvi[i - 1] +
-        ((closings[i] - closings[i - 1]) / closings[i - 1]) * nvi[i - 1];
+      result[i] =
+        result[i - 1] +
+        ((closings[i] - closings[i - 1]) / closings[i - 1]) * result[i - 1];
     }
   }
 
-  return nvi;
+  return result;
 }
 
 // Export full name

@@ -11,7 +11,7 @@ import {
   pow,
 } from '../../helper/numArray';
 import { msum } from '../trend/msum';
-import { typicalPrice } from '../trend/typicalPrice';
+import { typprice } from '../trend/typicalPrice';
 
 /**
  * Optional configuration of MFI parameters.
@@ -51,7 +51,7 @@ export function mfi(
   config: MFIConfig = {}
 ): number[] {
   const { period } = { ...MFIDefaultConfig, ...config };
-  const rawMoneyFlow = multiply(typicalPrice(highs, lows, closings), volumes);
+  const rawMoneyFlow = multiply(typprice(highs, lows, closings), volumes);
 
   const signs = extractSigns(changes(1, rawMoneyFlow));
   const moneyFlow = multiply(signs, rawMoneyFlow);
@@ -64,12 +64,9 @@ export function mfi(
     msum(multiplyBy(-1, negativeMoneyFlow), { period })
   );
 
-  const moneyFlowIndex = addBy(
-    100,
-    multiplyBy(-100, pow(addBy(1, moneyRatio), -1))
-  );
+  const result = addBy(100, multiplyBy(-100, pow(addBy(1, moneyRatio), -1)));
 
-  return moneyFlowIndex;
+  return result;
 }
 
 // Export full name

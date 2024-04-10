@@ -8,14 +8,14 @@ import { mmin } from '../trend/mmin';
 /**
  * Optional configuration of Williams R parameters.
  */
-export interface WilliamsRConfig {
+export interface WillrConfig {
   period?: number;
 }
 
 /**
  * The default configuration of Williams R.
  */
-export const WilliamsRDefaultConfig: Required<WilliamsRConfig> = {
+export const WillrDefaultConfig: Required<WillrConfig> = {
   period: 14,
 };
 
@@ -36,15 +36,17 @@ export function willr(
   highs: number[],
   lows: number[],
   closings: number[],
-  config: WilliamsRConfig = {}
+  config: WillrConfig = {}
 ): number[] {
-  const { period } = { ...WilliamsRDefaultConfig, ...config };
+  const { period } = { ...WillrDefaultConfig, ...config };
   const highestHigh = mmax(highs, { period });
   const lowestLow = mmin(lows, { period });
-  return multiplyBy(
+  const result = multiplyBy(
     -100,
     divide(subtract(highestHigh, closings), subtract(highestHigh, lowestLow))
   );
+
+  return result;
 }
 
 // Export full name

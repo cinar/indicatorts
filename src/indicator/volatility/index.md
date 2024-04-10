@@ -123,14 +123,6 @@ import {keltnerChannel} from 'indicatorts';
 const result = keltnerChannel(period, highs, lows, closings);
 ```
 
-The [defaultKeltnerChannel](./keltnerChannel.ts) calculates it with the default period of 20.
-
-```TypeScript
-import {defaultKeltnerChannel} from 'indicatorts';
-
-const result = defaultKeltnerChannel(highs, lows, closings);
-```
-
 #### Moving Standard Deviation (Std)
 
 The [mstd](./mstd.ts) function calculates the moving standard deviation for a given period.
@@ -175,14 +167,6 @@ Ulcer Index = Sqrt(Squared Average)
 import {ulcerIndex} from 'indicatorts';
 
 const result = ulcerIndex(period, closings);
-```
-
-The [defaultUlcerIndex](./ulcerIndex.ts) measures the ulcer index with the default period of 14.
-
-```TypeScript
-import {defaultUlcerIndex} from 'indicatorts';
-
-const result = defaultUlcerIndex(closings);
 ```
 
 ## Disclaimer

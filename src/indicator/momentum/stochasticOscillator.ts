@@ -9,7 +9,7 @@ import { sma } from '../trend/sma';
 /**
  * Stochastic oscillator result object.
  */
-export interface StochasticOscillatorResult {
+export interface StochResult {
   k: number[];
   d: number[];
 }
@@ -17,7 +17,7 @@ export interface StochasticOscillatorResult {
 /**
  * Optional configuration of stochastic oscillator parameters.
  */
-export interface StochasticOscillatorConfig {
+export interface StochConfig {
   kPeriod?: number;
   dPeriod?: number;
 }
@@ -25,11 +25,10 @@ export interface StochasticOscillatorConfig {
 /**
  * The default configuration of stochastic oscillator.
  */
-export const StochasticOscillatorDefaultConfig: Required<StochasticOscillatorConfig> =
-  {
-    kPeriod: 14,
-    dPeriod: 3,
-  };
+export const StochDefaultConfig: Required<StochConfig> = {
+  kPeriod: 14,
+  dPeriod: 3,
+};
 
 /**
  * Stochastic Oscillator. It is a momentum indicator that shows the
@@ -49,10 +48,10 @@ export function stoch(
   highs: number[],
   lows: number[],
   closings: number[],
-  config: StochasticOscillatorConfig = {}
-): StochasticOscillatorResult {
+  config: StochConfig = {}
+): StochResult {
   const { kPeriod, dPeriod } = {
-    ...StochasticOscillatorDefaultConfig,
+    ...StochDefaultConfig,
     ...config,
   };
   const highestHigh = mmax(highs, { period: kPeriod });

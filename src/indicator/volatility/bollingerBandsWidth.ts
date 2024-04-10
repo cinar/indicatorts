@@ -3,12 +3,12 @@
 
 import { divide, subtract } from '../../helper/numArray';
 import { ema } from '../trend/ema';
-import { BollingerBandsResult } from './bollingerBands';
+import { BBResult } from './bollingerBands';
 
 /**
  * Bollinger bands width result.
  */
-export interface BollingerBandsWidthResult {
+export interface BBWResult {
   bandWidth: number[];
   bandWidthEma90: number[];
 }
@@ -16,17 +16,16 @@ export interface BollingerBandsWidthResult {
 /**
  * Optional configuration of Bollinger bands width parameters.
  */
-export interface BollingerBandsWidthConfig {
+export interface BBWConfig {
   period?: number;
 }
 
 /**
  * The default configuration of Bollinger bands width.
  */
-export const BollingerBandsWidthDefaultConfig: Required<BollingerBandsWidthConfig> =
-  {
-    period: 90,
-  };
+export const BBWDefaultConfig: Required<BBWConfig> = {
+  period: 90,
+};
 
 /**
  * Bollinger Band Width. It measures the percentage difference between the
@@ -42,11 +41,8 @@ export const BollingerBandsWidthDefaultConfig: Required<BollingerBandsWidthConfi
  * @param config configuration.
  * @return bollinger bands width result.
  */
-export function bbw(
-  bb: BollingerBandsResult,
-  config: BollingerBandsWidthConfig = {}
-): BollingerBandsWidthResult {
-  const { period } = { ...BollingerBandsWidthDefaultConfig, ...config };
+export function bbw(bb: BBResult, config: BBWConfig = {}): BBWResult {
+  const { period } = { ...BBWDefaultConfig, ...config };
   const bandWidth = divide(subtract(bb.upperBand, bb.lowerBand), bb.middleBand);
 
   const bandWidthEma90 = ema(bandWidth, { period });

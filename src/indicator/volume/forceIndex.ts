@@ -35,7 +35,9 @@ export function fi(
   config: FIConfig = {}
 ): number[] {
   const { period } = { ...FIDefaultConfig, ...config };
-  return ema(multiply(changes(1, closings), volumes), { period });
+  const result = ema(multiply(changes(1, closings), volumes), { period });
+
+  return result;
 }
 
 // Export full name

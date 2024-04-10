@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { roundDigitsAll } from '../../index';
-import { volumeWeightedAveragePrice } from './volumeWeightedAveragePrice';
+import { vwap } from './volumeWeightedAveragePrice';
 
 describe('Volume Weighted Average Price', () => {
   it('should be able to compute VWAP', () => {
@@ -11,7 +11,7 @@ describe('Volume Weighted Average Price', () => {
     const period = 2;
     const expected = [9, 10.05, 9.32, 8.8, 9.14];
 
-    const actual = volumeWeightedAveragePrice(closings, volumes, { period });
+    const actual = vwap(closings, volumes, { period });
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 
@@ -20,7 +20,7 @@ describe('Volume Weighted Average Price', () => {
     const volumes = [100, 110, 80, 120, 90];
     const expected = [9, 10.05, 9.21, 9.44, 9.18];
 
-    const actual = volumeWeightedAveragePrice(closings, volumes);
+    const actual = vwap(closings, volumes);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 });

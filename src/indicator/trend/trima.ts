@@ -42,9 +42,9 @@ export function trima(values: number[], config: TRIMAConfig = {}): number[] {
     n2 = n1;
   }
 
-  const trimaLine = sma(sma(values, { period: n2 }), { period: n1 });
+  const result = sma(sma(values, { period: n2 }), { period: n1 });
 
-  return trimaLine;
+  return result;
 }
 
 // Export full name

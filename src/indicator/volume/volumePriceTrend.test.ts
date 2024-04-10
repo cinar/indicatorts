@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { roundDigitsAll } from '../../helper/numArray';
-import { volumePriceTrend } from './volumePriceTrend';
+import { vpt } from './volumePriceTrend';
 
 describe('Volume Price Trend (VPT)', () => {
   it('should be able to compute VPT', () => {
@@ -10,7 +10,7 @@ describe('Volume Price Trend (VPT)', () => {
     const volumes = [100, 110, 80, 120, 90];
     const expected = [0, 24.44, -4.65, 46.78, 28.78];
 
-    const actual = volumePriceTrend(closings, volumes);
+    const actual = vpt(closings, volumes);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 });

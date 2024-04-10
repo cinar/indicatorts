@@ -40,8 +40,8 @@ export function ao(
   const medianPrice = divideBy(2, add(lows, highs));
   const smaFast = sma(medianPrice, { period: fast });
   const smaSlow = sma(medianPrice, { period: slow });
-  const ao = subtract(smaFast, smaSlow);
-  return ao;
+  const result = subtract(smaFast, smaSlow);
+  return result;
 }
 
 // Export full name

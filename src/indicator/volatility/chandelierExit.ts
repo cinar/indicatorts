@@ -9,7 +9,7 @@ import { atr } from './atr';
 /**
  * Chandelier exit result object.
  */
-export interface ChandelierExitResult {
+export interface CEResult {
   exitLong: number[];
   exitShort: number[];
 }
@@ -17,14 +17,14 @@ export interface ChandelierExitResult {
 /**
  * Optional configuration of Chandelier exit parameters.
  */
-export interface ChandelierExitConfig {
+export interface CEConfig {
   period?: number;
 }
 
 /**
  * The default configuration of Chandelier exit.
  */
-export const ChandelierExitDefaultConfig: Required<ChandelierExitConfig> = {
+export const CEDefaultConfig: Required<CEConfig> = {
   period: 22,
 };
 
@@ -45,9 +45,9 @@ export function ce(
   highs: number[],
   lows: number[],
   closings: number[],
-  config: ChandelierExitConfig = {}
-): ChandelierExitResult {
-  const { period } = { ...ChandelierExitDefaultConfig, ...config };
+  config: CEConfig = {}
+): CEResult {
+  const { period } = { ...CEDefaultConfig, ...config };
   const atrResult = atr(highs, lows, closings, { period });
   const atrLine3 = multiplyBy(3, atrResult.atrLine);
   const highestHigh = mmax(highs, { period });

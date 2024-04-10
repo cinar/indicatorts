@@ -15,7 +15,7 @@ import { sma } from '../trend/sma';
 /**
  * Acceleration bands result object.
  */
-export interface AccelerationBandsResult {
+export interface ABResult {
   upperBand: number[];
   middleBand: number[];
   lowerBand: number[];
@@ -24,17 +24,16 @@ export interface AccelerationBandsResult {
 /**
  * Optional configuration of acceleration bands parameters.
  */
-export interface AccelerationBandsConfig {
+export interface ABConfig {
   period?: number;
 }
 
 /**
  * The default configuration of acceleration bands.
  */
-export const AccelerationBandsDefaultConfig: Required<AccelerationBandsConfig> =
-  {
-    period: 20,
-  };
+export const ABDefaultConfig: Required<ABConfig> = {
+  period: 20,
+};
 
 /**
  * Acceleration Bands. Plots upper and lower envelope bands
@@ -54,11 +53,11 @@ export function ab(
   highs: number[],
   lows: number[],
   closings: number[],
-  config: AccelerationBandsConfig = {}
-): AccelerationBandsResult {
+  config: ABConfig = {}
+): ABResult {
   checkSameLength(highs, lows, closings);
 
-  const { period } = { ...AccelerationBandsDefaultConfig, ...config };
+  const { period } = { ...ABDefaultConfig, ...config };
   const k = divide(subtract(highs, lows), add(highs, lows));
 
   const upperBand = sma(multiply(highs, addBy(1, multiplyBy(4, k))), {

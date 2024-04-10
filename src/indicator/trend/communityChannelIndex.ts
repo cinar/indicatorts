@@ -3,7 +3,7 @@
 
 import { abs, divide, multiplyBy, subtract } from '../../helper/numArray';
 import { sma } from './sma';
-import { typicalPrice } from './typicalPrice';
+import { typprice } from './typicalPrice';
 
 /**
  * Optional configuration of CCI parameters.
@@ -41,11 +41,11 @@ export function cci(
   config: CCIConfig = {}
 ): number[] {
   const { period } = { ...CCIDefaultConfig, ...config };
-  const tp = typicalPrice(highs, lows, closings);
+  const tp = typprice(highs, lows, closings);
   const ma = sma(tp, { period });
   const md = sma(abs(subtract(tp, ma)), { period });
-  const cci = divide(subtract(tp, ma), multiplyBy(0.015, md));
-  return cci;
+  const result = divide(subtract(tp, ma), multiplyBy(0.015, md));
+  return result;
 }
 
 // Export full name

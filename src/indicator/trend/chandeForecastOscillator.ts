@@ -42,8 +42,9 @@ export const CFODefaultConfig: Required<CFOConfig> = {
 export function cfo(closings: number[]): number[] {
   const x = generateNumbers(0, closings.length, 1);
   const r = linearRegressionUsingLeastSquare(x, closings);
-  const cfo = multiplyBy(100, divide(subtract(closings, r), closings));
-  return cfo;
+  const result = multiplyBy(100, divide(subtract(closings, r), closings));
+
+  return result;
 }
 
 // Export full name
@@ -70,8 +71,9 @@ export function mcfo(closings: number[], config: CFOConfig = {}): number[] {
   const { period } = { ...CFODefaultConfig, ...config };
   const x = generateNumbers(0, closings.length, 1);
   const r = movingLinearRegressionUsingLeastSquare(period, x, closings);
-  const cfo = multiplyBy(100, divide(subtract(closings, r), closings));
-  return cfo;
+  const result = multiplyBy(100, divide(subtract(closings, r), closings));
+
+  return result;
 }
 
 // Export full name

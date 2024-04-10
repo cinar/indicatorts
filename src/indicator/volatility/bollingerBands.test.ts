@@ -3,7 +3,7 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { bollingerBands } from './bollingerBands';
+import { bb } from './bollingerBands';
 
 describe('Bollinger Bands', () => {
   it('should be able to compute the bollinger bands', () => {
@@ -32,7 +32,7 @@ describe('Bollinger Bands', () => {
       -0.32, -0.52,
     ];
 
-    const actual = bollingerBands(closings);
+    const actual = bb(closings);
     deepStrictEqual(roundDigitsAll(2, actual.upperBand), expectedUpperBand);
     deepStrictEqual(roundDigitsAll(2, actual.middleBand), expectedMiddleBand);
     deepStrictEqual(roundDigitsAll(2, actual.lowerBand), expectedLowerBand);

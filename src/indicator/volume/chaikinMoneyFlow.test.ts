@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { roundDigitsAll } from '../../index';
-import { chaikinMoneyFlow } from './chaikinMoneyFlow';
+import { cmf } from './chaikinMoneyFlow';
 
 describe('Chaikin Money Flow (CMF)', () => {
   it('should be able to compute CMF', () => {
@@ -12,7 +12,7 @@ describe('Chaikin Money Flow (CMF)', () => {
     const closings = [9, 11, 7, 10, 8];
     const expected = [0.5, 1.81, 0.67, -0.41, -0.87];
 
-    const actual = chaikinMoneyFlow(highs, lows, closings, volumes);
+    const actual = cmf(highs, lows, closings, volumes);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 });

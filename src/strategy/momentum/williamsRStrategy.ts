@@ -4,8 +4,8 @@
 import { Asset } from '../asset';
 import { Action } from '../action';
 import {
-  WilliamsRConfig,
-  WilliamsRDefaultConfig,
+  WillrConfig,
+  WillrDefaultConfig,
   willr,
 } from '../../indicator/momentum/williamsR';
 
@@ -18,9 +18,9 @@ import {
  */
 export function willRStrategy(
   asset: Asset,
-  config: WilliamsRConfig = {}
+  config: WillrConfig = {}
 ): Action[] {
-  const strategyConfig = { ...WilliamsRDefaultConfig, ...config };
+  const strategyConfig = { ...WillrDefaultConfig, ...config };
   const result = willr(asset.highs, asset.lows, asset.closings, strategyConfig);
 
   return result.map((value) => {

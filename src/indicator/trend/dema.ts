@@ -32,9 +32,9 @@ export function dema(values: number[], config: DEMAConfig = {}): number[] {
   const ema1 = ema(values, { period });
   const ema2 = ema(ema1, { period });
 
-  const dema = subtract(multiplyBy(2, ema1), ema2);
+  const result = subtract(multiplyBy(2, ema1), ema2);
 
-  return dema;
+  return result;
 }
 
 // Export full name

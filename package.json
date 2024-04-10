@@ -9,7 +9,7 @@
     "/dist"
   ],
   "scripts": {
-    "build": "npm run build-esm; npm run build-cjs; npm run build-types",
+    "build": "npx rimraf dist && npm run build-esm; npm run build-cjs; npm run build-types",
     "build-esm": "esbuild src/index.ts --bundle --outdir=dist/esm --platform=browser --format=esm --minify --sourcemap",
     "build-cjs": "esbuild src/index.ts --bundle --outdir=dist/cjs --platform=node --format=cjs --minify --sourcemap",
     "build-types": "tsc --emitDeclarationOnly --declaration --outDir dist/types",

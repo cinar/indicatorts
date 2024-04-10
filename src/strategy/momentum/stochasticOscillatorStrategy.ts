@@ -4,8 +4,8 @@
 import { Asset } from '../asset';
 import { Action } from '../action';
 import {
-  StochasticOscillatorConfig,
-  StochasticOscillatorDefaultConfig,
+  StochConfig,
+  StochDefaultConfig,
   stoch,
 } from '../../indicator/momentum/stochasticOscillator';
 
@@ -16,11 +16,8 @@ import {
  * @param config configuration.
  * @return strategy actions.
  */
-export function soStrategy(
-  asset: Asset,
-  config: StochasticOscillatorConfig = {}
-): Action[] {
-  const strategyConfig = { ...StochasticOscillatorDefaultConfig, ...config };
+export function soStrategy(asset: Asset, config: StochConfig = {}): Action[] {
+  const strategyConfig = { ...StochDefaultConfig, ...config };
   const result = stoch(asset.highs, asset.lows, asset.closings, strategyConfig);
 
   const actions = new Array<Action>(result.k.length);

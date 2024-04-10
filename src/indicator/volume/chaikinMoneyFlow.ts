@@ -48,12 +48,12 @@ export function cmf(
 
   const moneyFlowVolume = multiply(moneyFlowMultipler, volumes);
 
-  const cmf = divide(
+  const result = divide(
     msum(moneyFlowVolume, { period }),
     msum(volumes, { period })
   );
 
-  return cmf;
+  return result;
 }
 
 // Export full name

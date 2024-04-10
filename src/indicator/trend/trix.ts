@@ -39,8 +39,9 @@ export function trix(values: number[], config: TRIXConfig = {}): number[] {
   const ema2 = ema(ema1, { period });
   const ema3 = ema(ema2, { period });
   const previous = shiftRightAndFillBy(1, ema3[0], ema3);
-  const trix = divide(subtract(ema3, previous), previous);
-  return trix;
+  const result = divide(subtract(ema3, previous), previous);
+
+  return result;
 }
 
 // Export full name
