@@ -3,16 +3,30 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { stochasticOscillator } from '../../indicator/momentum/stochasticOscillator';
+import {
+  StochasticOscillatorConfig,
+  StochasticOscillatorDefaultConfig,
+  stochasticOscillator,
+} from '../../indicator/momentum/stochasticOscillator';
 
 /**
  * Stochastic oscillator strategy function.
  *
  * @param asset asset object.
+ * @param config configuration.
  * @return strategy actions.
  */
-export function stochasticOscillatorStrategy(asset: Asset): Action[] {
-  const so = stochasticOscillator(asset.highs, asset.lows, asset.closings);
+export function stochasticOscillatorStrategy(
+  asset: Asset,
+  config: StochasticOscillatorConfig = {}
+): Action[] {
+  const strategyConfig = { ...StochasticOscillatorDefaultConfig, ...config };
+  const so = stochasticOscillator(
+    asset.highs,
+    asset.lows,
+    asset.closings,
+    strategyConfig
+  );
 
   const actions = new Array<Action>(so.k.length);
 

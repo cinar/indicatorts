@@ -3,16 +3,25 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { williamsR } from '../../indicator/momentum/williamsR';
+import {
+  WilliamsRConfig,
+  WilliamsRDefaultConfig,
+  williamsR,
+} from '../../indicator/momentum/williamsR';
 
 /**
  * Williams R strategy function.
  *
  * @param asset asset object.
+ * @param config configuration.
  * @return strategy actions.
  */
-export function williamsRStrategy(asset: Asset): Action[] {
-  const wr = williamsR(asset.highs, asset.lows, asset.closings);
+export function williamsRStrategy(
+  asset: Asset,
+  config: WilliamsRConfig = {}
+): Action[] {
+  const strategyConfig = { ...WilliamsRDefaultConfig, ...config };
+  const wr = williamsR(asset.highs, asset.lows, asset.closings, strategyConfig);
 
   return wr.map((value) => {
     if (value <= -80) {

@@ -3,16 +3,30 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { accelerationBands } from '../../indicator/volatility/accelerationBands';
+import {
+  AccelerationBandsConfig,
+  AccelerationBandsDefaultConfig,
+  accelerationBands,
+} from '../../indicator/volatility/accelerationBands';
 
 /**
  * Acceleration bands strategy function.
  *
  * @param asset asset object.
+ * @param config configuration.
  * @return strategy actions.
  */
-export function accelerationBandsStrategy(asset: Asset): Action[] {
-  const ab = accelerationBands(asset.highs, asset.lows, asset.closings);
+export function accelerationBandsStrategy(
+  asset: Asset,
+  config: AccelerationBandsConfig = {}
+): Action[] {
+  const strategyConfig = { ...AccelerationBandsDefaultConfig, ...config };
+  const ab = accelerationBands(
+    asset.highs,
+    asset.lows,
+    asset.closings,
+    strategyConfig
+  );
 
   const actions = new Array<number>(ab.upperBand.length);
 

@@ -3,16 +3,25 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { bollingerBands } from '../../indicator/volatility/bollingerBands';
+import {
+  BollingerBandsConfig,
+  BollingerBandsDefaultConfig,
+  bollingerBands,
+} from '../../indicator/volatility/bollingerBands';
 
 /**
  * Bollinger bands strategy function.
  *
  * @param asset asset object.
+ * @param config configuration.
  * @return strategy actions.
  */
-export function bollingerBandsStrategy(asset: Asset): Action[] {
-  const bb = bollingerBands(asset.closings);
+export function bollingerBandsStrategy(
+  asset: Asset,
+  config: BollingerBandsConfig = {}
+): Action[] {
+  const strategyConfig = { ...BollingerBandsDefaultConfig, ...config };
+  const bb = bollingerBands(asset.closings, strategyConfig);
 
   const actions = new Array<Action>(bb.upperBand.length);
 
