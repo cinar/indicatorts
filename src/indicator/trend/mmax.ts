@@ -19,8 +19,8 @@ export const MovingMaxDefaultConfig: Required<MovingMaxConfig> = {
 
 /**
  * Moving max for the given period.
- * @param period window period.
  * @param values values array.
+ * @param config configuration.
  * @return moving max.
  */
 export function mmax(values: number[], config: MovingMaxConfig = {}): number[] {

@@ -5,6 +5,23 @@ import { subtract } from '../../helper/numArray';
 import { ema } from './ema';
 
 /**
+ * Optional configuration of AbsolutePriceOscillator parameters.
+ */
+export interface AbsolutePriceOscillatorConfig {
+  fast?: number;
+  slow?: number;
+}
+
+/**
+ * The default configuration of AbsolutePriceOscillator.
+ */
+export const AbsolutePriceOscillatorDefaultConfig: Required<AbsolutePriceOscillatorConfig> =
+  {
+    fast: 14,
+    slow: 30,
+  };
+
+/**
  * Absolute Price Oscillator (APO) function calculates the technical indicator
  * that is used to follow trends. APO crossing above zero indicates bullish,
  * while crossing below zero indicates bearish. Positive value is upward
@@ -14,28 +31,20 @@ import { ema } from './ema';
  * Slow = EMA(slowPeriod, values)
  * APO = Fast - Slow
  *
- * @param fastPeriod fast period.
- * @param slowPeriod slow period.
  * @param values values array.
+ * @param config configuration.
  * @return apo array.
  */
 export function absolutePriceOscillator(
-  fastPeriod: number,
-  slowPeriod: number,
-  values: number[]
+  values: number[],
+  config: AbsolutePriceOscillatorConfig = {}
 ): number[] {
+  const { fast: fastPeriod, slow: slowPeriod } = {
+    ...AbsolutePriceOscillatorDefaultConfig,
+    ...config,
+  };
   const fast = ema(fastPeriod, values);
   const slow = ema(slowPeriod, values);
   const apo = subtract(fast, slow);
   return apo;
-}
-
-/**
- * Default APO function calculates APO with frequently used fast period 14,
- * and slow period 30.
- * @param values values array.
- * @return apo array.
- */
-export function defaultAbsolutePriceOscillator(values: number[]): number[] {
-  return absolutePriceOscillator(14, 30, values);
 }

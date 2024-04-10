@@ -29,7 +29,7 @@ Trend indicators measure the direction and strength of a trend.
 
 #### Absolute Price Oscillator (APO)
 
-The [absolutePriceOscillator](./absolutePriceOscillator.ts) function calculates a technical indicator that is used to follow trends. APO crossing above zero indicates bullish, while crossing below zero indicates bearish. Positive value is upward trend, while negative value is downward trend.
+The [absolutePriceOscillator](./absolutePriceOscillator.ts) function calculates a technical indicator that is used to follow trends. APO crossing above zero indicates bullish, while crossing below zero indicates bearish. Positive value is upward trend, while negative value is downward trend. Passing a configuration object with the period is also possible, but is optional. The default fast period is `14` and the default slow period is `30`.
 
 ```
 Fast = Ema(fastPeriod, values)
@@ -40,10 +40,8 @@ APO = Fast - Slow
 ```TypeScript
 import {absolutePriceOscillator} from 'indicatorts';
 
-const result = absolutePriceOscillator(fastPeriod, slowPeriod, values);
+const result = absolutePriceOscillator(values, { fast: 14, slow: 30 });
 ```
-
-Most frequently used fast and slow periods are 14 and 30. The [defaultAbsolutePriceOscillator](./absolutePriceOscillator.ts) function calculates APO with those periods.
 
 #### Aroon Indicator
 

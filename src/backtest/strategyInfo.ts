@@ -11,7 +11,7 @@ import { rsi2Strategy } from '../strategy/momentum/rsi2Strategy';
 import { stochasticOscillatorStrategy } from '../strategy/momentum/stochasticOscillatorStrategy';
 import { williamsRStrategy } from '../strategy/momentum/williamsRStrategy';
 // trend
-import { defaultAbsolutePriceOscillatorStrategy } from '../strategy/trend/absolutePriceOscillatorStrategy';
+import { absolutePriceOscillatorStrategy } from '../strategy/trend/absolutePriceOscillatorStrategy';
 import { aroonStrategy } from '../strategy/trend/aroonStrategy';
 import { balanceOfPowerStrategy } from '../strategy/trend/balanceOfPowerStrategy';
 import { chandeForecastOscillatorStrategy } from '../strategy/trend/chandeForecastOscillatorStrategy';
@@ -73,7 +73,7 @@ export const STRATEGY_INFOS: StrategyInfo[] = [
   // trend
   {
     name: 'Absolute Price Oscillator (APO)',
-    strategy: defaultAbsolutePriceOscillatorStrategy,
+    strategy: absolutePriceOscillatorStrategy,
   },
   {
     name: 'Aroon Strategy',

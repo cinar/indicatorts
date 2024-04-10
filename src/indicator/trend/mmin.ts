@@ -19,8 +19,8 @@ export const MovingMinDefaultConfig: Required<MovingMinConfig> = {
 
 /**
  * Moving min for the given period.
- * @param period window period.
  * @param values values array.
+ * @param config configuration.
  * @return moving min.
  */
 export function mmin(values: number[], config: MovingMinConfig = {}): number[] {

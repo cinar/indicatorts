@@ -4,8 +4,9 @@
 import { Asset } from '../asset';
 import { Action } from '../action';
 import {
+  AbsolutePriceOscillatorConfig,
+  AbsolutePriceOscillatorDefaultConfig,
   absolutePriceOscillator,
-  defaultAbsolutePriceOscillator,
 } from '../../indicator/trend/absolutePriceOscillator';
 
 /**
@@ -33,27 +34,17 @@ function runStrategy(indicator: number[]): Action[] {
 /**
  * Absolute Price Oscillator (APO) strategy function.
  *
- * @param fastPeriod fast period.
- * @param slowPeriod slow period.
  * @param asset asset object.
+ * @param config configuration.
  * @return strategy actions.
  */
 export function absolutePriceOscillatorStrategy(
-  fastPeriod: number,
-  slowPeriod: number,
-  asset: Asset
+  asset: Asset,
+  config: AbsolutePriceOscillatorConfig = {}
 ): Action[] {
-  return runStrategy(
-    absolutePriceOscillator(fastPeriod, slowPeriod, asset.closings)
-  );
-}
-
-/**
- * Default Absolute Price Oscillator (APO) strategy.
- *
- * @param asset asset object.
- * @return strategy actions.
- */
-export function defaultAbsolutePriceOscillatorStrategy(asset: Asset): Action[] {
-  return runStrategy(defaultAbsolutePriceOscillator(asset.closings));
+  const { fast, slow } = {
+    ...AbsolutePriceOscillatorDefaultConfig,
+    ...config,
+  };
+  return runStrategy(absolutePriceOscillator(asset.closings, { fast, slow }));
 }
