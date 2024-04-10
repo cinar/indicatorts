@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { roundDigitsAll } from '../../helper/numArray';
-import { defaultForceIndex, forceIndex } from './forceIndex';
+import { forceIndex } from './forceIndex';
 
 describe('Force Index', () => {
   it('should be able to compute FI', () => {
@@ -10,7 +10,7 @@ describe('Force Index', () => {
     const volumes = [100, 110, 80, 120, 90];
     const expected = [900, 220, -320, 360, -180];
 
-    const actual = forceIndex(1, closings, volumes);
+    const actual = forceIndex(closings, volumes, { period: 1 });
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 
@@ -19,7 +19,7 @@ describe('Force Index', () => {
     const volumes = [100, 110, 80, 120, 90];
     const expected = [900, 802.86, 642.45, 602.1, 490.37];
 
-    const actual = defaultForceIndex(closings, volumes);
+    const actual = forceIndex(closings, volumes);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 });

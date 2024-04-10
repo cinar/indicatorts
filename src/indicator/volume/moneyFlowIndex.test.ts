@@ -13,7 +13,7 @@ describe('Money Flow Index (MFI)', () => {
     const expected = [100, 100, 57.01, 65.85, 61.54];
     const period = 2;
 
-    const actual = moneyFlowIndex(period, highs, lows, closings, volumes);
+    const actual = moneyFlowIndex(highs, lows, closings, volumes, { period });
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 });

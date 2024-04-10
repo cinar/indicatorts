@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { subtract } from '../../helper/numArray';
-import { defaultVolumeWeightedAveragePrice } from '../../indicator/volume/volumeWeightedAveragePrice';
+import { volumeWeightedAveragePrice } from '../../indicator/volume/volumeWeightedAveragePrice';
 import { Action } from '../action';
 import { Asset } from '../asset';
 
@@ -16,7 +16,7 @@ import { Asset } from '../asset';
  * @returns strategy actions.
  */
 export function volumeWeightedAveragePriceStrategy(asset: Asset): Action[] {
-  const vwap = defaultVolumeWeightedAveragePrice(asset.closings, asset.volumes);
+  const vwap = volumeWeightedAveragePrice(asset.closings, asset.volumes);
 
   const diff = subtract(vwap, asset.closings);
 

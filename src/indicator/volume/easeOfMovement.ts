@@ -11,9 +11,18 @@ import {
 import { sma } from '../trend/sma';
 
 /**
- * Default period for EMV.
+ * Optional configuration of EaseOfMovement parameters.
  */
-export const EMV_DEFAULT_PERIOD = 14;
+export interface EaseOfMovementConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of EaseOfMovement.
+ */
+export const EaseOfMovementDefaultConfig: Required<EaseOfMovementConfig> = {
+  period: 14,
+};
 
 /**
  * The Ease of Movement (EMV) is a volume based oscillator measuring
@@ -24,36 +33,21 @@ export const EMV_DEFAULT_PERIOD = 14;
  * EMV(1) = Distance Moved / Box Ratio
  * EMV(14) = SMA(14, EMV(1))
  *
- * @param period window period.
  * @param highs high values.
  * @param lows low values.
  * @param volumes volume values.
+ * @param config configuration.
  * @return ease of movement values.
  */
 export function easeOfMovement(
-  period: number,
   highs: number[],
   lows: number[],
-  volumes: number[]
+  volumes: number[],
+  config: EaseOfMovementConfig = {}
 ): number[] {
+  const { period } = { ...EaseOfMovementDefaultConfig, ...config };
   const distanceMoved = changes(1, divideBy(2, add(highs, lows)));
   const boxRatio = divide(divideBy(100000000, volumes), subtract(highs, lows));
   const emv = sma(divide(distanceMoved, boxRatio), { period });
   return emv;
-}
-
-/**
- * The default Ease of Movement with the default period of 14.
- *
- * @param highs high values.
- * @param lows low values.
- * @param volumes volume values.
- * @return ease of movement values.
- */
-export function defaultEaseOfMovement(
-  highs: number[],
-  lows: number[],
-  volumes: number[]
-): number[] {
-  return easeOfMovement(EMV_DEFAULT_PERIOD, highs, lows, volumes);
 }

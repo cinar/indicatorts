@@ -10,37 +10,39 @@ import { msum } from '../trend/msum';
 export const VWAP_DEFAULT_PERIOD = 14;
 
 /**
+ * Optional configuration of VolumeWeightedAveragePrice parameters.
+ */
+export interface VolumeWeightedAveragePriceConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of VolumeWeightedAveragePrice.
+ */
+export const VolumeWeightedAveragePriceDefaultConfig: Required<VolumeWeightedAveragePriceConfig> =
+  {
+    period: 14,
+  };
+
+/**
  * The Volume Weighted Average Price (VWAP) provides the average price
  * the asset has traded.
  *
  * VWAP = Sum(Closing * Volume) / Sum(Volume)
  *
- * @param period window period.
  * @param closings closing values.
  * @param volumes volume values.
+ * @param config configuration.
  * @returns vwap values.
  */
 export function volumeWeightedAveragePrice(
-  period: number,
   closings: number[],
-  volumes: number[]
+  volumes: number[],
+  config: VolumeWeightedAveragePriceConfig = {}
 ): number[] {
+  const { period } = { ...VolumeWeightedAveragePriceDefaultConfig, ...config };
   return divide(
     msum(multiply(closings, volumes), { period }),
     msum(volumes, { period })
   );
-}
-
-/**
- * Default volume weighted average price with period of 14.
- *
- * @param closings closing values.
- * @param volumes volume values.
- * @returns vwap values.
- */
-export function defaultVolumeWeightedAveragePrice(
-  closings: number[],
-  volumes: number[]
-): number[] {
-  return volumeWeightedAveragePrice(VWAP_DEFAULT_PERIOD, closings, volumes);
 }

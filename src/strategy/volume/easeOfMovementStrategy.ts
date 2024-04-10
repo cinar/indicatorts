@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { defaultEaseOfMovement } from '../../indicator/volume/easeOfMovement';
+import { easeOfMovement } from '../../indicator/volume/easeOfMovement';
 import { Action } from '../action';
 import { Asset } from '../asset';
 
@@ -12,7 +12,7 @@ import { Asset } from '../asset';
  * @returns strategy actions.
  */
 export function easeOfMovementStrategy(asset: Asset): Action[] {
-  const emv = defaultEaseOfMovement(asset.highs, asset.lows, asset.volumes);
+  const emv = easeOfMovement(asset.highs, asset.lows, asset.volumes);
 
   return emv.map((value) => {
     if (value > 0) {

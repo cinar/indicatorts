@@ -4,14 +4,21 @@
 import { checkSameLength } from '../../helper/numArray';
 
 /**
- * Starting value for NVI.
+ * Optional configuration of NegativeVolumeIndex parameters.
  */
-const NVI_STARTING_VALUE = 1000;
+export interface NegativeVolumeIndexConfig {
+  start?: number;
+  period?: number;
+}
 
 /**
- * Default period for NVI.
+ * The default configuration of NegativeVolumeIndex.
  */
-export const NVI_DEFAULT_PERIOD = 255;
+export const NegativeVolumeIndexDefaultConfig: Required<NegativeVolumeIndexConfig> =
+  {
+    start: 1000,
+    period: 255,
+  };
 
 /**
  * The Negative Volume Index (NVI) is a cumulative indicator using
@@ -26,20 +33,23 @@ export const NVI_DEFAULT_PERIOD = 255;
  *   NVI = Previous NVI + (((Closing - Previous Closing) / Previous Closing) * Previous NVI)
  *
  * @param closings closing values.
- * @param volumes volume values.
+ * @param volumes volume values.,
+ * @param config configuration.
  * @returns nvi values.
  */
 export function negativeVolumeIndex(
   closings: number[],
-  volumes: number[]
+  volumes: number[],
+  config: NegativeVolumeIndexConfig = {}
 ): number[] {
   checkSameLength(closings, volumes);
 
+  const { start } = { ...NegativeVolumeIndexDefaultConfig, ...config };
   const nvi = new Array<number>(closings.length);
 
   for (let i = 0; i < nvi.length; i++) {
     if (i === 0) {
-      nvi[i] = NVI_STARTING_VALUE;
+      nvi[i] = start;
     } else if (volumes[i - 1] < volumes[i]) {
       nvi[i] = nvi[i - 1];
     } else {

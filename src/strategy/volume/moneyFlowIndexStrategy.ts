@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { defaultMoneyFlowIndex } from '../../indicator/volume/moneyFlowIndex';
+import { moneyFlowIndex } from '../../indicator/volume/moneyFlowIndex';
 import { Action } from '../action';
 import { Asset } from '../asset';
 
@@ -12,7 +12,7 @@ import { Asset } from '../asset';
  * @return strategy actions.
  */
 export function moneyFlowIndexStrategy(asset: Asset): Action[] {
-  const mfi = defaultMoneyFlowIndex(
+  const mfi = moneyFlowIndex(
     asset.highs,
     asset.lows,
     asset.closings,

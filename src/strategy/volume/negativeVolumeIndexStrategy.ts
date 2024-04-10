@@ -3,8 +3,9 @@
 
 import { ema } from '../../indicator/trend/ema';
 import {
+  NegativeVolumeIndexConfig,
+  NegativeVolumeIndexDefaultConfig,
   negativeVolumeIndex,
-  NVI_DEFAULT_PERIOD,
 } from '../../indicator/volume/negativeVolumeIndex';
 import { Action } from '../action';
 import { Asset } from '../asset';
@@ -16,12 +17,20 @@ import { Asset } from '../asset';
  * greather than its 255-period EMA, otherwise a HOLD action.
  *
  * @param asset asset object.
+ * @param config configuration.
  * @returns strategy actions.
  */
-export function negativeVolumeIndexStrategy(asset: Asset): Action[] {
-  const nvi = negativeVolumeIndex(asset.closings, asset.volumes);
+export function negativeVolumeIndexStrategy(
+  asset: Asset,
+  config: NegativeVolumeIndexConfig = {}
+): Action[] {
+  const { start, period } = { ...NegativeVolumeIndexDefaultConfig, ...config };
+  const nvi = negativeVolumeIndex(asset.closings, asset.volumes, {
+    start,
+    period,
+  });
 
-  const nvi255 = ema(nvi, { period: NVI_DEFAULT_PERIOD });
+  const nvi255 = ema(nvi, { period });
 
   const actions = new Array<Action>(nvi.length);
 

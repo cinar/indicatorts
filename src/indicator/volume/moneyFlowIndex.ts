@@ -14,6 +14,20 @@ import { msum } from '../trend/msum';
 import { typicalPrice } from '../trend/typicalPrice';
 
 /**
+ * Optional configuration of MoneyFlowIndex parameters.
+ */
+export interface MoneyFlowIndexConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of MoneyFlowIndex.
+ */
+export const MoneyFlowIndexDefaultConfig: Required<MoneyFlowIndexConfig> = {
+  period: 14,
+};
+
+/**
  * The Money Flow Index (MFI) analyzes both the closing price and the volume
  * to measure to identify overbought and oversold states. It is similar to
  * the Relative Strength Index (RSI), but it also uses the volume.
@@ -22,20 +36,21 @@ import { typicalPrice } from '../trend/typicalPrice';
  * Money Ratio = Positive Money Flow / Negative Money Flow
  * Money Flow Index = 100 - (100 / (1 + Money Ratio))
  *
- * @param period window period.
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
  * @param volumes volume values.
+ * @param config configuration.
  * @return money flow index values.
  */
 export function moneyFlowIndex(
-  period: number,
   highs: number[],
   lows: number[],
   closings: number[],
-  volumes: number[]
+  volumes: number[],
+  config: MoneyFlowIndexConfig = {}
 ): number[] {
+  const { period } = { ...MoneyFlowIndexDefaultConfig, ...config };
   const rawMoneyFlow = multiply(typicalPrice(highs, lows, closings), volumes);
 
   const signs = extractSigns(changes(1, rawMoneyFlow));
@@ -55,22 +70,4 @@ export function moneyFlowIndex(
   );
 
   return moneyFlowIndex;
-}
-
-/**
- * Default money flow index with period 14.
- *
- * @param highs high values.
- * @param lows low values.
- * @param closings closing values.
- * @param volumes volume values.
- * @return money flow index values.
- */
-export function defaultMoneyFlowIndex(
-  highs: number[],
-  lows: number[],
-  closings: number[],
-  volumes: number[]
-): number[] {
-  return moneyFlowIndex(14, highs, lows, closings, volumes);
 }
