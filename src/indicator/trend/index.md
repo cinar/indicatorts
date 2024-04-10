@@ -100,7 +100,7 @@ const cfo = movingChandeForecastOscillator(closings, { period: 4 });
 
 #### Community Channel Index (CMI)
 
-The [communityChannelIndex](./communityChannelIndex.ts) is a momentum-based oscillator used to help determine when an investment vehicle is reaching a condition of being overbought or oversold.
+The [communityChannelIndex](./communityChannelIndex.ts) is a momentum-based oscillator used to help determine when an investment vehicle is reaching a condition of being overbought or oversold. Passing a configuration object with the period is also possible, but is optional. The default period is `20`.
 
 ```
 Moving Average = Sma(Period, Typical Price)
@@ -110,14 +110,7 @@ CMI = (Typical Price - Moving Average) / (0.015 * Mean Deviation)
 
 ```TypeScript
 import {communityChannelIndex} from 'indicatorts';
-const result = communityChannelIndex(period, highs, lows, closings);
-```
-
-The [defaultCommunityChannelIndex](./communityChannelIndex.ts) calculates with the period of 20.
-
-```TypeScript
-import {defaultCommunityChannelIndex} from 'indicatorts';
-const result = defaultCommunityChannelIndex(highs, lows, closings);
+const result = communityChannelIndex(highs, lows, closings, { period: 20 });
 ```
 
 #### Double Exponential Moving Average (DEMA)

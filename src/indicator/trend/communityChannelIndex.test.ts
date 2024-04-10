@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { roundDigitsAll } from '../../helper/numArray';
-import { defaultCommunityChannelIndex } from './communityChannelIndex';
+import { communityChannelIndex } from './communityChannelIndex';
 
 describe('Community Channel Index (CMI)', () => {
   it('should be able to compute CMI', () => {
@@ -11,7 +11,7 @@ describe('Community Channel Index (CMI)', () => {
     const closings = [9, 11, 7, 10, 8];
     const expected = [NaN, 133.33, 114.29, 200, 26.32];
 
-    const actual = defaultCommunityChannelIndex(highs, lows, closings);
+    const actual = communityChannelIndex(highs, lows, closings);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 });

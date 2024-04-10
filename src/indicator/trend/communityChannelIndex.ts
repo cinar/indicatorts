@@ -6,9 +6,19 @@ import { sma } from './sma';
 import { typicalPrice } from './typicalPrice';
 
 /**
- * Default period of CMI.
+ * Optional configuration of CommunityChannelIndex parameters.
  */
-export const CMI_PERIOD = 20;
+export interface CommunityChannelIndexConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of CommunityChannelIndex.
+ */
+export const CommunityChannelIndexDefaultConfig: Required<CommunityChannelIndexConfig> =
+  {
+    period: 20,
+  };
 
 /**
  * The Community Channel Index (CMI) is a momentum-based oscillator
@@ -19,37 +29,22 @@ export const CMI_PERIOD = 20;
  * Mean Deviation = Sma(Period, Abs(Typical Price - Moving Average))
  * CMI = (Typical Price - Moving Average) / (0.015 * Mean Deviation)
  *
- * @param period window period.
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
+ * @param config configuration.
  * @returns cmi values.
  */
 export function communityChannelIndex(
-  period: number,
   highs: number[],
   lows: number[],
-  closings: number[]
+  closings: number[],
+  config: CommunityChannelIndexConfig = {}
 ): number[] {
+  const { period } = { ...CommunityChannelIndexDefaultConfig, ...config };
   const tp = typicalPrice(highs, lows, closings);
   const ma = sma(period, tp);
   const md = sma(period, abs(subtract(tp, ma)));
   const cci = divide(subtract(tp, ma), multiplyBy(0.015, md));
   return cci;
-}
-
-/**
- * The default community channel index with the period of 20.
- *
- * @param highs high values.
- * @param lows low values.
- * @param closings closing values.
- * @returns cmi values.
- */
-export function defaultCommunityChannelIndex(
-  highs: number[],
-  lows: number[],
-  closings: number[]
-): number[] {
-  return communityChannelIndex(CMI_PERIOD, highs, lows, closings);
 }
