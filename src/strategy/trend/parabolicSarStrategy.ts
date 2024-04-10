@@ -29,6 +29,8 @@ export function sarStrategy(asset: Asset, config: SARConfig = {}): Action[] {
         return Action.BUY;
       case Trend.STABLE:
         return Action.HOLD;
+      default:
+        return Action.HOLD;
     }
   });
 }
