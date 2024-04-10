@@ -255,6 +255,8 @@ The [kdj](./kdj.ts) function calculates the KDJ indicator, also known as the Ran
 
 The K and D lines show if the asset is overbought when they crosses above 80%, and oversold when they crosses below 20%. The J line represents the divergence.
 
+Passing a configuration object with the r, k, and d period is also possible, but is optional. The default r period is `9`, the default k period is `3` and the default d period is `3`.
+
 ```
 RSV = ((Closing - Min(Low, rPeriod)) / (Max(High, rPeriod) - Min(Low, rPeriod))) * 100
 K = Sma(RSV, kPeriod)
@@ -265,15 +267,7 @@ J = (3 * K) - (2 * D)
 ```TypeScript
 import {kdj} from 'indicatorts';
 
-const result = kdj(rPeriod, kPeriod, dPeriod, highs, lows, closings);
-```
-
-By default, _rPeriod_ of 9, _kPeriod_ of 3, and _dPeriod_ of 3 are used. The [defaultKdj](./kdj.ts) function can be used with those periods.
-
-```TypeScript
-import {defaultKdj} from 'indicatorts';
-
-const result = defaultKdj(highs, lows, closings);
+const result = kdj(highs, lows, closings, { rPeriod: 9, kPeriod: 3, dPeriod: 3 });
 ```
 
 #### Rolling Moving Average (RMA)

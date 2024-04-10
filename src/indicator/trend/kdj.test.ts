@@ -3,7 +3,7 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { defaultKdj } from './kdj';
+import { kdj } from './kdj';
 
 describe('KDJ indicator', () => {
   it('should be able to compute KDJ', () => {
@@ -20,7 +20,7 @@ describe('KDJ indicator', () => {
       44.44, 47.37, 48.72, 50.55, 50.32, 49.7, 49.58, 49.56, 49.57, 49.19,
     ];
 
-    const kdjResult = defaultKdj(highs, lows, closings);
+    const kdjResult = kdj(highs, lows, closings);
     deepStrictEqual(roundDigitsAll(2, kdjResult.k), expectedK);
     deepStrictEqual(roundDigitsAll(2, kdjResult.d), expectedD);
     deepStrictEqual(roundDigitsAll(2, kdjResult.j), expectedJ);

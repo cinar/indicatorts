@@ -16,6 +16,24 @@ export interface KdjResult {
 }
 
 /**
+ * Optional configuration of Kdj parameters.
+ */
+export interface KdjConfig {
+  rPeriod?: number;
+  kPeriod?: number;
+  dPeriod?: number;
+}
+
+/**
+ * The default configuration of Kdj.
+ */
+export const KdjDefaultConfig: Required<KdjConfig> = {
+  rPeriod: 9,
+  kPeriod: 3,
+  dPeriod: 3,
+};
+
+/**
  * The kdj function calculates the KDJ  indicator, also known as
  * the Random Index. KDJ is calculated similar to the Stochastic
  * Oscillator with the difference of having the J line. It is
@@ -31,22 +49,19 @@ export interface KdjResult {
  * D = Sma(K, dPeriod)
  * J = (3 * K) - (2 * D)
  *
- * @param rPeriod r period.
- * @param kPeriod k period.
- * @param dPeriod d period.
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
+ * @param config configuration.
  * @return kdj result.
  */
 export function kdj(
-  rPeriod: number,
-  kPeriod: number,
-  dPeriod: number,
   highs: number[],
   lows: number[],
-  closings: number[]
+  closings: number[],
+  config: KdjConfig = {}
 ): KdjResult {
+  const { rPeriod, kPeriod, dPeriod } = { ...KdjDefaultConfig, ...config };
   const highest = mmax(highs, { period: rPeriod });
   const lowest = mmin(lows, { period: rPeriod });
 
@@ -64,21 +79,4 @@ export function kdj(
     d,
     j,
   };
-}
-
-/**
- * The defaultKdj function calculates KDJ based on default periods
- * consisting of rPeriod of 9, kPeriod of 3, and dPeriod of 3.
- *
- * @param highs high values.
- * @param lows low values.
- * @param closings closing values.
- * @return kdj result.
- */
-export function defaultKdj(
-  highs: number[],
-  lows: number[],
-  closings: number[]
-): KdjResult {
-  return kdj(9, 3, 3, highs, lows, closings);
 }
