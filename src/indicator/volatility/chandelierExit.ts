@@ -6,8 +6,6 @@ import { mmax } from '../trend/mmax';
 import { mmin } from '../trend/mmin';
 import { atr } from './atr';
 
-const PERIOD = 22;
-
 /**
  * Chandelier exit result object.
  */
@@ -15,6 +13,20 @@ export interface ChandelierExitResult {
   exitLong: number[];
   exitShort: number[];
 }
+
+/**
+ * Optional configuration of ChandelierExit parameters.
+ */
+export interface ChandelierExitConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of ChandelierExit.
+ */
+export const ChandelierExitDefaultConfig: Required<ChandelierExitConfig> = {
+  period: 22,
+};
 
 /**
  * Chandelier Exit. It sets a trailing stop-loss based on the
@@ -26,17 +38,20 @@ export interface ChandelierExitResult {
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
+ * @param config configuration.
  * @return chandelier exit.
  */
 export function chandelierExit(
   highs: number[],
   lows: number[],
-  closings: number[]
+  closings: number[],
+  config: ChandelierExitConfig = {}
 ): ChandelierExitResult {
-  const atrResult = atr(PERIOD, highs, lows, closings);
+  const { period } = { ...ChandelierExitDefaultConfig, ...config };
+  const atrResult = atr(highs, lows, closings, { period });
   const atrLine3 = multiplyBy(3, atrResult.atrLine);
-  const highestHigh = mmax(highs, { period: PERIOD });
-  const lowestLow = mmin(lows, { period: PERIOD });
+  const highestHigh = mmax(highs, { period });
+  const lowestLow = mmin(lows, { period });
 
   const exitLong = subtract(highestHigh, atrLine3);
   const exitShort = add(lowestLow, atrLine3);

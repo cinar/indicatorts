@@ -23,6 +23,23 @@ export interface ProjectionOscillator {
 }
 
 /**
+ * Optional configuration of ProjectionOscillator parameters.
+ */
+export interface ProjectionOscillatorConfig {
+  period?: number;
+  smooth?: number;
+}
+
+/**
+ * The default configuration of ProjectionOscillator.
+ */
+export const ProjectionOscillatorDefaultConfig: Required<ProjectionOscillatorConfig> =
+  {
+    period: 14,
+    smooth: 3,
+  };
+
+/**
  * ProjectionOscillator calculates the Projection Oscillator (PO). The PO
  * uses the linear regression slope, along with highs and lows.
  *
@@ -34,20 +51,22 @@ export interface ProjectionOscillator {
  * PO = 100 * (Closing - PL) / (PU - PL)
  * SPO = EMA(smooth, PO)
  *
- * @param period window period.
- * @param smooth smooth period.
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
+ * @param config configuration.
  * @return projection oscillator.
  */
 export function projectionOscillator(
-  period: number,
-  smooth: number,
   highs: number[],
   lows: number[],
-  closings: number[]
+  closings: number[],
+  config: ProjectionOscillatorConfig = {}
 ): ProjectionOscillator {
+  const { period, smooth } = {
+    ...ProjectionOscillatorDefaultConfig,
+    ...config,
+  };
   const x = generateNumbers(0, closings.length, 1);
   const lsHighs = movingLeastSquare(period, x, highs);
   const lsLows = movingLeastSquare(period, x, lows);
@@ -65,19 +84,4 @@ export function projectionOscillator(
     po,
     spo,
   };
-}
-
-/**
- * Default projection oscillator function.
- * @param highs high values.
- * @param lows lows values.
- * @param closings closing values.
- * @return projection oscillator.
- */
-export function defaultProjectionOscillator(
-  highs: number[],
-  lows: number[],
-  closings: number[]
-): ProjectionOscillator {
-  return projectionOscillator(14, 3, highs, lows, closings);
 }

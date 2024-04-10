@@ -5,8 +5,6 @@ import { divide, subtract } from '../../helper/numArray';
 import { ema } from '../trend/ema';
 import { BollingerBands } from './bollingerBands';
 
-const PERIOD = 90;
-
 /**
  * Bollinger bands width result.
  */
@@ -14,6 +12,21 @@ export interface BollingerBandsWidth {
   bandWidth: number[];
   bandWidthEma90: number[];
 }
+
+/**
+ * Optional configuration of BollingerBandsWidth parameters.
+ */
+export interface BollingerBandsWidthConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of BollingerBandsWidth.
+ */
+export const BollingerBandsWidthDefaultConfig: Required<BollingerBandsWidthConfig> =
+  {
+    period: 90,
+  };
 
 /**
  * Bollinger Band Width. It measures the percentage difference between the
@@ -26,12 +39,17 @@ export interface BollingerBandsWidth {
  * Band Width = (Upper Band - Lower Band) / Middle Band
  *
  * @param bb bollinger bands.
+ * @param config configuration.
  * @return bollinger bands width result.
  */
-export function bollingerBandsWidth(bb: BollingerBands): BollingerBandsWidth {
+export function bollingerBandsWidth(
+  bb: BollingerBands,
+  config: BollingerBandsWidthConfig = {}
+): BollingerBandsWidth {
+  const { period } = { ...BollingerBandsWidthDefaultConfig, ...config };
   const bandWidth = divide(subtract(bb.upperBand, bb.lowerBand), bb.middleBand);
 
-  const bandWidthEma90 = ema(bandWidth, { period: PERIOD });
+  const bandWidthEma90 = ema(bandWidth, { period });
 
   return {
     bandWidth,

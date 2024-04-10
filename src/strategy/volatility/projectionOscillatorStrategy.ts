@@ -3,7 +3,7 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { defaultProjectionOscillator } from '../../indicator/volatility/projectionOscillator';
+import { projectionOscillator } from '../../indicator/volatility/projectionOscillator';
 
 /**
  * Projection oscillator strategy function.
@@ -12,11 +12,7 @@ import { defaultProjectionOscillator } from '../../indicator/volatility/projecti
  * @return strategy actions.
  */
 export function projectionOscillatorStrategy(asset: Asset): Action[] {
-  const po = defaultProjectionOscillator(
-    asset.highs,
-    asset.lows,
-    asset.closings
-  );
+  const po = projectionOscillator(asset.highs, asset.lows, asset.closings);
 
   const actions = new Array<Action>(po.po.length);
 

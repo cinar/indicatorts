@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { roundDigitsAll } from '../../index';
-import { defaultUlcerIndex } from './ulcerIndex';
+import { ulcerIndex } from './ulcerIndex';
 
 describe('Ulcer Index', () => {
   it('should be able to compute UI', () => {
@@ -12,7 +12,7 @@ describe('Ulcer Index', () => {
       32.88, 34.02, 34.19,
     ];
 
-    const actual = defaultUlcerIndex(closings);
+    const actual = ulcerIndex(closings);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 });

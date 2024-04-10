@@ -138,7 +138,7 @@ The [mstd](./mstd.ts) function calculates the moving standard deviation for a gi
 ```TypeScript
 import {mstd} from 'indicatorts';
 
-const result = mstd(period, values);
+const result = mstd(values, { period });
 ```
 
 #### Projection Oscillator (PO)

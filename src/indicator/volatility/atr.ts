@@ -13,6 +13,20 @@ export interface AtrResult {
 }
 
 /**
+ * Optional configuration of ATR parameters.
+ */
+export interface ATRConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of ATR.
+ */
+export const ATRDefaultConfig: Required<ATRConfig> = {
+  period: 14,
+};
+
+/**
  * Average True Range (ATR). It is a technical analysis indicator that
  * measures market volatility by decomposing the entire range of stock
  * prices for that period.
@@ -20,19 +34,20 @@ export interface AtrResult {
  * TR = Max((High - Low), (High - Closing), (Closing - Low))
  * ATR = SMA TR
  *
- * @param period window period.
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
- * @return atr result.const ATR_PERIOD = 14;
+ * @param config configuration.
+ * @return atr tr line and atr line.
  */
 export function atr(
-  period: number,
   highs: number[],
   lows: number[],
-  closings: number[]
+  closings: number[],
+  config: ATRConfig = {}
 ): AtrResult {
-  const trLine = tr(period, highs, lows, closings);
+  const { period } = { ...ATRDefaultConfig, ...config };
+  const trLine = tr(highs, lows, closings);
   const atrLine = sma(trLine, { period });
 
   return {

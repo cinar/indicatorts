@@ -11,7 +11,7 @@ describe('Standard deviation', () => {
     const expected = [0, 1, 1, 1, 2, 1, 1, 1, 1];
     const period = 2;
 
-    const actual = mstd(period, values);
+    const actual = mstd(values, { period });
     deepStrictEqual(roundDigitsAll(3, actual), expected);
   });
 });

@@ -12,7 +12,7 @@ describe('Donchian Channel', () => {
     const expectedMiddleChannel = [9, 10, 9, 9, 9];
     const expectedLowerChannel = [9, 9, 7, 7, 7];
 
-    const actual = donchianChannel(period, closings);
+    const actual = donchianChannel(closings, { period });
     expect(roundDigitsAll(2, actual.upperChannel)).toStrictEqual(
       expectedUpperChannel
     );

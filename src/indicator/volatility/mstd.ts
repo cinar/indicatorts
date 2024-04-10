@@ -4,13 +4,28 @@
 import { sma } from '../trend/sma';
 
 /**
+ * Optional configuration of MSTD parameters.
+ */
+export interface MSTDConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of MSTD.
+ */
+export const MSTDDefaultConfig: Required<MSTDConfig> = {
+  period: 4,
+};
+
+/**
  * Moving strandard deviation function.
  *
- * @param period window period.
  * @param values value array.
+ * @param config configuration.
  * @return std values.
  */
-export function mstd(period: number, values: number[]): number[] {
+export function mstd(values: number[], config: MSTDConfig = {}): number[] {
+  const { period } = { ...MSTDDefaultConfig, ...config };
   const result = new Array<number>(values.length);
   const averages = sma(values, { period });
 

@@ -21,7 +21,6 @@ import {
  * @return tr values.
  */
 export function tr(
-  period: number,
   highs: number[],
   lows: number[],
   closings: number[]

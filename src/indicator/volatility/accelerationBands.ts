@@ -22,6 +22,21 @@ export interface AccelerationBands {
 }
 
 /**
+ * Optional configuration of AccelerationBands parameters.
+ */
+export interface AccelerationBandsConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of AccelerationBands.
+ */
+export const AccelerationBandsDefaultConfig: Required<AccelerationBandsConfig> =
+  {
+    period: 20,
+  };
+
+/**
  * Acceleration Bands. Plots upper and lower envelope bands
  * around a simple moving average.
  *
@@ -32,23 +47,26 @@ export interface AccelerationBands {
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
+ * @param config configuration.
  * @return acceleration band.
  */
 export function accelerationBands(
   highs: number[],
   lows: number[],
-  closings: number[]
+  closings: number[],
+  config: AccelerationBandsConfig = {}
 ): AccelerationBands {
   checkSameLength(highs, lows, closings);
 
+  const { period } = { ...AccelerationBandsDefaultConfig, ...config };
   const k = divide(subtract(highs, lows), add(highs, lows));
 
   const upperBand = sma(multiply(highs, addBy(1, multiplyBy(4, k))), {
-    period: 20,
+    period,
   });
   const middleBand = sma(closings, { period: 20 });
   const lowerBand = sma(multiply(lows, addBy(1, multiplyBy(-4, k))), {
-    period: 20,
+    period,
   });
 
   return {

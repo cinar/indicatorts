@@ -5,7 +5,19 @@ import { add, multiplyBy, subtract } from '../../helper/numArray';
 import { sma } from '../trend/sma';
 import { mstd } from './mstd';
 
-const BB_PERIOD = 20;
+/**
+ * Optional configuration of BollingerBands parameters.
+ */
+export interface BollingerBandsConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of BollingerBands.
+ */
+export const BollingerBandsDefaultConfig: Required<BollingerBandsConfig> = {
+  period: 20,
+};
 
 /**
  * Bollinger bands result object.
@@ -24,11 +36,16 @@ export interface BollingerBands {
  * Lower Band = 20-Period SMA - 2 (20-Period Std)
  *
  * @param closings closing values.
+ * @param config configuration.
  * @return bollinger bands.
  */
-export function bollingerBands(closings: number[]): BollingerBands {
-  const std2 = multiplyBy(2, mstd(BB_PERIOD, closings));
-  const middleBand = sma(closings, { period: BB_PERIOD });
+export function bollingerBands(
+  closings: number[],
+  config: BollingerBandsConfig = {}
+): BollingerBands {
+  const { period } = { ...BollingerBandsDefaultConfig, ...config };
+  const std2 = multiplyBy(2, mstd(closings, { period }));
+  const middleBand = sma(closings, { period });
   const upperBand = add(middleBand, std2);
   const lowerBand = subtract(middleBand, std2);
 
