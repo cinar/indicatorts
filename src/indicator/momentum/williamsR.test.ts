@@ -3,9 +3,9 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { stoch } from './stochasticOscillator';
+import { willr } from './williamsR';
 
-describe('Stochastic Oscillator (STOCH)', () => {
+describe('Williams R (WILLR)', () => {
   const highs = [
     127.01, 127.62, 126.59, 127.35, 128.17, 128.43, 127.37, 126.42, 126.9,
     126.85, 125.65, 125.72, 127.16, 127.72, 127.69, 128.22, 128.27, 128.09,
@@ -24,22 +24,24 @@ describe('Stochastic Oscillator (STOCH)', () => {
   ];
 
   it('should be able to compute with a config', () => {
-    const expectedK = [
-      38.79, 54.87, 80.67, 84.39, 97.84, 93.43, 39.14, 32.5, 49.17, 60.28,
-      75.97, 88.89, 91.47, 70.54, 67.7, 89.15, 65.89, 85.44, 67.39, 74.66,
+    const expected = [
+      -61.21, -45.13, -19.33, -15.61, -2.16, -6.57, -60.86, -67.5, -50.83,
+      -39.72, -24.03, -11.11, -8.53, -29.46, -32.3, -10.85, -34.11, -18.09,
+      -35.4, -28.42,
     ];
 
-    const actual = stoch(highs, lows, closings, { kPeriod: 12, dPeriod: 2 });
-    deepStrictEqual(roundDigitsAll(2, actual.k), expectedK);
+    const actual = willr(highs, lows, closings, { period: 40 });
+    deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
 
   it('should be able to compute without a config', () => {
-    const expectedK = [
-      38.79, 54.87, 80.67, 84.39, 97.84, 93.43, 39.14, 32.5, 49.17, 60.28,
-      75.97, 88.89, 91.47, 70.54, 67.7, 89.15, 65.89, 81.91, 64.6, 74.66,
+    const expected = [
+      -61.21, -45.13, -19.33, -15.61, -2.16, -6.57, -60.86, -67.5, -50.83,
+      -39.72, -24.03, -11.11, -8.53, -29.46, -32.3, -10.85, -34.11, -18.09,
+      -35.4, -25.34,
     ];
 
-    const actual = stoch(highs, lows, closings);
-    deepStrictEqual(roundDigitsAll(2, actual.k), expectedK);
+    const actual = willr(highs, lows, closings);
+    deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
 });

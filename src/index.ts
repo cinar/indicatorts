@@ -20,7 +20,6 @@ export * from './indicator/momentum/ichimokuCloud';
 export * from './indicator/momentum/percentagePriceOscillator';
 export * from './indicator/momentum/percentageVolumeOscillator';
 export * from './indicator/momentum/rsi';
-export * from './indicator/momentum/rsi2';
 export * from './indicator/momentum/stochasticOscillator';
 export * from './indicator/momentum/williamsR';
 export * from './indicator/trend';
