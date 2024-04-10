@@ -51,15 +51,15 @@ export function rsi(closings: number[], config: RSIConfig = {}): number[] {
   const meanGains = rma(gains, { period });
   const meanLosses = rma(losses, { period });
 
-  const r = new Array<number>(closings.length);
-  const rs = new Array<number>(closings.length);
+  const rValue = new Array<number>(closings.length);
+  const rsValue = new Array<number>(closings.length);
 
-  r[0] = rs[0] = 0;
+  rValue[0] = rsValue[0] = 0;
 
   for (let i = 1; i < closings.length; i++) {
-    rs[i] = meanGains[i] / meanLosses[i];
-    r[i] = 100 - 100 / (1 + rs[i]);
+    rsValue[i] = meanGains[i] / meanLosses[i];
+    rValue[i] = 100 - 100 / (1 + rsValue[i]);
   }
 
-  return r;
+  return rValue;
 }
