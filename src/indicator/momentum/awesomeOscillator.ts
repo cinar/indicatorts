@@ -31,7 +31,7 @@ export const AODefaultConfig: Required<AOConfig> = {
  * @param config configuration.
  * @return awesome oscillator.
  */
-export function awesomeOscillator(
+export function ao(
   highs: number[],
   lows: number[],
   config: AOConfig = {}
@@ -43,3 +43,6 @@ export function awesomeOscillator(
   const ao = subtract(smaFast, smaSlow);
   return ao;
 }
+
+// Export full name
+export { ao as awesomeOscillator };

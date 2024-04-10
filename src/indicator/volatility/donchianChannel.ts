@@ -44,10 +44,7 @@ export const DCDefaultConfig: Required<DCConfig> = {
  * @param config configuration.
  * @returns dc result.
  */
-export function donchianChannel(
-  closings: number[],
-  config: DCConfig = {}
-): DCResult {
+export function dc(closings: number[], config: DCConfig = {}): DCResult {
   const { period } = { ...DCDefaultConfig, ...config };
   const upperChannel = mmax(closings, { period });
   const lowerChannel = mmin(closings, { period });
@@ -59,3 +56,6 @@ export function donchianChannel(
     lowerChannel,
   };
 }
+
+// Export full name
+export { dc as donchianChannel };

@@ -40,3 +40,6 @@ export function mmax(values: number[], config: MMaxConfig = {}): number[] {
 
   return result;
 }
+
+// Export full name
+export { mmax as movingMax };

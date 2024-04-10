@@ -53,3 +53,6 @@ export function macd(closings: number[], config: MACDConfig = {}): MACDResult {
     signalLine,
   };
 }
+
+// Export full name
+export { macd as movingAverageConvergenceDivergence };

@@ -3,7 +3,7 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { chaikinOscillator } from './chaikinOscillator';
+import { cmo } from './chaikinOscillator';
 
 describe('Chaikin Oscillator', () => {
   const highs = [10, 11, 12, 13, 14, 15, 16, 17];
@@ -14,7 +14,7 @@ describe('Chaikin Oscillator', () => {
   it('should be able to compute co', () => {
     const expected = [0, -7.41, -18.52, -31.69, -46.09, -61.27, -76.95, -92.97];
 
-    const actual = chaikinOscillator(highs, lows, closings, volumes, {
+    const actual = cmo(highs, lows, closings, volumes, {
       fast: 2,
       slow: 5,
     });
@@ -26,7 +26,7 @@ describe('Chaikin Oscillator', () => {
       0, -7.07, -19.93, -37.52, -58.98, -83.61, -110.83, -140.17,
     ];
 
-    const actual = chaikinOscillator(highs, lows, closings, volumes);
+    const actual = cmo(highs, lows, closings, volumes);
     deepStrictEqual(roundDigitsAll(2, actual.co), expected);
   });
 });

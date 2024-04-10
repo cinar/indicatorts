@@ -38,3 +38,6 @@ export function msum(values: number[], config: MSUMConfig = {}): number[] {
 
   return result;
 }
+
+// Export full name
+export { msum as movingSum };

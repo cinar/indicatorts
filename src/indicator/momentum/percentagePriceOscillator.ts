@@ -44,10 +44,7 @@ export const PPODefaultConfig: Required<PPOConfig> = {
  * @param config configuration.
  * @returns oscillator result.
  */
-export function percentagePriceOscillator(
-  prices: number[],
-  config: PPOConfig = {}
-): PPOResult {
+export function ppo(prices: number[], config: PPOConfig = {}): PPOResult {
   const {
     fast: fastPeriod,
     slow: slowPeriod,
@@ -66,3 +63,6 @@ export function percentagePriceOscillator(
     histogram,
   };
 }
+
+// Export full name
+export { ppo as percentagePriceOscillator };

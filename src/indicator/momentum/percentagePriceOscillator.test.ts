@@ -3,7 +3,7 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { percentagePriceOscillator } from './percentagePriceOscillator';
+import { ppo } from './percentagePriceOscillator';
 
 describe('Percent Price Oscillator (PPO)', () => {
   it('should be able to compute ppo', () => {
@@ -55,7 +55,7 @@ describe('Percent Price Oscillator (PPO)', () => {
       -0.04, 0.05, 0.16, 0.36, 0.46, 0.4, 0.37, 0.45, 0.6,
     ];
 
-    const actual = percentagePriceOscillator(prices);
+    const actual = ppo(prices);
     deepStrictEqual(roundDigitsAll(2, actual.ppo), expectedPpo);
     deepStrictEqual(roundDigitsAll(2, actual.signal), expectedSignal);
     deepStrictEqual(roundDigitsAll(2, actual.histogram), expectedHistogram);

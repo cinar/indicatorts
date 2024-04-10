@@ -43,7 +43,7 @@ export const MFIDefaultConfig: Required<MFIConfig> = {
  * @param config configuration.
  * @return money flow index values.
  */
-export function moneyFlowIndex(
+export function mfi(
   highs: number[],
   lows: number[],
   closings: number[],
@@ -71,3 +71,6 @@ export function moneyFlowIndex(
 
   return moneyFlowIndex;
 }
+
+// Export full name
+export { mfi as moneyFlowIndex };

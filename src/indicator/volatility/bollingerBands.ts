@@ -39,7 +39,7 @@ export const BollingerBandsDefaultConfig: Required<BollingerBandsConfig> = {
  * @param config configuration.
  * @return bollinger bands.
  */
-export function bollingerBands(
+export function bb(
   closings: number[],
   config: BollingerBandsConfig = {}
 ): BollingerBandsResult {
@@ -55,3 +55,6 @@ export function bollingerBands(
     lowerBand,
   };
 }
+
+// Export full name
+export { bb as bollingerBands };

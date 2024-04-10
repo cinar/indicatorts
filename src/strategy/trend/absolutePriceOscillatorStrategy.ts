@@ -6,7 +6,7 @@ import { Action } from '../action';
 import {
   APOConfig,
   APODefaultConfig,
-  absolutePriceOscillator,
+  apo,
 } from '../../indicator/trend/absolutePriceOscillator';
 
 /**
@@ -16,21 +16,18 @@ import {
  * @param config configuration.
  * @return strategy actions.
  */
-export function absolutePriceOscillatorStrategy(
-  asset: Asset,
-  config: APOConfig = {}
-): Action[] {
+export function apoStrategy(asset: Asset, config: APOConfig = {}): Action[] {
   const { fast, slow } = {
     ...APODefaultConfig,
     ...config,
   };
-  const indicator = absolutePriceOscillator(asset.closings, { fast, slow });
-  const actions = new Array<Action>(indicator.length);
+  const result = apo(asset.closings, { fast, slow });
+  const actions = new Array<Action>(result.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (indicator[i] > 0) {
+    if (result[i] > 0) {
       actions[i] = Action.BUY;
-    } else if (indicator[i] < 0) {
+    } else if (result[i] < 0) {
       actions[i] = Action.SELL;
     } else {
       actions[i] = Action.HOLD;
@@ -39,3 +36,6 @@ export function absolutePriceOscillatorStrategy(
 
   return actions;
 }
+
+// Export full name
+export { apoStrategy as absolutePriceOscillatorStrategy };

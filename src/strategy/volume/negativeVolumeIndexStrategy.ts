@@ -5,7 +5,7 @@ import { ema } from '../../indicator/trend/ema';
 import {
   NVIConfig,
   NVIDefaultConfig,
-  negativeVolumeIndex,
+  nvi,
 } from '../../indicator/volume/negativeVolumeIndex';
 import { Action } from '../action';
 import { Asset } from '../asset';
@@ -20,25 +20,18 @@ import { Asset } from '../asset';
  * @param config configuration.
  * @returns strategy actions.
  */
-export function negativeVolumeIndexStrategy(
-  asset: Asset,
-  config: NVIConfig = {}
-): Action[] {
+export function nviStrategy(asset: Asset, config: NVIConfig = {}): Action[] {
   const strategyConfig = { ...NVIDefaultConfig, ...config };
-  const nvi = negativeVolumeIndex(
-    asset.closings,
-    asset.volumes,
-    strategyConfig
-  );
+  const result = nvi(asset.closings, asset.volumes, strategyConfig);
 
-  const nvi255 = ema(nvi, { period: strategyConfig.period });
+  const nviEma = ema(result, { period: strategyConfig.period });
 
-  const actions = new Array<Action>(nvi.length);
+  const actions = new Array<Action>(result.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (nvi[i] < nvi255[i]) {
+    if (result[i] < nviEma[i]) {
       actions[i] = Action.BUY;
-    } else if (nvi[i] > nvi255[i]) {
+    } else if (result[i] > nviEma[i]) {
       actions[i] = Action.SELL;
     } else {
       actions[i] = Action.HOLD;
@@ -47,3 +40,6 @@ export function negativeVolumeIndexStrategy(
 
   return actions;
 }
+
+// Export full name
+export { nviStrategy as negativeVolumeIndexStrategy };

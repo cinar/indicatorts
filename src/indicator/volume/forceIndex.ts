@@ -29,7 +29,7 @@ export const FIDefaultConfig: Required<FIConfig> = {
  * @param config configuration.
  * @return force index.
  */
-export function forceIndex(
+export function fi(
   closings: number[],
   volumes: number[],
   config: FIConfig = {}
@@ -37,3 +37,6 @@ export function forceIndex(
   const { period } = { ...FIDefaultConfig, ...config };
   return ema(multiply(changes(1, closings), volumes), { period });
 }
+
+// Export full name
+export { fi as forceIndex };

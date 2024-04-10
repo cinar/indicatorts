@@ -38,3 +38,6 @@ export function ema(values: number[], config: EMAConfig = {}): number[] {
 
   return result;
 }
+
+// Export full name
+export { ema as exponentialMovingAverage };

@@ -29,7 +29,7 @@ export const VWAPDefaultConfig: Required<VWAPConfig> = {
  * @param config configuration.
  * @returns vwap values.
  */
-export function volumeWeightedAveragePrice(
+export function vwap(
   closings: number[],
   volumes: number[],
   config: VWAPConfig = {}
@@ -40,3 +40,6 @@ export function volumeWeightedAveragePrice(
     msum(volumes, { period })
   );
 }
+
+// Export full name
+export { vwap as volumeWeightedAveragePrice };

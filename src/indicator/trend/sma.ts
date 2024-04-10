@@ -39,3 +39,6 @@ export function sma(values: number[], config: SMAConfig = {}): number[] {
 
   return result;
 }
+
+// Export full name
+export { sma as simpleMovingAverage };

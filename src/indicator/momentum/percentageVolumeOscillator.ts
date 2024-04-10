@@ -44,10 +44,7 @@ export const PVODefaultConfig: Required<PVOConfig> = {
  * @param config configuration.
  * @returns oscillator result.
  */
-export function percentageVolumeOscillator(
-  volumes: number[],
-  config: PVOConfig = {}
-): PVOResult {
+export function pvo(volumes: number[], config: PVOConfig = {}): PVOResult {
   const {
     fast: fastPeriod,
     slow: slowPeriod,
@@ -66,3 +63,6 @@ export function percentageVolumeOscillator(
     histogram,
   };
 }
+
+// Export full name
+export { pvo as percentageVolumeOscillator };

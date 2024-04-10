@@ -39,10 +39,7 @@ export const UIDefaultConfig: Required<UIConfig> = {
  * @param config configuration.
  * @returns ui values.
  */
-export function ulcerIndex(
-  closings: number[],
-  config: UIConfig = {}
-): number[] {
+export function ui(closings: number[], config: UIConfig = {}): number[] {
   const { period } = { ...UIDefaultConfig, ...config };
   const highClosings = mmax(closings, { period });
   const percentageDrawdown = multiplyBy(
@@ -52,7 +49,9 @@ export function ulcerIndex(
   const squaredAverage = sma(multiply(percentageDrawdown, percentageDrawdown), {
     period,
   });
-  const ui = sqrt(squaredAverage);
 
-  return ui;
+  return sqrt(squaredAverage);
 }
+
+// Export full name
+export { ui as ulcerIndex };

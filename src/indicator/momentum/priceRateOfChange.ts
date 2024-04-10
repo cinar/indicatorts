@@ -35,3 +35,6 @@ export function roc(values: number[], config: ROCConfig = {}): number[] {
 
   return result;
 }
+
+// Export full name
+export { roc as priceRateOfChange };

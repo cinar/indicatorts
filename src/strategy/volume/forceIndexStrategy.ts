@@ -4,7 +4,7 @@
 import {
   FIConfig,
   FIDefaultConfig,
-  forceIndex,
+  fi,
 } from '../../indicator/volume/forceIndex';
 import { Action } from '../action';
 import { Asset } from '../asset';
@@ -16,14 +16,11 @@ import { Asset } from '../asset';
  * @param config configuration.
  * @returns strategy actions.
  */
-export function forceIndexStrategy(
-  asset: Asset,
-  config: FIConfig = {}
-): Action[] {
+export function fiStrategy(asset: Asset, config: FIConfig = {}): Action[] {
   const strategyConfig = { ...FIDefaultConfig, ...config };
-  const fi = forceIndex(asset.closings, asset.volumes, strategyConfig);
+  const result = fi(asset.closings, asset.volumes, strategyConfig);
 
-  return fi.map((value) => {
+  return result.map((value) => {
     if (value > 0) {
       return Action.BUY;
     } else if (value < 0) {
@@ -33,3 +30,6 @@ export function forceIndexStrategy(
     }
   });
 }
+
+// Export full name
+export { fiStrategy as forceIndexStrategy };

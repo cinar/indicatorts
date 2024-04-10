@@ -43,3 +43,6 @@ export function tema(values: number[], config: TEMAConfig = {}): number[] {
 
   return temaLine;
 }
+
+// Export full name
+export { tema as tripleExponentialMovingAverage };

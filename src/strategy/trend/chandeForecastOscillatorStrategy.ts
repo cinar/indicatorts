@@ -3,7 +3,7 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { chandeForecastOscillator } from '../../indicator/trend/chandeForecastOscillator';
+import { cfo } from '../../indicator/trend/chandeForecastOscillator';
 
 /**
  * Chande forecast oscillator strategy.
@@ -11,10 +11,10 @@ import { chandeForecastOscillator } from '../../indicator/trend/chandeForecastOs
  * @param asset asset object.
  * @return strategy actions.
  */
-export function chandeForecastOscillatorStrategy(asset: Asset): Action[] {
-  const cfo = chandeForecastOscillator(asset.closings);
+export function cfoStrategy(asset: Asset): Action[] {
+  const result = cfo(asset.closings);
 
-  return cfo.map((value) => {
+  return result.map((value) => {
     if (value > 0) {
       return Action.BUY;
     } else if (value < 0) {
@@ -24,3 +24,6 @@ export function chandeForecastOscillatorStrategy(asset: Asset): Action[] {
     }
   });
 }
+
+// Export full name
+export { cfoStrategy as chandeForecastOscillatorStrategy };

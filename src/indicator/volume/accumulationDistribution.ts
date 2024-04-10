@@ -18,7 +18,7 @@ import { divide, multiply, subtract } from '../../helper/numArray';
  * @param volume volume values.
  * @return ad values.
  */
-export function accumulationDistribution(
+export function ad(
   highs: number[],
   lows: number[],
   closings: number[],
@@ -42,3 +42,6 @@ export function accumulationDistribution(
 
   return ad;
 }
+
+// Export full name
+export { ad as accumulationDistribution };

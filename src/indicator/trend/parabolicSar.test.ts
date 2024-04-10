@@ -4,7 +4,7 @@
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { Trend } from '../trend';
-import { parabolicSar } from './parabolicSar';
+import { sar } from './parabolicSar';
 
 describe('Parabolic SAR', () => {
   it('should be able to compute PSAR', () => {
@@ -40,7 +40,7 @@ describe('Parabolic SAR', () => {
       Trend.RISING,
     ];
 
-    const actual = parabolicSar(highs, lows, closings);
+    const actual = sar(highs, lows, closings);
     deepStrictEqual(roundDigitsAll(2, actual.psar), expectedPsar);
     deepStrictEqual(actual.trends, expectedTrends);
   });

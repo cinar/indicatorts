@@ -6,7 +6,7 @@ import { Action } from '../action';
 import {
   ParabolicSARConfig,
   ParabolicSARDefaultConfig,
-  parabolicSar,
+  sar,
 } from '../../indicator/trend/parabolicSar';
 import { Trend } from '../../indicator/trend';
 
@@ -17,19 +17,14 @@ import { Trend } from '../../indicator/trend';
  * @param config configuration.
  * @return strategy actions.
  */
-export function parabolicSarStrategy(
+export function sarStrategy(
   asset: Asset,
   config: ParabolicSARConfig = {}
 ): Action[] {
   const strategyConfig = { ...ParabolicSARDefaultConfig, ...config };
-  const psar = parabolicSar(
-    asset.highs,
-    asset.lows,
-    asset.closings,
-    strategyConfig
-  );
+  const result = sar(asset.highs, asset.lows, asset.closings, strategyConfig);
 
-  return psar.trends.map((trend) => {
+  return result.trends.map((trend) => {
     switch (trend) {
       case Trend.FALLING:
         return Action.SELL;
@@ -40,3 +35,6 @@ export function parabolicSarStrategy(
     }
   });
 }
+
+// Export full name
+export { sarStrategy as parabolicSARStrategy };

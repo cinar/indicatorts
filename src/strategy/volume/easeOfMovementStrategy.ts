@@ -4,7 +4,7 @@
 import {
   EMVConfig,
   EMVDefaultConfig,
-  easeOfMovement,
+  emv,
 } from '../../indicator/volume/easeOfMovement';
 import { Action } from '../action';
 import { Asset } from '../asset';
@@ -16,19 +16,11 @@ import { Asset } from '../asset';
  * @param config configuration.
  * @returns strategy actions.
  */
-export function easeOfMovementStrategy(
-  asset: Asset,
-  config: EMVConfig = {}
-): Action[] {
+export function emvStrategy(asset: Asset, config: EMVConfig = {}): Action[] {
   const strategyConfig = { ...EMVDefaultConfig, ...config };
-  const emv = easeOfMovement(
-    asset.highs,
-    asset.lows,
-    asset.volumes,
-    strategyConfig
-  );
+  const result = emv(asset.highs, asset.lows, asset.volumes, strategyConfig);
 
-  return emv.map((value) => {
+  return result.map((value) => {
     if (value > 0) {
       return Action.BUY;
     } else if (value < 0) {
@@ -38,3 +30,6 @@ export function easeOfMovementStrategy(
     }
   });
 }
+
+// Export full name
+export { emvStrategy as easeOfMovementStrategy };

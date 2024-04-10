@@ -39,7 +39,7 @@ export const EMVDefaultConfig: Required<EMVConfig> = {
  * @param config configuration.
  * @return ease of movement values.
  */
-export function easeOfMovement(
+export function emv(
   highs: number[],
   lows: number[],
   volumes: number[],
@@ -51,3 +51,6 @@ export function easeOfMovement(
   const emv = sma(divide(distanceMoved, boxRatio), { period });
   return emv;
 }
+
+// Export full name
+export { emv as easeOfMovement };

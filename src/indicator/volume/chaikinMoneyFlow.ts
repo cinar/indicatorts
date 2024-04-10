@@ -33,7 +33,7 @@ export const CMFDefaultConfig: Required<CMFConfig> = {
  * @param config configuration.
  * @returns cmf values.
  */
-export function chaikinMoneyFlow(
+export function cmf(
   highs: number[],
   lows: number[],
   closings: number[],
@@ -55,3 +55,6 @@ export function chaikinMoneyFlow(
 
   return cmf;
 }
+
+// Export full name
+export { cmf as chaikinMoneyFlow };

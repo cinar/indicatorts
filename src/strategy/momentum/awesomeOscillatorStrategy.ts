@@ -6,7 +6,7 @@ import { Action } from '../action';
 import {
   AOConfig,
   AODefaultConfig,
-  awesomeOscillator,
+  ao,
 } from '../../indicator/momentum/awesomeOscillator';
 
 /**
@@ -16,13 +16,11 @@ import {
  * @param config configuration.
  * @return strategy actions.
  */
-export function awesomeOscillatorStrategy(
-  asset: Asset,
-  config: AOConfig = {}
-): Action[] {
+export function aoStrategy(asset: Asset, config: AOConfig = {}): Action[] {
   const strategyConfig = { ...AODefaultConfig, ...config };
-  const os = awesomeOscillator(asset.highs, asset.lows, strategyConfig);
-  return os.map((value) => {
+  const result = ao(asset.highs, asset.lows, strategyConfig);
+
+  return result.map((value) => {
     if (value > 0) {
       return Action.BUY;
     } else if (value < 0) {
@@ -32,3 +30,6 @@ export function awesomeOscillatorStrategy(
     }
   });
 }
+
+// Export full name
+export { aoStrategy as awesomeOscillatorStrategy };

@@ -45,3 +45,6 @@ export function mstd(values: number[], config: MSTDConfig = {}): number[] {
 
   return result;
 }
+
+// Export full name
+export { mstd as movingStandardDeviation };

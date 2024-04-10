@@ -3,7 +3,7 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { stochasticOscillator } from './stochasticOscillator';
+import { stoch } from './stochasticOscillator';
 
 describe('Stochastic Oscillator', () => {
   it('should be able to compute result', () => {
@@ -30,7 +30,7 @@ describe('Stochastic Oscillator', () => {
       75.97, 88.89, 91.47, 70.54, 67.7, 89.15, 65.89, 81.91, 64.6, 74.66,
     ];
 
-    const actual = stochasticOscillator(highs, lows, closings);
+    const actual = stoch(highs, lows, closings);
     deepStrictEqual(roundDigitsAll(2, actual.k), expectedK);
   });
 });

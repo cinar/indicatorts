@@ -37,3 +37,6 @@ export function tr(
 
   return result;
 }
+
+// Export full name
+export { tr as trueRange };

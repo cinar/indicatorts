@@ -41,7 +41,7 @@ export const ChandelierExitDefaultConfig: Required<ChandelierExitConfig> = {
  * @param config configuration.
  * @return chandelier exit.
  */
-export function chandelierExit(
+export function ce(
   highs: number[],
   lows: number[],
   closings: number[],
@@ -61,3 +61,6 @@ export function chandelierExit(
     exitShort,
   };
 }
+
+// Export full name
+export { ce as chandelierExit };

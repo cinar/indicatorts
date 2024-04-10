@@ -46,3 +46,6 @@ export function trima(values: number[], config: TRIMAConfig = {}): number[] {
 
   return trimaLine;
 }
+
+// Export full name
+export { trima as triangularMovingAverage };

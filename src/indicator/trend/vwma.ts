@@ -41,3 +41,6 @@ export function vwma(
     msum(volumes, { period })
   );
 }
+
+// Export full name
+export { vwma as volumeWeightedMovingAverage };

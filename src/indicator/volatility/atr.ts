@@ -55,3 +55,6 @@ export function atr(
     atrLine,
   };
 }
+
+// Export full name
+export { atr as averageTrueRange };

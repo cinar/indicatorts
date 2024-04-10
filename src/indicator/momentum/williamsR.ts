@@ -32,7 +32,7 @@ export const WilliamsRDefaultConfig: Required<WilliamsRConfig> = {
  * @param config configuration.
  * @return wr values.
  */
-export function williamsR(
+export function willr(
   highs: number[],
   lows: number[],
   closings: number[],
@@ -46,3 +46,6 @@ export function williamsR(
     divide(subtract(highestHigh, closings), subtract(highestHigh, lowestLow))
   );
 }
+
+// Export full name
+export { willr as williamsR };

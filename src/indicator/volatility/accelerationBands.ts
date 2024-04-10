@@ -50,7 +50,7 @@ export const AccelerationBandsDefaultConfig: Required<AccelerationBandsConfig> =
  * @param config configuration.
  * @return acceleration band.
  */
-export function accelerationBands(
+export function ab(
   highs: number[],
   lows: number[],
   closings: number[],
@@ -75,3 +75,6 @@ export function accelerationBands(
     lowerBand,
   };
 }
+
+// Export full name
+export { ab as accelerationBands };

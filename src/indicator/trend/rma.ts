@@ -45,3 +45,6 @@ export function rma(values: number[], config: RMAConfig = {}): number[] {
 
   return result;
 }
+
+// Export full name
+export { rma as rollingMovingAverage };

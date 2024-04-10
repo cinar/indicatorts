@@ -40,3 +40,6 @@ export function mmin(values: number[], config: MMinConfig = {}): number[] {
 
   return result;
 }
+
+// Export full name
+export { mmin as movingMin };

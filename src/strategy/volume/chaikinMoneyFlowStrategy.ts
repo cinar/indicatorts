@@ -4,7 +4,7 @@
 import {
   CMFConfig,
   CMFDefaultConfig,
-  chaikinMoneyFlow,
+  cmf,
 } from '../../indicator/volume/chaikinMoneyFlow';
 import { Action } from '../action';
 import { Asset } from '../asset';
@@ -19,12 +19,9 @@ import { Asset } from '../asset';
  * @param config configuration.
  * @returns strategy actions.
  */
-export function chaikinMoneyFlowStrategy(
-  asset: Asset,
-  config: CMFConfig = {}
-): Action[] {
+export function cmfStrategy(asset: Asset, config: CMFConfig = {}): Action[] {
   const strategyConfig = { ...CMFDefaultConfig, ...config };
-  const cmf = chaikinMoneyFlow(
+  const result = cmf(
     asset.highs,
     asset.lows,
     asset.closings,
@@ -32,7 +29,7 @@ export function chaikinMoneyFlowStrategy(
     strategyConfig
   );
 
-  return cmf.map((value) => {
+  return result.map((value) => {
     if (value < 0) {
       return Action.BUY;
     } else if (value > 0) {
@@ -42,3 +39,6 @@ export function chaikinMoneyFlowStrategy(
     }
   });
 }
+
+// Export full name
+export { cmfStrategy as chaikinMoneyFlowStrategy };

@@ -34,16 +34,15 @@ export const APODefaultConfig: Required<APOConfig> = {
  * @param config configuration.
  * @return apo array.
  */
-export function absolutePriceOscillator(
-  values: number[],
-  config: APOConfig = {}
-): number[] {
+export function apo(values: number[], config: APOConfig = {}): number[] {
   const { fast: fastPeriod, slow: slowPeriod } = {
     ...APODefaultConfig,
     ...config,
   };
   const fast = ema(values, { period: fastPeriod });
   const slow = ema(values, { period: slowPeriod });
-  const apo = subtract(fast, slow);
-  return apo;
+  return subtract(fast, slow);
 }
+
+// Export full name
+export { apo as absolutePriceOscillator };

@@ -36,7 +36,7 @@ export const NVIDefaultConfig: Required<NVIConfig> = {
  * @param config configuration.
  * @returns nvi values.
  */
-export function negativeVolumeIndex(
+export function nvi(
   closings: number[],
   volumes: number[],
   config: NVIConfig = {}
@@ -60,3 +60,6 @@ export function negativeVolumeIndex(
 
   return nvi;
 }
+
+// Export full name
+export { nvi as negativeVolumeIndex };

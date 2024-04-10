@@ -6,7 +6,7 @@ import { Action } from '../action';
 import {
   AccelerationBandsConfig,
   AccelerationBandsDefaultConfig,
-  accelerationBands,
+  ab,
 } from '../../indicator/volatility/accelerationBands';
 
 /**
@@ -16,22 +16,17 @@ import {
  * @param config configuration.
  * @return strategy actions.
  */
-export function accelerationBandsStrategy(
+export function abStrategy(
   asset: Asset,
   config: AccelerationBandsConfig = {}
 ): Action[] {
   const strategyConfig = { ...AccelerationBandsDefaultConfig, ...config };
-  const ab = accelerationBands(
-    asset.highs,
-    asset.lows,
-    asset.closings,
-    strategyConfig
-  );
+  const result = ab(asset.highs, asset.lows, asset.closings, strategyConfig);
 
-  const actions = new Array<number>(ab.upperBand.length);
+  const actions = new Array<number>(result.upperBand.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (asset.closings[i] >= ab.upperBand[i]) {
+    if (asset.closings[i] >= result.upperBand[i]) {
       actions[i] = Action.BUY;
     } else {
       actions[i] = Action.SELL;
@@ -40,3 +35,6 @@ export function accelerationBandsStrategy(
 
   return actions;
 }
+
+// Export full name
+export { abStrategy as accelerationBandsStrategy };

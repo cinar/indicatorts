@@ -38,3 +38,6 @@ export function vwmaStrategy(asset: Asset, config: VWMAConfig = {}): Action[] {
 
   return result;
 }
+
+// Export full name
+export { vwmaStrategy as volumeWeightedMovingAverageStrategy };

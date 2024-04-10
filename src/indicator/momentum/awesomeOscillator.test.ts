@@ -3,7 +3,7 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { awesomeOscillator } from './awesomeOscillator';
+import { ao } from './awesomeOscillator';
 
 describe('Awesome Oscillator', () => {
   const highs = [10, 11, 12, 13, 14, 15, 16, 17];
@@ -12,7 +12,7 @@ describe('Awesome Oscillator', () => {
   it('should be able to compute ao', () => {
     const expected = [0, 0, 0.5, 1, 1.5, 2, 2.5, 3];
 
-    const actual = awesomeOscillator(highs, lows, {
+    const actual = ao(highs, lows, {
       fast: 2,
       slow: 20,
     });
@@ -22,7 +22,7 @@ describe('Awesome Oscillator', () => {
   it('should be able to compute ao with defaults', () => {
     const expected = [0, 0, 0, 0, 0, 0.5, 1, 1.5];
 
-    const actual = awesomeOscillator(highs, lows);
+    const actual = ao(highs, lows);
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
 });

@@ -42,3 +42,6 @@ export function trix(values: number[], config: TRIXConfig = {}): number[] {
   const trix = divide(subtract(ema3, previous), previous);
   return trix;
 }
+
+// Export full name
+export { trix as tripleExponentialAverage };

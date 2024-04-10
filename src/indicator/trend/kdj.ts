@@ -34,7 +34,7 @@ export const KDJDefaultConfig: Required<KDJConfig> = {
 };
 
 /**
- * The kdj function calculates the KDJ  indicator, also known as
+ * The kdj function calculates the KDJ indicator, also known as
  * the Random Index. KDJ is calculated similar to the Stochastic
  * Oscillator with the difference of having the J line. It is
  * used to analyze the trend and entry points.

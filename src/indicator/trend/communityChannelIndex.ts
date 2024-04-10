@@ -34,7 +34,7 @@ export const CCIDefaultConfig: Required<CCIConfig> = {
  * @param config configuration.
  * @returns cmi values.
  */
-export function communityChannelIndex(
+export function cci(
   highs: number[],
   lows: number[],
   closings: number[],
@@ -47,3 +47,6 @@ export function communityChannelIndex(
   const cci = divide(subtract(tp, ma), multiplyBy(0.015, md));
   return cci;
 }
+
+// Export full name
+export { cci as communityChannelIndex };

@@ -19,10 +19,7 @@ import { msum } from '../trend/msum';
  * @param volumes volume values.
  * @returns volume price trend values.
  */
-export function volumePriceTrend(
-  closings: number[],
-  volumes: number[]
-): number[] {
+export function vpt(closings: number[], volumes: number[]): number[] {
   const previousClosings = shiftRightAndFillBy(1, closings[0], closings);
   const vpt = multiply(
     volumes,
@@ -30,3 +27,6 @@ export function volumePriceTrend(
   );
   return msum(vpt, { period: vpt.length });
 }
+
+// Export full name
+export { vpt as volumePriceTrend };

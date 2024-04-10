@@ -36,3 +36,6 @@ export function dema(values: number[], config: DEMAConfig = {}): number[] {
 
   return dema;
 }
+
+// Export full name
+export { dema as doubleExponentialMovingAverage };

@@ -4,7 +4,7 @@
 import {
   MFIConfig,
   MFIDefaultConfig,
-  moneyFlowIndex,
+  mfi,
 } from '../../indicator/volume/moneyFlowIndex';
 import { Action } from '../action';
 import { Asset } from '../asset';
@@ -16,12 +16,9 @@ import { Asset } from '../asset';
  * @param config configuration.
  * @return strategy actions.
  */
-export function moneyFlowIndexStrategy(
-  asset: Asset,
-  config: MFIConfig = {}
-): Action[] {
+export function mfiStrategy(asset: Asset, config: MFIConfig = {}): Action[] {
   const strategyConfig = { ...MFIDefaultConfig, ...config };
-  const mfi = moneyFlowIndex(
+  const result = mfi(
     asset.highs,
     asset.lows,
     asset.closings,
@@ -29,7 +26,7 @@ export function moneyFlowIndexStrategy(
     strategyConfig
   );
 
-  return mfi.map((value) => {
+  return result.map((value) => {
     if (value >= 80) {
       return Action.SELL;
     } else {
@@ -37,3 +34,6 @@ export function moneyFlowIndexStrategy(
     }
   });
 }
+
+// Export full name
+export { mfiStrategy as moneyFlowIndexStrategy };

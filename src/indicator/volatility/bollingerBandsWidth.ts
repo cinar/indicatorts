@@ -42,7 +42,7 @@ export const BollingerBandsWidthDefaultConfig: Required<BollingerBandsWidthConfi
  * @param config configuration.
  * @return bollinger bands width result.
  */
-export function bollingerBandsWidth(
+export function bbw(
   bb: BollingerBandsResult,
   config: BollingerBandsWidthConfig = {}
 ): BollingerBandsWidthResult {
@@ -56,3 +56,6 @@ export function bollingerBandsWidth(
     bandWidthEma90,
   };
 }
+
+// Export full name
+export { bbw as bollingerBandsWidth };

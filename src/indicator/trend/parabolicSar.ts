@@ -59,7 +59,7 @@ export const ParabolicSARDefaultConfig: Required<ParabolicSARConfig> = {
  * @param config configuration.
  * @return psar result.
  */
-export function parabolicSar(
+export function sar(
   highs: number[],
   lows: number[],
   closings: number[],
@@ -125,3 +125,6 @@ export function parabolicSar(
     psar,
   };
 }
+
+// Export full name
+export { sar as parabolicSAR };

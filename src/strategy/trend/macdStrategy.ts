@@ -17,13 +17,13 @@ import {
  */
 export function macdStrategy(asset: Asset, config: MACDConfig = {}): Action[] {
   const strategyConfig = { ...MACDDefaultConfig, ...config };
-  const macdResult = macd(asset.closings, strategyConfig);
-  const actions = new Array<number>(macdResult.macdLine.length);
+  const result = macd(asset.closings, strategyConfig);
+  const actions = new Array<number>(result.macdLine.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (macdResult.macdLine[i] > macdResult.signalLine[i]) {
+    if (result.macdLine[i] > result.signalLine[i]) {
       actions[i] = Action.BUY;
-    } else if (macdResult.macdLine[i] < macdResult.signalLine[i]) {
+    } else if (result.macdLine[i] < result.signalLine[i]) {
       actions[i] = Action.SELL;
     } else {
       actions[i] = Action.HOLD;
@@ -32,3 +32,6 @@ export function macdStrategy(asset: Asset, config: MACDConfig = {}): Action[] {
 
   return actions;
 }
+
+// Export full name
+export { macdStrategy as movingAverageConvergenceDivergenceStrategy };

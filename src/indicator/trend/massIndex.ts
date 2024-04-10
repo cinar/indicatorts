@@ -35,7 +35,7 @@ export const MIDefaultConfig: Required<MIConfig> = {
  * @param config configuration.
  * @returns mi values.
  */
-export function massIndex(
+export function mi(
   highs: number[],
   lows: number[],
   config: MIConfig = {}
@@ -48,3 +48,6 @@ export function massIndex(
 
   return mi;
 }
+
+// Export full name
+export { mi as massIndex };

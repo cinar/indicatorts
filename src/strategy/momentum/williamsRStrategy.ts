@@ -6,7 +6,7 @@ import { Action } from '../action';
 import {
   WilliamsRConfig,
   WilliamsRDefaultConfig,
-  williamsR,
+  willr,
 } from '../../indicator/momentum/williamsR';
 
 /**
@@ -16,14 +16,14 @@ import {
  * @param config configuration.
  * @return strategy actions.
  */
-export function williamsRStrategy(
+export function willRStrategy(
   asset: Asset,
   config: WilliamsRConfig = {}
 ): Action[] {
   const strategyConfig = { ...WilliamsRDefaultConfig, ...config };
-  const wr = williamsR(asset.highs, asset.lows, asset.closings, strategyConfig);
+  const result = willr(asset.highs, asset.lows, asset.closings, strategyConfig);
 
-  return wr.map((value) => {
+  return result.map((value) => {
     if (value <= -80) {
       return Action.BUY;
     } else if (value >= -20) {
@@ -33,3 +33,6 @@ export function williamsRStrategy(
     }
   });
 }
+
+// Export full name
+export { willRStrategy as williamsRStrategy };

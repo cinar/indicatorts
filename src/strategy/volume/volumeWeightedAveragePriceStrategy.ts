@@ -5,7 +5,7 @@ import { subtract } from '../../helper/numArray';
 import {
   VWAPConfig,
   VWAPDefaultConfig,
-  volumeWeightedAveragePrice,
+  vwap,
 } from '../../indicator/volume/volumeWeightedAveragePrice';
 import { Action } from '../action';
 import { Asset } from '../asset';
@@ -20,21 +20,14 @@ import { Asset } from '../asset';
  * @param config configuration.
  * @returns strategy actions.
  */
-export function volumeWeightedAveragePriceStrategy(
-  asset: Asset,
-  config: VWAPConfig = {}
-): Action[] {
+export function vwapStrategy(asset: Asset, config: VWAPConfig = {}): Action[] {
   const strategyConfig = {
     ...VWAPDefaultConfig,
     ...config,
   };
-  const vwap = volumeWeightedAveragePrice(
-    asset.closings,
-    asset.volumes,
-    strategyConfig
-  );
+  const result = vwap(asset.closings, asset.volumes, strategyConfig);
 
-  const diff = subtract(vwap, asset.closings);
+  const diff = subtract(result, asset.closings);
 
   return diff.map((value) => {
     if (value > 0) {
@@ -46,3 +39,6 @@ export function volumeWeightedAveragePriceStrategy(
     }
   });
 }
+
+// Export full name
+export { vwapStrategy as volumeWeightedAveragePriceStrategy };

@@ -56,7 +56,7 @@ export const PODefaultConfig: Required<POConfig> = {
  * @param config configuration.
  * @return projection oscillator.
  */
-export function projectionOscillator(
+export function po(
   highs: number[],
   lows: number[],
   closings: number[],
@@ -84,3 +84,6 @@ export function projectionOscillator(
     spo,
   };
 }
+
+// Export full name
+export { po as projectionOscillator };

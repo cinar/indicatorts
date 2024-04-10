@@ -48,7 +48,7 @@ export const KCDefaultConfig: Required<KCConfig> = {
  * @param config configuration.
  * @returns kc result.
  */
-export function keltnerChannel(
+export function kc(
   highs: number[],
   lows: number[],
   closings: number[],
@@ -68,3 +68,6 @@ export function keltnerChannel(
     lowerBand,
   };
 }
+
+// Export full name
+export { kc as keltnerChannel };

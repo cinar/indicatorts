@@ -6,7 +6,7 @@ import { Action } from '../action';
 import {
   BollingerBandsConfig,
   BollingerBandsDefaultConfig,
-  bollingerBands,
+  bb,
 } from '../../indicator/volatility/bollingerBands';
 
 /**
@@ -16,19 +16,19 @@ import {
  * @param config configuration.
  * @return strategy actions.
  */
-export function bollingerBandsStrategy(
+export function bbStrategy(
   asset: Asset,
   config: BollingerBandsConfig = {}
 ): Action[] {
   const strategyConfig = { ...BollingerBandsDefaultConfig, ...config };
-  const bb = bollingerBands(asset.closings, strategyConfig);
+  const result = bb(asset.closings, strategyConfig);
 
-  const actions = new Array<Action>(bb.upperBand.length);
+  const actions = new Array<Action>(result.upperBand.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (asset.closings[i] > bb.upperBand[i]) {
+    if (asset.closings[i] > result.upperBand[i]) {
       actions[i] = Action.SELL;
-    } else if (asset.closings[i] < bb.lowerBand[i]) {
+    } else if (asset.closings[i] < result.lowerBand[i]) {
       actions[i] = Action.BUY;
     } else {
       actions[i] = Action.HOLD;
@@ -37,3 +37,6 @@ export function bollingerBandsStrategy(
 
   return actions;
 }
+
+// Export full name
+export { bbStrategy as bollingerBandsStrategy };

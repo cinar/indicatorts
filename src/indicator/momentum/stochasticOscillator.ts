@@ -45,7 +45,7 @@ export const StochasticOscillatorDefaultConfig: Required<StochasticOscillatorCon
  * @param config configuration.
  * @return stochastic oscillator result object.
  */
-export function stochasticOscillator(
+export function stoch(
   highs: number[],
   lows: number[],
   closings: number[],
@@ -70,3 +70,6 @@ export function stochasticOscillator(
     d: dValue,
   };
 }
+
+// Export full name
+export { stoch as stochasticOscillator };
