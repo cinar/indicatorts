@@ -7,30 +7,29 @@ import { ema } from '../trend/ema';
 /**
  * Percentage price oscillator result.
  */
-export interface PercentagePriceOscillator {
+export interface PPOResult {
   ppo: number[];
   signal: number[];
   histogram: number[];
 }
 
 /**
- * Optional configuration of PercentagePriceOscillator parameters.
+ * Optional configuration of PPO parameters.
  */
-export interface PercentagePriceOscillatorConfig {
+export interface PPOConfig {
   fast?: number;
   slow?: number;
   signal?: number;
 }
 
 /**
- * The default configuration of PercentagePriceOscillator.
+ * The default configuration of PPO.
  */
-export const PercentagePriceOscillatorDefaultConfig: Required<PercentagePriceOscillatorConfig> =
-  {
-    fast: 12,
-    slow: 26,
-    signal: 9,
-  };
+export const PPODefaultConfig: Required<PPOConfig> = {
+  fast: 12,
+  slow: 26,
+  signal: 9,
+};
 
 /**
  * Percentage Price Oscillator (PPO). It is a momentum oscillator for the price.
@@ -47,13 +46,13 @@ export const PercentagePriceOscillatorDefaultConfig: Required<PercentagePriceOsc
  */
 export function percentagePriceOscillator(
   prices: number[],
-  config: PercentagePriceOscillatorConfig = {}
-): PercentagePriceOscillator {
+  config: PPOConfig = {}
+): PPOResult {
   const {
     fast: fastPeriod,
     slow: slowPeriod,
     signal: signalPeriod,
-  } = { ...PercentagePriceOscillatorDefaultConfig, ...config };
+  } = { ...PPODefaultConfig, ...config };
   const fastEma = ema(prices, { period: fastPeriod });
   const slowEma = ema(prices, { period: slowPeriod });
 

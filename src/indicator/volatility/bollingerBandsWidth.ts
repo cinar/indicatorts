@@ -3,25 +3,25 @@
 
 import { divide, subtract } from '../../helper/numArray';
 import { ema } from '../trend/ema';
-import { BollingerBands } from './bollingerBands';
+import { BollingerBandsResult } from './bollingerBands';
 
 /**
  * Bollinger bands width result.
  */
-export interface BollingerBandsWidth {
+export interface BollingerBandsWidthResult {
   bandWidth: number[];
   bandWidthEma90: number[];
 }
 
 /**
- * Optional configuration of BollingerBandsWidth parameters.
+ * Optional configuration of Bollinger bands width parameters.
  */
 export interface BollingerBandsWidthConfig {
   period?: number;
 }
 
 /**
- * The default configuration of BollingerBandsWidth.
+ * The default configuration of Bollinger bands width.
  */
 export const BollingerBandsWidthDefaultConfig: Required<BollingerBandsWidthConfig> =
   {
@@ -43,9 +43,9 @@ export const BollingerBandsWidthDefaultConfig: Required<BollingerBandsWidthConfi
  * @return bollinger bands width result.
  */
 export function bollingerBandsWidth(
-  bb: BollingerBands,
+  bb: BollingerBandsResult,
   config: BollingerBandsWidthConfig = {}
-): BollingerBandsWidth {
+): BollingerBandsWidthResult {
   const { period } = { ...BollingerBandsWidthDefaultConfig, ...config };
   const bandWidth = divide(subtract(bb.upperBand, bb.lowerBand), bb.middleBand);
 

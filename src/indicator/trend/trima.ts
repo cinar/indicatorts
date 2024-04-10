@@ -4,16 +4,16 @@
 import { sma } from './sma';
 
 /**
- * Optional configuration of Trima parameters.
+ * Optional configuration of TRIMA parameters.
  */
-export interface TrimaConfig {
+export interface TRIMAConfig {
   period?: number;
 }
 
 /**
- * The default configuration of Trima.
+ * The default configuration of TRIMA.
  */
-export const TrimaDefaultConfig: Required<TrimaConfig> = {
+export const TRIMADefaultConfig: Required<TRIMAConfig> = {
   period: 4,
 };
 
@@ -29,8 +29,8 @@ export const TrimaDefaultConfig: Required<TrimaConfig> = {
  * @param config configuration.
  * @return trima values.
  */
-export function trima(values: number[], config: TrimaConfig = {}): number[] {
-  const { period } = { ...TrimaDefaultConfig, ...config };
+export function trima(values: number[], config: TRIMAConfig = {}): number[] {
+  const { period } = { ...TRIMADefaultConfig, ...config };
   let n1 = 0;
   let n2 = 0;
 

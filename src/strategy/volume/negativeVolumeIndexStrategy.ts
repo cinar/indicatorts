@@ -3,8 +3,8 @@
 
 import { ema } from '../../indicator/trend/ema';
 import {
-  NegativeVolumeIndexConfig,
-  NegativeVolumeIndexDefaultConfig,
+  NVIConfig,
+  NVIDefaultConfig,
   negativeVolumeIndex,
 } from '../../indicator/volume/negativeVolumeIndex';
 import { Action } from '../action';
@@ -22,9 +22,9 @@ import { Asset } from '../asset';
  */
 export function negativeVolumeIndexStrategy(
   asset: Asset,
-  config: NegativeVolumeIndexConfig = {}
+  config: NVIConfig = {}
 ): Action[] {
-  const strategyConfig = { ...NegativeVolumeIndexDefaultConfig, ...config };
+  const strategyConfig = { ...NVIDefaultConfig, ...config };
   const nvi = negativeVolumeIndex(
     asset.closings,
     asset.volumes,

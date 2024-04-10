@@ -17,27 +17,26 @@ import { mmin } from '../trend/mmin';
 /**
  * Projection oscillator result object.
  */
-export interface ProjectionOscillator {
+export interface POResult {
   po: number[];
   spo: number[];
 }
 
 /**
- * Optional configuration of ProjectionOscillator parameters.
+ * Optional configuration of PO parameters.
  */
-export interface ProjectionOscillatorConfig {
+export interface POConfig {
   period?: number;
   smooth?: number;
 }
 
 /**
- * The default configuration of ProjectionOscillator.
+ * The default configuration of PO.
  */
-export const ProjectionOscillatorDefaultConfig: Required<ProjectionOscillatorConfig> =
-  {
-    period: 14,
-    smooth: 3,
-  };
+export const PODefaultConfig: Required<POConfig> = {
+  period: 14,
+  smooth: 3,
+};
 
 /**
  * ProjectionOscillator calculates the Projection Oscillator (PO). The PO
@@ -61,10 +60,10 @@ export function projectionOscillator(
   highs: number[],
   lows: number[],
   closings: number[],
-  config: ProjectionOscillatorConfig = {}
-): ProjectionOscillator {
+  config: POConfig = {}
+): POResult {
   const { period, smooth } = {
-    ...ProjectionOscillatorDefaultConfig,
+    ...PODefaultConfig,
     ...config,
   };
   const x = generateNumbers(0, closings.length, 1);

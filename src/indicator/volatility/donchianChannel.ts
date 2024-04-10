@@ -8,23 +8,23 @@ import { mmin } from '../trend/mmin';
 /**
  * Donchian channel result object.
  */
-export interface DonchianChannelResult {
+export interface DCResult {
   upperChannel: number[];
   middleChannel: number[];
   lowerChannel: number[];
 }
 
 /**
- * Optional configuration of DonchianChannel parameters.
+ * Optional configuration of DC parameters.
  */
-export interface DonchianChannelConfig {
+export interface DCConfig {
   period?: number;
 }
 
 /**
- * The default configuration of DonchianChannel.
+ * The default configuration of DC.
  */
-export const DonchianChannelDefaultConfig: Required<DonchianChannelConfig> = {
+export const DCDefaultConfig: Required<DCConfig> = {
   period: 4,
 };
 
@@ -46,9 +46,9 @@ export const DonchianChannelDefaultConfig: Required<DonchianChannelConfig> = {
  */
 export function donchianChannel(
   closings: number[],
-  config: DonchianChannelConfig = {}
-): DonchianChannelResult {
-  const { period } = { ...DonchianChannelDefaultConfig, ...config };
+  config: DCConfig = {}
+): DCResult {
+  const { period } = { ...DCDefaultConfig, ...config };
   const upperChannel = mmax(closings, { period });
   const lowerChannel = mmin(closings, { period });
   const middleChannel = divideBy(2, add(upperChannel, lowerChannel));

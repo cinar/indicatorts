@@ -15,14 +15,14 @@ export interface ChandelierExitResult {
 }
 
 /**
- * Optional configuration of ChandelierExit parameters.
+ * Optional configuration of Chandelier exit parameters.
  */
 export interface ChandelierExitConfig {
   period?: number;
 }
 
 /**
- * The default configuration of ChandelierExit.
+ * The default configuration of Chandelier exit.
  */
 export const ChandelierExitDefaultConfig: Required<ChandelierExitConfig> = {
   period: 22,

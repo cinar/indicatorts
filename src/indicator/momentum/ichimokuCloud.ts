@@ -22,7 +22,7 @@ export interface IchimokuCloudResult {
 }
 
 /**
- * Optional configuration of parameters
+ * Optional configuration of Ichimoku cloud parameters.
  */
 export interface IchimokuCloudConfig {
   short?: number;
@@ -32,7 +32,7 @@ export interface IchimokuCloudConfig {
 }
 
 /**
- * The default configuration.
+ * The default configuration of Ichimoku cloud.
  */
 export const IchimokuCloudDefaultConfig: Required<IchimokuCloudConfig> = {
   short: 9,

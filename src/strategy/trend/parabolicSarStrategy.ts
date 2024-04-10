@@ -4,8 +4,8 @@
 import { Asset } from '../asset';
 import { Action } from '../action';
 import {
-  ParabolicSarConfig,
-  ParabolicSarDefaultConfig,
+  ParabolicSARConfig,
+  ParabolicSARDefaultConfig,
   parabolicSar,
 } from '../../indicator/trend/parabolicSar';
 import { Trend } from '../../indicator/trend';
@@ -19,9 +19,9 @@ import { Trend } from '../../indicator/trend';
  */
 export function parabolicSarStrategy(
   asset: Asset,
-  config: ParabolicSarConfig = {}
+  config: ParabolicSARConfig = {}
 ): Action[] {
-  const strategyConfig = { ...ParabolicSarDefaultConfig, ...config };
+  const strategyConfig = { ...ParabolicSARDefaultConfig, ...config };
   const psar = parabolicSar(
     asset.highs,
     asset.lows,

@@ -2,16 +2,16 @@
 // https://github.com/cinar/indicatorts
 
 /**
- * Optional configuration of MovingSum parameters.
+ * Optional configuration of moving sum parameters.
  */
-export interface MovingSumConfig {
+export interface MSUMConfig {
   period?: number;
 }
 
 /**
- * The default configuration of MovingSum.
+ * The default configuration of moving sum.
  */
-export const MovingSumDefaultConfig: Required<MovingSumConfig> = {
+export const MSUMDefaultConfig: Required<MSUMConfig> = {
   period: 4,
 };
 
@@ -21,8 +21,8 @@ export const MovingSumDefaultConfig: Required<MovingSumConfig> = {
  * @param config configuration.
  * @return sum values.
  */
-export function msum(values: number[], config: MovingSumConfig = {}): number[] {
-  const { period } = { ...MovingSumDefaultConfig, ...config };
+export function msum(values: number[], config: MSUMConfig = {}): number[] {
+  const { period } = { ...MSUMDefaultConfig, ...config };
   const result = new Array<number>(values.length);
   let sum = 0;
 

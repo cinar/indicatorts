@@ -2,16 +2,16 @@
 // https://github.com/cinar/indicatorts
 
 /**
- * Optional configuration of Rma parameters.
+ * Optional configuration of RMA parameters.
  */
-export interface RmaConfig {
+export interface RMAConfig {
   period?: number;
 }
 
 /**
- * The default configuration of Rma.
+ * The default configuration of RMA.
  */
-export const RmaDefaultConfig: Required<RmaConfig> = {
+export const RMADefaultConfig: Required<RMAConfig> = {
   period: 4,
 };
 
@@ -25,8 +25,8 @@ export const RmaDefaultConfig: Required<RmaConfig> = {
  * @param config configuration.
  * @returns RMA values.
  */
-export function rma(values: number[], config: RmaConfig = {}): number[] {
-  const { period } = { ...RmaDefaultConfig, ...config };
+export function rma(values: number[], config: RMAConfig = {}): number[] {
+  const { period } = { ...RMADefaultConfig, ...config };
   const result = new Array<number>(values.length);
   let sum = 0;
 

@@ -5,16 +5,16 @@ import { multiplyBy, subtract } from '../../helper/numArray';
 import { ema } from './ema';
 
 /**
- * Optional configuration of Dema parameters.
+ * Optional configuration of DEMA parameters.
  */
-export interface DemaConfig {
+export interface DEMAConfig {
   period?: number;
 }
 
 /**
- * The default configuration of Dema.
+ * The default configuration of DEMA.
  */
-export const DemaDefaultConfig: Required<DemaConfig> = {
+export const DEMADefaultConfig: Required<DEMAConfig> = {
   period: 12,
 };
 
@@ -27,8 +27,8 @@ export const DemaDefaultConfig: Required<DemaConfig> = {
  * @param config configuration
  * @return dema values.
  */
-export function dema(values: number[], config: DemaConfig = {}): number[] {
-  const { period } = { ...DemaDefaultConfig, ...config };
+export function dema(values: number[], config: DEMAConfig = {}): number[] {
+  const { period } = { ...DEMADefaultConfig, ...config };
   const ema1 = ema(values, { period });
   const ema2 = ema(ema1, { period });
 

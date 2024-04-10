@@ -6,17 +6,17 @@ import { ema } from './ema';
 import { msum } from './msum';
 
 /**
- * Optional configuration of MassIndex parameters.
+ * Optional configuration of MI parameters.
  */
-export interface MassIndexConfig {
+export interface MIConfig {
   emaPeriod?: number;
   miPeriod?: number;
 }
 
 /**
- * The default configuration of MassIndex.
+ * The default configuration of MI.
  */
-export const MassIndexDefaultConfig: Required<MassIndexConfig> = {
+export const MIDefaultConfig: Required<MIConfig> = {
   emaPeriod: 9,
   miPeriod: 25,
 };
@@ -38,9 +38,9 @@ export const MassIndexDefaultConfig: Required<MassIndexConfig> = {
 export function massIndex(
   highs: number[],
   lows: number[],
-  config: MassIndexConfig = {}
+  config: MIConfig = {}
 ): number[] {
-  const { emaPeriod, miPeriod } = { ...MassIndexDefaultConfig, ...config };
+  const { emaPeriod, miPeriod } = { ...MIDefaultConfig, ...config };
   const ema1 = ema(subtract(highs, lows), { period: emaPeriod });
   const ema2 = ema(ema1, { period: emaPeriod });
   const ratio = divide(ema1, ema2);

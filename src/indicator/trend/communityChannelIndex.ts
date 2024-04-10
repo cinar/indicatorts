@@ -6,22 +6,21 @@ import { sma } from './sma';
 import { typicalPrice } from './typicalPrice';
 
 /**
- * Optional configuration of CommunityChannelIndex parameters.
+ * Optional configuration of CCI parameters.
  */
-export interface CommunityChannelIndexConfig {
+export interface CCIConfig {
   period?: number;
 }
 
 /**
- * The default configuration of CommunityChannelIndex.
+ * The default configuration of CCI.
  */
-export const CommunityChannelIndexDefaultConfig: Required<CommunityChannelIndexConfig> =
-  {
-    period: 20,
-  };
+export const CCIDefaultConfig: Required<CCIConfig> = {
+  period: 20,
+};
 
 /**
- * The Community Channel Index (CMI) is a momentum-based oscillator
+ * The Community Channel Index (CCI) is a momentum-based oscillator
  * used to help determine when an investment vehicle is reaching a
  * condition of being overbought or oversold.
  *
@@ -39,9 +38,9 @@ export function communityChannelIndex(
   highs: number[],
   lows: number[],
   closings: number[],
-  config: CommunityChannelIndexConfig = {}
+  config: CCIConfig = {}
 ): number[] {
-  const { period } = { ...CommunityChannelIndexDefaultConfig, ...config };
+  const { period } = { ...CCIDefaultConfig, ...config };
   const tp = typicalPrice(highs, lows, closings);
   const ma = sma(tp, { period });
   const md = sma(abs(subtract(tp, ma)), { period });

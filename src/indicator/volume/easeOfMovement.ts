@@ -11,16 +11,16 @@ import {
 import { sma } from '../trend/sma';
 
 /**
- * Optional configuration of EaseOfMovement parameters.
+ * Optional configuration of EMV parameters.
  */
-export interface EaseOfMovementConfig {
+export interface EMVConfig {
   period?: number;
 }
 
 /**
- * The default configuration of EaseOfMovement.
+ * The default configuration of EMV.
  */
-export const EaseOfMovementDefaultConfig: Required<EaseOfMovementConfig> = {
+export const EMVDefaultConfig: Required<EMVConfig> = {
   period: 14,
 };
 
@@ -43,9 +43,9 @@ export function easeOfMovement(
   highs: number[],
   lows: number[],
   volumes: number[],
-  config: EaseOfMovementConfig = {}
+  config: EMVConfig = {}
 ): number[] {
-  const { period } = { ...EaseOfMovementDefaultConfig, ...config };
+  const { period } = { ...EMVDefaultConfig, ...config };
   const distanceMoved = changes(1, divideBy(2, add(highs, lows)));
   const boxRatio = divide(divideBy(100000000, volumes), subtract(highs, lows));
   const emv = sma(divide(distanceMoved, boxRatio), { period });

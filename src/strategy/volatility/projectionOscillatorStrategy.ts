@@ -4,8 +4,8 @@
 import { Asset } from '../asset';
 import { Action } from '../action';
 import {
-  ProjectionOscillatorConfig,
-  ProjectionOscillatorDefaultConfig,
+  POConfig,
+  PODefaultConfig,
   projectionOscillator,
 } from '../../indicator/volatility/projectionOscillator';
 
@@ -18,9 +18,9 @@ import {
  */
 export function projectionOscillatorStrategy(
   asset: Asset,
-  config: ProjectionOscillatorConfig = {}
+  config: POConfig = {}
 ): Action[] {
-  const strategyConfig = { ...ProjectionOscillatorDefaultConfig, ...config };
+  const strategyConfig = { ...PODefaultConfig, ...config };
   const po = projectionOscillator(
     asset.highs,
     asset.lows,

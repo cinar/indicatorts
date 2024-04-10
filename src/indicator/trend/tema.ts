@@ -5,16 +5,16 @@ import { add, multiplyBy, subtract } from '../../helper/numArray';
 import { ema } from './ema';
 
 /**
- * Optional configuration of Tema parameters.
+ * Optional configuration of TEMA parameters.
  */
-export interface TemaConfig {
+export interface TEMAConfig {
   period?: number;
 }
 
 /**
- * The default configuration of Tema.
+ * The default configuration of TEMA.
  */
-export const TemaDefaultConfig: Required<TemaConfig> = {
+export const TEMADefaultConfig: Required<TEMAConfig> = {
   period: 2,
 };
 
@@ -30,8 +30,8 @@ export const TemaDefaultConfig: Required<TemaConfig> = {
  * @param values values array.
  * @return tema values.
  */
-export function tema(values: number[], config: TemaConfig = {}): number[] {
-  const { period } = { ...TemaDefaultConfig, ...config };
+export function tema(values: number[], config: TEMAConfig = {}): number[] {
+  const { period } = { ...TEMADefaultConfig, ...config };
   const ema1 = ema(values, { period });
   const ema2 = ema(ema1, { period });
   const ema3 = ema(ema2, { period });

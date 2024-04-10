@@ -6,27 +6,27 @@ import { sma } from '../trend/sma';
 import { mstd } from './mstd';
 
 /**
- * Optional configuration of BollingerBands parameters.
+ * Bollinger bands result object.
+ */
+export interface BollingerBandsResult {
+  upperBand: number[];
+  middleBand: number[];
+  lowerBand: number[];
+}
+
+/**
+ * Optional configuration of Bollinger bands parameters.
  */
 export interface BollingerBandsConfig {
   period?: number;
 }
 
 /**
- * The default configuration of BollingerBands.
+ * The default configuration of Bollinger bands.
  */
 export const BollingerBandsDefaultConfig: Required<BollingerBandsConfig> = {
   period: 20,
 };
-
-/**
- * Bollinger bands result object.
- */
-export interface BollingerBands {
-  upperBand: number[];
-  middleBand: number[];
-  lowerBand: number[];
-}
 
 /**
  * Bollinger Bands.
@@ -42,7 +42,7 @@ export interface BollingerBands {
 export function bollingerBands(
   closings: number[],
   config: BollingerBandsConfig = {}
-): BollingerBands {
+): BollingerBandsResult {
   const { period } = { ...BollingerBandsDefaultConfig, ...config };
   const std2 = multiplyBy(2, mstd(closings, { period }));
   const middleBand = sma(closings, { period });

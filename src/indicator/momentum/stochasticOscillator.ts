@@ -9,13 +9,13 @@ import { sma } from '../trend/sma';
 /**
  * Stochastic oscillator result object.
  */
-export interface StochasticOscillator {
+export interface StochasticOscillatorResult {
   k: number[];
   d: number[];
 }
 
 /**
- * Optional configuration of StochasticOscillator parameters.
+ * Optional configuration of stochastic oscillator parameters.
  */
 export interface StochasticOscillatorConfig {
   kPeriod?: number;
@@ -23,7 +23,7 @@ export interface StochasticOscillatorConfig {
 }
 
 /**
- * The default configuration of StochasticOscillator.
+ * The default configuration of stochastic oscillator.
  */
 export const StochasticOscillatorDefaultConfig: Required<StochasticOscillatorConfig> =
   {
@@ -50,7 +50,7 @@ export function stochasticOscillator(
   lows: number[],
   closings: number[],
   config: StochasticOscillatorConfig = {}
-): StochasticOscillator {
+): StochasticOscillatorResult {
   const { kPeriod, dPeriod } = {
     ...StochasticOscillatorDefaultConfig,
     ...config,

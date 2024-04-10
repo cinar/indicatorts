@@ -4,8 +4,8 @@
 import { Asset } from '../asset';
 import { Action } from '../action';
 import {
-  AwesomeOscillatorConfig,
-  AwesomeOscillatorDefaultConfig,
+  AOConfig,
+  AODefaultConfig,
   awesomeOscillator,
 } from '../../indicator/momentum/awesomeOscillator';
 
@@ -18,9 +18,9 @@ import {
  */
 export function awesomeOscillatorStrategy(
   asset: Asset,
-  config: AwesomeOscillatorConfig = {}
+  config: AOConfig = {}
 ): Action[] {
-  const strategyConfig = { ...AwesomeOscillatorDefaultConfig, ...config };
+  const strategyConfig = { ...AODefaultConfig, ...config };
   const os = awesomeOscillator(asset.highs, asset.lows, strategyConfig);
   return os.map((value) => {
     if (value > 0) {

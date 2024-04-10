@@ -5,24 +5,18 @@ import { divide, multiply } from '../../helper/numArray';
 import { msum } from '../trend/msum';
 
 /**
- * Default period for VWAP.
+ * Optional configuration of VWAP parameters.
  */
-export const VWAP_DEFAULT_PERIOD = 14;
-
-/**
- * Optional configuration of VolumeWeightedAveragePrice parameters.
- */
-export interface VolumeWeightedAveragePriceConfig {
+export interface VWAPConfig {
   period?: number;
 }
 
 /**
- * The default configuration of VolumeWeightedAveragePrice.
+ * The default configuration of VWAP.
  */
-export const VolumeWeightedAveragePriceDefaultConfig: Required<VolumeWeightedAveragePriceConfig> =
-  {
-    period: 14,
-  };
+export const VWAPDefaultConfig: Required<VWAPConfig> = {
+  period: 14,
+};
 
 /**
  * The Volume Weighted Average Price (VWAP) provides the average price
@@ -38,9 +32,9 @@ export const VolumeWeightedAveragePriceDefaultConfig: Required<VolumeWeightedAve
 export function volumeWeightedAveragePrice(
   closings: number[],
   volumes: number[],
-  config: VolumeWeightedAveragePriceConfig = {}
+  config: VWAPConfig = {}
 ): number[] {
-  const { period } = { ...VolumeWeightedAveragePriceDefaultConfig, ...config };
+  const { period } = { ...VWAPDefaultConfig, ...config };
   return divide(
     msum(multiply(closings, volumes), { period }),
     msum(volumes, { period })

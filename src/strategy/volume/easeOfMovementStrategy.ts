@@ -2,8 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import {
-  EaseOfMovementConfig,
-  EaseOfMovementDefaultConfig,
+  EMVConfig,
+  EMVDefaultConfig,
   easeOfMovement,
 } from '../../indicator/volume/easeOfMovement';
 import { Action } from '../action';
@@ -18,9 +18,9 @@ import { Asset } from '../asset';
  */
 export function easeOfMovementStrategy(
   asset: Asset,
-  config: EaseOfMovementConfig = {}
+  config: EMVConfig = {}
 ): Action[] {
-  const strategyConfig = { ...EaseOfMovementDefaultConfig, ...config };
+  const strategyConfig = { ...EMVDefaultConfig, ...config };
   const emv = easeOfMovement(
     asset.highs,
     asset.lows,

@@ -14,16 +14,16 @@ import { msum } from '../trend/msum';
 import { typicalPrice } from '../trend/typicalPrice';
 
 /**
- * Optional configuration of MoneyFlowIndex parameters.
+ * Optional configuration of MFI parameters.
  */
-export interface MoneyFlowIndexConfig {
+export interface MFIConfig {
   period?: number;
 }
 
 /**
- * The default configuration of MoneyFlowIndex.
+ * The default configuration of MFI.
  */
-export const MoneyFlowIndexDefaultConfig: Required<MoneyFlowIndexConfig> = {
+export const MFIDefaultConfig: Required<MFIConfig> = {
   period: 14,
 };
 
@@ -48,9 +48,9 @@ export function moneyFlowIndex(
   lows: number[],
   closings: number[],
   volumes: number[],
-  config: MoneyFlowIndexConfig = {}
+  config: MFIConfig = {}
 ): number[] {
-  const { period } = { ...MoneyFlowIndexDefaultConfig, ...config };
+  const { period } = { ...MFIDefaultConfig, ...config };
   const rawMoneyFlow = multiply(typicalPrice(highs, lows, closings), volumes);
 
   const signs = extractSigns(changes(1, rawMoneyFlow));

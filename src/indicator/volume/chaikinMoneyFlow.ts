@@ -5,16 +5,16 @@ import { divide, multiply, subtract } from '../../helper/numArray';
 import { msum } from '../trend/msum';
 
 /**
- * Optional configuration of ChaikinMoneyFlow parameters.
+ * Optional configuration of CMF parameters.
  */
-export interface ChaikinMoneyFlowConfig {
+export interface CMFConfig {
   period?: number;
 }
 
 /**
- * The default configuration of ChaikinMoneyFlow.
+ * The default configuration of CMF.
  */
-export const ChaikinMoneyFlowDefaultConfig: Required<ChaikinMoneyFlowConfig> = {
+export const CMFDefaultConfig: Required<CMFConfig> = {
   period: 20,
 };
 
@@ -38,9 +38,9 @@ export function chaikinMoneyFlow(
   lows: number[],
   closings: number[],
   volumes: number[],
-  config: ChaikinMoneyFlowConfig = {}
+  config: CMFConfig = {}
 ): number[] {
-  const { period } = { ...ChaikinMoneyFlowDefaultConfig, ...config };
+  const { period } = { ...CMFDefaultConfig, ...config };
   const moneyFlowMultipler = divide(
     subtract(subtract(closings, lows), subtract(highs, closings)),
     subtract(highs, lows)

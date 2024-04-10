@@ -13,23 +13,23 @@ export const KC_PERIOD = 20;
 /**
  * Keltner channel result object.
  */
-export interface KeltnerChannelResult {
+export interface KCResult {
   middleLine: number[];
   upperBand: number[];
   lowerBand: number[];
 }
 
 /**
- * Optional configuration of KeltnerChannel parameters.
+ * Optional configuration of KC parameters.
  */
-export interface KeltnerChannelConfig {
+export interface KCConfig {
   period?: number;
 }
 
 /**
- * The default configuration of KeltnerChannel.
+ * The default configuration of KC.
  */
-export const KeltnerChannelDefaultConfig: Required<KeltnerChannelConfig> = {
+export const KCDefaultConfig: Required<KCConfig> = {
   period: 20,
 };
 
@@ -52,9 +52,9 @@ export function keltnerChannel(
   highs: number[],
   lows: number[],
   closings: number[],
-  config: KeltnerChannelConfig = {}
-): KeltnerChannelResult {
-  const { period } = { ...KeltnerChannelDefaultConfig, ...config };
+  config: KCConfig = {}
+): KCResult {
+  const { period } = { ...KCDefaultConfig, ...config };
   const atrResult = atr(highs, lows, closings, { period });
   const atr2 = multiplyBy(2, atrResult.atrLine);
 

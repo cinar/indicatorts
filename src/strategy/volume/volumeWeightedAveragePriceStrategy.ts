@@ -3,8 +3,8 @@
 
 import { subtract } from '../../helper/numArray';
 import {
-  VolumeWeightedAveragePriceConfig,
-  VolumeWeightedAveragePriceDefaultConfig,
+  VWAPConfig,
+  VWAPDefaultConfig,
   volumeWeightedAveragePrice,
 } from '../../indicator/volume/volumeWeightedAveragePrice';
 import { Action } from '../action';
@@ -22,10 +22,10 @@ import { Asset } from '../asset';
  */
 export function volumeWeightedAveragePriceStrategy(
   asset: Asset,
-  config: VolumeWeightedAveragePriceConfig = {}
+  config: VWAPConfig = {}
 ): Action[] {
   const strategyConfig = {
-    ...VolumeWeightedAveragePriceDefaultConfig,
+    ...VWAPDefaultConfig,
     ...config,
   };
   const vwap = volumeWeightedAveragePrice(

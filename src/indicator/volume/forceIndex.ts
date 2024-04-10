@@ -5,16 +5,16 @@ import { changes, multiply } from '../../helper/numArray';
 import { ema } from '../trend/ema';
 
 /**
- * Optional configuration of ForceIndex parameters.
+ * Optional configuration of FI parameters.
  */
-export interface ForceIndexConfig {
+export interface FIConfig {
   period?: number;
 }
 
 /**
- * The default configuration of ForceIndex.
+ * The default configuration of FI.
  */
-export const ForceIndexDefaultConfig: Required<ForceIndexConfig> = {
+export const FIDefaultConfig: Required<FIConfig> = {
   period: 13,
 };
 
@@ -32,8 +32,8 @@ export const ForceIndexDefaultConfig: Required<ForceIndexConfig> = {
 export function forceIndex(
   closings: number[],
   volumes: number[],
-  config: ForceIndexConfig = {}
+  config: FIConfig = {}
 ): number[] {
-  const { period } = { ...ForceIndexDefaultConfig, ...config };
+  const { period } = { ...FIDefaultConfig, ...config };
   return ema(multiply(changes(1, closings), volumes), { period });
 }

@@ -15,21 +15,21 @@ import { sma } from '../trend/sma';
 /**
  * Acceleration bands result object.
  */
-export interface AccelerationBands {
+export interface AccelerationBandsResult {
   upperBand: number[];
   middleBand: number[];
   lowerBand: number[];
 }
 
 /**
- * Optional configuration of AccelerationBands parameters.
+ * Optional configuration of acceleration bands parameters.
  */
 export interface AccelerationBandsConfig {
   period?: number;
 }
 
 /**
- * The default configuration of AccelerationBands.
+ * The default configuration of acceleration bands.
  */
 export const AccelerationBandsDefaultConfig: Required<AccelerationBandsConfig> =
   {
@@ -55,7 +55,7 @@ export function accelerationBands(
   lows: number[],
   closings: number[],
   config: AccelerationBandsConfig = {}
-): AccelerationBands {
+): AccelerationBandsResult {
   checkSameLength(highs, lows, closings);
 
   const { period } = { ...AccelerationBandsDefaultConfig, ...config };

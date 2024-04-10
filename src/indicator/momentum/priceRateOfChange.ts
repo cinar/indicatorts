@@ -2,30 +2,26 @@
 // https://github.com/cinar/indicatorts
 
 /**
- * Optional configuration of PriceRateofChange parameters.
+ * Optional configuration of ROC parameters.
  */
-export interface PriceRateofChangeConfig {
+export interface ROCConfig {
   period?: number;
 }
 
 /**
- * The default configuration of PriceRateofChange.
+ * The default configuration of ROC.
  */
-export const PriceRateofChangeDefaultConfig: Required<PriceRateofChangeConfig> =
-  {
-    period: 3,
-  };
+export const ROCDefaultConfig: Required<ROCConfig> = {
+  period: 3,
+};
 
 /**
  * Price Rate of Change (ROC).
  * @param values values array.
  * @return ROC values.
  */
-export function roc(
-  values: number[],
-  config: PriceRateofChangeConfig = {}
-): number[] {
-  const { period } = { ...PriceRateofChangeDefaultConfig, ...config };
+export function roc(values: number[], config: ROCConfig = {}): number[] {
+  const { period } = { ...ROCDefaultConfig, ...config };
   const result = new Array<number>(values.length);
 
   for (let i = 0; i < values.length; i++) {

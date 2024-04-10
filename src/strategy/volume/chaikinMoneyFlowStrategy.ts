@@ -2,8 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import {
-  ChaikinMoneyFlowConfig,
-  ChaikinMoneyFlowDefaultConfig,
+  CMFConfig,
+  CMFDefaultConfig,
   chaikinMoneyFlow,
 } from '../../indicator/volume/chaikinMoneyFlow';
 import { Action } from '../action';
@@ -21,9 +21,9 @@ import { Asset } from '../asset';
  */
 export function chaikinMoneyFlowStrategy(
   asset: Asset,
-  config: ChaikinMoneyFlowConfig = {}
+  config: CMFConfig = {}
 ): Action[] {
-  const strategyConfig = { ...ChaikinMoneyFlowDefaultConfig, ...config };
+  const strategyConfig = { ...CMFDefaultConfig, ...config };
   const cmf = chaikinMoneyFlow(
     asset.highs,
     asset.lows,

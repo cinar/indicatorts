@@ -4,16 +4,16 @@
 import { BinarySearchTree } from '../../helper/binarySearchTree';
 
 /**
- * Optional configuration of MovingMin parameters.
+ * Optional configuration of MMin parameters.
  */
-export interface MovingMinConfig {
+export interface MMinConfig {
   period?: number;
 }
 
 /**
- * The default configuration of MovingMin.
+ * The default configuration of MMin.
  */
-export const MovingMinDefaultConfig: Required<MovingMinConfig> = {
+export const MMinDefaultConfig: Required<MMinConfig> = {
   period: 4,
 };
 
@@ -23,8 +23,8 @@ export const MovingMinDefaultConfig: Required<MovingMinConfig> = {
  * @param config configuration.
  * @return moving min.
  */
-export function mmin(values: number[], config: MovingMinConfig = {}): number[] {
-  const { period } = { ...MovingMinDefaultConfig, ...config };
+export function mmin(values: number[], config: MMinConfig = {}): number[] {
+  const { period } = { ...MMinDefaultConfig, ...config };
   const result = new Array<number>(values.length);
   const bst = new BinarySearchTree();
 

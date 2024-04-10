@@ -20,14 +20,14 @@ export interface VortexResult {
 }
 
 /**
- * Optional configuration of Vortex parameters.
+ * Optional configuration of vortex parameters.
  */
 export interface VortexConfig {
   period?: number;
 }
 
 /**
- * The default configuration of Vortex.
+ * The default configuration of vortex.
  */
 export const VortexDefaultConfig: Required<VortexConfig> = {
   period: 14,

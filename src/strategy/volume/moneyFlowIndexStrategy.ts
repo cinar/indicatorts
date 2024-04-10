@@ -2,8 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import {
-  MoneyFlowIndexConfig,
-  MoneyFlowIndexDefaultConfig,
+  MFIConfig,
+  MFIDefaultConfig,
   moneyFlowIndex,
 } from '../../indicator/volume/moneyFlowIndex';
 import { Action } from '../action';
@@ -18,9 +18,9 @@ import { Asset } from '../asset';
  */
 export function moneyFlowIndexStrategy(
   asset: Asset,
-  config: MoneyFlowIndexConfig = {}
+  config: MFIConfig = {}
 ): Action[] {
-  const strategyConfig = { ...MoneyFlowIndexDefaultConfig, ...config };
+  const strategyConfig = { ...MFIDefaultConfig, ...config };
   const mfi = moneyFlowIndex(
     asset.highs,
     asset.lows,

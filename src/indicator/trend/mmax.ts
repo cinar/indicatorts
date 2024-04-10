@@ -4,16 +4,16 @@
 import { BinarySearchTree } from '../../helper/binarySearchTree';
 
 /**
- * Optional configuration of MovingMax parameters.
+ * Optional configuration of MMax parameters.
  */
-export interface MovingMaxConfig {
+export interface MMaxConfig {
   period?: number;
 }
 
 /**
- * The default configuration of MovingMax.
+ * The default configuration of MMax.
  */
-export const MovingMaxDefaultConfig: Required<MovingMaxConfig> = {
+export const MMaxDefaultConfig: Required<MMaxConfig> = {
   period: 4,
 };
 
@@ -23,8 +23,8 @@ export const MovingMaxDefaultConfig: Required<MovingMaxConfig> = {
  * @param config configuration.
  * @return moving max.
  */
-export function mmax(values: number[], config: MovingMaxConfig = {}): number[] {
-  const { period } = { ...MovingMaxDefaultConfig, ...config };
+export function mmax(values: number[], config: MMaxConfig = {}): number[] {
+  const { period } = { ...MMaxDefaultConfig, ...config };
   const result = new Array<number>(values.length);
   const bst = new BinarySearchTree();
 

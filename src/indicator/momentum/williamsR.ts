@@ -6,14 +6,14 @@ import { mmax } from '../trend/mmax';
 import { mmin } from '../trend/mmin';
 
 /**
- * Optional configuration of WilliamsR parameters.
+ * Optional configuration of Williams R parameters.
  */
 export interface WilliamsRConfig {
   period?: number;
 }
 
 /**
- * The default configuration of WilliamsR.
+ * The default configuration of Williams R.
  */
 export const WilliamsRDefaultConfig: Required<WilliamsRConfig> = {
   period: 14,

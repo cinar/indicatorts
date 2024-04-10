@@ -5,32 +5,31 @@ import { divide, multiplyBy, subtract } from '../../helper/numArray';
 import { ema } from '../trend/ema';
 
 /**
- * Optional configuration of PercentageVolumeOscillator parameters.
+ * Percentage volume oscillator result.
  */
-export interface PercentageVolumeOscillatorConfig {
+export interface PVOResult {
+  pvo: number[];
+  signal: number[];
+  histogram: number[];
+}
+
+/**
+ * Optional configuration of PVO parameters.
+ */
+export interface PVOConfig {
   fast?: number;
   slow?: number;
   signal?: number;
 }
 
 /**
- * The default configuration of PercentageVolumeOscillator.
+ * The default configuration of PVO.
  */
-export const PercentageVolumeOscillatorDefaultConfig: Required<PercentageVolumeOscillatorConfig> =
-  {
-    fast: 12,
-    slow: 26,
-    signal: 9,
-  };
-
-/**
- * Percentage volume oscillator result.
- */
-export interface PercentageVolumeOscillator {
-  pvo: number[];
-  signal: number[];
-  histogram: number[];
-}
+export const PVODefaultConfig: Required<PVOConfig> = {
+  fast: 12,
+  slow: 26,
+  signal: 9,
+};
 
 /**
  * Percentage Volume Oscillator (PVO). It is a momentum oscillator for the volume.
@@ -47,13 +46,13 @@ export interface PercentageVolumeOscillator {
  */
 export function percentageVolumeOscillator(
   volumes: number[],
-  config: PercentageVolumeOscillatorConfig = {}
-): PercentageVolumeOscillator {
+  config: PVOConfig = {}
+): PVOResult {
   const {
     fast: fastPeriod,
     slow: slowPeriod,
     signal: signalPeriod,
-  } = { ...PercentageVolumeOscillatorDefaultConfig, ...config };
+  } = { ...PVODefaultConfig, ...config };
   const fastEma = ema(volumes, { period: fastPeriod });
   const slowEma = ema(volumes, { period: slowPeriod });
 

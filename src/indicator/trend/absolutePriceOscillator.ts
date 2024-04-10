@@ -5,21 +5,20 @@ import { subtract } from '../../helper/numArray';
 import { ema } from './ema';
 
 /**
- * Optional configuration of AbsolutePriceOscillator parameters.
+ * Optional configuration of APO parameters.
  */
-export interface AbsolutePriceOscillatorConfig {
+export interface APOConfig {
   fast?: number;
   slow?: number;
 }
 
 /**
- * The default configuration of AbsolutePriceOscillator.
+ * The default configuration of APO.
  */
-export const AbsolutePriceOscillatorDefaultConfig: Required<AbsolutePriceOscillatorConfig> =
-  {
-    fast: 14,
-    slow: 30,
-  };
+export const APODefaultConfig: Required<APOConfig> = {
+  fast: 14,
+  slow: 30,
+};
 
 /**
  * Absolute Price Oscillator (APO) function calculates the technical indicator
@@ -37,10 +36,10 @@ export const AbsolutePriceOscillatorDefaultConfig: Required<AbsolutePriceOscilla
  */
 export function absolutePriceOscillator(
   values: number[],
-  config: AbsolutePriceOscillatorConfig = {}
+  config: APOConfig = {}
 ): number[] {
   const { fast: fastPeriod, slow: slowPeriod } = {
-    ...AbsolutePriceOscillatorDefaultConfig,
+    ...APODefaultConfig,
     ...config,
   };
   const fast = ema(values, { period: fastPeriod });

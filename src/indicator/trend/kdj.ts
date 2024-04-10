@@ -9,25 +9,25 @@ import { sma } from './sma';
 /**
  * KDJ result.
  */
-export interface KdjResult {
+export interface KDJResult {
   k: number[];
   d: number[];
   j: number[];
 }
 
 /**
- * Optional configuration of Kdj parameters.
+ * Optional configuration of KDJ parameters.
  */
-export interface KdjConfig {
+export interface KDJConfig {
   rPeriod?: number;
   kPeriod?: number;
   dPeriod?: number;
 }
 
 /**
- * The default configuration of Kdj.
+ * The default configuration of KDJ.
  */
-export const KdjDefaultConfig: Required<KdjConfig> = {
+export const KDJDefaultConfig: Required<KDJConfig> = {
   rPeriod: 9,
   kPeriod: 3,
   dPeriod: 3,
@@ -59,9 +59,9 @@ export function kdj(
   highs: number[],
   lows: number[],
   closings: number[],
-  config: KdjConfig = {}
-): KdjResult {
-  const { rPeriod, kPeriod, dPeriod } = { ...KdjDefaultConfig, ...config };
+  config: KDJConfig = {}
+): KDJResult {
+  const { rPeriod, kPeriod, dPeriod } = { ...KDJDefaultConfig, ...config };
   const highest = mmax(highs, { period: rPeriod });
   const lowest = mmin(lows, { period: rPeriod });
 

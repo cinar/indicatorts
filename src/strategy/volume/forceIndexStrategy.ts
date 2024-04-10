@@ -2,8 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import {
-  ForceIndexConfig,
-  ForceIndexDefaultConfig,
+  FIConfig,
+  FIDefaultConfig,
   forceIndex,
 } from '../../indicator/volume/forceIndex';
 import { Action } from '../action';
@@ -18,9 +18,9 @@ import { Asset } from '../asset';
  */
 export function forceIndexStrategy(
   asset: Asset,
-  config: ForceIndexConfig = {}
+  config: FIConfig = {}
 ): Action[] {
-  const strategyConfig = { ...ForceIndexDefaultConfig, ...config };
+  const strategyConfig = { ...FIDefaultConfig, ...config };
   const fi = forceIndex(asset.closings, asset.volumes, strategyConfig);
 
   return fi.map((value) => {

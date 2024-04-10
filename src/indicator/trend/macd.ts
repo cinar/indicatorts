@@ -4,24 +4,24 @@
 import { subtract } from '../../helper/numArray';
 import { ema } from './ema';
 
-export interface MacdResult {
+export interface MACDResult {
   macdLine: number[];
   signalLine: number[];
 }
 
 /**
- * Optional configuration of Macd parameters.
+ * Optional configuration of MACD parameters.
  */
-export interface MacdConfig {
+export interface MACDConfig {
   fast?: number;
   slow?: number;
   signal?: number;
 }
 
 /**
- * The default configuration of Macd.
+ * The default configuration of MACD.
  */
-export const MacdDefaultConfig: Required<MacdConfig> = {
+export const MACDDefaultConfig: Required<MACDConfig> = {
   fast: 12,
   slow: 26,
   signal: 9,
@@ -37,9 +37,9 @@ export const MacdDefaultConfig: Required<MacdConfig> = {
  * @param config configuration.
  * @return macd result.
  */
-export function macd(closings: number[], config: MacdConfig = {}): MacdResult {
+export function macd(closings: number[], config: MACDConfig = {}): MACDResult {
   const { fast, slow, signal } = {
-    ...MacdDefaultConfig,
+    ...MACDDefaultConfig,
     ...config,
   };
   const emaFast = ema(closings, { period: fast });

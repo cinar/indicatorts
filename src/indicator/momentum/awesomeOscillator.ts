@@ -5,24 +5,23 @@ import { add, divideBy, subtract } from '../../helper/numArray';
 import { sma } from '../trend/sma';
 
 /**
- * Optional configuration of parameters
+ * Optional configuration of AO parameters.
  */
-export interface AwesomeOscillatorConfig {
+export interface AOConfig {
   fast?: number;
   slow?: number;
 }
 
 /**
- * The default configuration.
+ * The default configuration of AO.
  */
-export const AwesomeOscillatorDefaultConfig: Required<AwesomeOscillatorConfig> =
-  {
-    fast: 5,
-    slow: 34,
-  };
+export const AODefaultConfig: Required<AOConfig> = {
+  fast: 5,
+  slow: 34,
+};
 
 /**
- * Awesome Oscillator.
+ * Awesome Oscillator (AO).
  *
  * Median Price = ((Low + High) / 2).
  * AO = 5-Period SMA - 34-Period SMA.
@@ -35,9 +34,9 @@ export const AwesomeOscillatorDefaultConfig: Required<AwesomeOscillatorConfig> =
 export function awesomeOscillator(
   highs: number[],
   lows: number[],
-  config: AwesomeOscillatorConfig = {}
+  config: AOConfig = {}
 ): number[] {
-  const { fast, slow } = { ...AwesomeOscillatorDefaultConfig, ...config };
+  const { fast, slow } = { ...AODefaultConfig, ...config };
   const medianPrice = divideBy(2, add(lows, highs));
   const smaFast = sma(medianPrice, { period: fast });
   const smaSlow = sma(medianPrice, { period: slow });

@@ -5,16 +5,16 @@ import { divide, shiftRightAndFillBy, subtract } from '../../helper/numArray';
 import { ema } from './ema';
 
 /**
- * Optional configuration of Trix parameters.
+ * Optional configuration of TRIX parameters.
  */
-export interface TrixConfig {
+export interface TRIXConfig {
   period?: number;
 }
 
 /**
- * The default configuration of Trix.
+ * The default configuration of TRIX.
  */
-export const TrixDefaultConfig: Required<TrixConfig> = {
+export const TRIXDefaultConfig: Required<TRIXConfig> = {
   period: 4,
 };
 
@@ -33,8 +33,8 @@ export const TrixDefaultConfig: Required<TrixConfig> = {
  * @param config configuration.
  * @returns trix values.
  */
-export function trix(values: number[], config: TrixConfig = {}): number[] {
-  const { period } = { ...TrixDefaultConfig, ...config };
+export function trix(values: number[], config: TRIXConfig = {}): number[] {
+  const { period } = { ...TRIXDefaultConfig, ...config };
   const ema1 = ema(values, { period });
   const ema2 = ema(ema1, { period });
   const ema3 = ema(ema2, { period });

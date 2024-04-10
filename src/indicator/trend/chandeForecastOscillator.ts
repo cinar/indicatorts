@@ -13,14 +13,14 @@ import {
 } from '../../helper/regression';
 
 /**
- * Optional configuration of ChandeForecastOscillator parameters.
+ * Optional configuration of Chande forecast oscillator parameters.
  */
 export interface ChandeForecastOscillatorConfig {
   period?: number;
 }
 
 /**
- * The default configuration of ChandeForecastOscillator.
+ * The default configuration of Chande forecast oscillator.
  */
 export const ChandeForecastOscillatorDefaultConfig: Required<ChandeForecastOscillatorConfig> =
   {

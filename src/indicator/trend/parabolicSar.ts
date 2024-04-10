@@ -7,23 +7,23 @@ import { Trend } from '../trend';
 /**
  * Parabolic SAR result object.
  */
-export interface ParabolicSar {
+export interface ParabolicSARResult {
   trends: Trend[];
   psar: number[];
 }
 
 /**
- * Optional configuration of ParabolicSar parameters.
+ * Optional configuration of parabolic SAR parameters.
  */
-export interface ParabolicSarConfig {
+export interface ParabolicSARConfig {
   step?: number;
   max?: number;
 }
 
 /**
- * The default configuration of ParabolicSar.
+ * The default configuration of parabolic SAR.
  */
-export const ParabolicSarDefaultConfig: Required<ParabolicSarConfig> = {
+export const ParabolicSARDefaultConfig: Required<ParabolicSARConfig> = {
   step: 0.02,
   max: 0.2,
 };
@@ -63,12 +63,12 @@ export function parabolicSar(
   highs: number[],
   lows: number[],
   closings: number[],
-  config: ParabolicSarConfig = {}
-): ParabolicSar {
+  config: ParabolicSARConfig = {}
+): ParabolicSARResult {
   checkSameLength(highs, lows, closings);
 
   const { step, max } = {
-    ...ParabolicSarDefaultConfig,
+    ...ParabolicSARDefaultConfig,
     ...config,
   };
   const trends = new Array<Trend>(highs.length);

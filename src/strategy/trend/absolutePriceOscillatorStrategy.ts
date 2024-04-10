@@ -4,8 +4,8 @@
 import { Asset } from '../asset';
 import { Action } from '../action';
 import {
-  AbsolutePriceOscillatorConfig,
-  AbsolutePriceOscillatorDefaultConfig,
+  APOConfig,
+  APODefaultConfig,
   absolutePriceOscillator,
 } from '../../indicator/trend/absolutePriceOscillator';
 
@@ -18,10 +18,10 @@ import {
  */
 export function absolutePriceOscillatorStrategy(
   asset: Asset,
-  config: AbsolutePriceOscillatorConfig = {}
+  config: APOConfig = {}
 ): Action[] {
   const { fast, slow } = {
-    ...AbsolutePriceOscillatorDefaultConfig,
+    ...APODefaultConfig,
     ...config,
   };
   const indicator = absolutePriceOscillator(asset.closings, { fast, slow });

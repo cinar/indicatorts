@@ -12,16 +12,16 @@ import { mmax } from '../trend/mmax';
 import { sma } from '../trend/sma';
 
 /**
- * Optional configuration of UlcerIndex parameters.
+ * Optional configuration of UI parameters.
  */
-export interface UlcerIndexConfig {
+export interface UIConfig {
   period?: number;
 }
 
 /**
- * The default configuration of UlcerIndex.
+ * The default configuration of UI.
  */
-export const UlcerIndexDefaultConfig: Required<UlcerIndexConfig> = {
+export const UIDefaultConfig: Required<UIConfig> = {
   period: 14,
 };
 
@@ -41,9 +41,9 @@ export const UlcerIndexDefaultConfig: Required<UlcerIndexConfig> = {
  */
 export function ulcerIndex(
   closings: number[],
-  config: UlcerIndexConfig = {}
+  config: UIConfig = {}
 ): number[] {
-  const { period } = { ...UlcerIndexDefaultConfig, ...config };
+  const { period } = { ...UIDefaultConfig, ...config };
   const highClosings = mmax(closings, { period });
   const percentageDrawdown = multiplyBy(
     100,

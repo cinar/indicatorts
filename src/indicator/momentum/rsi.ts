@@ -4,21 +4,21 @@
 import { rma } from '../trend/rma';
 
 /**
- * Optional configuration of Rsi parameters.
+ * Optional configuration of RSI parameters.
  */
-export interface RsiConfig {
+export interface RSIConfig {
   period?: number;
 }
 
 /**
- * The default configuration of Rsi.
+ * The default configuration of RSI.
  */
-export const RsiDefaultConfig: Required<RsiConfig> = {
+export const RSIDefaultConfig: Required<RSIConfig> = {
   period: 14,
 };
 
 /**
- * Custom RSI. It is a momentum indicator that measures the magnitude of
+ * RSI. It is a momentum indicator that measures the magnitude of
  * recent price changes to evaluate overbought and oversold conditions
  * using the given window period.
  *
@@ -29,8 +29,8 @@ export const RsiDefaultConfig: Required<RsiConfig> = {
  * @param config configuration.
  * @return rsi values.
  */
-export function rsi(closings: number[], config: RsiConfig = {}): number[] {
-  const { period } = { ...RsiDefaultConfig, ...config };
+export function rsi(closings: number[], config: RSIConfig = {}): number[] {
+  const { period } = { ...RSIDefaultConfig, ...config };
   const gains = new Array<number>(closings.length);
   const losses = new Array<number>(closings.length);
 

@@ -3,7 +3,7 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { KdjConfig, KdjDefaultConfig, kdj } from '../../indicator/trend/kdj';
+import { KDJConfig, KDJDefaultConfig, kdj } from '../../indicator/trend/kdj';
 
 /**
  * KDJ strategy.
@@ -11,8 +11,8 @@ import { KdjConfig, KdjDefaultConfig, kdj } from '../../indicator/trend/kdj';
  * @param config configuration.
  * @return strategy actions.
  */
-export function kdjStrategy(asset: Asset, config: KdjConfig = {}): Action[] {
-  const strategyConfig = { ...KdjDefaultConfig, ...config };
+export function kdjStrategy(asset: Asset, config: KDJConfig = {}): Action[] {
+  const strategyConfig = { ...KDJDefaultConfig, ...config };
   const kdjResult = kdj(
     asset.highs,
     asset.lows,

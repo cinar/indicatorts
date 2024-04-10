@@ -5,9 +5,9 @@ import { tr } from './tr';
 import { sma } from '../../indicator/trend/sma';
 
 /**
- * ATR result.
+ * Average true range result.
  */
-export interface AtrResult {
+export interface ATRResult {
   trLine: number[];
   atrLine: number[];
 }
@@ -45,7 +45,7 @@ export function atr(
   lows: number[],
   closings: number[],
   config: ATRConfig = {}
-): AtrResult {
+): ATRResult {
   const { period } = { ...ATRDefaultConfig, ...config };
   const trLine = tr(highs, lows, closings);
   const atrLine = sma(trLine, { period });

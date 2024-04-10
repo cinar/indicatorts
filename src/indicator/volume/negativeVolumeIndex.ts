@@ -4,21 +4,20 @@
 import { checkSameLength } from '../../helper/numArray';
 
 /**
- * Optional configuration of NegativeVolumeIndex parameters.
+ * Optional configuration of NVI parameters.
  */
-export interface NegativeVolumeIndexConfig {
+export interface NVIConfig {
   start?: number;
   period?: number;
 }
 
 /**
- * The default configuration of NegativeVolumeIndex.
+ * The default configuration of NVI.
  */
-export const NegativeVolumeIndexDefaultConfig: Required<NegativeVolumeIndexConfig> =
-  {
-    start: 1000,
-    period: 255,
-  };
+export const NVIDefaultConfig: Required<NVIConfig> = {
+  start: 1000,
+  period: 255,
+};
 
 /**
  * The Negative Volume Index (NVI) is a cumulative indicator using
@@ -40,11 +39,11 @@ export const NegativeVolumeIndexDefaultConfig: Required<NegativeVolumeIndexConfi
 export function negativeVolumeIndex(
   closings: number[],
   volumes: number[],
-  config: NegativeVolumeIndexConfig = {}
+  config: NVIConfig = {}
 ): number[] {
   checkSameLength(closings, volumes);
 
-  const { start } = { ...NegativeVolumeIndexDefaultConfig, ...config };
+  const { start } = { ...NVIDefaultConfig, ...config };
   const nvi = new Array<number>(closings.length);
 
   for (let i = 0; i < nvi.length; i++) {

@@ -8,13 +8,13 @@ import { accumulationDistribution } from '../volume/accumulationDistribution';
 /**
  * Chaikin oscillator result object.
  */
-export interface ChaikinOscillator {
+export interface ChaikinOscillatorResult {
   ad: number[];
   co: number[];
 }
 
 /**
- * Optional configuration of parameters
+ * Optional configuration of Chaikin oscillator parameters.
  */
 export interface ChaikinOscillatorConfig {
   fast?: number;
@@ -22,7 +22,7 @@ export interface ChaikinOscillatorConfig {
 }
 
 /**
- * The default configuration.
+ * The default configuration of Chaikin oscillator.
  */
 export const ChaikinOscillatorDefaultConfig: Required<ChaikinOscillatorConfig> =
   {
@@ -52,7 +52,7 @@ export function chaikinOscillator(
   closings: number[],
   volumes: number[],
   config: ChaikinOscillatorConfig = {}
-): ChaikinOscillator {
+): ChaikinOscillatorResult {
   const { fast, slow } = { ...ChaikinOscillatorDefaultConfig, ...config };
   const ad = accumulationDistribution(highs, lows, closings, volumes);
   const co = subtract(ema(ad, { period: fast }), ema(ad, { period: slow }));
