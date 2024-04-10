@@ -9,9 +9,9 @@ import { mmin } from '../trend/mmin';
  * Donchian channel result object.
  */
 export interface DCResult {
-  upperChannel: number[];
-  middleChannel: number[];
-  lowerChannel: number[];
+  upper: number[];
+  middle: number[];
+  lower: number[];
 }
 
 /**
@@ -46,14 +46,14 @@ export const DCDefaultConfig: Required<DCConfig> = {
  */
 export function dc(closings: number[], config: DCConfig = {}): DCResult {
   const { period } = { ...DCDefaultConfig, ...config };
-  const upperChannel = mmax(closings, { period });
-  const lowerChannel = mmin(closings, { period });
-  const middleChannel = divideBy(2, add(upperChannel, lowerChannel));
+  const upper = mmax(closings, { period });
+  const lower = mmin(closings, { period });
+  const middle = divideBy(2, add(upper, lower));
 
   return {
-    upperChannel,
-    middleChannel,
-    lowerChannel,
+    upper,
+    middle,
+    lower,
   };
 }
 

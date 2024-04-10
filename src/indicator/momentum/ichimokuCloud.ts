@@ -14,8 +14,8 @@ import { mmin } from '../trend/mmin';
  * Ichimoku cloud result object.
  */
 export interface IchimokuCloudResult {
-  conversionLine: number[];
-  baseLine: number[];
+  conversion: number[];
+  base: number[];
   leadingSpanA: number[];
   leadingSpanB: number[];
   laggingSpan: number[];
@@ -70,15 +70,15 @@ export function ichimokuCloud(
     ...IchimokuCloudDefaultConfig,
     ...config,
   };
-  const conversionLine = divideBy(
+  const conversion = divideBy(
     2,
     add(mmax(highs, { period: short }), mmin(lows, { period: short }))
   );
-  const baseLine = divideBy(
+  const base = divideBy(
     2,
     add(mmax(highs, { period: medium }), mmin(lows, { period: medium }))
   );
-  const leadingSpanA = divideBy(2, add(conversionLine, baseLine));
+  const leadingSpanA = divideBy(2, add(conversion, base));
   const leadingSpanB = divideBy(
     2,
     add(mmax(highs, { period: long }), mmin(lows, { period: long }))
@@ -86,8 +86,8 @@ export function ichimokuCloud(
   const laggingSpan = shiftRightBy(close, closings);
 
   return {
-    conversionLine,
-    baseLine,
+    conversion,
+    base,
     leadingSpanA,
     leadingSpanB,
     laggingSpan,

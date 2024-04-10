@@ -10,36 +10,24 @@ describe('Acceleration Bands (AB)', () => {
   const closings = [9, 11, 7, 10, 8];
 
   it('should be able to compute with a config', () => {
-    const expectedUpperBand = [20, 16.75, 17.45, 17.67, 17.41];
-    const expectedMiddleBand = [9, 10, 9, 9.25, 9];
-    const expectedLowerBand = [0, 1.75, 2.45, 3.92, 4.41];
+    const expectedUpper = [20, 16.75, 17.45, 17.67, 17.41];
+    const expectedMiddle = [9, 10, 9, 9.25, 9];
+    const expectedLower = [0, 1.75, 2.45, 3.92, 4.41];
 
     const actual = ab(highs, lows, closings, { period: 9 });
-    expect(roundDigitsAll(2, actual.upperBand)).toStrictEqual(
-      expectedUpperBand
-    );
-    expect(roundDigitsAll(2, actual.middleBand)).toStrictEqual(
-      expectedMiddleBand
-    );
-    expect(roundDigitsAll(2, actual.lowerBand)).toStrictEqual(
-      expectedLowerBand
-    );
+    expect(roundDigitsAll(2, actual.upper)).toStrictEqual(expectedUpper);
+    expect(roundDigitsAll(2, actual.middle)).toStrictEqual(expectedMiddle);
+    expect(roundDigitsAll(2, actual.lower)).toStrictEqual(expectedLower);
   });
 
   it('should be able to compute without a config', () => {
-    const expectedUpperBand = [20, 16.75, 17.45, 17.67, 17.41];
-    const expectedMiddleBand = [9, 10, 9, 9.25, 9];
-    const expectedLowerBand = [0, 1.75, 2.45, 3.92, 4.41];
+    const expectedUpper = [20, 16.75, 17.45, 17.67, 17.41];
+    const expectedMiddle = [9, 10, 9, 9.25, 9];
+    const expectedLower = [0, 1.75, 2.45, 3.92, 4.41];
 
     const actual = ab(highs, lows, closings);
-    expect(roundDigitsAll(2, actual.upperBand)).toStrictEqual(
-      expectedUpperBand
-    );
-    expect(roundDigitsAll(2, actual.middleBand)).toStrictEqual(
-      expectedMiddleBand
-    );
-    expect(roundDigitsAll(2, actual.lowerBand)).toStrictEqual(
-      expectedLowerBand
-    );
+    expect(roundDigitsAll(2, actual.upper)).toStrictEqual(expectedUpper);
+    expect(roundDigitsAll(2, actual.middle)).toStrictEqual(expectedMiddle);
+    expect(roundDigitsAll(2, actual.lower)).toStrictEqual(expectedLower);
   });
 });

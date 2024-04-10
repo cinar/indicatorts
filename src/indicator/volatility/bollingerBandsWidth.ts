@@ -9,8 +9,8 @@ import { BBResult } from './bollingerBands';
  * Bollinger bands width result.
  */
 export interface BBWResult {
-  bandWidth: number[];
-  bandWidthEma: number[];
+  width: number[];
+  widthEma: number[];
 }
 
 /**
@@ -43,13 +43,13 @@ export const BBWDefaultConfig: Required<BBWConfig> = {
  */
 export function bbw(bb: BBResult, config: BBWConfig = {}): BBWResult {
   const { period } = { ...BBWDefaultConfig, ...config };
-  const bandWidth = divide(subtract(bb.upperBand, bb.lowerBand), bb.middleBand);
+  const width = divide(subtract(bb.upper, bb.lower), bb.middle);
 
-  const bandWidthEma = ema(bandWidth, { period });
+  const widthEma = ema(width, { period });
 
   return {
-    bandWidth,
-    bandWidthEma,
+    width,
+    widthEma,
   };
 }
 

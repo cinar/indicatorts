@@ -14,9 +14,9 @@ export const KC_PERIOD = 20;
  * Keltner channel result object.
  */
 export interface KCResult {
-  middleLine: number[];
-  upperBand: number[];
-  lowerBand: number[];
+  middle: number[];
+  upper: number[];
+  lower: number[];
 }
 
 /**
@@ -56,16 +56,16 @@ export function kc(
 ): KCResult {
   const { period } = { ...KCDefaultConfig, ...config };
   const atrResult = atr(highs, lows, closings, { period });
-  const atr2 = multiplyBy(2, atrResult.atrLine);
+  const atr2 = multiplyBy(2, atrResult.atr);
 
-  const middleLine = ema(closings, { period });
-  const upperBand = add(middleLine, atr2);
-  const lowerBand = subtract(middleLine, atr2);
+  const middle = ema(closings, { period });
+  const upper = add(middle, atr2);
+  const lower = subtract(middle, atr2);
 
   return {
-    middleLine,
-    upperBand,
-    lowerBand,
+    middle,
+    upper,
+    lower,
   };
 }
 

@@ -5,8 +5,8 @@ import { subtract } from '../../helper/numArray';
 import { ema } from './ema';
 
 export interface MACDResult {
-  macdLine: number[];
-  signalLine: number[];
+  macd: number[];
+  signal: number[];
 }
 
 /**
@@ -49,8 +49,8 @@ export function macd(closings: number[], config: MACDConfig = {}): MACDResult {
   const signalLine = ema(macdLine, { period: signal });
 
   return {
-    macdLine,
-    signalLine,
+    macd: macdLine,
+    signal: signalLine,
   };
 }
 

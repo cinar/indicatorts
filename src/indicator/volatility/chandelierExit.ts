@@ -10,8 +10,8 @@ import { atr } from './atr';
  * Chandelier exit result object.
  */
 export interface CEResult {
-  exitLong: number[];
-  exitShort: number[];
+  long: number[];
+  short: number[];
 }
 
 /**
@@ -49,16 +49,16 @@ export function ce(
 ): CEResult {
   const { period } = { ...CEDefaultConfig, ...config };
   const atrResult = atr(highs, lows, closings, { period });
-  const atrLine3 = multiplyBy(3, atrResult.atrLine);
+  const atrLine3 = multiplyBy(3, atrResult.atr);
   const highestHigh = mmax(highs, { period });
   const lowestLow = mmin(lows, { period });
 
-  const exitLong = subtract(highestHigh, atrLine3);
-  const exitShort = add(lowestLow, atrLine3);
+  const long = subtract(highestHigh, atrLine3);
+  const short = add(lowestLow, atrLine3);
 
   return {
-    exitLong,
-    exitShort,
+    long,
+    short,
   };
 }
 

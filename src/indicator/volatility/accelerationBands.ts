@@ -16,9 +16,9 @@ import { sma } from '../trend/sma';
  * Acceleration bands result object.
  */
 export interface ABResult {
-  upperBand: number[];
-  middleBand: number[];
-  lowerBand: number[];
+  upper: number[];
+  middle: number[];
+  lower: number[];
 }
 
 /**
@@ -60,18 +60,18 @@ export function ab(
   const { period } = { ...ABDefaultConfig, ...config };
   const k = divide(subtract(highs, lows), add(highs, lows));
 
-  const upperBand = sma(multiply(highs, addBy(1, multiplyBy(4, k))), {
+  const upper = sma(multiply(highs, addBy(1, multiplyBy(4, k))), {
     period,
   });
-  const middleBand = sma(closings, { period });
-  const lowerBand = sma(multiply(lows, addBy(1, multiplyBy(-4, k))), {
+  const middle = sma(closings, { period });
+  const lower = sma(multiply(lows, addBy(1, multiplyBy(-4, k))), {
     period,
   });
 
   return {
-    upperBand,
-    middleBand,
-    lowerBand,
+    upper,
+    middle,
+    lower,
   };
 }
 

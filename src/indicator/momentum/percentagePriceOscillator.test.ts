@@ -22,7 +22,7 @@ describe('Percent Price Oscillator (PPO)', () => {
   ];
 
   it('should be able to compute with a config', () => {
-    const expectedPpo = [
+    const expectedPPO = [
       0, -0.03, 0.43, 0.48, 0.55, 1.14, 1.89, 2.61, 3.09, 3.11, 2.94, 2.95,
       2.57, 2.34, 2.19, 1.66, 0.99, 0.41, 0.15, -0.28, -0.53, -0.58, 0, 0.07,
       0.17, -0.12, -0.27, -0.11, -0.05, 0.46, 0.84, 1.56, 1.5, 1.34, 1.1, 1.44,
@@ -61,13 +61,13 @@ describe('Percent Price Oscillator (PPO)', () => {
       signal: 7,
     });
 
-    deepStrictEqual(roundDigitsAll(2, actual.ppo), expectedPpo);
+    deepStrictEqual(roundDigitsAll(2, actual.ppo), expectedPPO);
     deepStrictEqual(roundDigitsAll(2, actual.signal), expectedSignal);
     deepStrictEqual(roundDigitsAll(2, actual.histogram), expectedHistogram);
   });
 
   it('should be able to compute without a config', () => {
-    const expectedPpo = [
+    const expectedPPO = [
       0, -0.02, 0.24, 0.31, 0.4, 0.79, 1.33, 1.93, 2.47, 2.77, 2.95, 3.19, 3.18,
       3.2, 3.22, 3.01, 2.65, 2.26, 2, 1.63, 1.31, 1.1, 1.25, 1.19, 1.16, 0.94,
       0.77, 0.75, 0.71, 0.94, 1.15, 1.6, 1.69, 1.7, 1.64, 1.88, 1.84, 1.77,
@@ -101,7 +101,7 @@ describe('Percent Price Oscillator (PPO)', () => {
     ];
 
     const actual = ppo(prices);
-    deepStrictEqual(roundDigitsAll(2, actual.ppo), expectedPpo);
+    deepStrictEqual(roundDigitsAll(2, actual.ppo), expectedPPO);
     deepStrictEqual(roundDigitsAll(2, actual.signal), expectedSignal);
     deepStrictEqual(roundDigitsAll(2, actual.histogram), expectedHistogram);
   });

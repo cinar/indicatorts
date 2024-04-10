@@ -8,8 +8,8 @@ import { sma } from '../../indicator/trend/sma';
  * Average true range result.
  */
 export interface ATRResult {
-  trLine: number[];
-  atrLine: number[];
+  tr: number[];
+  atr: number[];
 }
 
 /**
@@ -51,8 +51,8 @@ export function atr(
   const atrLine = sma(trLine, { period });
 
   return {
-    trLine,
-    atrLine,
+    tr: trLine,
+    atr: atrLine,
   };
 }
 

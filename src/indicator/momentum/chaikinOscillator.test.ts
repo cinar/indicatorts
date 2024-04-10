@@ -12,21 +12,31 @@ describe('Chaikin Oscillator (CMO)', () => {
   const volumes = [100, 200, 300, 400, 500, 600, 700, 800];
 
   it('should be able to compute with a config', () => {
-    const expected = [0, -7.41, -18.52, -31.69, -46.09, -61.27, -76.95, -92.97];
+    const expectedAD = [
+      -11.11, -33.33, -66.67, -111.11, -166.67, -233.33, -311.11, -400,
+    ];
+    const expectedCMO = [
+      0, -7.41, -18.52, -31.69, -46.09, -61.27, -76.95, -92.97,
+    ];
 
     const actual = cmo(highs, lows, closings, volumes, {
       fast: 2,
       slow: 5,
     });
-    deepStrictEqual(roundDigitsAll(2, actual.co), expected);
+    deepStrictEqual(roundDigitsAll(2, actual.ad), expectedAD);
+    deepStrictEqual(roundDigitsAll(2, actual.cmo), expectedCMO);
   });
 
   it('should be able to compute without a config', () => {
-    const expected = [
+    const expectedAD = [
+      -11.11, -33.33, -66.67, -111.11, -166.67, -233.33, -311.11, -400,
+    ];
+    const expectedCMO = [
       0, -7.07, -19.93, -37.52, -58.98, -83.61, -110.83, -140.17,
     ];
 
     const actual = cmo(highs, lows, closings, volumes);
-    deepStrictEqual(roundDigitsAll(2, actual.co), expected);
+    deepStrictEqual(roundDigitsAll(2, actual.ad), expectedAD);
+    deepStrictEqual(roundDigitsAll(2, actual.cmo), expectedCMO);
   });
 });

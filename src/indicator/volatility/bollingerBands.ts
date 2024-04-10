@@ -9,9 +9,9 @@ import { mstd } from './mstd';
  * Bollinger bands result object.
  */
 export interface BBResult {
-  upperBand: number[];
-  middleBand: number[];
-  lowerBand: number[];
+  upper: number[];
+  middle: number[];
+  lower: number[];
 }
 
 /**
@@ -42,14 +42,14 @@ export const BBDefaultConfig: Required<BBConfig> = {
 export function bb(closings: number[], config: BBConfig = {}): BBResult {
   const { period } = { ...BBDefaultConfig, ...config };
   const std2 = multiplyBy(2, mstd(closings, { period }));
-  const middleBand = sma(closings, { period });
-  const upperBand = add(middleBand, std2);
-  const lowerBand = subtract(middleBand, std2);
+  const middle = sma(closings, { period });
+  const upper = add(middle, std2);
+  const lower = subtract(middle, std2);
 
   return {
-    upperBand,
-    middleBand,
-    lowerBand,
+    upper,
+    middle,
+    lower,
   };
 }
 

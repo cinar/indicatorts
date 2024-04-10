@@ -18,7 +18,7 @@ describe('Percent Volume Oscillator (PVO)', () => {
   ];
 
   it('should be able to compute with a config', () => {
-    const expectedPvo = [
+    const expectedPVO = [
       0, -5.28, -8.79, -11.79, -12.22, -13.93, -17.01, -19.03, -18.49, -16.16,
       -16.89, -14.91, -11.05, -4.52, -6.05, -5.37, -3.46, -3.62, -5.43, -3.13,
       -1.84, -0.22, -1.25, -1.93, -1.13, 2.2, 3.13, 3.38, 3.74, 2.25, 1.05, 0.4,
@@ -59,13 +59,13 @@ describe('Percent Volume Oscillator (PVO)', () => {
       signal: 7,
     });
 
-    deepStrictEqual(roundDigitsAll(2, actual.pvo), expectedPvo);
+    deepStrictEqual(roundDigitsAll(2, actual.pvo), expectedPVO);
     deepStrictEqual(roundDigitsAll(2, actual.signal), expectedSignal);
     deepStrictEqual(roundDigitsAll(2, actual.histogram), expectedHistogram);
   });
 
   it('should be able to compute without a config', () => {
-    const expectedPvo = [
+    const expectedPVO = [
       0, -2.88, -5.28, -7.67, -8.98, -10.88, -13.49, -15.76, -16.92, -17.12,
       -18.45, -18.51, -17.41, -14.45, -14.91, -14.4, -13.19, -12.87, -13.46,
       -12.11, -11.04, -9.66, -9.57, -9.45, -8.64, -6.34, -5.01, -4.01, -2.97,
@@ -101,7 +101,7 @@ describe('Percent Volume Oscillator (PVO)', () => {
     ];
 
     const actual = pvo(volumes);
-    deepStrictEqual(roundDigitsAll(2, actual.pvo), expectedPvo);
+    deepStrictEqual(roundDigitsAll(2, actual.pvo), expectedPVO);
     deepStrictEqual(roundDigitsAll(2, actual.signal), expectedSignal);
     deepStrictEqual(roundDigitsAll(2, actual.histogram), expectedHistogram);
   });

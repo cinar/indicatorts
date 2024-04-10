@@ -28,9 +28,14 @@ describe('Stochastic Oscillator (STOCH)', () => {
       38.79, 54.87, 80.67, 84.39, 97.84, 93.43, 39.14, 32.5, 49.17, 60.28,
       75.97, 88.89, 91.47, 70.54, 67.7, 89.15, 65.89, 85.44, 67.39, 74.66,
     ];
+    const expectedD = [
+      38.79, 46.83, 67.77, 82.53, 91.11, 95.63, 66.29, 35.82, 40.83, 54.72,
+      68.12, 82.43, 90.18, 81.01, 69.12, 78.42, 77.52, 75.67, 76.42, 71.02,
+    ];
 
     const actual = stoch(highs, lows, closings, { kPeriod: 12, dPeriod: 2 });
     deepStrictEqual(roundDigitsAll(2, actual.k), expectedK);
+    deepStrictEqual(roundDigitsAll(2, actual.d), expectedD);
   });
 
   it('should be able to compute without a config', () => {
@@ -38,8 +43,13 @@ describe('Stochastic Oscillator (STOCH)', () => {
       38.79, 54.87, 80.67, 84.39, 97.84, 93.43, 39.14, 32.5, 49.17, 60.28,
       75.97, 88.89, 91.47, 70.54, 67.7, 89.15, 65.89, 81.91, 64.6, 74.66,
     ];
+    const expectedD = [
+      38.79, 46.83, 58.11, 73.31, 87.63, 91.88, 76.8, 55.02, 40.27, 47.31, 61.8,
+      75.05, 85.44, 83.63, 76.57, 75.8, 74.25, 78.98, 70.8, 73.72,
+    ];
 
     const actual = stoch(highs, lows, closings);
     deepStrictEqual(roundDigitsAll(2, actual.k), expectedK);
+    deepStrictEqual(roundDigitsAll(2, actual.d), expectedD);
   });
 });

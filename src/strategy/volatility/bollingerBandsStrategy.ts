@@ -20,12 +20,12 @@ export function bbStrategy(asset: Asset, config: BBConfig = {}): Action[] {
   const strategyConfig = { ...BBDefaultConfig, ...config };
   const result = bb(asset.closings, strategyConfig);
 
-  const actions = new Array<Action>(result.upperBand.length);
+  const actions = new Array<Action>(result.upper.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (asset.closings[i] > result.upperBand[i]) {
+    if (asset.closings[i] > result.upper[i]) {
       actions[i] = Action.SELL;
-    } else if (asset.closings[i] < result.lowerBand[i]) {
+    } else if (asset.closings[i] < result.lower[i]) {
       actions[i] = Action.BUY;
     } else {
       actions[i] = Action.HOLD;

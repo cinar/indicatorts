@@ -28,7 +28,7 @@ export function ichimokuCloudStrategy(
     strategyConfig
   );
 
-  const actions = new Array<Action>(indicator.baseLine.length);
+  const actions = new Array<Action>(indicator.base.length);
 
   for (let i = 0; i < actions.length; i++) {
     if (indicator.leadingSpanA[i] > indicator.leadingSpanB[i]) {

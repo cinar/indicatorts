@@ -20,10 +20,10 @@ export function abStrategy(asset: Asset, config: ABConfig = {}): Action[] {
   const strategyConfig = { ...ABDefaultConfig, ...config };
   const result = ab(asset.highs, asset.lows, asset.closings, strategyConfig);
 
-  const actions = new Array<number>(result.upperBand.length);
+  const actions = new Array<number>(result.upper.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (asset.closings[i] >= result.upperBand[i]) {
+    if (asset.closings[i] >= result.upper[i]) {
       actions[i] = Action.BUY;
     } else {
       actions[i] = Action.SELL;

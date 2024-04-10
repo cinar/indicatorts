@@ -10,24 +10,20 @@ describe('Chandelier Exit (CE)', () => {
   const closings = [9, 11, 7, 10, 8];
 
   it('should be able to compute with a config', () => {
-    const expectedExitLong = [-2, 1, 3, 2, 3.2];
-    const expectedExitShort = [18, 15, 15, 18, 16.8];
+    const expectedLong = [-2, 1, 3, 2, 3.2];
+    const expectedShort = [18, 15, 15, 18, 16.8];
 
     const actual = ce(highs, lows, closings, { period: 14 });
-    expect(roundDigitsAll(2, actual.exitLong)).toStrictEqual(expectedExitLong);
-    expect(roundDigitsAll(2, actual.exitShort)).toStrictEqual(
-      expectedExitShort
-    );
+    expect(roundDigitsAll(2, actual.long)).toStrictEqual(expectedLong);
+    expect(roundDigitsAll(2, actual.short)).toStrictEqual(expectedShort);
   });
 
   it('should be able to compute without a config', () => {
-    const expectedExitLong = [-2, 1, 3, 2, 3.2];
-    const expectedExitShort = [18, 15, 15, 18, 16.8];
+    const expectedLong = [-2, 1, 3, 2, 3.2];
+    const expectedShort = [18, 15, 15, 18, 16.8];
 
     const actual = ce(highs, lows, closings);
-    expect(roundDigitsAll(2, actual.exitLong)).toStrictEqual(expectedExitLong);
-    expect(roundDigitsAll(2, actual.exitShort)).toStrictEqual(
-      expectedExitShort
-    );
+    expect(roundDigitsAll(2, actual.long)).toStrictEqual(expectedLong);
+    expect(roundDigitsAll(2, actual.short)).toStrictEqual(expectedShort);
   });
 });

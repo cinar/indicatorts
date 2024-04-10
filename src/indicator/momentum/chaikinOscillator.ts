@@ -10,7 +10,7 @@ import { ad } from '../volume/accumulationDistribution';
  */
 export interface CMOResult {
   ad: number[];
-  co: number[];
+  cmo: number[];
 }
 
 /**
@@ -54,12 +54,12 @@ export function cmo(
 ): CMOResult {
   const { fast, slow } = { ...CMODefaultConfig, ...config };
   const adResult = ad(highs, lows, closings, volumes);
-  const coResult = subtract(
+  const cmoResult = subtract(
     ema(adResult, { period: fast }),
     ema(adResult, { period: slow })
   );
 
-  return { ad: adResult, co: coResult };
+  return { ad: adResult, cmo: cmoResult };
 }
 
 // Export full name

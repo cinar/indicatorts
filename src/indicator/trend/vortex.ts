@@ -15,8 +15,8 @@ import { msum } from './msum';
  * Vortex result.
  */
 export interface VortexResult {
-  plusVi: number[];
-  minusVi: number[];
+  plus: number[];
+  minus: number[];
 }
 
 /**
@@ -85,11 +85,11 @@ export function vortex(
 
   const trSum = msum(tr, { period });
 
-  const plusVi = divide(plusVmSum, trSum);
-  const minusVi = divide(minusVmSum, trSum);
+  const plus = divide(plusVmSum, trSum);
+  const minus = divide(minusVmSum, trSum);
 
   return {
-    plusVi,
-    minusVi,
+    plus,
+    minus,
   };
 }

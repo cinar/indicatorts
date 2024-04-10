@@ -27,12 +27,12 @@ export function vortexStrategy(
     strategyConfig
   );
 
-  const actions = new Array<Action>(indicator.plusVi.length);
+  const actions = new Array<Action>(indicator.plus.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (indicator.plusVi[i] > indicator.minusVi[i]) {
+    if (indicator.plus[i] > indicator.minus[i]) {
       actions[i] = Action.BUY;
-    } else if (indicator.plusVi[i] < indicator.minusVi[i]) {
+    } else if (indicator.plus[i] < indicator.minus[i]) {
       actions[i] = Action.SELL;
     } else {
       actions[i] = Action.HOLD;
