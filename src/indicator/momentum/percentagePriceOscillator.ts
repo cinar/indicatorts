@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { divide, multiplyBy, subtract } from '../../helper/numArray';
-import { ema } from '../trend/ema';
+import { ema } from '../trend/exponentialMovingAverage';
 
 /**
  * Percentage price oscillator result.

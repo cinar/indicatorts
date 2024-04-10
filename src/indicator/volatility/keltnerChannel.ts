@@ -2,8 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { add, multiplyBy, subtract } from '../../helper/numArray';
-import { ema } from '../trend/ema';
-import { atr } from './atr';
+import { ema } from '../trend/exponentialMovingAverage';
+import { atr } from './averageTrueRange';
 
 /**
  * Default period for KC.

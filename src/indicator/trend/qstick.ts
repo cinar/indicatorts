@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { subtract } from '../../helper/numArray';
-import { sma } from './sma';
+import { sma } from './simpleMovingAverage';
 
 /**
  * Optional configuration of Qstick parameters.

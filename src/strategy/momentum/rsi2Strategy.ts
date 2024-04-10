@@ -3,7 +3,7 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { rsi } from '../../indicator/momentum/rsi';
+import { rsi } from '../../indicator/momentum/relativeStrengthIndex';
 
 /**
  * RSI 2. When 2-period RSI moves below 10, it is considered deeply oversold,

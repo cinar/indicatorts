@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { subtract } from '../../helper/numArray';
-import { ema } from './ema';
+import { ema } from './exponentialMovingAverage';
 
 export interface MACDResult {
   macd: number[];

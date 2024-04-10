@@ -3,7 +3,7 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { ema } from './ema';
+import { ema } from './exponentialMovingAverage';
 
 describe('Exponential Moving Average (EMA)', () => {
   const values = [2, 4, 6, 8, 12, 14, 16, 18, 20];

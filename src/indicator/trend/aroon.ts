@@ -8,8 +8,8 @@ import {
   multiplyBy,
 } from '../../helper/numArray';
 import { since } from './since';
-import { mmin } from './mmin';
-import { mmax } from './mmax';
+import { mmin } from './movingMin';
+import { mmax } from './movingMax';
 
 /**
  * Aroon result.

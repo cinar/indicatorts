@@ -2,9 +2,9 @@
 // https://github.com/cinar/indicatorts
 
 import { divide, multiplyBy, subtract } from '../../helper/numArray';
-import { mmin } from '../trend/mmin';
-import { mmax } from '../trend/mmax';
-import { sma } from '../trend/sma';
+import { mmin } from '../trend/movingMin';
+import { mmax } from '../trend/movingMax';
+import { sma } from '../trend/simpleMovingAverage';
 
 /**
  * Stochastic oscillator result object.

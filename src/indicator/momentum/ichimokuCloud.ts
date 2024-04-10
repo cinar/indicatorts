@@ -7,8 +7,8 @@ import {
   divideBy,
   shiftRightBy,
 } from '../../helper/numArray';
-import { mmax } from '../trend/mmax';
-import { mmin } from '../trend/mmin';
+import { mmax } from '../trend/movingMax';
+import { mmin } from '../trend/movingMin';
 
 /**
  * Ichimoku cloud result object.

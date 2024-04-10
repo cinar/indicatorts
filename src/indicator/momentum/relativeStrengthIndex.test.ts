@@ -3,7 +3,7 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { rsi } from './rsi';
+import { rsi } from './relativeStrengthIndex';
 
 describe('Relative Strength Index (RSI)', () => {
   const closings = [

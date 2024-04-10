@@ -9,7 +9,7 @@ import {
   shiftRightBy,
   subtract,
 } from '../../helper/numArray';
-import { msum } from './msum';
+import { msum } from './movingSum';
 
 /**
  * Vortex result.

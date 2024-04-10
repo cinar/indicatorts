@@ -2,8 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { add, divideBy } from '../../helper/numArray';
-import { mmax } from '../trend/mmax';
-import { mmin } from '../trend/mmin';
+import { mmax } from '../trend/movingMax';
+import { mmin } from '../trend/movingMin';
 
 /**
  * Donchian channel result object.

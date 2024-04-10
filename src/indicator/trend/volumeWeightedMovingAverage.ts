@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { divide, multiply } from '../../helper/numArray';
-import { msum } from './msum';
+import { msum } from './movingSum';
 
 /**
  * Optional configuration of VWMA parameters.

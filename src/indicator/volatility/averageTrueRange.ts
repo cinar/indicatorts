@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { tr } from './trueRange';
-import { sma } from '../../indicator/trend/sma';
+import { sma } from '../trend/simpleMovingAverage';
 
 /**
  * Average true range result.

@@ -2,9 +2,9 @@
 // https://github.com/cinar/indicatorts
 
 import { divide, multiplyBy, subtract } from '../../helper/numArray';
-import { mmin } from './mmin';
-import { mmax } from './mmax';
-import { sma } from './sma';
+import { mmin } from './movingMin';
+import { mmax } from './movingMax';
+import { sma } from './simpleMovingAverage';
 
 /**
  * KDJ result.

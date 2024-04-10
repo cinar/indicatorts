@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { add, multiplyBy, subtract } from '../../helper/numArray';
-import { ema } from './ema';
+import { ema } from './exponentialMovingAverage';
 
 /**
  * Optional configuration of TEMA parameters.

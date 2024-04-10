@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { changes, multiply } from '../../helper/numArray';
-import { ema } from '../trend/ema';
+import { ema } from '../trend/exponentialMovingAverage';
 
 /**
  * Optional configuration of FI parameters.

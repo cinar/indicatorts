@@ -2,8 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { add, multiplyBy, subtract } from '../../helper/numArray';
-import { sma } from '../trend/sma';
-import { mstd } from './mstd';
+import { sma } from '../trend/simpleMovingAverage';
+import { mstd } from './movingStandardDeviation';
 
 /**
  * Bollinger bands result object.

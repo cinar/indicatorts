@@ -2,9 +2,9 @@
 // https://github.com/cinar/indicatorts
 
 import { add, multiplyBy, subtract } from '../../helper/numArray';
-import { mmax } from '../trend/mmax';
-import { mmin } from '../trend/mmin';
-import { atr } from './atr';
+import { mmax } from '../trend/movingMax';
+import { mmin } from '../trend/movingMin';
+import { atr } from './averageTrueRange';
 
 /**
  * Chandelier exit result object.

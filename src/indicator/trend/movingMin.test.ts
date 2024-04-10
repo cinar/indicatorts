@@ -2,22 +2,22 @@
 // https://github.com/cinar/indicatorts
 
 import { deepStrictEqual } from 'assert';
-import { mmax } from './mmax';
+import { mmin } from './movingMin';
 
-describe('Moving Max (MMAX)', () => {
-  const values = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+describe('Moving Min (MMIN)', () => {
+  const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   it('should be able to compute with a config', () => {
-    const expected = [10, 10, 10, 10, 10, 10, 10, 10, 9, 8];
+    const expected = [1, 1, 1, 1, 1, 1, 1, 1, 2, 3];
 
-    const actual = mmax(values, { period: 8 });
+    const actual = mmin(values, { period: 8 });
     deepStrictEqual(actual, expected);
   });
 
   it('should be able to compute without a config', () => {
-    const expected = [10, 10, 10, 10, 9, 8, 7, 6, 5, 4];
+    const expected = [1, 1, 1, 1, 2, 3, 4, 5, 6, 7];
 
-    const actual = mmax(values);
+    const actual = mmin(values);
     deepStrictEqual(actual, expected);
   });
 });

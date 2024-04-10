@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { deepStrictEqual } from 'assert';
-import { sma } from './sma';
+import { sma } from './simpleMovingAverage';
 
 describe('Simple Moving Average (SMA)', () => {
   const values = [2, 4, 6, 8, 10];

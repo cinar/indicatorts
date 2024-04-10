@@ -7,7 +7,7 @@ import {
   shiftRightAndFillBy,
   subtract,
 } from '../../helper/numArray';
-import { msum } from '../trend/msum';
+import { msum } from '../trend/movingSum';
 
 /**
  * The Volume Price Trend (VPT) provides a correlation between the volume and

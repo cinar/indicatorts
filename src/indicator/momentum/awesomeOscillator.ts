@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { add, divideBy, subtract } from '../../helper/numArray';
-import { sma } from '../trend/sma';
+import { sma } from '../trend/simpleMovingAverage';
 
 /**
  * Optional configuration of AO parameters.

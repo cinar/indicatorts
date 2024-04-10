@@ -8,7 +8,7 @@ import {
   divideBy,
   subtract,
 } from '../../helper/numArray';
-import { sma } from '../trend/sma';
+import { sma } from '../trend/simpleMovingAverage';
 
 /**
  * Optional configuration of EMV parameters.

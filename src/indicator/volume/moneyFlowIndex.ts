@@ -10,7 +10,7 @@ import {
   multiplyBy,
   pow,
 } from '../../helper/numArray';
-import { msum } from '../trend/msum';
+import { msum } from '../trend/movingSum';
 import { typprice } from '../trend/typicalPrice';
 
 /**

@@ -2,8 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { divide, subtract } from '../../helper/numArray';
-import { ema } from './ema';
-import { msum } from './msum';
+import { ema } from './exponentialMovingAverage';
+import { msum } from './movingSum';
 
 /**
  * Optional configuration of MI parameters.

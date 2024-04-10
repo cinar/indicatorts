@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { roundDigitsAll } from '../../helper/numArray';
-import { trix } from './trix';
+import { trix } from './tripleExponentialAverage';
 
 describe('Triple Exponential Average (TRIX)', () => {
   const values = [2, 4, 6, 8, 12, 14, 16, 18, 20];

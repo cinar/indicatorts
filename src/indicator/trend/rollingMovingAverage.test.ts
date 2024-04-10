@@ -3,7 +3,7 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { rma } from './rma';
+import { rma } from './rollingMovingAverage';
 
 describe('Rolling Moving Average (RMA)', () => {
   const values = [2, 4, 6, 8, 10, 12];

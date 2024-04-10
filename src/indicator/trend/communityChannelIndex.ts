@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { abs, divide, multiplyBy, subtract } from '../../helper/numArray';
-import { sma } from './sma';
+import { sma } from './simpleMovingAverage';
 import { typprice } from './typicalPrice';
 
 /**

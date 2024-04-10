@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { roundDigitsAll } from '../../helper/numArray';
-import { atr } from './atr';
+import { atr } from './averageTrueRange';
 
 describe('Average True Range (ATR)', () => {
   const highs = [10, 9, 12, 14, 12];

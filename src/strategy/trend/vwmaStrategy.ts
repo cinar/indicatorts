@@ -3,12 +3,12 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { sma } from '../../indicator/trend/sma';
+import { sma } from '../../indicator/trend/simpleMovingAverage';
 import {
   VWMAConfig,
   VWMADefaultConfig,
   vwma,
-} from '../../indicator/trend/vwma';
+} from '../../indicator/trend/volumeWeightedMovingAverage';
 
 /**
  * The vwmaStrategy function uses SMA and VWMA indicators to provide

@@ -2,22 +2,22 @@
 // https://github.com/cinar/indicatorts
 
 import { deepStrictEqual } from 'assert';
-import { mmin } from './mmin';
+import { msum } from './movingSum';
 
-describe('Moving Min (MMIN)', () => {
+describe('Moving Sum (MSUM)', () => {
   const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   it('should be able to compute with a config', () => {
-    const expected = [1, 1, 1, 1, 1, 1, 1, 1, 2, 3];
+    const expected = [1, 3, 6, 10, 15, 21, 28, 35, 42, 49];
 
-    const actual = mmin(values, { period: 8 });
+    const actual = msum(values, { period: 7 });
     deepStrictEqual(actual, expected);
   });
 
   it('should be able to compute without a config', () => {
-    const expected = [1, 1, 1, 1, 2, 3, 4, 5, 6, 7];
+    const expected = [1, 3, 6, 10, 14, 18, 22, 26, 30, 34];
 
-    const actual = mmin(values);
+    const actual = msum(values);
     deepStrictEqual(actual, expected);
   });
 });

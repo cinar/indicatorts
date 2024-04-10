@@ -10,7 +10,7 @@ import {
   multiplyBy,
   subtract,
 } from '../../helper/numArray';
-import { sma } from '../trend/sma';
+import { sma } from '../trend/simpleMovingAverage';
 
 /**
  * Acceleration bands result object.

@@ -8,8 +8,8 @@ import {
   sqrt,
   subtract,
 } from '../../helper/numArray';
-import { mmax } from '../trend/mmax';
-import { sma } from '../trend/sma';
+import { mmax } from '../trend/movingMax';
+import { sma } from '../trend/simpleMovingAverage';
 
 /**
  * Optional configuration of UI parameters.

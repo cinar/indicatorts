@@ -3,7 +3,7 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { macd } from './macd';
+import { macd } from './movingAverageConvergenceDivergence';
 
 describe('Moving Average Convergence Divergence (MACD)', () => {
   const closings = [10, 20, 10, 50, 80, 100, 40, 60, 50, 20];

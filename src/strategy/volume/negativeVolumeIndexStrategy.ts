@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { ema } from '../../indicator/trend/ema';
+import { ema } from '../../indicator/trend/exponentialMovingAverage';
 import {
   NVIConfig,
   NVIDefaultConfig,

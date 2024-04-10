@@ -10,9 +10,9 @@ import {
   subtract,
 } from '../../helper/numArray';
 import { movingLeastSquare } from '../../helper/regression';
-import { ema } from '../trend/ema';
-import { mmax } from '../trend/mmax';
-import { mmin } from '../trend/mmin';
+import { ema } from '../trend/exponentialMovingAverage';
+import { mmax } from '../trend/movingMax';
+import { mmin } from '../trend/movingMin';
 
 /**
  * Projection oscillator result object.

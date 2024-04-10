@@ -3,22 +3,23 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { dema } from './dema';
+import { vwma } from './volumeWeightedMovingAverage';
 
-describe('Double Exponential Moving Average (DEMA)', () => {
-  const values = [1, 2, 1, 5, 8, 10, 4, 6, 5, 2];
+describe('Volume Weighted Moving Average (VWMA)', () => {
+  const closings = [20, 21, 21, 19, 16];
+  const volumes = [100, 50, 40, 50, 100];
 
   it('should be able to compute with a config', () => {
-    const expected = [1, 1.13, 1.12, 1.64, 2.51, 3.55, 3.69, 4.07, 4.28, 4.07];
+    const expected = [20, 20.33, 20.47, 20.29, 17.84];
 
-    const actual = dema(values, { period: 28 });
+    const actual = vwma(closings, volumes, { period: 3 });
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
 
   it('should be able to compute without a config', () => {
-    const expected = [1, 1.28, 1.22, 2.31, 4, 5.87, 5.61, 5.95, 5.91, 5.01];
+    const expected = [20, 20.33, 20.47, 20.17, 18.94];
 
-    const actual = dema(values);
+    const actual = vwma(closings, volumes);
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
 });

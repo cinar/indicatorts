@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { divide, multiply, subtract } from '../../helper/numArray';
-import { msum } from '../trend/msum';
+import { msum } from '../trend/movingSum';
 
 /**
  * Optional configuration of CMF parameters.

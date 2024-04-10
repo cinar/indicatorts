@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { divide, shiftRightAndFillBy, subtract } from '../../helper/numArray';
-import { ema } from './ema';
+import { ema } from './exponentialMovingAverage';
 
 /**
  * Optional configuration of TRIX parameters.

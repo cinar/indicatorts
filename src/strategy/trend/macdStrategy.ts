@@ -7,7 +7,7 @@ import {
   MACDConfig,
   MACDDefaultConfig,
   macd,
-} from '../../indicator/trend/macd';
+} from '../../indicator/trend/movingAverageConvergenceDivergence';
 
 /**
  * MACD strategy.

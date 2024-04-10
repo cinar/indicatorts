@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { rma } from '../trend/rma';
+import { rma } from '../trend/rollingMovingAverage';
 
 /**
  * Optional configuration of RSI parameters.
@@ -18,7 +18,7 @@ export const RSIDefaultConfig: Required<RSIConfig> = {
 };
 
 /**
- * RSI. It is a momentum indicator that measures the magnitude of
+ * Relative Strength Index (RSI). It is a momentum indicator that measures the magnitude of
  * recent price changes to evaluate overbought and oversold conditions
  * using the given window period.
  *
