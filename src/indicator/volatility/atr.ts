@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { tr } from './tr';
+import { tr } from './trueRange';
 import { sma } from '../../indicator/trend/sma';
 
 /**

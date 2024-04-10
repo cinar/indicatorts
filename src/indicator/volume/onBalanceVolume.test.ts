@@ -5,8 +5,6 @@ import { roundDigitsAll } from '../../index';
 import { obv } from './onBalanceVolume';
 
 describe('On Balance Volume (OBV)', () => {
-  // TODO: Test - with a config
-
   it('should be able to compute without a config', () => {
     const closings = [9, 11, 7, 10, 8];
     const volumes = [100, 110, 80, 120, 90];

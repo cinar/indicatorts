@@ -63,7 +63,7 @@ export function ab(
   const upperBand = sma(multiply(highs, addBy(1, multiplyBy(4, k))), {
     period,
   });
-  const middleBand = sma(closings, { period: 20 });
+  const middleBand = sma(closings, { period });
   const lowerBand = sma(multiply(lows, addBy(1, multiplyBy(-4, k))), {
     period,
   });

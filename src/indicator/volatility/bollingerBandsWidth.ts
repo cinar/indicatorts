@@ -10,7 +10,7 @@ import { BBResult } from './bollingerBands';
  */
 export interface BBWResult {
   bandWidth: number[];
-  bandWidthEma90: number[];
+  bandWidthEma: number[];
 }
 
 /**
@@ -45,11 +45,11 @@ export function bbw(bb: BBResult, config: BBWConfig = {}): BBWResult {
   const { period } = { ...BBWDefaultConfig, ...config };
   const bandWidth = divide(subtract(bb.upperBand, bb.lowerBand), bb.middleBand);
 
-  const bandWidthEma90 = ema(bandWidth, { period });
+  const bandWidthEma = ema(bandWidth, { period });
 
   return {
     bandWidth,
-    bandWidthEma90,
+    bandWidthEma,
   };
 }
 

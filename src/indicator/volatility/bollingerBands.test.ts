@@ -6,14 +6,37 @@ import { roundDigitsAll } from '../../helper/numArray';
 import { bb } from './bollingerBands';
 
 describe('Bollinger Bands (BB)', () => {
-  // TODO: Test - with a config
+  const closings = [
+    2, 4, 6, 8, 12, 14, 16, 18, 20, 2, 4, 6, 8, 12, 14, 16, 18, 20, 2, 4, 6, 8,
+    12, 14, 16, 18, 20, 2, 4, 6, 8, 12, 14, 16, 18, 20,
+  ];
 
-  it('should be able to compute the without a config', () => {
-    const closings = [
-      2, 4, 6, 8, 12, 14, 16, 18, 20, 2, 4, 6, 8, 12, 14, 16, 18, 20, 2, 4, 6,
-      8, 12, 14, 16, 18, 20, 2, 4, 6, 8, 12, 14, 16, 18, 20,
+  it('should be able to compute with a config', () => {
+    const expectedUpperBand = [
+      2, 3, 4, 5, 6.4, 7.67, 8.86, 10, 11.11, 10.2, 9.64, 9.33, 9.23, 20.89,
+      21.17, 21.8, 22.8, 24.14, 24.74, 24.65, 23.95, 22.65, 20.89, 21.17, 21.8,
+      22.8, 24.14, 24.74, 24.65, 23.95, 22.65, 20.89, 21.17, 21.8, 22.8, 24.14,
     ];
 
+    const expectedMiddleBand = [
+      2, 3, 4, 5, 6.4, 7.67, 8.86, 10, 11.11, 10.2, 9.64, 9.33, 9.23, 9.43,
+      10.29, 11.14, 12, 12.86, 12.14, 11.43, 10.71, 10, 9.43, 10.29, 11.14, 12,
+      12.86, 12.14, 11.43, 10.71, 10, 9.43, 10.29, 11.14, 12, 12.86,
+    ];
+
+    const expectedLowerBand = [
+      2, 3, 4, 5, 6.4, 7.67, 8.86, 10, 11.11, 10.2, 9.64, 9.33, 9.23, -2.03,
+      -0.6, 0.48, 1.2, 1.57, -0.46, -1.79, -2.52, -2.65, -2.03, -0.6, 0.48, 1.2,
+      1.57, -0.46, -1.79, -2.52, -2.65, -2.03, -0.6, 0.48, 1.2, 1.57,
+    ];
+
+    const actual = bb(closings, { period: 14 });
+    deepStrictEqual(roundDigitsAll(2, actual.upperBand), expectedUpperBand);
+    deepStrictEqual(roundDigitsAll(2, actual.middleBand), expectedMiddleBand);
+    deepStrictEqual(roundDigitsAll(2, actual.lowerBand), expectedLowerBand);
+  });
+
+  it('should be able to compute without a config', () => {
     const expectedUpperBand = [
       2, 3, 4, 5, 6.4, 7.67, 8.86, 10, 11.11, 10.2, 9.64, 9.33, 9.23, 9.43,
       9.73, 10.13, 10.59, 11.11, 10.63, 22.78, 22.56, 22.45, 22.56, 22.84,
