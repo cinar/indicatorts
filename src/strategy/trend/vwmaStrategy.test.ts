@@ -28,5 +28,24 @@ describe('Volume Weighted Moving Average (VWMA) stategy', () => {
     deepStrictEqual(actual, expected);
   });
 
-  // TODO: Test - without a config
+  it('should be able to compute without a config', () => {
+    const asset: Asset = {
+      dates: [],
+      openings: [],
+      highs: [],
+      lows: [],
+      closings: [20, 21, 21, 19, 16],
+      volumes: [100, 50, 40, 50, 100],
+    };
+    const expected = [
+      Action.HOLD,
+      Action.SELL,
+      Action.SELL,
+      Action.SELL,
+      Action.SELL,
+    ];
+
+    const actual = vwmaStrategy(asset);
+    deepStrictEqual(actual, expected);
+  });
 });

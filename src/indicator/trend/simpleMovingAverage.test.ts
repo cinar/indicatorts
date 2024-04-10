@@ -22,6 +22,4 @@ describe('Simple Moving Average (SMA)', () => {
 
     deepStrictEqual(actual, expected);
   });
-
-  // TODO: Test - without a config
 });
