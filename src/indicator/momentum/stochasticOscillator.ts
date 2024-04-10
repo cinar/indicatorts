@@ -40,7 +40,7 @@ export function stochasticOscillator(
     divide(subtract(closings, lowestLow), subtract(highestHigh, lowestLow))
   );
 
-  const d = sma(3, k);
+  const d = sma(k, { period: 3 });
 
   return {
     k,

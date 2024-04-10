@@ -45,8 +45,8 @@ export function moneyFlowIndex(
   const negativeMoneyFlow = moneyFlow.map((value) => (value < 0 ? value : 0));
 
   const moneyRatio = divide(
-    msum(period, positiveMoneyFlow),
-    msum(period, multiplyBy(-1, negativeMoneyFlow))
+    msum(positiveMoneyFlow, { period }),
+    msum(multiplyBy(-1, negativeMoneyFlow), { period })
   );
 
   const moneyFlowIndex = addBy(

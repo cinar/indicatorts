@@ -5,6 +5,20 @@ import { divide, shiftRightAndFillBy, subtract } from '../../helper/numArray';
 import { ema } from './ema';
 
 /**
+ * Optional configuration of Trix parameters.
+ */
+export interface TrixConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of Trix.
+ */
+export const TrixDefaultConfig: Required<TrixConfig> = {
+  period: 4,
+};
+
+/**
  * Triple Exponential Average (TRIX) indicator is an oscillator used to
  * identify oversold and overbought markets, and it can also be used
  * as a momentum indicator. Like many oscillators, TRIX oscillates
@@ -15,11 +29,12 @@ import { ema } from './ema';
  * EMA3 = EMA(period, EMA2)
  * TRIX = (EMA3 - Previous EMA3) / Previous EMA3
  *
- * @param period window period.
  * @param values values array.
+ * @param config configuration.
  * @returns trix values.
  */
-export function trix(period: number, values: number[]): number[] {
+export function trix(values: number[], config: TrixConfig = {}): number[] {
+  const { period } = { ...TrixDefaultConfig, ...config };
   const ema1 = ema(values, { period });
   const ema2 = ema(ema1, { period });
   const ema3 = ema(ema2, { period });

@@ -2,12 +2,27 @@
 // https://github.com/cinar/indicatorts
 
 /**
+ * Optional configuration of Sma parameters.
+ */
+export interface SmaConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of Sma.
+ */
+export const SmaDefaultConfig: Required<SmaConfig> = {
+  period: 2,
+};
+
+/**
  * Simple moving average (SMA).
- * @param period window period.
  * @param values values array.
+ * @param config configuration.
  * @return SMA values.
  */
-export function sma(period: number, values: number[]): number[] {
+export function sma(values: number[], config: SmaConfig = {}): number[] {
+  const { period } = { ...SmaDefaultConfig, ...config };
   const result = new Array<number>(values.length);
   let sum = 0;
 

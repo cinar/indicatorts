@@ -28,5 +28,5 @@ export function volumePriceTrend(
     volumes,
     divide(subtract(closings, previousClosings), previousClosings)
   );
-  return msum(vpt.length, vpt);
+  return msum(vpt, { period: vpt.length });
 }

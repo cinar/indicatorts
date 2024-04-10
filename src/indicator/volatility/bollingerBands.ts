@@ -28,7 +28,7 @@ export interface BollingerBands {
  */
 export function bollingerBands(closings: number[]): BollingerBands {
   const std2 = multiplyBy(2, mstd(BB_PERIOD, closings));
-  const middleBand = sma(BB_PERIOD, closings);
+  const middleBand = sma(closings, { period: BB_PERIOD });
   const upperBand = add(middleBand, std2);
   const lowerBand = subtract(middleBand, std2);
 

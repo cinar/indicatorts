@@ -10,7 +10,7 @@ describe('Simple Moving Average (SMA)', () => {
     const expected = [2, 3, 5, 7, 9];
     const period = 2;
 
-    const actual = sma(period, values);
+    const actual = sma(values, { period });
 
     deepStrictEqual(actual, expected);
   });

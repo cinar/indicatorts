@@ -3,7 +3,7 @@
 
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
-import { defaultVwma, vwma } from './vwma';
+import { vwma } from './vwma';
 
 describe('Volume Weighted Moving Average', () => {
   it('should be able to compute VWMA', () => {
@@ -12,7 +12,7 @@ describe('Volume Weighted Moving Average', () => {
     const expected = [20, 20.33, 20.47, 20.29, 17.84];
     const period = 3;
 
-    const actual = vwma(period, closings, volumes);
+    const actual = vwma(closings, volumes, { period });
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
 
@@ -21,7 +21,7 @@ describe('Volume Weighted Moving Average', () => {
     const volumes = [100, 50, 40, 50, 100];
     const expected = [20, 20.33, 20.47, 20.17, 18.94];
 
-    const actual = defaultVwma(closings, volumes);
+    const actual = vwma(closings, volumes);
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
 });

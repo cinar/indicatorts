@@ -43,9 +43,13 @@ export function accelerationBands(
 
   const k = divide(subtract(highs, lows), add(highs, lows));
 
-  const upperBand = sma(20, multiply(highs, addBy(1, multiplyBy(4, k))));
-  const middleBand = sma(20, closings);
-  const lowerBand = sma(20, multiply(lows, addBy(1, multiplyBy(-4, k))));
+  const upperBand = sma(multiply(highs, addBy(1, multiplyBy(4, k))), {
+    period: 20,
+  });
+  const middleBand = sma(closings, { period: 20 });
+  const lowerBand = sma(multiply(lows, addBy(1, multiplyBy(-4, k))), {
+    period: 20,
+  });
 
   return {
     upperBand,

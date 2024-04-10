@@ -5,6 +5,20 @@ import { add, multiplyBy, subtract } from '../../helper/numArray';
 import { ema } from './ema';
 
 /**
+ * Optional configuration of Tema parameters.
+ */
+export interface TemaConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of Tema.
+ */
+export const TemaDefaultConfig: Required<TemaConfig> = {
+  period: 2,
+};
+
+/**
  * Tema calculates the Triple Exponential Moving Average (TEMA).
  *
  * TEMA = (3 * EMA1) - (3 * EMA2) + EMA3
@@ -16,7 +30,8 @@ import { ema } from './ema';
  * @param values values array.
  * @return tema values.
  */
-export function tema(period: number, values: number[]): number[] {
+export function tema(values: number[], config: TemaConfig = {}): number[] {
+  const { period } = { ...TemaDefaultConfig, ...config };
   const ema1 = ema(values, { period });
   const ema2 = ema(ema1, { period });
   const ema3 = ema(ema2, { period });

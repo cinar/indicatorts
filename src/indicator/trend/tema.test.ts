@@ -13,7 +13,7 @@ describe('Triple Exponential Moving Average', () => {
     ];
     const period = 2;
 
-    const actual = tema(period, values);
+    const actual = tema(values, { period });
     deepStrictEqual(roundDigitsAll(3, actual), expected);
   });
 });

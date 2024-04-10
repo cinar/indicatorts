@@ -10,7 +10,7 @@ describe('Moving Sum', () => {
     const expected = [1, 3, 6, 10, 14, 18, 22, 26, 30, 34];
     const period = 4;
 
-    const actual = msum(period, values);
+    const actual = msum(values, { period });
     deepStrictEqual(actual, expected);
   });
 });

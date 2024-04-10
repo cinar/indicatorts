@@ -11,7 +11,7 @@ describe('Rolling Moving Average (RMA)', () => {
     const expected = [2, 3, 4, 5, 6.25, 7.69];
     const period = 4;
 
-    const actual = rma(period, values);
+    const actual = rma(values, { period });
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
 });

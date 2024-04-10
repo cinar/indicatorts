@@ -4,7 +4,7 @@
 import { deepStrictEqual } from 'assert';
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { wvmaStrategy } from './vwmaStrategy';
+import { vwmaStrategy } from './vwmaStrategy';
 
 describe('VWMA stategy', () => {
   it('should be able to compute strategy', () => {
@@ -25,7 +25,7 @@ describe('VWMA stategy', () => {
     ];
     const period = 3;
 
-    const actual = wvmaStrategy(period, asset);
+    const actual = vwmaStrategy(asset, { period });
     deepStrictEqual(actual, expected);
   });
 });

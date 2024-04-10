@@ -37,8 +37,8 @@ export function chaikinMoneyFlow(
   const moneyFlowVolume = multiply(moneyFlowMultipler, volumes);
 
   const cmf = divide(
-    msum(CMF_DEFAULT_PERIOD, moneyFlowVolume),
-    msum(CMF_DEFAULT_PERIOD, volumes)
+    msum(moneyFlowVolume, { period: CMF_DEFAULT_PERIOD }),
+    msum(volumes, { period: CMF_DEFAULT_PERIOD })
   );
 
   return cmf;

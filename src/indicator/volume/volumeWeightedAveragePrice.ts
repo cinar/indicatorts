@@ -26,8 +26,8 @@ export function volumeWeightedAveragePrice(
   volumes: number[]
 ): number[] {
   return divide(
-    msum(period, multiply(closings, volumes)),
-    msum(period, volumes)
+    msum(multiply(closings, volumes), { period }),
+    msum(volumes, { period })
   );
 }
 

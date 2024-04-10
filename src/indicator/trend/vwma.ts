@@ -4,8 +4,19 @@
 import { divide, multiply } from '../../helper/numArray';
 import { msum } from './msum';
 
-/** Default VWMA period value. */
-export const DEFAULT_VWMA_PERIOD = 20;
+/**
+ * Optional configuration of VWMA parameters.
+ */
+export interface VWMAConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of VWMA.
+ */
+export const VWMADefaultConfig: Required<VWMAConfig> = {
+  period: 20,
+};
 
 /**
  * The vwma function calculates the Volume Weighted Moving Average (VWMA)
@@ -14,29 +25,19 @@ export const DEFAULT_VWMA_PERIOD = 20;
  *
  * VWMA = Sum(Price * Volume) / Sum(Volume) for a given Period.
  *
- * @param period period value.
  * @param closings asset closings.
  * @param volumes asset volumes.
+ * @param config configuration.
  * @returns vwma values.
  */
 export function vwma(
-  period: number,
   closings: number[],
-  volumes: number[]
+  volumes: number[],
+  config: VWMAConfig = {}
 ): number[] {
+  const { period } = { ...VWMADefaultConfig, ...config };
   return divide(
-    msum(period, multiply(closings, volumes)),
-    msum(period, volumes)
+    msum(multiply(closings, volumes), { period }),
+    msum(volumes, { period })
   );
-}
-
-/**
- * The defaultVwma function calculates VWMA with a period of 20.
- *
- * @param closings asset closings.
- * @param volumes asset volumes.
- * @returns vwma values.
- */
-export function defaultVwma(closings: number[], volumes: number[]): number[] {
-  return vwma(DEFAULT_VWMA_PERIOD, closings, volumes);
 }

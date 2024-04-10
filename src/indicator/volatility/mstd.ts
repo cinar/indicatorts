@@ -12,7 +12,7 @@ import { sma } from '../trend/sma';
  */
 export function mstd(period: number, values: number[]): number[] {
   const result = new Array<number>(values.length);
-  const averages = sma(period, values);
+  const averages = sma(values, { period });
 
   for (let i = 0; i < values.length; i++) {
     result[i] = 0;

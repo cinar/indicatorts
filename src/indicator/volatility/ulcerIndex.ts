@@ -36,10 +36,9 @@ export function ulcerIndex(period: number, closings: number[]): number[] {
     100,
     divide(subtract(closings, highClosings), highClosings)
   );
-  const squaredAverage = sma(
+  const squaredAverage = sma(multiply(percentageDrawdown, percentageDrawdown), {
     period,
-    multiply(percentageDrawdown, percentageDrawdown)
-  );
+  });
   const ui = sqrt(squaredAverage);
 
   return ui;

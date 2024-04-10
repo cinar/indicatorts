@@ -10,7 +10,7 @@ describe('Triple Exponential Average (TRIX)', () => {
     const period = 4;
     const expected = [0, 0.06, 0.17, 0.26, 0.33, 0.33, 0.3, 0.25, 0.21];
 
-    const actual = trix(period, values);
+    const actual = trix(values, { period });
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 });

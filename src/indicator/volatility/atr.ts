@@ -33,7 +33,7 @@ export function atr(
   closings: number[]
 ): AtrResult {
   const trLine = tr(period, highs, lows, closings);
-  const atrLine = sma(period, trLine);
+  const atrLine = sma(trLine, { period });
 
   return {
     trLine,

@@ -2,16 +2,31 @@
 // https://github.com/cinar/indicatorts
 
 /**
+ * Optional configuration of Rma parameters.
+ */
+export interface RmaConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of Rma.
+ */
+export const RmaDefaultConfig: Required<RmaConfig> = {
+  period: 4,
+};
+
+/**
  * Rolling moving average (RMA).
  *
  * R[0] to R[p-1] is SMA(values)
  * R[p] and after is R[i] = ((R[i-1]*(p-1)) + v[i]) / p
  *
- * @param period window period.
  * @param values values array.
+ * @param config configuration.
  * @returns RMA values.
  */
-export function rma(period: number, values: number[]): number[] {
+export function rma(values: number[], config: RmaConfig = {}): number[] {
+  const { period } = { ...RmaDefaultConfig, ...config };
   const result = new Array<number>(values.length);
   let sum = 0;
 

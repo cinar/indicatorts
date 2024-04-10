@@ -4,6 +4,20 @@
 import { sma } from './sma';
 
 /**
+ * Optional configuration of Trima parameters.
+ */
+export interface TrimaConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of Trima.
+ */
+export const TrimaDefaultConfig: Required<TrimaConfig> = {
+  period: 4,
+};
+
+/**
  * Trima function calculates the Triangular Moving Average (TRIMA).
  *
  * If period is even:
@@ -11,11 +25,12 @@ import { sma } from './sma';
  * If period is odd:
  *   TRIMA = SMA((period + 1) / 2, SMA((period + 1) / 2, values))
  *
- * @param period window period.
  * @param values values array.
+ * @param config configuration.
  * @return trima values.
  */
-export function trima(period: number, values: number[]): number[] {
+export function trima(values: number[], config: TrimaConfig = {}): number[] {
+  const { period } = { ...TrimaDefaultConfig, ...config };
   let n1 = 0;
   let n2 = 0;
 
@@ -27,7 +42,7 @@ export function trima(period: number, values: number[]): number[] {
     n2 = n1;
   }
 
-  const trimaLine = sma(n1, sma(n2, values));
+  const trimaLine = sma(sma(values, { period: n2 }), { period: n1 });
 
   return trimaLine;
 }

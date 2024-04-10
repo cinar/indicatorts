@@ -39,8 +39,8 @@ export function awesomeOscillator(
 ): number[] {
   const { fast, slow } = { ...AwesomeOscillatorDefaultConfig, ...config };
   const medianPrice = divideBy(2, add(lows, highs));
-  const smaFast = sma(fast, medianPrice);
-  const smaSlow = sma(slow, medianPrice);
+  const smaFast = sma(medianPrice, { period: fast });
+  const smaSlow = sma(medianPrice, { period: slow });
   const ao = subtract(smaFast, smaSlow);
   return ao;
 }

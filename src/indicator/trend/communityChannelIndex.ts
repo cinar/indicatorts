@@ -43,8 +43,8 @@ export function communityChannelIndex(
 ): number[] {
   const { period } = { ...CommunityChannelIndexDefaultConfig, ...config };
   const tp = typicalPrice(highs, lows, closings);
-  const ma = sma(period, tp);
-  const md = sma(period, abs(subtract(tp, ma)));
+  const ma = sma(tp, { period });
+  const md = sma(abs(subtract(tp, ma)), { period });
   const cci = divide(subtract(tp, ma), multiplyBy(0.015, md));
   return cci;
 }

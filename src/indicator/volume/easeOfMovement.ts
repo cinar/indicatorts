@@ -38,7 +38,7 @@ export function easeOfMovement(
 ): number[] {
   const distanceMoved = changes(1, divideBy(2, add(highs, lows)));
   const boxRatio = divide(divideBy(100000000, volumes), subtract(highs, lows));
-  const emv = sma(period, divide(distanceMoved, boxRatio));
+  const emv = sma(divide(distanceMoved, boxRatio), { period });
   return emv;
 }
 
