@@ -58,15 +58,15 @@ export function stochasticOscillator(
   const highestHigh = mmax(highs, { period: kPeriod });
   const lowestLow = mmin(lows, { period: kPeriod });
 
-  const k = multiplyBy(
+  const kValue = multiplyBy(
     100,
     divide(subtract(closings, lowestLow), subtract(highestHigh, lowestLow))
   );
 
-  const d = sma(k, { period: dPeriod });
+  const dValue = sma(kValue, { period: dPeriod });
 
   return {
-    k,
-    d,
+    k: kValue,
+    d: dValue,
   };
 }

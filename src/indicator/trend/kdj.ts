@@ -70,13 +70,13 @@ export function kdj(
     divide(subtract(closings, lowest), subtract(highest, lowest))
   );
 
-  const k = sma(rsv, { period: kPeriod });
-  const d = sma(k, { period: dPeriod });
-  const j = subtract(multiplyBy(3, k), multiplyBy(2, d));
+  const kValue = sma(rsv, { period: kPeriod });
+  const dValue = sma(kValue, { period: dPeriod });
+  const jValue = subtract(multiplyBy(3, kValue), multiplyBy(2, dValue));
 
   return {
-    k,
-    d,
-    j,
+    k: kValue,
+    d: dValue,
+    j: jValue,
   };
 }
