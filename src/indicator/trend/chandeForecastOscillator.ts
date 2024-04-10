@@ -13,6 +13,21 @@ import {
 } from '../../helper/regression';
 
 /**
+ * Optional configuration of ChangeForecastOscillator parameters.
+ */
+export interface ChangeForecastOscillatorConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of ChangeForecastOscillator.
+ */
+export const ChangeForecastOscillatorDefaultConfig: Required<ChangeForecastOscillatorConfig> =
+  {
+    period: 4,
+  };
+
+/**
  * The Chande Forecast Oscillator developed by Tushar Chande The Forecast
  * Oscillator plots the percentage difference between the closing price and
  * the n-period linear regression forecasted price. The oscillator is above
@@ -45,14 +60,15 @@ export function chandeForecastOscillator(closings: number[]): number[] {
  * R = Linreg(Closing)
  * CFO = ((Closing - R) / Closing) * 100
  *
- * @param period window period.
  * @param closings closing values.
+ * @param config configuration.
  * @return moving cfo.
  */
 export function movingChandeForecastOscillator(
-  period: number,
-  closings: number[]
+  closings: number[],
+  config: ChangeForecastOscillatorConfig = {}
 ): number[] {
+  const { period } = { ...ChangeForecastOscillatorDefaultConfig, ...config };
   const x = generateNumbers(0, closings.length, 1);
   const r = movingLinearRegressionUsingLeastSquare(period, x, closings);
   const cfo = multiplyBy(100, divide(subtract(closings, r), closings));

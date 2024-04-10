@@ -45,7 +45,7 @@ const result = absolutePriceOscillator(values, { fast: 14, slow: 30 });
 
 #### Aroon Indicator
 
-The [Aroon](./aroon.ts) function calculates a technical indicator that is used to identify trend changes in the price of a stock, as well as the strength of that trend. It consists of two lines, Aroon Up, and Aroon Down. The Aroon Up line measures measures the strength of the uptrend, and the Aroon Down measures the strength of the downtrend. When Aroon Up is above Aroon Down, it indicates bullish price, and when Aroon Down is above Aroon Up, it indicates bearish price. Passing a configuration object with the period is also possible, but is optional. The default period is `25` .
+The [Aroon](./aroon.ts) function calculates a technical indicator that is used to identify trend changes in the price of a stock, as well as the strength of that trend. It consists of two lines, Aroon Up, and Aroon Down. The Aroon Up line measures measures the strength of the uptrend, and the Aroon Down measures the strength of the downtrend. When Aroon Up is above Aroon Down, it indicates bullish price, and when Aroon Down is above Aroon Up, it indicates bearish price. Passing a configuration object with the period is also possible, but is optional. The default period is `25`.
 
 ```
 Aroon Up = ((25 - Period Since Last 25 Period High) / 25) * 100
@@ -88,6 +88,14 @@ Based on [Chande Forecast Oscillator Formula, Strategy](https://www.stockmaniacs
 import {chandeForecastOscillator} from 'indicatorts';
 
 const cfo = chandeForecastOscillator(closings);
+```
+
+There is also an oscillator for calculating the moving chande forecast oscillator. Passing a configuration object with the period is also possible, but is optional. The default period is `4`.
+
+```TypeScript
+import {movingChandeForecastOscillator} from 'indicatorts';
+
+const cfo = movingChandeForecastOscillator(closings, { period: 4 });
 ```
 
 #### Community Channel Index (CMI)
