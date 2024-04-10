@@ -1,6 +1,6 @@
 {
   "name": "indicatorts",
-  "version": "1.0.18",
+  "version": "2.0.0",
   "description": "Stock technical indicators and strategies in TypeScript for browser and server programs.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -15,7 +15,8 @@
     "build-types": "tsc --emitDeclarationOnly --declaration --outDir dist/types",
     "lint": "eslint --ignore-path .gitignore .",
     "fix": "prettier --ignore-path .gitignore --write . ; eslint --fix --ext .ts src",
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
