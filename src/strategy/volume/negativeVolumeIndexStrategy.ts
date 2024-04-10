@@ -21,7 +21,7 @@ import { Asset } from '../asset';
 export function negativeVolumeIndexStrategy(asset: Asset): Action[] {
   const nvi = negativeVolumeIndex(asset.closings, asset.volumes);
 
-  const nvi255 = ema(NVI_DEFAULT_PERIOD, nvi);
+  const nvi255 = ema(nvi, { period: NVI_DEFAULT_PERIOD });
 
   const actions = new Array<Action>(nvi.length);
 

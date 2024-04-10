@@ -43,8 +43,8 @@ export function absolutePriceOscillator(
     ...AbsolutePriceOscillatorDefaultConfig,
     ...config,
   };
-  const fast = ema(fastPeriod, values);
-  const slow = ema(slowPeriod, values);
+  const fast = ema(values, { period: fastPeriod });
+  const slow = ema(values, { period: slowPeriod });
   const apo = subtract(fast, slow);
   return apo;
 }

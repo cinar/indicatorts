@@ -117,7 +117,7 @@ const result = communityChannelIndex(highs, lows, closings, { period: 20 });
 
 The [dema](./dema.ts) function calculates the Double Exponential Moving Average (DEMA) for a given period.
 
-The double exponential moving average (DEMA) is a technical indicator introduced by Patrick Mulloy. The purpose is to reduce the amount of noise present in price charts used by technical traders. The DEMA uses two exponential moving averages (EMAs) to eliminate lag. It helps confirm uptrends when the price is above the average, and helps confirm downtrends when the price is below the average. When the price crosses the average that may signal a trend change.
+The double exponential moving average (DEMA) is a technical indicator introduced by Patrick Mulloy. The purpose is to reduce the amount of noise present in price charts used by technical traders. The DEMA uses two exponential moving averages (EMAs) to eliminate lag. It helps confirm uptrends when the price is above the average, and helps confirm downtrends when the price is below the average. When the price crosses the average that may signal a trend change. Passing a configuration object with the period is also possible, but is optional. The default period is `12`.
 
 ```
 DEMA = (2 * EMA(values)) - EMA(EMA(values))
@@ -126,19 +126,19 @@ DEMA = (2 * EMA(values)) - EMA(EMA(values))
 ```TypeScript
 import {dema} from 'indicatorts';
 
-const result = dema(period, values);
+const result = dema(values, { period: 12 });
 ```
 
 Based on [Double Exponential Moving Average (DEMA)](https://www.investopedia.com/terms/d/double-exponential-moving-average.asp).
 
 #### Exponential Moving Average (EMA)
 
-The [ema](./ema.ts) function calculates the exponential moving average for a given period.
+The [ema](./ema.ts) function calculates the exponential moving average for a given period. Passing a configuration object with the period is also possible, but is optional. The default period is `12`.
 
 ```TypeScript
 import {ema} from 'indicatorts';
 
-const result = ema(period, values);
+const result = ema(values, { period: 12 });
 ```
 
 #### Mass Index (MI)

@@ -43,7 +43,7 @@ export function keltnerChannel(
   const atrResult = atr(period, highs, lows, closings);
   const atr2 = multiplyBy(2, atrResult.atrLine);
 
-  const middleLine = ema(period, closings);
+  const middleLine = ema(closings, { period });
   const upperBand = add(middleLine, atr2);
   const lowerBand = subtract(middleLine, atr2);
 

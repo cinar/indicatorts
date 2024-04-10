@@ -20,7 +20,7 @@ export function forceIndex(
   closings: number[],
   volumes: number[]
 ): number[] {
-  return ema(period, multiply(changes(1, closings), volumes));
+  return ema(multiply(changes(1, closings), volumes), { period });
 }
 
 /**

@@ -19,11 +19,11 @@ export interface MacdResult {
  * @return macd result.
  */
 export function macd(closings: number[]): MacdResult {
-  const ema12 = ema(12, closings);
-  const ema26 = ema(26, closings);
+  const ema12 = ema(closings, { period: 12 });
+  const ema26 = ema(closings, { period: 26 });
 
   const macdLine = subtract(ema12, ema26);
-  const signalLine = ema(9, macdLine);
+  const signalLine = ema(macdLine, { period: 9 });
 
   return {
     macdLine,

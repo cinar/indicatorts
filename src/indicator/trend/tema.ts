@@ -17,9 +17,9 @@ import { ema } from './ema';
  * @return tema values.
  */
 export function tema(period: number, values: number[]): number[] {
-  const ema1 = ema(period, values);
-  const ema2 = ema(period, ema1);
-  const ema3 = ema(period, ema2);
+  const ema1 = ema(values, { period });
+  const ema2 = ema(ema1, { period });
+  const ema3 = ema(ema2, { period });
 
   const temaLine = add(
     subtract(multiplyBy(3, ema1), multiplyBy(3, ema2)),

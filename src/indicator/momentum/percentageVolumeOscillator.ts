@@ -43,11 +43,11 @@ export function percentageVolumeOscillator(
   signalPeriod: number,
   volumes: number[]
 ): PercentageVolumeOscillator {
-  const fastEma = ema(fastPeriod, volumes);
-  const slowEma = ema(slowPeriod, volumes);
+  const fastEma = ema(volumes, { period: fastPeriod });
+  const slowEma = ema(volumes, { period: slowPeriod });
 
   const pvo = multiplyBy(100, divide(subtract(fastEma, slowEma), slowEma));
-  const signal = ema(signalPeriod, pvo);
+  const signal = ema(pvo, { period: signalPeriod });
   const histogram = subtract(pvo, signal);
 
   return {

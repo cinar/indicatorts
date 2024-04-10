@@ -55,7 +55,7 @@ export function chaikinOscillator(
 ): ChaikinOscillator {
   const { fast, slow } = { ...ChaikinOscillatorDefaultConfig, ...config };
   const ad = accumulationDistribution(highs, lows, closings, volumes);
-  const co = subtract(ema(fast, ad), ema(slow, ad));
+  const co = subtract(ema(ad, { period: fast }), ema(ad, { period: slow }));
 
   return { ad, co };
 }

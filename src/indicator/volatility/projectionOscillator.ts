@@ -59,7 +59,7 @@ export function projectionOscillator(
   const pl = mmin(vLows, { period });
 
   const po = divide(multiplyBy(100, subtract(closings, pl)), subtract(pu, pl));
-  const spo = ema(smooth, po);
+  const spo = ema(po, { period: smooth });
 
   return {
     po,

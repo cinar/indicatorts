@@ -2,12 +2,27 @@
 // https://github.com/cinar/indicatorts
 
 /**
+ * Optional configuration of Ema parameters.
+ */
+export interface EmaConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of Ema.
+ */
+export const EmaDefaultConfig: Required<EmaConfig> = {
+  period: 12,
+};
+
+/**
  * Exponential moving average (EMA).
- * @param period window period.
  * @param values values array.
+ * @param config configuration.
  * @return EMA values.
  */
-export function ema(period: number, values: number[]): number[] {
+export function ema(values: number[], config: EmaConfig = {}): number[] {
+  const { period } = { ...EmaDefaultConfig, ...config };
   const result = new Array<number>(values.length);
 
   if (result.length > 0) {

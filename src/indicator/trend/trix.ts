@@ -20,9 +20,9 @@ import { ema } from './ema';
  * @returns trix values.
  */
 export function trix(period: number, values: number[]): number[] {
-  const ema1 = ema(period, values);
-  const ema2 = ema(period, ema1);
-  const ema3 = ema(period, ema2);
+  const ema1 = ema(values, { period });
+  const ema2 = ema(ema1, { period });
+  const ema3 = ema(ema2, { period });
   const previous = shiftRightAndFillBy(1, ema3[0], ema3);
   const trix = divide(subtract(ema3, previous), previous);
   return trix;

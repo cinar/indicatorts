@@ -13,7 +13,7 @@ describe('Exponential Moving Average (EMA)', () => {
     ];
     const period = 2;
 
-    const actual = ema(period, values);
+    const actual = ema(values, { period });
 
     deepStrictEqual(roundDigitsAll(3, actual), expected);
   });

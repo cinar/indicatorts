@@ -43,11 +43,11 @@ export function percentagePriceOscillator(
   signalPeriod: number,
   prices: number[]
 ): PercentagePriceOscillator {
-  const fastEma = ema(fastPeriod, prices);
-  const slowEma = ema(slowPeriod, prices);
+  const fastEma = ema(prices, { period: fastPeriod });
+  const slowEma = ema(prices, { period: slowPeriod });
 
   const ppo = multiplyBy(100, divide(subtract(fastEma, slowEma), slowEma));
-  const signal = ema(signalPeriod, ppo);
+  const signal = ema(ppo, { period: signalPeriod });
   const histogram = subtract(ppo, signal);
 
   return {

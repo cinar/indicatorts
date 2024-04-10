@@ -19,8 +19,8 @@ import { msum } from './msum';
  * @returns mi values.
  */
 export function massIndex(highs: number[], lows: number[]): number[] {
-  const ema1 = ema(9, subtract(highs, lows));
-  const ema2 = ema(9, ema1);
+  const ema1 = ema(subtract(highs, lows), { period: 9 });
+  const ema2 = ema(ema1, { period: 9 });
   const ratio = divide(ema1, ema2);
   const mi = msum(25, ratio);
 
