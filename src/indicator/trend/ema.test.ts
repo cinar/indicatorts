@@ -6,8 +6,9 @@ import { roundDigitsAll } from '../../helper/numArray';
 import { ema } from './ema';
 
 describe('Exponential Moving Average (EMA)', () => {
+  const values = [2, 4, 6, 8, 12, 14, 16, 18, 20];
+
   it('should be able to compute with a config', () => {
-    const values = [2, 4, 6, 8, 12, 14, 16, 18, 20];
     const expected = [
       2, 3.333, 5.111, 7.037, 10.346, 12.782, 14.927, 16.976, 18.992,
     ];
@@ -17,5 +18,13 @@ describe('Exponential Moving Average (EMA)', () => {
     deepStrictEqual(roundDigitsAll(3, actual), expected);
   });
 
-  // TODO: Test - without a config
+  it('should be able to compute without a config', () => {
+    const expected = [
+      2, 2.308, 2.876, 3.664, 4.947, 6.339, 7.826, 9.391, 11.023,
+    ];
+
+    const actual = ema(values);
+
+    deepStrictEqual(roundDigitsAll(3, actual), expected);
+  });
 });

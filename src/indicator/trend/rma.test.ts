@@ -6,13 +6,19 @@ import { roundDigitsAll } from '../../helper/numArray';
 import { rma } from './rma';
 
 describe('Rolling Moving Average (RMA)', () => {
-  it('should be able to compute with a config', () => {
-    const values = [2, 4, 6, 8, 10, 12];
-    const expected = [2, 3, 4, 5, 6.25, 7.69];
+  const values = [2, 4, 6, 8, 10, 12];
 
-    const actual = rma(values, { period: 4 });
+  it('should be able to compute with a config', () => {
+    const expected = [2, 3, 4, 5, 6, 7];
+
+    const actual = rma(values, { period: 8 });
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
 
-  // TODO: Test - without a config
+  it('should be able to compute with a config', () => {
+    const expected = [2, 3, 4, 5, 6.25, 7.69];
+
+    const actual = rma(values);
+    deepStrictEqual(roundDigitsAll(2, actual), expected);
+  });
 });
