@@ -9,5 +9,5 @@ export * from './kdjStrategy';
 export * from './macdStrategy';
 export * from './parabolicSarStrategy';
 export * from './typicalPriceStrategy';
-export * from './vwmaStrategy';
 export * from './vortexStrategy';
+export * from './vwmaStrategy';
