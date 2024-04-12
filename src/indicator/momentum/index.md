@@ -2,19 +2,19 @@
 
 Momentum indicators measure the speed of movement.
 
-- [Awesome Oscillator](#awesome-oscillator)
-- [Chaikin Oscillator](#chaikin-oscillator)
+- [Awesome Oscillator (AO)](#awesome-oscillator-ao)
+- [Chaikin Oscillator (CMO)](#chaikin-oscillator-cmo)
 - [Ichimoku Cloud](#ichimoku-cloud)
 - [Percentage Price Oscillator (PPO)](#percentage-price-oscillator-ppo)
 - [Percentage Volume Oscillator (PVO)](#percentage-volume-oscillator-pvo)
-- [Price Rate of CHange (ROC)](#price-rate-of-change-roc)
+- [Price Rate of Change (ROC)](#price-rate-of-change-roc)
 - [Relative Strength Index (RSI)](#relative-strength-index-rsi)
-- [Stochastic Oscillator](#stochastic-oscillator)
-- [Williams R](#williams-r)
+- [Stochastic Oscillator (STOCH)](#stochastic-oscillator-stoch)
+- [Williams R (WILLR)](#williams-r-willr)
 
 **NOTE:** All configuration objects for all indicators are optional. If no configuration object is passed, the default configuration will be used. Likewise, you may also partially pass a configuration object, and the default values will be used for the missing properties.
 
-#### Awesome Oscillator
+#### Awesome Oscillator (AO)
 
 The [awesomeOscillator](./awesomeOscillator.ts) function calculates the awesome oscillator based on low and high daily prices for a given stock. It is an indicator used to measure market momentum.
 
@@ -33,7 +33,7 @@ const result = ao(highs, lows, defaultConfig);
 // const result = awesomeOscillator(highs, lows, defaultConfig);
 ```
 
-#### Chaikin Oscillator
+#### Chaikin Oscillator (CMO)
 
 The [chaikinOscillator](./chaikinOscillator.ts) function measures the momentum of the [Accumulation/Distribution (A/D)](../volume/index.md#accumulationdistribution-ad) using the [Moving Average Convergence Divergence (MACD)](../trend/index.md#moving-average-convergence-divergence-macd) formula. It takes the difference between fast and slow periods EMA of the A/D. Cross above the A/D line indicates bullish.
 
@@ -152,7 +152,7 @@ const result = rsi(closings, defaultConfig);
 // const result = relativeStrengthIndex(closings, defaultConfig);
 ```
 
-#### Stochastic Oscillator
+#### Stochastic Oscillator (STOCH)
 
 The [stochasticOscillator](./stochasticOscillator.ts) function calculates a momentum indicator that shows the location of the closing relative to high-low range over a set number of periods.
 
@@ -171,7 +171,7 @@ const { k, d } = stoch(highs, lows, closings, defaultConfig);
 // const { k, d } = stochasticOscillator(highs, lows, closings, defaultConfig);
 ```
 
-#### Williams R
+#### Williams R (WILLR)
 
 The [williamsR](./williamsR.ts) function calculates the Williams R based on low, high, and closing prices. It is a type of momentum indicator that moves between 0 and -100 and measures overbought and oversold levels.
 

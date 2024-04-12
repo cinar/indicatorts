@@ -2,21 +2,21 @@
 
 Volatility indicators measure the rate of movement regardless of its direction.
 
-- [Acceleration Bands](#acceleration-bands)
+- [Acceleration Bands (AB)](#acceleration-bands-ab)
 - [Average True Range (ATR)](#average-true-range-atr)
-- [Bollinger Band Width](#bollinger-band-width)
-- [Bollinger Bands](#bollinger-bands)
-- [Chandelier Exit](#chandelier-exit)
+- [Bollinger Bands (BB)](#bollinger-bands-bb)
+- [Bollinger Band Width (BBW)](#bollinger-band-width-bbw)
+- [Chandelier Exit (CE)](#chandelier-exit-ce)
 - [Donchian Channel (DC)](#donchian-channel-dc)
 - [Keltner Channel (KC)](#keltner-channel-kc)
-- [Moving Standard Deviation (Std)](#moving-standard-deviation-std)
+- [Moving Standard Deviation (MSTD)](#moving-standard-deviation-mstd)
 - [Projection Oscillator (PO)](#projection-oscillator-po)
 - [True Range (TR)](#true-range-tr)
 - [Ulcer Index (UI)](#ulcer-index-ui)
 
 **NOTE:** All configuration objects for all indicators are optional. If no configuration object is passed, the default configuration will be used. Likewise, you may also partially pass a configuration object, and the default values will be used for the missing properties.
 
-#### Acceleration Bands
+#### Acceleration Bands (AB)
 
 The [accelerationBands](./accelerationBands.ts) plots upper and lower envelope bands around a simple moving average.
 
@@ -55,7 +55,7 @@ const { tr, atr } = atr(highs, lows, closings, defaultConfig);
 // const { tr, atr } = averageTrueRange(highs, lows, closings, defaultConfig);
 ```
 
-#### Bollinger Bands
+#### Bollinger Bands (BB)
 
 The [bollingerBands](./bollingerBands.ts) function calculates the bollinger bands, middle band, upper band, lower band, provides identification of when a stock is oversold or overbought.
 
@@ -75,7 +75,7 @@ const { upper, middle, lower } = bb(closings, defaultConfig);
 // const { upper, middle, lower } = bollingerBands(closings, defaultConfig);
 ```
 
-#### Bollinger Band Width
+#### Bollinger Band Width (BBW)
 
 The [bollingerBandsWidth](./bollingerBandsWidth.ts) function measures the percentage difference between the upper band and the lower band. It decreases as Bollinger Bands narrows and increases as Bollinger Bands widens.
 
@@ -97,7 +97,7 @@ const { width, widthEma } = bbw(bbResult, defaultConfig);
 // const { width, widthEma } = bollingerBandsWidth(bbResult, defaultConfig);
 ```
 
-#### Chandelier Exit
+#### Chandelier Exit (CE)
 
 The [chandelierExit](./chandelierExit.ts) function sets a trailing stop-loss based on the Average True Value (ATR).
 
@@ -156,7 +156,7 @@ const { upper, middle, lower } = kc(highs, lows, closings, defaultConfig);
 // const { upper, middle, lower } = keltnerChannel(highs, lows, closings, defaultConfig);
 ```
 
-#### Moving Standard Deviation (Std)
+#### Moving Standard Deviation (MSTD)
 
 The [mstd](./movingStandardDeviation.ts) function calculates the moving standard deviation for a given period.
 

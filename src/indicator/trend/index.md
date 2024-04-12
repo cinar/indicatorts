@@ -11,10 +11,10 @@ Trend indicators measure the direction and strength of a trend.
 - [Exponential Moving Average (EMA)](#exponential-moving-average-ema)
 - [Mass Index (MI)](#mass-index-mi)
 - [Moving Average Convergence Divergence (MACD)](#moving-average-convergence-divergence-macd)
-- [Moving Max](#moving-max)
-- [Moving Min](#moving-min)
-- [Moving Sum](#moving-sum)
-- [Parabolic SAR](#parabolic-sar)
+- [Moving Max (MMAX)](#moving-max-mmax)
+- [Moving Min (MMIN)](#moving-min-mmin)
+- [Moving Sum (MSUM)](#moving-sum-msum)
+- [Parabolic SAR (PSAR)](#parabolic-sar-psar)
 - [Qstick](trend_indicator.md#qstick)
 - [Random Index (KDJ)](#random-index-kdj)
 - [Rolling Moving Average (RMA)](#rolling-moving-average-rma)
@@ -211,7 +211,7 @@ const { macd, signal } = macd(closings);
 // const { macd, signal } = movingAverageConvergenceDivergence(closings, defaultConfig);
 ```
 
-#### Moving Max
+#### Moving Max (MMAX)
 
 The [mmax](./movingMax.ts) function gives the maximum value within the given moving period. It can be used to get the moving maximum closing price and other values.
 
@@ -225,7 +225,7 @@ const result = mmax(values, defaultConfig);
 // const result = movingMax(values, defaultConfig);
 ```
 
-#### Moving Min
+#### Moving Min (MMIN)
 
 The [mmin](./movingMin.ts) function gives the minimum value within the given moving period. It can be used to get the moving minimum closing price and other values.
 
@@ -239,7 +239,7 @@ const result = mmin(values, defaultConfig);
 // const result = movingMin(values, defaultConfig);
 ```
 
-#### Moving Sum
+#### Moving Sum (MSUM)
 
 The [msum](./movingSum.ts) function gives the sum value within the given moving period.
 
@@ -253,7 +253,7 @@ const result = msum(values, defaultConfig);
 // const result = movingSum(values, defaultConfig);
 ```
 
-#### Parabolic SAR
+#### Parabolic SAR (PSAR)
 
 The [parabolicSar](./parabolicSar.ts) function calculates an identifier for the trend and the trailing stop.
 

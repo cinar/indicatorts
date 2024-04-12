@@ -2,7 +2,7 @@
 
 Volumne indicators measure the strength of a trend based the volume.
 
-- [Accumulation/Distribution (A/D)](#accumulationdistribution-ad)
+- [Accumulation/Distribution (AD)](#accumulationdistribution-ad)
 - [Chaikin Money Flow (CMF)](#chaikin-money-flow-cmf)
 - [Ease of Movement (EMV)](#ease-of-movement-emv)
 - [Force Index (FI)](#force-index-fi)
