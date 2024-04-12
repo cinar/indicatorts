@@ -2,8 +2,24 @@
 // https://github.com/cinar/indicatorts
 
 import { divide, subtract } from '../../helper/numArray';
-import { ema } from './ema';
-import { msum } from './msum';
+import { ema } from './exponentialMovingAverage';
+import { msum } from './movingSum';
+
+/**
+ * Optional configuration of MI parameters.
+ */
+export interface MIConfig {
+  emaPeriod?: number;
+  miPeriod?: number;
+}
+
+/**
+ * The default configuration of MI.
+ */
+export const MIDefaultConfig: Required<MIConfig> = {
+  emaPeriod: 9,
+  miPeriod: 25,
+};
 
 /**
  * The Mass Index (MI) uses the high-low range to identify trend reversals
@@ -16,13 +32,22 @@ import { msum } from './msum';
  *
  * @param highs high values.
  * @param lows low values.
+ * @param config configuration.
  * @returns mi values.
  */
-export function massIndex(highs: number[], lows: number[]): number[] {
-  const ema1 = ema(9, subtract(highs, lows));
-  const ema2 = ema(9, ema1);
+export function mi(
+  highs: number[],
+  lows: number[],
+  config: MIConfig = {}
+): number[] {
+  const { emaPeriod, miPeriod } = { ...MIDefaultConfig, ...config };
+  const ema1 = ema(subtract(highs, lows), { period: emaPeriod });
+  const ema2 = ema(ema1, { period: emaPeriod });
   const ratio = divide(ema1, ema2);
-  const mi = msum(25, ratio);
+  const result = msum(ratio, { period: miPeriod });
 
-  return mi;
+  return result;
 }
+
+// Export full name
+export { mi as massIndex };

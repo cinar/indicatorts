@@ -3,21 +3,27 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { accelerationBands } from '../../indicator/volatility/accelerationBands';
+import {
+  ABConfig,
+  ABDefaultConfig,
+  ab,
+} from '../../indicator/volatility/accelerationBands';
 
 /**
  * Acceleration bands strategy function.
  *
  * @param asset asset object.
+ * @param config configuration.
  * @return strategy actions.
  */
-export function accelerationBandsStrategy(asset: Asset): Action[] {
-  const ab = accelerationBands(asset.highs, asset.lows, asset.closings);
+export function abStrategy(asset: Asset, config: ABConfig = {}): Action[] {
+  const strategyConfig = { ...ABDefaultConfig, ...config };
+  const result = ab(asset.highs, asset.lows, asset.closings, strategyConfig);
 
-  const actions = new Array<number>(ab.upperBand.length);
+  const actions = new Array<number>(result.upper.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (asset.closings[i] >= ab.upperBand[i]) {
+    if (asset.closings[i] >= result.upper[i]) {
       actions[i] = Action.BUY;
     } else {
       actions[i] = Action.SELL;
@@ -26,3 +32,6 @@ export function accelerationBandsStrategy(asset: Asset): Action[] {
 
   return actions;
 }
+
+// Export full name
+export { abStrategy as accelerationBandsStrategy };

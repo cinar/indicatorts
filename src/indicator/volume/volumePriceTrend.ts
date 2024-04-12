@@ -7,7 +7,7 @@ import {
   shiftRightAndFillBy,
   subtract,
 } from '../../helper/numArray';
-import { msum } from '../trend/msum';
+import { msum } from '../trend/movingSum';
 
 /**
  * The Volume Price Trend (VPT) provides a correlation between the volume and
@@ -19,14 +19,16 @@ import { msum } from '../trend/msum';
  * @param volumes volume values.
  * @returns volume price trend values.
  */
-export function volumePriceTrend(
-  closings: number[],
-  volumes: number[]
-): number[] {
+export function vpt(closings: number[], volumes: number[]): number[] {
   const previousClosings = shiftRightAndFillBy(1, closings[0], closings);
   const vpt = multiply(
     volumes,
     divide(subtract(closings, previousClosings), previousClosings)
   );
-  return msum(vpt.length, vpt);
+  const result = msum(vpt, { period: vpt.length });
+
+  return result;
 }
+
+// Export full name
+export { vpt as volumePriceTrend };

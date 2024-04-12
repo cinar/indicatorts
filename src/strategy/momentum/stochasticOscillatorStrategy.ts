@@ -3,23 +3,29 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { stochasticOscillator } from '../../indicator/momentum/stochasticOscillator';
+import {
+  StochConfig,
+  StochDefaultConfig,
+  stoch,
+} from '../../indicator/momentum/stochasticOscillator';
 
 /**
  * Stochastic oscillator strategy function.
  *
  * @param asset asset object.
+ * @param config configuration.
  * @return strategy actions.
  */
-export function stochasticOscillatorStrategy(asset: Asset): Action[] {
-  const so = stochasticOscillator(asset.highs, asset.lows, asset.closings);
+export function soStrategy(asset: Asset, config: StochConfig = {}): Action[] {
+  const strategyConfig = { ...StochDefaultConfig, ...config };
+  const result = stoch(asset.highs, asset.lows, asset.closings, strategyConfig);
 
-  const actions = new Array<Action>(so.k.length);
+  const actions = new Array<Action>(result.k.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (so.k[i] >= 80 && so.d[i] >= 80) {
+    if (result.k[i] >= 80 && result.d[i] >= 80) {
       actions[i] = Action.SELL;
-    } else if (so.k[i] <= 20 && so.d[i] <= 20) {
+    } else if (result.k[i] <= 20 && result.d[i] <= 20) {
       actions[i] = Action.BUY;
     } else {
       actions[i] = Action.HOLD;
@@ -28,3 +34,6 @@ export function stochasticOscillatorStrategy(asset: Asset): Action[] {
 
   return actions;
 }
+
+// Export full name
+export { soStrategy as stochasticOscillatorStrategy };

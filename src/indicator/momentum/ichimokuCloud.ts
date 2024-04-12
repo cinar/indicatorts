@@ -7,19 +7,39 @@ import {
   divideBy,
   shiftRightBy,
 } from '../../helper/numArray';
-import { mmax } from '../trend/mmax';
-import { mmin } from '../trend/mmin';
+import { mmax } from '../trend/movingMax';
+import { mmin } from '../trend/movingMin';
 
 /**
  * Ichimoku cloud result object.
  */
 export interface IchimokuCloudResult {
-  conversionLine: number[];
-  baseLine: number[];
+  conversion: number[];
+  base: number[];
   leadingSpanA: number[];
   leadingSpanB: number[];
   laggingSpan: number[];
 }
+
+/**
+ * Optional configuration of Ichimoku cloud parameters.
+ */
+export interface IchimokuCloudConfig {
+  short?: number;
+  medium?: number;
+  long?: number;
+  close?: number;
+}
+
+/**
+ * The default configuration of Ichimoku cloud.
+ */
+export const IchimokuCloudDefaultConfig: Required<IchimokuCloudConfig> = {
+  short: 9,
+  medium: 26,
+  long: 52,
+  close: 26,
+};
 
 /**
  * Ichimoku Cloud. Also known as Ichimoku Kinko Hyo, is a versatile indicator
@@ -35,24 +55,39 @@ export interface IchimokuCloudResult {
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
+ * @param config configuration.
  * @return ichimoku cloud result object.
  */
 export function ichimokuCloud(
   highs: number[],
   lows: number[],
-  closings: number[]
+  closings: number[],
+  config: IchimokuCloudConfig = {}
 ): IchimokuCloudResult {
   checkSameLength(highs, lows, closings);
 
-  const conversionLine = divideBy(2, add(mmax(9, highs), mmin(9, lows)));
-  const baseLine = divideBy(2, add(mmax(26, highs), mmin(26, lows)));
-  const leadingSpanA = divideBy(2, add(conversionLine, baseLine));
-  const leadingSpanB = divideBy(2, add(mmax(52, highs), mmin(52, lows)));
-  const laggingSpan = shiftRightBy(26, closings);
+  const { short, medium, long, close } = {
+    ...IchimokuCloudDefaultConfig,
+    ...config,
+  };
+  const conversion = divideBy(
+    2,
+    add(mmax(highs, { period: short }), mmin(lows, { period: short }))
+  );
+  const base = divideBy(
+    2,
+    add(mmax(highs, { period: medium }), mmin(lows, { period: medium }))
+  );
+  const leadingSpanA = divideBy(2, add(conversion, base));
+  const leadingSpanB = divideBy(
+    2,
+    add(mmax(highs, { period: long }), mmin(lows, { period: long }))
+  );
+  const laggingSpan = shiftRightBy(close, closings);
 
   return {
-    conversionLine,
-    baseLine,
+    conversion,
+    base,
     leadingSpanA,
     leadingSpanB,
     laggingSpan,

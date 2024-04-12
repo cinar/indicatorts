@@ -15,27 +15,25 @@ import { checkSameLength } from '../../helper/numArray';
  * @param volumes volume values.
  * @return obv values.
  */
-export function onBalanceVolume(
-  closings: number[],
-  volumes: number[]
-): number[] {
+export function obv(closings: number[], volumes: number[]): number[] {
   checkSameLength(closings, volumes);
 
   const result = new Array<number>(closings.length);
 
-  for (let i = 1; i < result.length; i++) {
-    if (i === 0) {
-      result[i] = 0;
-    } else {
-      result[i] = result[i - 1];
+  result[0] = 0;
 
-      if (closings[i] > closings[i - 1]) {
-        result[i] += volumes[i];
-      } else if (closings[i] < closings[i - 1]) {
-        result[i] -= volumes[i];
-      }
+  for (let i = 1; i < result.length; i++) {
+    result[i] = result[i - 1];
+
+    if (closings[i] > closings[i - 1]) {
+      result[i] += volumes[i];
+    } else if (closings[i] < closings[i - 1]) {
+      result[i] -= volumes[i];
     }
   }
 
   return result;
 }
+
+// Export full name
+export { obv as onBalanceVolume };

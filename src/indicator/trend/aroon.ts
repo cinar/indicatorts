@@ -8,13 +8,8 @@ import {
   multiplyBy,
 } from '../../helper/numArray';
 import { since } from './since';
-import { mmin } from './mmin';
-import { mmax } from './mmax';
-
-/**
- * Aroon period.
- */
-const AROON_PERIOD = 25;
+import { mmin } from './movingMin';
+import { mmax } from './movingMax';
 
 /**
  * Aroon result.
@@ -23,6 +18,20 @@ export interface AroonResult {
   up: number[];
   down: number[];
 }
+
+/**
+ * Optional configuration of Aroon parameters.
+ */
+export interface AroonConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of Aroon.
+ */
+export const AroonDefaultConfig: Required<AroonConfig> = {
+  period: 25,
+};
 
 /**
  * Aroon Indicator. It is a technical indicator that is used to identify trend changes
@@ -37,22 +46,29 @@ export interface AroonResult {
  *
  * @param highs highs values.
  * @param lows lows values.
+ * @param config configuration.
  * @return aroon result.
  */
-export function aroon(highs: number[], lows: number[]): AroonResult {
+export function aroon(
+  highs: number[],
+  lows: number[],
+  config: AroonConfig = {}
+): AroonResult {
   checkSameLength(highs, lows);
 
-  const sinceLastHigh = since(mmax(AROON_PERIOD, highs));
-  const sinceLastLow = since(mmin(AROON_PERIOD, lows));
+  const { period } = { ...AroonDefaultConfig, ...config };
+
+  const sinceLastHigh = since(mmax(highs, { period }));
+  const sinceLastLow = since(mmin(lows, { period }));
 
   const up = multiplyBy(
     100,
-    divideBy(AROON_PERIOD, addBy(AROON_PERIOD, multiplyBy(-1, sinceLastHigh)))
+    divideBy(period, addBy(period, multiplyBy(-1, sinceLastHigh)))
   );
 
   const down = multiplyBy(
     100,
-    divideBy(AROON_PERIOD, addBy(AROON_PERIOD, multiplyBy(-1, sinceLastLow)))
+    divideBy(period, addBy(period, multiplyBy(-1, sinceLastLow)))
   );
 
   return {

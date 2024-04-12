@@ -15,10 +15,13 @@ import { add, divideBy } from '../../helper/numArray';
  * @param closings closing values.
  * @return tpi values.
  */
-export function typicalPrice(
+export function typprice(
   highs: number[],
   lows: number[],
   closings: number[]
 ): number[] {
   return divideBy(3, add(add(highs, lows), closings));
 }
+
+// Export full name
+export { typprice as typicalPrice };

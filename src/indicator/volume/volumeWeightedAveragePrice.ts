@@ -2,12 +2,21 @@
 // https://github.com/cinar/indicatorts
 
 import { divide, multiply } from '../../helper/numArray';
-import { msum } from '../trend/msum';
+import { msum } from '../trend/movingSum';
 
 /**
- * Default period for VWAP.
+ * Optional configuration of VWAP parameters.
  */
-export const VWAP_DEFAULT_PERIOD = 14;
+export interface VWAPConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of VWAP.
+ */
+export const VWAPDefaultConfig: Required<VWAPConfig> = {
+  period: 14,
+};
 
 /**
  * The Volume Weighted Average Price (VWAP) provides the average price
@@ -15,32 +24,24 @@ export const VWAP_DEFAULT_PERIOD = 14;
  *
  * VWAP = Sum(Closing * Volume) / Sum(Volume)
  *
- * @param period window period.
  * @param closings closing values.
  * @param volumes volume values.
+ * @param config configuration.
  * @returns vwap values.
  */
-export function volumeWeightedAveragePrice(
-  period: number,
+export function vwap(
   closings: number[],
-  volumes: number[]
+  volumes: number[],
+  config: VWAPConfig = {}
 ): number[] {
-  return divide(
-    msum(period, multiply(closings, volumes)),
-    msum(period, volumes)
+  const { period } = { ...VWAPDefaultConfig, ...config };
+  const result = divide(
+    msum(multiply(closings, volumes), { period }),
+    msum(volumes, { period })
   );
+
+  return result;
 }
 
-/**
- * Default volume weighted average price with period of 14.
- *
- * @param closings closing values.
- * @param volumes volume values.
- * @returns vwap values.
- */
-export function defaultVolumeWeightedAveragePrice(
-  closings: number[],
-  volumes: number[]
-): number[] {
-  return volumeWeightedAveragePrice(VWAP_DEFAULT_PERIOD, closings, volumes);
-}
+// Export full name
+export { vwap as volumeWeightedAveragePrice };

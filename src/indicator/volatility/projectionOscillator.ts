@@ -10,17 +10,33 @@ import {
   subtract,
 } from '../../helper/numArray';
 import { movingLeastSquare } from '../../helper/regression';
-import { ema } from '../trend/ema';
-import { mmax } from '../trend/mmax';
-import { mmin } from '../trend/mmin';
+import { ema } from '../trend/exponentialMovingAverage';
+import { mmax } from '../trend/movingMax';
+import { mmin } from '../trend/movingMin';
 
 /**
  * Projection oscillator result object.
  */
-export interface ProjectionOscillator {
+export interface POResult {
   po: number[];
   spo: number[];
 }
+
+/**
+ * Optional configuration of PO parameters.
+ */
+export interface POConfig {
+  period?: number;
+  smooth?: number;
+}
+
+/**
+ * The default configuration of PO.
+ */
+export const PODefaultConfig: Required<POConfig> = {
+  period: 14,
+  smooth: 3,
+};
 
 /**
  * ProjectionOscillator calculates the Projection Oscillator (PO). The PO
@@ -34,20 +50,22 @@ export interface ProjectionOscillator {
  * PO = 100 * (Closing - PL) / (PU - PL)
  * SPO = EMA(smooth, PO)
  *
- * @param period window period.
- * @param smooth smooth period.
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
+ * @param config configuration.
  * @return projection oscillator.
  */
-export function projectionOscillator(
-  period: number,
-  smooth: number,
+export function po(
   highs: number[],
   lows: number[],
-  closings: number[]
-): ProjectionOscillator {
+  closings: number[],
+  config: POConfig = {}
+): POResult {
+  const { period, smooth } = {
+    ...PODefaultConfig,
+    ...config,
+  };
   const x = generateNumbers(0, closings.length, 1);
   const lsHighs = movingLeastSquare(period, x, highs);
   const lsLows = movingLeastSquare(period, x, lows);
@@ -55,11 +73,11 @@ export function projectionOscillator(
   const vHighs = add(highs, multiply(lsHighs.m, x));
   const vLows = add(lows, multiply(lsLows.m, x));
 
-  const pu = mmax(period, vHighs);
-  const pl = mmin(period, vLows);
+  const pu = mmax(vHighs, { period });
+  const pl = mmin(vLows, { period });
 
   const po = divide(multiplyBy(100, subtract(closings, pl)), subtract(pu, pl));
-  const spo = ema(smooth, po);
+  const spo = ema(po, { period: smooth });
 
   return {
     po,
@@ -67,17 +85,5 @@ export function projectionOscillator(
   };
 }
 
-/**
- * Default projection oscillator function.
- * @param highs high values.
- * @param lows lows values.
- * @param closings closing values.
- * @return projection oscillator.
- */
-export function defaultProjectionOscillator(
-  highs: number[],
-  lows: number[],
-  closings: number[]
-): ProjectionOscillator {
-  return projectionOscillator(14, 3, highs, lows, closings);
-}
+// Export full name
+export { po as projectionOscillator };

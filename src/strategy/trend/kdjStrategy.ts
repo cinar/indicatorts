@@ -3,15 +3,22 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { defaultKdj } from '../../indicator/trend/kdj';
+import { KDJConfig, KDJDefaultConfig, kdj } from '../../indicator/trend/kdj';
 
 /**
  * KDJ strategy.
  * @param asset asset object.
+ * @param config configuration.
  * @return strategy actions.
  */
-export function kdjStrategy(asset: Asset): Action[] {
-  const kdjResult = defaultKdj(asset.highs, asset.lows, asset.closings);
+export function kdjStrategy(asset: Asset, config: KDJConfig = {}): Action[] {
+  const strategyConfig = { ...KDJDefaultConfig, ...config };
+  const kdjResult = kdj(
+    asset.highs,
+    asset.lows,
+    asset.closings,
+    strategyConfig
+  );
   const actions = new Array<Action>(kdjResult.k.length);
 
   for (let i = 0; i < actions.length; i++) {

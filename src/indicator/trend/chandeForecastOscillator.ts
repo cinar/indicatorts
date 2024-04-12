@@ -13,6 +13,20 @@ import {
 } from '../../helper/regression';
 
 /**
+ * Optional configuration of Chande forecast oscillator parameters.
+ */
+export interface CFOConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of Chande forecast oscillator.
+ */
+export const CFODefaultConfig: Required<CFOConfig> = {
+  period: 4,
+};
+
+/**
  * The Chande Forecast Oscillator developed by Tushar Chande The Forecast
  * Oscillator plots the percentage difference between the closing price and
  * the n-period linear regression forecasted price. The oscillator is above
@@ -25,12 +39,16 @@ import {
  * @param closings closing values.
  * @return cfo values.
  */
-export function chandeForecastOscillator(closings: number[]): number[] {
+export function cfo(closings: number[]): number[] {
   const x = generateNumbers(0, closings.length, 1);
   const r = linearRegressionUsingLeastSquare(x, closings);
-  const cfo = multiplyBy(100, divide(subtract(closings, r), closings));
-  return cfo;
+  const result = multiplyBy(100, divide(subtract(closings, r), closings));
+
+  return result;
 }
+
+// Export full name
+export { cfo as chandeForecastOscillator };
 
 /**
  * Moving Chande Forecast Oscillator calculates based on
@@ -45,16 +63,18 @@ export function chandeForecastOscillator(closings: number[]): number[] {
  * R = Linreg(Closing)
  * CFO = ((Closing - R) / Closing) * 100
  *
- * @param period window period.
  * @param closings closing values.
+ * @param config configuration.
  * @return moving cfo.
  */
-export function movingChandeForecastOscillator(
-  period: number,
-  closings: number[]
-): number[] {
+export function mcfo(closings: number[], config: CFOConfig = {}): number[] {
+  const { period } = { ...CFODefaultConfig, ...config };
   const x = generateNumbers(0, closings.length, 1);
   const r = movingLinearRegressionUsingLeastSquare(period, x, closings);
-  const cfo = multiplyBy(100, divide(subtract(closings, r), closings));
-  return cfo;
+  const result = multiplyBy(100, divide(subtract(closings, r), closings));
+
+  return result;
 }
+
+// Export full name
+export { mcfo as movingChandeForecastOscillator };

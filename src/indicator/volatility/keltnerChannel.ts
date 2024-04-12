@@ -2,8 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { add, multiplyBy, subtract } from '../../helper/numArray';
-import { ema } from '../trend/ema';
-import { atr } from './atr';
+import { ema } from '../trend/exponentialMovingAverage';
+import { atr } from './averageTrueRange';
 
 /**
  * Default period for KC.
@@ -13,11 +13,25 @@ export const KC_PERIOD = 20;
 /**
  * Keltner channel result object.
  */
-export interface KeltnerChannelResult {
-  middleLine: number[];
-  upperBand: number[];
-  lowerBand: number[];
+export interface KCResult {
+  middle: number[];
+  upper: number[];
+  lower: number[];
 }
+
+/**
+ * Optional configuration of KC parameters.
+ */
+export interface KCConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of KC.
+ */
+export const KCDefaultConfig: Required<KCConfig> = {
+  period: 20,
+};
 
 /**
  * The Keltner Channel (KC) provides volatility-based bands that are placed
@@ -28,44 +42,32 @@ export interface KeltnerChannelResult {
  * Upper Band = EMA(period, closings) + 2 * ATR(period, highs, lows, closings)
  * Lower Band = EMA(period, closings) - 2 * ATR(period, highs, lows, closings)
  *
- * @param period window period.
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
+ * @param config configuration.
  * @returns kc result.
  */
-export function keltnerChannel(
-  period: number,
+export function kc(
   highs: number[],
   lows: number[],
-  closings: number[]
-): KeltnerChannelResult {
-  const atrResult = atr(period, highs, lows, closings);
-  const atr2 = multiplyBy(2, atrResult.atrLine);
+  closings: number[],
+  config: KCConfig = {}
+): KCResult {
+  const { period } = { ...KCDefaultConfig, ...config };
+  const atrResult = atr(highs, lows, closings, { period });
+  const atr2 = multiplyBy(2, atrResult.atr);
 
-  const middleLine = ema(period, closings);
-  const upperBand = add(middleLine, atr2);
-  const lowerBand = subtract(middleLine, atr2);
+  const middle = ema(closings, { period });
+  const upper = add(middle, atr2);
+  const lower = subtract(middle, atr2);
 
   return {
-    middleLine,
-    upperBand,
-    lowerBand,
+    middle,
+    upper,
+    lower,
   };
 }
 
-/**
- * The default keltner channel with the default period of 20.
- *
- * @param highs high values.
- * @param lows low values.
- * @param closings closing values.
- * @returns kc result.
- */
-export function defaultKeltnerChannel(
-  highs: number[],
-  lows: number[],
-  closings: number[]
-): KeltnerChannelResult {
-  return keltnerChannel(KC_PERIOD, highs, lows, closings);
-}
+// Export full name
+export { kc as keltnerChannel };

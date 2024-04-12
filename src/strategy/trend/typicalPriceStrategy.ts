@@ -3,7 +3,7 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { typicalPrice } from '../../indicator/trend/typicalPrice';
+import { typprice } from '../../indicator/trend/typicalPrice';
 
 /**
  * Typical price strategy function.
@@ -11,16 +11,16 @@ import { typicalPrice } from '../../indicator/trend/typicalPrice';
  * @param asset asset object.
  * @return strategy actions.
  */
-export function typicalPriceStrategy(asset: Asset): Action[] {
-  const tpi = typicalPrice(asset.highs, asset.lows, asset.closings);
+export function typpriceStrategy(asset: Asset): Action[] {
+  const result = typprice(asset.highs, asset.lows, asset.closings);
 
-  const actions = new Array<Action>(tpi.length);
+  const actions = new Array<Action>(result.length);
   actions[0] = Action.HOLD;
 
   for (let i = 1; i < actions.length; i++) {
-    if (tpi[i] > tpi[i - 1]) {
+    if (result[i] > result[i - 1]) {
       actions[i] = Action.BUY;
-    } else if (tpi[i] < tpi[i - 1]) {
+    } else if (result[i] < result[i - 1]) {
       actions[i] = Action.SELL;
     } else {
       actions[i] = Action.HOLD;
@@ -29,3 +29,6 @@ export function typicalPriceStrategy(asset: Asset): Action[] {
 
   return actions;
 }
+
+// Export full name
+export { typpriceStrategy as typicalPriceStrategy };

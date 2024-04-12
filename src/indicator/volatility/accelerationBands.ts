@@ -10,16 +10,30 @@ import {
   multiplyBy,
   subtract,
 } from '../../helper/numArray';
-import { sma } from '../trend/sma';
+import { sma } from '../trend/simpleMovingAverage';
 
 /**
  * Acceleration bands result object.
  */
-export interface AccelerationBands {
-  upperBand: number[];
-  middleBand: number[];
-  lowerBand: number[];
+export interface ABResult {
+  upper: number[];
+  middle: number[];
+  lower: number[];
 }
+
+/**
+ * Optional configuration of acceleration bands parameters.
+ */
+export interface ABConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of acceleration bands.
+ */
+export const ABDefaultConfig: Required<ABConfig> = {
+  period: 20,
+};
 
 /**
  * Acceleration Bands. Plots upper and lower envelope bands
@@ -32,24 +46,34 @@ export interface AccelerationBands {
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
+ * @param config configuration.
  * @return acceleration band.
  */
-export function accelerationBands(
+export function ab(
   highs: number[],
   lows: number[],
-  closings: number[]
-): AccelerationBands {
+  closings: number[],
+  config: ABConfig = {}
+): ABResult {
   checkSameLength(highs, lows, closings);
 
+  const { period } = { ...ABDefaultConfig, ...config };
   const k = divide(subtract(highs, lows), add(highs, lows));
 
-  const upperBand = sma(20, multiply(highs, addBy(1, multiplyBy(4, k))));
-  const middleBand = sma(20, closings);
-  const lowerBand = sma(20, multiply(lows, addBy(1, multiplyBy(-4, k))));
+  const upper = sma(multiply(highs, addBy(1, multiplyBy(4, k))), {
+    period,
+  });
+  const middle = sma(closings, { period });
+  const lower = sma(multiply(lows, addBy(1, multiplyBy(-4, k))), {
+    period,
+  });
 
   return {
-    upperBand,
-    middleBand,
-    lowerBand,
+    upper,
+    middle,
+    lower,
   };
 }
+
+// Export full name
+export { ab as accelerationBands };
