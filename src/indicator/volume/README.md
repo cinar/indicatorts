@@ -1,20 +1,23 @@
-### Volume Indicators
+# Volume Indicators
 
 Volumne indicators measure the strength of a trend based the volume.
 
-- [Accumulation/Distribution (AD)](#accumulationdistribution-ad)
-- [Chaikin Money Flow (CMF)](#chaikin-money-flow-cmf)
-- [Ease of Movement (EMV)](#ease-of-movement-emv)
-- [Force Index (FI)](#force-index-fi)
-- [Money Flow Index (MFI)](#money-flow-index-mfi)
-- [Negative Volume Index (NVI)](#negative-volume-index-nvi)
-- [On-Balance Volume (OBV)](#on-balance-volume-obv)
-- [Volume Price Trend (VPT)](#volume-price-trend-vpt)
-- [Volume Weighted Average Price (VWAP)](#volume-weighted-average-price-vwap)
+- [Volume Indicators](#volume-indicators)
+  - [Accumulation/Distribution (A/D)](#accumulationdistribution-ad)
+  - [Chaikin Money Flow (CMF)](#chaikin-money-flow-cmf)
+  - [Ease of Movement (EMV)](#ease-of-movement-emv)
+  - [Force Index (FI)](#force-index-fi)
+  - [Money Flow Index (MFI)](#money-flow-index-mfi)
+  - [Negative Volume Index (NVI)](#negative-volume-index-nvi)
+  - [On-Balance Volume (OBV)](#on-balance-volume-obv)
+  - [Volume Price Trend (VPT)](#volume-price-trend-vpt)
+  - [Volume Weighted Average Price (VWAP)](#volume-weighted-average-price-vwap)
+  - [Disclaimer](#disclaimer)
+  - [License](#license)
 
 **NOTE:** All configuration objects for all indicators are optional. If no configuration object is passed, the default configuration will be used. Likewise, you may also partially pass a configuration object, and the default values will be used for the missing properties.
 
-#### Accumulation/Distribution (A/D)
+## Accumulation/Distribution (A/D)
 
 The [accumulationDistribution](./accumulationDistribution.ts) is a cumulative indicator that uses volume and price to assess whether a stock is being accumulated or distributed.
 
@@ -37,7 +40,7 @@ const result = ad(highs, lows, closings, volumes);
 
 Based on [Accumulation/Distribution Indicator (A/D)](https://www.investopedia.com/terms/a/accumulationdistribution.asp).
 
-#### Chaikin Money Flow (CMF)
+## Chaikin Money Flow (CMF)
 
 The [chaikinMoneyFlow](./chaikinMoneyFlow.ts) measures the amount of money flow volume over a given period.
 
@@ -57,7 +60,7 @@ const result = cmf(highs, lows, closings, volumes, defaultConfig);
 // const result = chaikinMoneyFlow(highs, lows, closings, volumes, defaultConfig);
 ```
 
-#### Ease of Movement (EMV)
+## Ease of Movement (EMV)
 
 The [easeOfMovement](./easeOfMovement.ts) is a volume based oscillator measuring the ease of price movement.
 
@@ -78,7 +81,7 @@ const result = emv(highs, lows, volumes, defaultConfig);
 // const result = easeOfMovement(highs, lows, volumes, defaultConfig);
 ```
 
-#### Force Index (FI)
+## Force Index (FI)
 
 The [forceIndex](./forceIndex.ts) uses the closing price and the volume to assess the power behind a move and identify turning points.
 
@@ -96,7 +99,7 @@ const result = fi(closings, volumes, defaultConfig);
 // const result = forceIndex(closings, volumes, defaultConfig);
 ```
 
-#### Money Flow Index (MFI)
+## Money Flow Index (MFI)
 
 The [moneyFlowIndex](./moneyFlowIndex.ts) function analyzes both the closing price and the volume to measure to identify overbought and oversold states. It is similar to the Relative Strength Index (RSI), but it also uses the volume.
 
@@ -116,7 +119,7 @@ const result = mfi(highs, lows, closings, volumes, defaultConfig);
 // const result = moneyFlowIndex(highs, lows, closings, volumes, defaultConfig);
 ```
 
-#### Negative Volume Index (NVI)
+## Negative Volume Index (NVI)
 
 The [negativeVolumeIndex](./negativeVolumeIndex.ts) function calculates a cumulative indicator using the change in volume to decide when the smart money is active.
 
@@ -140,7 +143,7 @@ const result = nvi(closings, volumes, defaultConfig);
 // const result = negativeVolumeIndex(closings, volumes, defaultConfig);
 ```
 
-#### On-Balance Volume (OBV)
+## On-Balance Volume (OBV)
 
 The [onBalanceVolume](./onBalanceVolume.ts) function calculates a technical trading momentum indicator that uses volume flow to predict changes in stock price.
 
@@ -159,7 +162,7 @@ const result = obv(closings, volumes);
 // const result = onBalanceVolume(closings, volumes);
 ```
 
-#### Volume Price Trend (VPT)
+## Volume Price Trend (VPT)
 
 The [volumePriceTrend](./volumePriceTrend.ts) provides a correlation between the volume and the price.
 
@@ -176,7 +179,7 @@ const result = vpt(closings, volumes);
 // const result = volumePriceTrend(closings, volumes);
 ```
 
-#### Volume Weighted Average Price (VWAP)
+## Volume Weighted Average Price (VWAP)
 
 The [volumeWeightedAveragePrice](./volumeWeightedAveragePrice.ts) provides the average price the asset has traded.
 

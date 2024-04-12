@@ -1,20 +1,23 @@
-### Momentum Indicators
+# Momentum Indicators
 
 Momentum indicators measure the speed of movement.
 
-- [Awesome Oscillator (AO)](#awesome-oscillator-ao)
-- [Chaikin Oscillator (CMO)](#chaikin-oscillator-cmo)
-- [Ichimoku Cloud](#ichimoku-cloud)
-- [Percentage Price Oscillator (PPO)](#percentage-price-oscillator-ppo)
-- [Percentage Volume Oscillator (PVO)](#percentage-volume-oscillator-pvo)
-- [Price Rate of Change (ROC)](#price-rate-of-change-roc)
-- [Relative Strength Index (RSI)](#relative-strength-index-rsi)
-- [Stochastic Oscillator (STOCH)](#stochastic-oscillator-stoch)
-- [Williams R (WILLR)](#williams-r-willr)
+- [Momentum Indicators](#momentum-indicators)
+  - [Awesome Oscillator (AO)](#awesome-oscillator-ao)
+  - [Chaikin Oscillator (CMO)](#chaikin-oscillator-cmo)
+  - [Ichimoku Cloud](#ichimoku-cloud)
+  - [Percentage Price Oscillator (PPO)](#percentage-price-oscillator-ppo)
+  - [Percentage Volume Oscillator (PVO)](#percentage-volume-oscillator-pvo)
+  - [Price Rate of Change (ROC)](#price-rate-of-change-roc)
+  - [Relative Strength Index (RSI)](#relative-strength-index-rsi)
+  - [Stochastic Oscillator (STOCH)](#stochastic-oscillator-stoch)
+  - [Williams R (WILLR)](#williams-r-willr)
+  - [Disclaimer](#disclaimer)
+  - [License](#license)
 
 **NOTE:** All configuration objects for all indicators are optional. If no configuration object is passed, the default configuration will be used. Likewise, you may also partially pass a configuration object, and the default values will be used for the missing properties.
 
-#### Awesome Oscillator (AO)
+## Awesome Oscillator (AO)
 
 The [awesomeOscillator](./awesomeOscillator.ts) function calculates the awesome oscillator based on low and high daily prices for a given stock. It is an indicator used to measure market momentum.
 
@@ -33,7 +36,7 @@ const result = ao(highs, lows, defaultConfig);
 // const result = awesomeOscillator(highs, lows, defaultConfig);
 ```
 
-#### Chaikin Oscillator (CMO)
+## Chaikin Oscillator (CMO)
 
 The [chaikinOscillator](./chaikinOscillator.ts) function measures the momentum of the [Accumulation/Distribution (A/D)](../volume/index.md#accumulationdistribution-ad) using the [Moving Average Convergence Divergence (MACD)](../trend/index.md#moving-average-convergence-divergence-macd) formula. It takes the difference between fast and slow periods EMA of the A/D. Cross above the A/D line indicates bullish.
 
@@ -53,7 +56,7 @@ const { ad, cmo } = cmo(highs, lows, closings, volumes, defaultConfig);
 
 Most frequently used fast and short periods are 3 and 10.
 
-#### Ichimoku Cloud
+## Ichimoku Cloud
 
 The [ichimokuCloud](./ichimokuCloud.ts), also known as Ichimoku Kinko Hyo, calculates a versatile indicator that defines support and resistence, identifies trend direction, gauges momentum, and provides trading signals.
 
@@ -72,7 +75,7 @@ const defaultConfig = { short: 9, medium: 26, long: 52, close: 26 };
 const { conversion, base, leadingSpanA, leadingSpanB, leadingSpan } = ichimokuCloud(highs, lows, closings, defaultConfig);
 ```
 
-#### Percentage Price Oscillator (PPO)
+## Percentage Price Oscillator (PPO)
 
 The [percentagePriceOscillator](./percentagePriceOscillator.ts) function calculates a momentum oscillator for the price It is used to indicate the ups and downs based on the price. A breakout is confirmed when PPO is positive.
 
@@ -92,7 +95,7 @@ const { ppo, signal, histogram } = ppo(prices, defaultConfig);
 // const { ppo, signal, histogram } = percentagePriceOscillator(prices, defaultConfig);
 ```
 
-#### Percentage Volume Oscillator (PVO)
+## Percentage Volume Oscillator (PVO)
 
 The [percentageVolumeOscillator](./percentageVolumeOscillator.ts) function calculates a momentum oscillator for the volume It is used to indicate the ups and downs based on the volume. A breakout is confirmed when PVO is positive.
 
@@ -112,7 +115,7 @@ const { pvo, signal, histogram } = pvo(volumes, defaultConfig);
 // const { pvo, signal, histogram } = percentageVolumeOscillator(volumes, defaultConfig);
 ```
 
-#### Price Rate of Change (ROC)
+## Price Rate of Change (ROC)
 
 The [roc](./priceRateOfChange.ts) function calculates a unbounded momentum indicator for the closing prices. A rising ROC above zero typically indicates an uptrend whereas a falling ROC below zero indicates a downtrend.
 
@@ -133,7 +136,7 @@ const result = roc(close, defaultConfig);
 
 Ensure that the array `close` does not contain $0$ to avoid division by 0 errors.
 
-#### Relative Strength Index (RSI)
+## Relative Strength Index (RSI)
 
 The [rsi](./relativeStrengthIndex.ts) function calculates a momentum indicator that measures the magnitude of recent price changes to evaluate overbought and oversold conditions using a window period.
 
@@ -152,7 +155,7 @@ const result = rsi(closings, defaultConfig);
 // const result = relativeStrengthIndex(closings, defaultConfig);
 ```
 
-#### Stochastic Oscillator (STOCH)
+## Stochastic Oscillator (STOCH)
 
 The [stochasticOscillator](./stochasticOscillator.ts) function calculates a momentum indicator that shows the location of the closing relative to high-low range over a set number of periods.
 
@@ -171,7 +174,7 @@ const { k, d } = stoch(highs, lows, closings, defaultConfig);
 // const { k, d } = stochasticOscillator(highs, lows, closings, defaultConfig);
 ```
 
-#### Williams R (WILLR)
+## Williams R (WILLR)
 
 The [williamsR](./williamsR.ts) function calculates the Williams R based on low, high, and closing prices. It is a type of momentum indicator that moves between 0 and -100 and measures overbought and oversold levels.
 

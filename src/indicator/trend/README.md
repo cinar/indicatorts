@@ -1,35 +1,38 @@
-### Trend Indicators
+# Trend Indicators
 
 Trend indicators measure the direction and strength of a trend.
 
-- [Absolute Price Oscillator (APO)](#absolute-price-oscillator-apo)
-- [Aroon Indicator](#aroon)
-- [Balance of Power (BOP)](#balance-of-power-bop)
-- [Chande Forecast Oscillator (CFO)](#chande-forecast-oscillator-cfo)
-- [Community Channel Index (CCI)](#community-channel-index-cci)
-- [Double Exponential Moving Average (DEMA)](#double-exponential-moving-average-dema)
-- [Exponential Moving Average (EMA)](#exponential-moving-average-ema)
-- [Mass Index (MI)](#mass-index-mi)
-- [Moving Average Convergence Divergence (MACD)](#moving-average-convergence-divergence-macd)
-- [Moving Max (MMAX)](#moving-max-mmax)
-- [Moving Min (MMIN)](#moving-min-mmin)
-- [Moving Sum (MSUM)](#moving-sum-msum)
-- [Parabolic SAR (PSAR)](#parabolic-sar-psar)
-- [Qstick](trend_indicator.md#qstick)
-- [Random Index (KDJ)](#random-index-kdj)
-- [Rolling Moving Average (RMA)](#rolling-moving-average-rma)
-- [Simple Moving Average (SMA)](#simple-moving-average-sma)
-- [Since Change](#since-change)
-- [Triple Exponential Moving Average (TEMA)](#triple-exponential-moving-average-tema)
-- [Triangular Moving Average (TRIMA)](#triangular-moving-average-trima)
-- [Triple Exponential Average (TRIX)](#triple-exponential-average-trix)
-- [Typical Price](#typical-price)
-- [Volume Weighted Moving Average (VWMA)](#volume-weighted-moving-average-vwma)
-- [Vortex Indicator](#vortex-indicator)
+- [Trend Indicators](#trend-indicators)
+  - [Absolute Price Oscillator (APO)](#absolute-price-oscillator-apo)
+  - [Aroon](#aroon)
+  - [Balance of Power (BOP)](#balance-of-power-bop)
+  - [Chande Forecast Oscillator (CFO)](#chande-forecast-oscillator-cfo)
+  - [Community Channel Index (CCI)](#community-channel-index-cci)
+  - [Double Exponential Moving Average (DEMA)](#double-exponential-moving-average-dema)
+  - [Exponential Moving Average (EMA)](#exponential-moving-average-ema)
+  - [Mass Index (MI)](#mass-index-mi)
+  - [Moving Average Convergence Divergence (MACD)](#moving-average-convergence-divergence-macd)
+  - [Moving Max (MMAX)](#moving-max-mmax)
+  - [Moving Min (MMIN)](#moving-min-mmin)
+  - [Moving Sum (MSUM)](#moving-sum-msum)
+  - [Parabolic SAR (PSAR)](#parabolic-sar-psar)
+  - [Qstick](#qstick)
+  - [Random Index (KDJ)](#random-index-kdj)
+  - [Rolling Moving Average (RMA)](#rolling-moving-average-rma)
+  - [Simple Moving Average (SMA)](#simple-moving-average-sma)
+  - [Since Change](#since-change)
+  - [Triple Exponential Moving Average (TEMA)](#triple-exponential-moving-average-tema)
+  - [Triangular Moving Average (TRIMA)](#triangular-moving-average-trima)
+  - [Triple Exponential Average (TRIX)](#triple-exponential-average-trix)
+  - [Typical Price](#typical-price)
+  - [Volume Weighted Moving Average (VWMA)](#volume-weighted-moving-average-vwma)
+  - [Vortex Indicator](#vortex-indicator)
+  - [Disclaimer](#disclaimer)
+  - [License](#license)
 
 **NOTE:** All configuration objects for all indicators are optional. If no configuration object is passed, the default configuration will be used. Likewise, you may also partially pass a configuration object, and the default values will be used for the missing properties.
 
-#### Absolute Price Oscillator (APO)
+## Absolute Price Oscillator (APO)
 
 The [absolutePriceOscillator](./absolutePriceOscillator.ts) function calculates a technical indicator that is used to follow trends. APO crossing above zero indicates bullish, while crossing below zero indicates bearish. Positive value is upward trend, while negative value is downward trend.
 
@@ -49,7 +52,7 @@ const result = apo(values, defaultConfig);
 // const result = absolutePriceOscillator(values, defaultConfig);
 ```
 
-#### Aroon
+## Aroon
 
 The [Aroon](./aroon.ts) function calculates a technical indicator that is used to identify trend changes in the price of a stock, as well as the strength of that trend. It consists of two lines, Aroon Up, and Aroon Down. The Aroon Up line measures measures the strength of the uptrend, and the Aroon Down measures the strength of the downtrend. When Aroon Up is above Aroon Down, it indicates bullish price, and when Aroon Down is above Aroon Up, it indicates bearish price.
 
@@ -65,7 +68,7 @@ const defaultConfig = { period: 25 };
 const { up, down } = aroon(highs, lows, defaultConfig);
 ```
 
-#### Balance of Power (BOP)
+## Balance of Power (BOP)
 
 The [BalanceOfPower](./balanceOfPower.ts) function calculates the strength of buying and selling pressure. Positive value indicates an upward trend, and negative value indicates a downward trend. Zero indicates a balance between the two.
 
@@ -82,7 +85,7 @@ const result = bop(openings, highs, lows, closings);
 // const result = balanceOfPower(openings, highs, lows, closings);
 ```
 
-#### Chande Forecast Oscillator (CFO)
+## Chande Forecast Oscillator (CFO)
 
 The [chandeForecastOscillator](./chandeForecastOscillator.ts) developed by Tushar Chande The Forecast Oscillator plots the percentage difference between the closing price and the n-period linear regression forecasted price. The oscillator is above zero when the forecast price is greater than the closing price and less than zero if it is below.
 
@@ -115,7 +118,7 @@ const result = mfco(closings, defaultConfig);
 // const result = movingChandeForecastOscillator(closings, defaultConfig);
 ```
 
-#### Community Channel Index (CCI)
+## Community Channel Index (CCI)
 
 The [communityChannelIndex](./communityChannelIndex.ts) is a momentum-based oscillator used to help determine when an investment vehicle is reaching a condition of being overbought or oversold.
 
@@ -135,7 +138,7 @@ const result = cci(highs, lows, closings, defaultConfig);
 // const result = communityChannelIndex(highs, lows, closings, defaultConfig);
 ```
 
-#### Double Exponential Moving Average (DEMA)
+## Double Exponential Moving Average (DEMA)
 
 The [dema](./doubleExponentialMovingAverage.ts) function calculates the Double Exponential Moving Average (DEMA) for a given period.
 
@@ -157,7 +160,7 @@ const result = dema(values, defaultConfig);
 
 Based on [Double Exponential Moving Average (DEMA)](https://www.investopedia.com/terms/d/double-exponential-moving-average.asp).
 
-#### Exponential Moving Average (EMA)
+## Exponential Moving Average (EMA)
 
 The [ema](./exponentialMovingAverage.ts) function calculates the exponential moving average for a given period.
 
@@ -171,7 +174,7 @@ const result = ema(values, defaultConfig);
 // const result = exponentialMovingAverage(values, defaultConfig);
 ```
 
-#### Mass Index (MI)
+## Mass Index (MI)
 
 The [massIndex](./massIndex.ts) uses the high-low range to identify trend reversals based on range expansions.
 
@@ -192,7 +195,7 @@ const result = mi(highs, lows, defaultConfig);
 // const result = massIndex(highs, lows, defaultConfig);
 ```
 
-#### Moving Average Convergence Divergence (MACD)
+## Moving Average Convergence Divergence (MACD)
 
 The [macd](./movingAverageConvergenceDivergence.ts) function calculates a trend-following momentum indicator that shows the relationship between two moving averages of price.
 
@@ -211,7 +214,7 @@ const { macd, signal } = macd(closings);
 // const { macd, signal } = movingAverageConvergenceDivergence(closings, defaultConfig);
 ```
 
-#### Moving Max (MMAX)
+## Moving Max (MMAX)
 
 The [mmax](./movingMax.ts) function gives the maximum value within the given moving period. It can be used to get the moving maximum closing price and other values.
 
@@ -225,7 +228,7 @@ const result = mmax(values, defaultConfig);
 // const result = movingMax(values, defaultConfig);
 ```
 
-#### Moving Min (MMIN)
+## Moving Min (MMIN)
 
 The [mmin](./movingMin.ts) function gives the minimum value within the given moving period. It can be used to get the moving minimum closing price and other values.
 
@@ -239,7 +242,7 @@ const result = mmin(values, defaultConfig);
 // const result = movingMin(values, defaultConfig);
 ```
 
-#### Moving Sum (MSUM)
+## Moving Sum (MSUM)
 
 The [msum](./movingSum.ts) function gives the sum value within the given moving period.
 
@@ -253,7 +256,7 @@ const result = msum(values, defaultConfig);
 // const result = movingSum(values, defaultConfig);
 ```
 
-#### Parabolic SAR (PSAR)
+## Parabolic SAR (PSAR)
 
 The [parabolicSar](./parabolicSar.ts) function calculates an identifier for the trend and the trailing stop.
 
@@ -289,7 +292,7 @@ const { trends, psar } = psar(highs, lows, closings, defaultConfig);
 // const { trends, psar } = parabolicSar(highs, lows, closings, defaultConfig);
 ```
 
-#### Qstick
+## Qstick
 
 The [qstick](./qstick.ts) function calculates the ratio of recent up and down bars.
 
@@ -304,7 +307,7 @@ const defaultConfig = { period: 14 };
 const result = qstick(openings, closings, defaultConfig);
 ```
 
-#### Random Index (KDJ)
+## Random Index (KDJ)
 
 The [kdj](./randomIndex.ts) function calculates the KDJ indicator, also known as the Random Index. KDJ is calculated similar to the Stochastic Oscillator with the difference of having the J line. It is used to analyze the trend and entry points.
 
@@ -327,7 +330,7 @@ const { k, d, j } = kdj(highs, lows, closings, defaultConfig);
 // const { k, d, j } = randomIndex(highs, lows, closings, defaultConfig);
 ```
 
-#### Rolling Moving Average (RMA)
+## Rolling Moving Average (RMA)
 
 The [rma](./rollingMovingAverage.ts) function calculates the rolling moving average for a given period.
 
@@ -346,7 +349,7 @@ const result = rma(values, defaultConfig);
 // const result = rollingMovingAverage(values, defaultConfig);
 ```
 
-#### Simple Moving Average (SMA)
+## Simple Moving Average (SMA)
 
 The [sma](./simpleMovingAverage.ts) function calculates the simple moving average for a given period.
 
@@ -360,7 +363,7 @@ const result = sma(values);
 // const result = simpleMovingAverage(values, defaultConfig);
 ```
 
-#### Since Change
+## Since Change
 
 The [since](./since.ts) function provides the number values since the last change.
 
@@ -370,7 +373,7 @@ import { since } from 'indicatorts';
 const result = since(values);
 ```
 
-#### Triple Exponential Moving Average (TEMA)
+## Triple Exponential Moving Average (TEMA)
 
 The [tema](./tripleExponentialMovingAverage.ts) function calculates the Triple Exponential Moving Average (TEMA) for a given period.
 
@@ -395,7 +398,7 @@ const result = tema(values, defaultConfig);
 
 Based on [Triple Exponential Moving Average (TEMA)](https://www.investopedia.com/terms/t/triple-exponential-moving-average.asp).
 
-#### Triangular Moving Average (TRIMA)
+## Triangular Moving Average (TRIMA)
 
 The [trima](./triangularMovingAverage.ts) function calculates the Triangular Moving Average (TRIMA) for a given period.
 
@@ -420,7 +423,7 @@ const result = trima(values, defaultConfig);
 
 Based on [Triangular Moving Average](https://tulipindicators.org/trima).
 
-#### Triple Exponential Average (TRIX)
+## Triple Exponential Average (TRIX)
 
 The [trix](./tripleExponentialAverage.ts) indicator is an oscillator used to identify oversold and overbought markets, and it can also be used as a momentum indicator. Like many oscillators, TRIX oscillates around a zero line.
 
@@ -441,7 +444,7 @@ const result = trix(values, defaultConfig);
 // const result = tripleExponentialAverage(values, defaultConfig);
 ```
 
-#### Typical Price
+## Typical Price
 
 The [typicalPrice](./typicalPrice.ts) function calculates another approximation of average price for each period and can be used as a filter for moving average systems.
 
@@ -458,7 +461,7 @@ const result = typprice(highs, lows, closings);
 // const result = typicalPrice(highs, lows, closings);
 ```
 
-#### Volume Weighted Moving Average (VWMA)
+## Volume Weighted Moving Average (VWMA)
 
 The [vwma](./volumeWeightedMovingAverage.ts) function calculates the Volume Weighted Moving Average (VWMA) averaging the price data with an emphasis on volume, meaning areas with higher volume will have a greater weight.
 
@@ -476,7 +479,7 @@ const result = vwma(closings, volumes, defaultConfig);
 // const result = volumeWeightedMovingAverage(closings, volumes, defaultConfig);
 ```
 
-#### Vortex Indicator
+## Vortex Indicator
 
 The [vortex](./vortex.ts) function provides two oscillators that capture positive and negative trend movement. A bullish signal triggers when the positive trend indicator crosses above the negative trend indicator or a key level. A bearish signal triggers when the negative trend indicator crosses above the positive trend indicator or a key level.
 
