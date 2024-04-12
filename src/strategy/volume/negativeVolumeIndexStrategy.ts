@@ -1,10 +1,11 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { ema } from '../../indicator/trend/ema';
+import { ema } from '../../indicator/trend/exponentialMovingAverage';
 import {
-  negativeVolumeIndex,
-  NVI_DEFAULT_PERIOD,
+  NVIConfig,
+  NVIDefaultConfig,
+  nvi,
 } from '../../indicator/volume/negativeVolumeIndex';
 import { Action } from '../action';
 import { Asset } from '../asset';
@@ -16,19 +17,21 @@ import { Asset } from '../asset';
  * greather than its 255-period EMA, otherwise a HOLD action.
  *
  * @param asset asset object.
+ * @param config configuration.
  * @returns strategy actions.
  */
-export function negativeVolumeIndexStrategy(asset: Asset): Action[] {
-  const nvi = negativeVolumeIndex(asset.closings, asset.volumes);
+export function nviStrategy(asset: Asset, config: NVIConfig = {}): Action[] {
+  const strategyConfig = { ...NVIDefaultConfig, ...config };
+  const result = nvi(asset.closings, asset.volumes, strategyConfig);
 
-  const nvi255 = ema(NVI_DEFAULT_PERIOD, nvi);
+  const nviEma = ema(result, { period: strategyConfig.period });
 
-  const actions = new Array<Action>(nvi.length);
+  const actions = new Array<Action>(result.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (nvi[i] < nvi255[i]) {
+    if (result[i] < nviEma[i]) {
       actions[i] = Action.BUY;
-    } else if (nvi[i] > nvi255[i]) {
+    } else if (result[i] > nviEma[i]) {
       actions[i] = Action.SELL;
     } else {
       actions[i] = Action.HOLD;
@@ -37,3 +40,6 @@ export function negativeVolumeIndexStrategy(asset: Asset): Action[] {
 
   return actions;
 }
+
+// Export full name
+export { nviStrategy as negativeVolumeIndexStrategy };

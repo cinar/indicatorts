@@ -2,22 +2,47 @@
 // https://github.com/cinar/indicatorts
 
 import { add, divideBy, subtract } from '../../helper/numArray';
-import { sma } from '../trend/sma';
+import { sma } from '../trend/simpleMovingAverage';
 
 /**
- * Awesome Oscillator.
+ * Optional configuration of AO parameters.
+ */
+export interface AOConfig {
+  fast?: number;
+  slow?: number;
+}
+
+/**
+ * The default configuration of AO.
+ */
+export const AODefaultConfig: Required<AOConfig> = {
+  fast: 5,
+  slow: 34,
+};
+
+/**
+ * Awesome Oscillator (AO).
  *
  * Median Price = ((Low + High) / 2).
  * AO = 5-Period SMA - 34-Period SMA.
  *
  * @param highs high values.
  * @param lows low values.
+ * @param config configuration.
  * @return awesome oscillator.
  */
-export function awesomeOscillator(highs: number[], lows: number[]): number[] {
+export function ao(
+  highs: number[],
+  lows: number[],
+  config: AOConfig = {}
+): number[] {
+  const { fast, slow } = { ...AODefaultConfig, ...config };
   const medianPrice = divideBy(2, add(lows, highs));
-  const sma5 = sma(5, medianPrice);
-  const sma34 = sma(34, medianPrice);
-  const ao = subtract(sma5, sma34);
-  return ao;
+  const smaFast = sma(medianPrice, { period: fast });
+  const smaSlow = sma(medianPrice, { period: slow });
+  const result = subtract(smaFast, smaSlow);
+  return result;
 }
+
+// Export full name
+export { ao as awesomeOscillator };

@@ -26,7 +26,8 @@ AO = 5-Period SMA - 34-Period SMA.
 ```TypeScript
 import {awesomeOscillator} from 'indicatorts';
 
-const result = awesomeOscillator(highs, lows);
+const optionalConfig =  { fast: 5, slow: 34 };
+const result = awesomeOscillator(highs, lows, optionalConfig);
 ```
 
 #### Chaikin Oscillator
@@ -40,12 +41,13 @@ CO = Ema(fastPeriod, AD) - Ema(slowPeriod, AD)
 ```TypeScript
 import {chaikinOscillator} from 'indicatorts';
 
-const result = chaikinOscillator(fastPeriod, slowPeriod, highs, lows, closings);
+const optionalConfig =  { fast: 3, slow: 10 };
+const result = chaikinOscillator(highs, lows, closings, volumes, optionalConfig);
 ```
 
-Most frequently used fast and short periods are 3 and 10. The [defaultChaikinOscillator](./chaikinOscillator.ts) function calculates Chaikin Oscillator with those periods.
+Most frequently used fast and short periods are 3 and 10.
 
-#### Custom RSI
+#### RSI
 
 The [customRsi](./rsi.ts) function calculates Relative Strength Index (RSI), a momentum indicator that measures the magnitude of recent price changes to evaluate overbought and oversold conditions using the given window period.
 
@@ -55,9 +57,9 @@ RSI = 100 - (100 / (1 + RS))
 ```
 
 ```TypeScript
-import {customRsi} from 'indicatorts';
+import {rsi} from 'indicatorts';
 
-const result = customRsi(period, closings);
+const result = rsi(closings, { period: 14 });
 ```
 
 #### Ichimoku Cloud
@@ -75,7 +77,17 @@ Chikou Span (Lagging Span) = Closing plotted 26 days in the past.
 ```TypeScript
 import {ichimokuCloud} from 'indicatorts';
 
-const result = ichimokuCloud(highs, lows, closings);
+const result = ichimokuCloud(
+    highs,
+    lows,
+    closings,
+    {
+        short: 9,
+        medium: 26,
+        long: 52,
+        close: 26,
+    }
+);
 ```
 
 #### Percentage Price Oscillator (PPO)
@@ -138,7 +150,7 @@ const result = defaultPercentageVolumeOscillator(volumes);
 
 #### Price Rate of Change (ROC)
 
-The [roc](./priceRateOfChange.ts) function calculates a unbounded momentum indicator for the closing prices. A rising ROC above zero typically indicates an uptrend whereas a falling ROC below zero indicates a downtrend. 
+The [roc](./priceRateOfChange.ts) function calculates a unbounded momentum indicator for the closing prices. A rising ROC above zero typically indicates an uptrend whereas a falling ROC below zero indicates a downtrend.
 
 ```
 ROC[i] = 0 when i < period

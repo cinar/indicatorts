@@ -29,7 +29,7 @@ Trend indicators measure the direction and strength of a trend.
 
 #### Absolute Price Oscillator (APO)
 
-The [absolutePriceOscillator](./absolutePriceOscillator.ts) function calculates a technical indicator that is used to follow trends. APO crossing above zero indicates bullish, while crossing below zero indicates bearish. Positive value is upward trend, while negative value is downward trend.
+The [absolutePriceOscillator](./absolutePriceOscillator.ts) function calculates a technical indicator that is used to follow trends. APO crossing above zero indicates bullish, while crossing below zero indicates bearish. Positive value is upward trend, while negative value is downward trend. Passing a configuration object with the period is also possible, but is optional. The default fast period is `14` and the default slow period is `30`.
 
 ```
 Fast = Ema(fastPeriod, values)
@@ -40,14 +40,12 @@ APO = Fast - Slow
 ```TypeScript
 import {absolutePriceOscillator} from 'indicatorts';
 
-const result = absolutePriceOscillator(fastPeriod, slowPeriod, values);
+const result = absolutePriceOscillator(values, { fast: 14, slow: 30 });
 ```
-
-Most frequently used fast and slow periods are 14 and 30. The [defaultAbsolutePriceOscillator](./absolutePriceOscillator.ts) function calculates APO with those periods.
 
 #### Aroon Indicator
 
-The [Aroon](./aroon.ts) function calculates a technical indicator that is used to identify trend changes in the price of a stock, as well as the strength of that trend. It consists of two lines, Aroon Up, and Aroon Down. The Aroon Up line measures measures the strength of the uptrend, and the Aroon Down measures the strength of the downtrend. When Aroon Up is above Aroon Down, it indicates bullish price, and when Aroon Down is above Aroon Up, it indicates bearish price.
+The [Aroon](./aroon.ts) function calculates a technical indicator that is used to identify trend changes in the price of a stock, as well as the strength of that trend. It consists of two lines, Aroon Up, and Aroon Down. The Aroon Up line measures measures the strength of the uptrend, and the Aroon Down measures the strength of the downtrend. When Aroon Up is above Aroon Down, it indicates bullish price, and when Aroon Down is above Aroon Up, it indicates bearish price. Passing a configuration object with the period is also possible, but is optional. The default period is `25`.
 
 ```
 Aroon Up = ((25 - Period Since Last 25 Period High) / 25) * 100
@@ -57,7 +55,7 @@ Aroon Down = ((25 - Period Since Last 25 Period Low) / 25) * 100
 ```TypeScript
 import {aroon} from 'indicatorts';
 
-const result = aroon(highs, lows);
+const result = aroon(highs, lows, { period: 25 });
 ```
 
 #### Balance of Power (BOP)
@@ -92,9 +90,17 @@ import {chandeForecastOscillator} from 'indicatorts';
 const cfo = chandeForecastOscillator(closings);
 ```
 
+There is also an oscillator for calculating the moving chande forecast oscillator. Passing a configuration object with the period is also possible, but is optional. The default period is `4`.
+
+```TypeScript
+import {movingChandeForecastOscillator} from 'indicatorts';
+
+const cfo = movingChandeForecastOscillator(closings, { period: 4 });
+```
+
 #### Community Channel Index (CMI)
 
-The [communityChannelIndex](./communityChannelIndex.ts) is a momentum-based oscillator used to help determine when an investment vehicle is reaching a condition of being overbought or oversold.
+The [communityChannelIndex](./communityChannelIndex.ts) is a momentum-based oscillator used to help determine when an investment vehicle is reaching a condition of being overbought or oversold. Passing a configuration object with the period is also possible, but is optional. The default period is `20`.
 
 ```
 Moving Average = Sma(Period, Typical Price)
@@ -104,21 +110,14 @@ CMI = (Typical Price - Moving Average) / (0.015 * Mean Deviation)
 
 ```TypeScript
 import {communityChannelIndex} from 'indicatorts';
-const result = communityChannelIndex(period, highs, lows, closings);
-```
-
-The [defaultCommunityChannelIndex](./communityChannelIndex.ts) calculates with the period of 20.
-
-```TypeScript
-import {defaultCommunityChannelIndex} from 'indicatorts';
-const result = defaultCommunityChannelIndex(highs, lows, closings);
+const result = communityChannelIndex(highs, lows, closings, { period: 20 });
 ```
 
 #### Double Exponential Moving Average (DEMA)
 
 The [dema](./dema.ts) function calculates the Double Exponential Moving Average (DEMA) for a given period.
 
-The double exponential moving average (DEMA) is a technical indicator introduced by Patrick Mulloy. The purpose is to reduce the amount of noise present in price charts used by technical traders. The DEMA uses two exponential moving averages (EMAs) to eliminate lag. It helps confirm uptrends when the price is above the average, and helps confirm downtrends when the price is below the average. When the price crosses the average that may signal a trend change.
+The double exponential moving average (DEMA) is a technical indicator introduced by Patrick Mulloy. The purpose is to reduce the amount of noise present in price charts used by technical traders. The DEMA uses two exponential moving averages (EMAs) to eliminate lag. It helps confirm uptrends when the price is above the average, and helps confirm downtrends when the price is below the average. When the price crosses the average that may signal a trend change. Passing a configuration object with the period is also possible, but is optional. The default period is `12`.
 
 ```
 DEMA = (2 * EMA(values)) - EMA(EMA(values))
@@ -127,19 +126,19 @@ DEMA = (2 * EMA(values)) - EMA(EMA(values))
 ```TypeScript
 import {dema} from 'indicatorts';
 
-const result = dema(period, values);
+const result = dema(values, { period: 12 });
 ```
 
 Based on [Double Exponential Moving Average (DEMA)](https://www.investopedia.com/terms/d/double-exponential-moving-average.asp).
 
 #### Exponential Moving Average (EMA)
 
-The [ema](./ema.ts) function calculates the exponential moving average for a given period.
+The [ema](./ema.ts) function calculates the exponential moving average for a given period. Passing a configuration object with the period is also possible, but is optional. The default period is `12`.
 
 ```TypeScript
 import {ema} from 'indicatorts';
 
-const result = ema(period, values);
+const result = ema(values, { period: 12 });
 ```
 
 #### Mass Index (MI)
@@ -176,22 +175,22 @@ const result = macd(closings);
 
 #### Moving Max
 
-The [mmax](./mmax.ts) function gives the maximum value within the given moving period. It can be used to get the moving maximum closing price and other values.
+The [mmax](./mmax.ts) function gives the maximum value within the given moving period. It can be used to get the moving maximum closing price and other values. Passing a configuration object with the period is also possible, but is optional. The default period is `4`.
 
 ```TypeScript
 import {mmax} from 'indicatorts';
 
-const result = mmax(period, values);
+const result = mmax(values, { period: 4 });
 ```
 
 #### Moving Min
 
-The [mmin](./mmin.ts) function gives the minimum value within the given moving period. It can be used to get the moving minimum closing price and other values.
+The [mmin](./mmin.ts) function gives the minimum value within the given moving period. It can be used to get the moving minimum closing price and other values. Passing a configuration object with the period is also possible, but is optional. The default period is `4`.
 
 ```TypeScript
 import {mmin} from 'indicatorts';
 
-const result = mmin(period, values);
+const result = mmin(values, { period: 4});
 ```
 
 #### Moving Sum
@@ -256,6 +255,8 @@ The [kdj](./kdj.ts) function calculates the KDJ indicator, also known as the Ran
 
 The K and D lines show if the asset is overbought when they crosses above 80%, and oversold when they crosses below 20%. The J line represents the divergence.
 
+Passing a configuration object with the r, k, and d period is also possible, but is optional. The default r period is `9`, the default k period is `3` and the default d period is `3`.
+
 ```
 RSV = ((Closing - Min(Low, rPeriod)) / (Max(High, rPeriod) - Min(Low, rPeriod))) * 100
 K = Sma(RSV, kPeriod)
@@ -266,15 +267,7 @@ J = (3 * K) - (2 * D)
 ```TypeScript
 import {kdj} from 'indicatorts';
 
-const result = kdj(rPeriod, kPeriod, dPeriod, highs, lows, closings);
-```
-
-By default, _rPeriod_ of 9, _kPeriod_ of 3, and _dPeriod_ of 3 are used. The [defaultKdj](./kdj.ts) function can be used with those periods.
-
-```TypeScript
-import {defaultKdj} from 'indicatorts';
-
-const result = defaultKdj(highs, lows, closings);
+const result = kdj(highs, lows, closings, { rPeriod: 9, kPeriod: 3, dPeriod: 3 });
 ```
 
 #### Rolling Moving Average (RMA)

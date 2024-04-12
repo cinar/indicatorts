@@ -2,12 +2,21 @@
 // https://github.com/cinar/indicatorts
 
 import { divide, multiply, subtract } from '../../helper/numArray';
-import { msum } from '../trend/msum';
+import { msum } from '../trend/movingSum';
 
 /**
- * Default period of CMF.
+ * Optional configuration of CMF parameters.
  */
-export const CMF_DEFAULT_PERIOD = 20;
+export interface CMFConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of CMF.
+ */
+export const CMFDefaultConfig: Required<CMFConfig> = {
+  period: 20,
+};
 
 /**
  * The Chaikin Money Flow (CMF) measures the amount of money flow volume
@@ -21,14 +30,17 @@ export const CMF_DEFAULT_PERIOD = 20;
  * @param lows low values.
  * @param closings closing values.
  * @param volumes volume values.
+ * @param config configuration.
  * @returns cmf values.
  */
-export function chaikinMoneyFlow(
+export function cmf(
   highs: number[],
   lows: number[],
   closings: number[],
-  volumes: number[]
+  volumes: number[],
+  config: CMFConfig = {}
 ): number[] {
+  const { period } = { ...CMFDefaultConfig, ...config };
   const moneyFlowMultipler = divide(
     subtract(subtract(closings, lows), subtract(highs, closings)),
     subtract(highs, lows)
@@ -36,10 +48,13 @@ export function chaikinMoneyFlow(
 
   const moneyFlowVolume = multiply(moneyFlowMultipler, volumes);
 
-  const cmf = divide(
-    msum(CMF_DEFAULT_PERIOD, moneyFlowVolume),
-    msum(CMF_DEFAULT_PERIOD, volumes)
+  const result = divide(
+    msum(moneyFlowVolume, { period }),
+    msum(volumes, { period })
   );
 
-  return cmf;
+  return result;
 }
+
+// Export full name
+export { cmf as chaikinMoneyFlow };

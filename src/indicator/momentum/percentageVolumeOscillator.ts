@@ -2,25 +2,34 @@
 // https://github.com/cinar/indicatorts
 
 import { divide, multiplyBy, subtract } from '../../helper/numArray';
-import { ema } from '../trend/ema';
-
-/** Default fast period value. */
-const DEFAULT_FAST_PERIOD = 12;
-
-/** Default slow period value. */
-const DEFAULT_SLOW_PERIOD = 26;
-
-/** Default signal period value. */
-const DEFAULT_SIGNAL_PERIOD = 9;
+import { ema } from '../trend/exponentialMovingAverage';
 
 /**
  * Percentage volume oscillator result.
  */
-export interface PercentageVolumeOscillator {
+export interface PVOResult {
   pvo: number[];
   signal: number[];
   histogram: number[];
 }
+
+/**
+ * Optional configuration of PVO parameters.
+ */
+export interface PVOConfig {
+  fast?: number;
+  slow?: number;
+  signal?: number;
+}
+
+/**
+ * The default configuration of PVO.
+ */
+export const PVODefaultConfig: Required<PVOConfig> = {
+  fast: 12,
+  slow: 26,
+  signal: 9,
+};
 
 /**
  * Percentage Volume Oscillator (PVO). It is a momentum oscillator for the volume.
@@ -31,23 +40,21 @@ export interface PercentageVolumeOscillator {
  * Signal = EMA(9, PVO)
  * Histogram = PVO - Signal
  *
- * @param fastPeriod fast period.
- * @param slowPeriod slow period.
- * @param signalPeriod signal period.
  * @param volumes volume values.
+ * @param config configuration.
  * @returns oscillator result.
  */
-export function percentageVolumeOscillator(
-  fastPeriod: number,
-  slowPeriod: number,
-  signalPeriod: number,
-  volumes: number[]
-): PercentageVolumeOscillator {
-  const fastEma = ema(fastPeriod, volumes);
-  const slowEma = ema(slowPeriod, volumes);
+export function pvo(volumes: number[], config: PVOConfig = {}): PVOResult {
+  const {
+    fast: fastPeriod,
+    slow: slowPeriod,
+    signal: signalPeriod,
+  } = { ...PVODefaultConfig, ...config };
+  const fastEma = ema(volumes, { period: fastPeriod });
+  const slowEma = ema(volumes, { period: slowPeriod });
 
   const pvo = multiplyBy(100, divide(subtract(fastEma, slowEma), slowEma));
-  const signal = ema(signalPeriod, pvo);
+  const signal = ema(pvo, { period: signalPeriod });
   const histogram = subtract(pvo, signal);
 
   return {
@@ -57,19 +64,5 @@ export function percentageVolumeOscillator(
   };
 }
 
-/**
- * Default Percentage Volume Oscillator calculates it with the default periods of 12, 26, 9.
- *
- * @param volumes volume values.
- * @returns oscillator result.
- */
-export function defaultPercentageVolumeOscillator(
-  volumes: number[]
-): PercentageVolumeOscillator {
-  return percentageVolumeOscillator(
-    DEFAULT_FAST_PERIOD,
-    DEFAULT_SLOW_PERIOD,
-    DEFAULT_SIGNAL_PERIOD,
-    volumes
-  );
-}
+// Export full name
+export { pvo as percentageVolumeOscillator };

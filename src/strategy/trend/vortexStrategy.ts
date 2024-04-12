@@ -3,22 +3,36 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { vortex } from '../../indicator/trend/vortex';
+import {
+  VortexConfig,
+  VortexDefaultConfig,
+  vortex,
+} from '../../indicator/trend/vortex';
 
 /**
  * Vortex strategy.
  * @param asset asset object.
+ * @param config configuration.
  * @return strategy actions.
  */
-export function vortexStrategy(asset: Asset): Action[] {
-  const indicator = vortex(asset.highs, asset.lows, asset.closings);
+export function vortexStrategy(
+  asset: Asset,
+  config: VortexConfig = {}
+): Action[] {
+  const strategyConfig = { ...VortexDefaultConfig, ...config };
+  const indicator = vortex(
+    asset.highs,
+    asset.lows,
+    asset.closings,
+    strategyConfig
+  );
 
-  const actions = new Array<Action>(indicator.plusVi.length);
+  const actions = new Array<Action>(indicator.plus.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (indicator.plusVi[i] > indicator.minusVi[i]) {
+    if (indicator.plus[i] > indicator.minus[i]) {
       actions[i] = Action.BUY;
-    } else if (indicator.plusVi[i] < indicator.minusVi[i]) {
+    } else if (indicator.plus[i] < indicator.minus[i]) {
       actions[i] = Action.SELL;
     } else {
       actions[i] = Action.HOLD;

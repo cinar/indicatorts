@@ -1,10 +1,27 @@
+// Copyright (c) 2022 Onur Cinar. All Rights Reserved.
+// https://github.com/cinar/indicatorts
+
+/**
+ * Optional configuration of ROC parameters.
+ */
+export interface ROCConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of ROC.
+ */
+export const ROCDefaultConfig: Required<ROCConfig> = {
+  period: 3,
+};
+
 /**
  * Price Rate of Change (ROC).
- * @param period window period.
  * @param values values array.
  * @return ROC values.
  */
-export function roc(period: number, values: number[]): number[] {
+export function roc(values: number[], config: ROCConfig = {}): number[] {
+  const { period } = { ...ROCDefaultConfig, ...config };
   const result = new Array<number>(values.length);
 
   for (let i = 0; i < values.length; i++) {
@@ -18,3 +35,6 @@ export function roc(period: number, values: number[]): number[] {
 
   return result;
 }
+
+// Export full name
+export { roc as priceRateOfChange };

@@ -2,16 +2,32 @@
 // https://github.com/cinar/indicatorts
 
 import { subtract } from '../../helper/numArray';
-import { ema } from '../trend/ema';
-import { accumulationDistribution } from '../volume/accumulationDistribution';
+import { ema } from '../trend/exponentialMovingAverage';
+import { ad } from '../volume/accumulationDistribution';
 
 /**
  * Chaikin oscillator result object.
  */
-export interface ChaikinOscillator {
+export interface CMOResult {
   ad: number[];
-  co: number[];
+  cmo: number[];
 }
+
+/**
+ * Optional configuration of Chaikin oscillator parameters.
+ */
+export interface CMOConfig {
+  fast?: number;
+  slow?: number;
+}
+
+/**
+ * The default configuration of Chaikin oscillator.
+ */
+export const CMODefaultConfig: Required<CMOConfig> = {
+  fast: 3,
+  slow: 10,
+};
 
 /**
  * The ChaikinOscillator function measures the momentum of the
@@ -22,46 +38,29 @@ export interface ChaikinOscillator {
  *
  * CO = Ema(fastPeriod, AD) - Ema(slowPeriod, AD)
  *
- * @param fastPeriod fast period.
- * @param slowPeriod slow period.
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
  * @param volumes volume values.
+ * @param config configuration.
  * @return chaikin oscillator.
  */
-export function chaikinOscillator(
-  fastPeriod: number,
-  slowPeriod: number,
+export function cmo(
   highs: number[],
   lows: number[],
   closings: number[],
-  volumes: number[]
-): ChaikinOscillator {
-  const ad = accumulationDistribution(highs, lows, closings, volumes);
-  const co = subtract(ema(fastPeriod, ad), ema(slowPeriod, ad));
+  volumes: number[],
+  config: CMOConfig = {}
+): CMOResult {
+  const { fast, slow } = { ...CMODefaultConfig, ...config };
+  const adResult = ad(highs, lows, closings, volumes);
+  const cmoResult = subtract(
+    ema(adResult, { period: fast }),
+    ema(adResult, { period: slow })
+  );
 
-  return {
-    ad,
-    co,
-  };
+  return { ad: adResult, cmo: cmoResult };
 }
 
-/**
- * The defaultChaikinOscillator function calculates Chaikin Oscillator
- * with the most frequently used fast and short periods, 3 and 10.
- *
- * @param highs high values.
- * @param lows low values.
- * @param closings closing values.
- * @param volumes volume values.
- * @return chaikin oscillator.
- */
-export function defaultChaikinOscillator(
-  highs: number[],
-  lows: number[],
-  closings: number[],
-  volumes: number[]
-): ChaikinOscillator {
-  return chaikinOscillator(3, 10, highs, lows, closings, volumes);
-}
+// Export full name
+export { cmo as chaikinOscillator };

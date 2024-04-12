@@ -2,7 +2,21 @@
 // https://github.com/cinar/indicatorts
 
 import { changes, multiply } from '../../helper/numArray';
-import { ema } from '../trend/ema';
+import { ema } from '../trend/exponentialMovingAverage';
+
+/**
+ * Optional configuration of FI parameters.
+ */
+export interface FIConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of FI.
+ */
+export const FIDefaultConfig: Required<FIConfig> = {
+  period: 13,
+};
 
 /**
  * The Force Index (FI) uses the closing price and the volume to assess
@@ -10,29 +24,21 @@ import { ema } from '../trend/ema';
  *
  * Force Index = EMA(period, (Current - Previous) * Volume)
  *
- * @param period window period.
  * @param closings closing values.
  * @param volumes volume values.
+ * @param config configuration.
  * @return force index.
  */
-export function forceIndex(
-  period: number,
+export function fi(
   closings: number[],
-  volumes: number[]
+  volumes: number[],
+  config: FIConfig = {}
 ): number[] {
-  return ema(period, multiply(changes(1, closings), volumes));
+  const { period } = { ...FIDefaultConfig, ...config };
+  const result = ema(multiply(changes(1, closings), volumes), { period });
+
+  return result;
 }
 
-/**
- * The default Force Index (FI) with window size of 13.
- *
- * @param closings closing values.
- * @param volumes volume values.
- * @return force index.
- */
-export function defaultForceIndex(
-  closings: number[],
-  volumes: number[]
-): number[] {
-  return forceIndex(13, closings, volumes);
-}
+// Export full name
+export { fi as forceIndex };

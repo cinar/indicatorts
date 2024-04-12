@@ -17,7 +17,7 @@ import { divide, subtract } from '../../helper/numArray';
  * @param closings closing values.
  * @return balance of power values.
  */
-export function balanceOfPower(
+export function bop(
   openings: number[],
   highs: number[],
   lows: number[],
@@ -25,3 +25,6 @@ export function balanceOfPower(
 ): number[] {
   return divide(subtract(closings, openings), subtract(highs, lows));
 }
+
+// Export full name
+export { bop as balanceOfPower };

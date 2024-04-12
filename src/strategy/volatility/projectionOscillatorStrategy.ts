@@ -3,27 +3,29 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { defaultProjectionOscillator } from '../../indicator/volatility/projectionOscillator';
+import {
+  POConfig,
+  PODefaultConfig,
+  po,
+} from '../../indicator/volatility/projectionOscillator';
 
 /**
  * Projection oscillator strategy function.
  *
  * @param asset asset object.
+ * @param config configuration.
  * @return strategy actions.
  */
-export function projectionOscillatorStrategy(asset: Asset): Action[] {
-  const po = defaultProjectionOscillator(
-    asset.highs,
-    asset.lows,
-    asset.closings
-  );
+export function poStrategy(asset: Asset, config: POConfig = {}): Action[] {
+  const strategyConfig = { ...PODefaultConfig, ...config };
+  const result = po(asset.highs, asset.lows, asset.closings, strategyConfig);
 
-  const actions = new Array<Action>(po.po.length);
+  const actions = new Array<Action>(result.po.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (po.po[i] > po.spo[i]) {
+    if (result.po[i] > result.spo[i]) {
       actions[i] = Action.BUY;
-    } else if (po.po[i] < po.spo[i]) {
+    } else if (result.po[i] < result.spo[i]) {
       actions[i] = Action.SELL;
     } else {
       actions[i] = Action.HOLD;
@@ -32,3 +34,6 @@ export function projectionOscillatorStrategy(asset: Asset): Action[] {
 
   return actions;
 }
+
+// Export full name
+export { poStrategy as projectionOscillatorStrategy };
