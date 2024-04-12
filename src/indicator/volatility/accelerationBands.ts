@@ -26,6 +26,7 @@ export interface ABResult {
  */
 export interface ABConfig {
   period?: number;
+  multiplier?: number;
 }
 
 /**
@@ -33,6 +34,7 @@ export interface ABConfig {
  */
 export const ABDefaultConfig: Required<ABConfig> = {
   period: 20,
+  multiplier: 4,
 };
 
 /**
@@ -57,14 +59,14 @@ export function ab(
 ): ABResult {
   checkSameLength(highs, lows, closings);
 
-  const { period } = { ...ABDefaultConfig, ...config };
+  const { period, multiplier } = { ...ABDefaultConfig, ...config };
   const k = divide(subtract(highs, lows), add(highs, lows));
 
-  const upper = sma(multiply(highs, addBy(1, multiplyBy(4, k))), {
+  const upper = sma(multiply(highs, addBy(1, multiplyBy(multiplier, k))), {
     period,
   });
   const middle = sma(closings, { period });
-  const lower = sma(multiply(lows, addBy(1, multiplyBy(-4, k))), {
+  const lower = sma(multiply(lows, addBy(1, multiplyBy(-1 * multiplier, k))), {
     period,
   });
 

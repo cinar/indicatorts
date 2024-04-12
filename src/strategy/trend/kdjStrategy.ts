@@ -3,7 +3,11 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { KDJConfig, KDJDefaultConfig, kdj } from '../../indicator/trend/kdj';
+import {
+  KDJConfig,
+  KDJDefaultConfig,
+  kdj,
+} from '../../indicator/trend/randomIndex';
 
 /**
  * KDJ strategy.

@@ -17,10 +17,10 @@ The following list of indicators are currently supported by this package:
 ### Trend Indicators
 
 - [Absolute Price Oscillator (APO)](src/indicator/trend/index.md#absolute-price-oscillator-apo)
-- [Aroon Indicator](src/indicator/trend/index.md#aroon-indicator)
+- [Aroon Indicator](src/indicator/trend/index.md#aroon)
 - [Balance of Power (BOP)](src/indicator/trend/index.md#balance-of-power-bop)
 - [Chande Forecast Oscillator (CFO)](src/indicator/trend/index.md#chande-forecast-oscillator-cfo)
-- [Community Channel Index (CMI)](src/indicator/trend/index.md#community-channel-index-cmi)
+- [Community Channel Index (CCI)](src/indicator/trend/index.md#community-channel-index-cci)
 - [Double Exponential Moving Average (DEMA)](src/indicator/trend/index.md#double-exponential-moving-average-dema)
 - [Exponential Moving Average (EMA)](src/indicator/trend/index.md#exponential-moving-average-ema)
 - [Mass Index (MI)](src/indicator/trend/index.md#mass-index-mi)
@@ -45,13 +45,11 @@ The following list of indicators are currently supported by this package:
 
 - [Awesome Oscillator](src/indicator/momentum/index.md#awesome-oscillator)
 - [Chaikin Oscillator](src/indicator/momentum/index.md#chaikin-oscillator)
-- [Custom RSI](src/indicator/momentum/index.md#custom-rsi)
 - [Ichimoku Cloud](src/indicator/momentum/index.md#ichimoku-cloud)
 - [Percentage Price Oscillator (PPO)](src/indicator/momentum/index.md#percentage-price-oscillator-ppo)
 - [Percentage Volume Oscillator (PVO)](src/indicator/momentum/index.md#percentage-volume-oscillator-pvo)
 - [Price Rate of Change (ROC)](src/indicator/momentum/index.md#price-rate-of-change-roc)
 - [Relative Strength Index (RSI)](src/indicator/momentum/index.md#relative-strength-index-rsi)
-- [RSI 2](src/indicator/momentum/index.md#rsi-2)
 - [Stochastic Oscillator](src/indicator/momentum/index.md#stochastic-oscillator)
 - [Williams R](src/indicator/momentum/index.md#williams-r)
 
@@ -66,6 +64,7 @@ The following list of indicators are currently supported by this package:
 - [Keltner Channel (KC)](src/indicator/volatility/index.md#keltner-channel-kc)
 - [Moving Standard Deviation (Std)](src/indicator/volatility/index.md#moving-standard-deviation-std)
 - [Projection Oscillator (PO)](src/indicator/volatility/index.md#projection-oscillator-po)
+- [True Range (TR)](src/indicator/volatility/index.md#true-range-tr)
 - [Ulcer Index (UI)](src/indicator/volatility/index.md#ulcer-index-ui)
 
 ### Volume Indicators

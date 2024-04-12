@@ -6,16 +6,11 @@ import { ema } from '../trend/exponentialMovingAverage';
 import { atr } from './averageTrueRange';
 
 /**
- * Default period for KC.
- */
-export const KC_PERIOD = 20;
-
-/**
  * Keltner channel result object.
  */
 export interface KCResult {
-  middle: number[];
   upper: number[];
+  middle: number[];
   lower: number[];
 }
 

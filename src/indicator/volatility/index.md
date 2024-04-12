@@ -11,7 +11,10 @@ Volatility indicators measure the rate of movement regardless of its direction.
 - [Keltner Channel (KC)](#keltner-channel-kc)
 - [Moving Standard Deviation (Std)](#moving-standard-deviation-std)
 - [Projection Oscillator (PO)](#projection-oscillator-po)
+- [True Range (TR)](#true-range-tr)
 - [Ulcer Index (UI)](#ulcer-index-ui)
+
+**NOTE:** All configuration objects for all indicators are optional. If no configuration object is passed, the default configuration will be used. Likewise, you may also partially pass a configuration object, and the default values will be used for the missing properties.
 
 #### Acceleration Bands
 
@@ -24,14 +27,18 @@ Lower Band = SMA(Low * (1 + 4 * (High - Low) / (High + Low)))
 ```
 
 ```TypeScript
-import {accelerationBands} from 'indicatorts';
+import { ab } from 'indicatorts';
 
-const result = accelerationBands(highs, lows, closings);
+const defaultConfig = { period: 20, multiplier: 4 };
+const { upper, middle, lower } = ab(highs, lows, closings, defaultConfig);
+
+// Alternatively:
+// const { upper, middle, lower } = accelerationBands(highs, lows, closings, defaultConfig);
 ```
 
 #### Average True Range (ATR)
 
-The [atr](./atr.ts) function calculates a technical analysis indicator that measures market volatility by decomposing the entire range of stock prices for that period.
+The [atr](./averageTrueRange.ts) function calculates a technical analysis indicator that measures market volatility by decomposing the entire range of stock prices for that period.
 
 ```
 TR = Max((High - Low), (High - Closing), (Closing - Low))
@@ -39,9 +46,13 @@ ATR = 14-Period SMA TR
 ```
 
 ```TypeScript
-import {atr} from 'indicatorts';
+import { atr } from 'indicatorts';
 
-const result = atr(period, highs, lows, closings);
+const defaultConfig = { period: 14 };
+const { tr, atr } = atr(highs, lows, closings, defaultConfig);
+
+// Alternatively:
+// const { tr, atr } = averageTrueRange(highs, lows, closings, defaultConfig);
 ```
 
 #### Bollinger Bands
@@ -55,9 +66,13 @@ Lower Band = 20-Period SMA - 2 (20-Period Std)
 ```
 
 ```TypeScript
-import {bollingerBands} from 'indicatorts';
+import { bb } from 'indicatorts';
 
-const result = bollingerBands(closings);
+const defaultConfig = { period: 20 };
+const { upper, middle, lower } = bb(closings, defaultConfig);
+
+// Alternatively:
+// const { upper, middle, lower } = bollingerBands(closings, defaultConfig);
 ```
 
 #### Bollinger Band Width
@@ -71,14 +86,20 @@ Band Width = (Upper Band - Lower Band) / Middle Band
 ```
 
 ```TypeScript
-import {bollingerBandsWidth} from 'indicatorts';
+import { bb, bbw } from 'indicatorts';
 
-const result = bollingerBandsWidth(bollingerBandsResult);
+const bbResult = bb(closings);
+
+const defaultConfig = { period: 90 };
+const { width, widthEma } = bbw(bbResult, defaultConfig);
+
+// Alternatively:
+// const { width, widthEma } = bollingerBandsWidth(bbResult, defaultConfig);
 ```
 
 #### Chandelier Exit
 
-The [chandelierExit](https://pkg.go.dev/github.com/cinar/indicator#ChandelierExit) function sets a trailing stop-loss based on the Average True Value (ATR).
+The [chandelierExit](./chandelierExit.ts) function sets a trailing stop-loss based on the Average True Value (ATR).
 
 ```
 Chandelier Exit Long = 22-Period SMA High - ATR(22) * 3
@@ -86,9 +107,13 @@ Chandelier Exit Short = 22-Period SMA Low + ATR(22) * 3
 ```
 
 ```TypeScript
-import {chandelierExit} from 'indicatorts';
+import { ce } from 'indicatorts';
 
-const result = chandelierExit(highs, lows, closings);
+const defaultConfig = { period: 22 };
+const { long, short } = ce(highs, lows, closings, defaultConfig);
+
+// Alternatively:
+// const { long, short } = chandelierExit(highs, lows, closings, defaultConfig);
 ```
 
 #### Donchian Channel (DC)
@@ -102,9 +127,13 @@ Middle Channel = (Upper Channel + Lower Channel) / 2
 ```
 
 ```TypeScript
-import {donchianChannel} from 'indicatorts';
+import { dc } from 'indicatorts';
 
-const result = donchianChannel(period, closings);
+const defaultConfig = { period: 4 };
+const { upper, middle, lower } = dc(closings, defaultConfig);
+
+// Alternatively:
+// const { upper, middle, lower } = donchianChannel(closings, defaultConfig);
 ```
 
 #### Keltner Channel (KC)
@@ -118,19 +147,27 @@ Lower Band = EMA(period, closings) - 2 * ATR(period, highs, lows, closings)
 ```
 
 ```TypeScript
-import {keltnerChannel} from 'indicatorts';
+import { kc } from 'indicatorts';
 
-const result = keltnerChannel(period, highs, lows, closings);
+const defaultConfig = { period: 20 };
+const { upper, middle, lower } = kc(highs, lows, closings, defaultConfig);
+
+// Alternatively:
+// const { upper, middle, lower } = keltnerChannel(highs, lows, closings, defaultConfig);
 ```
 
 #### Moving Standard Deviation (Std)
 
-The [mstd](./mstd.ts) function calculates the moving standard deviation for a given period.
+The [mstd](./movingStandardDeviation.ts) function calculates the moving standard deviation for a given period.
 
 ```TypeScript
-import {mstd} from 'indicatorts';
+import { mstd } from 'indicatorts';
 
-const result = mstd(values, { period });
+const defaultConfig = { period: 4 };
+const result = mstd(values, defaultConfig);
+
+// Alternatively:
+// const result = movingStandardDeviation(values, defaultConfig);
 ```
 
 #### Projection Oscillator (PO)
@@ -147,9 +184,27 @@ SPO = EMA(smooth, PO)
 ```
 
 ```TypeScript
-import {projectionOscillator} from 'indicatorts';
+import { po } from 'indicatorts';
 
-const result = projectionOscillator(period, smooth, highs, lows, closings);
+const defaultConfig = { period: 14, smooth: 3 };
+const { po, spo } = po(highs, lows, closings, defaultConfig);
+
+// Alternatively:
+// const { po, spo } = projectionOscillator(highs, lows, closings, defaultConfig);
+```
+
+#### True Range (TR)
+
+The [trueRange](./trueRange.ts) function calculates the True Range (TR) for a given period.
+
+```
+TR = Max((High - Low), Abs(High - Closing[-1]), Abs(Low - Closing[-1]))
+```
+
+```TypeScript
+import { tr } from 'indicatorts';
+
+const result = tr(highs, lows, closings);
 ```
 
 #### Ulcer Index (UI)
@@ -164,9 +219,13 @@ Ulcer Index = Sqrt(Squared Average)
 ```
 
 ```TypeScript
-import {ulcerIndex} from 'indicatorts';
+import { ui } from 'indicatorts';
 
-const result = ulcerIndex(period, closings);
+const defaultConfig = { period: 14 };
+const result = ulcerIndex(closings, defaultConfig);
+
+// Alternatively:
+// const result = ulcerIndex(closings, defaultConfig);
 ```
 
 ## Disclaimer

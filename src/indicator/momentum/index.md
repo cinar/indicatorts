@@ -4,15 +4,15 @@ Momentum indicators measure the speed of movement.
 
 - [Awesome Oscillator](#awesome-oscillator)
 - [Chaikin Oscillator](#chaikin-oscillator)
-- [Custom RSI](#custom-rsi)
 - [Ichimoku Cloud](#ichimoku-cloud)
 - [Percentage Price Oscillator (PPO)](#percentage-price-oscillator-ppo)
 - [Percentage Volume Oscillator (PVO)](#percentage-volume-oscillator-pvo)
 - [Price Rate of CHange (ROC)](#price-rate-of-change-roc)
 - [Relative Strength Index (RSI)](#relative-strength-index-rsi)
-- [RSI 2](#rsi-2)
 - [Stochastic Oscillator](#stochastic-oscillator)
 - [Williams R](#williams-r)
+
+**NOTE:** All configuration objects for all indicators are optional. If no configuration object is passed, the default configuration will be used. Likewise, you may also partially pass a configuration object, and the default values will be used for the missing properties.
 
 #### Awesome Oscillator
 
@@ -24,10 +24,13 @@ AO = 5-Period SMA - 34-Period SMA.
 ```
 
 ```TypeScript
-import {awesomeOscillator} from 'indicatorts';
+import { ao } from 'indicatorts';
 
-const optionalConfig =  { fast: 5, slow: 34 };
-const result = awesomeOscillator(highs, lows, optionalConfig);
+const defaultConfig =  { fast: 5, slow: 34 };
+const result = ao(highs, lows, defaultConfig);
+
+// Alternatively:
+// const result = awesomeOscillator(highs, lows, defaultConfig);
 ```
 
 #### Chaikin Oscillator
@@ -39,32 +42,20 @@ CO = Ema(fastPeriod, AD) - Ema(slowPeriod, AD)
 ```
 
 ```TypeScript
-import {chaikinOscillator} from 'indicatorts';
+import { cmo } from 'indicatorts';
 
-const optionalConfig =  { fast: 3, slow: 10 };
-const result = chaikinOscillator(highs, lows, closings, volumes, optionalConfig);
+const defaultConfig =  { fast: 3, slow: 10 };
+const { ad, cmo } = cmo(highs, lows, closings, volumes, defaultConfig);
+
+// Alternatively:
+// const { ad, cmo } = chaikinOscillator(highs, lows, closings, volumes, defaultConfig);
 ```
 
 Most frequently used fast and short periods are 3 and 10.
 
-#### RSI
-
-The [customRsi](./rsi.ts) function calculates Relative Strength Index (RSI), a momentum indicator that measures the magnitude of recent price changes to evaluate overbought and oversold conditions using the given window period.
-
-```
-RS = Average Gain / Average Loss
-RSI = 100 - (100 / (1 + RS))
-```
-
-```TypeScript
-import {rsi} from 'indicatorts';
-
-const result = rsi(closings, { period: 14 });
-```
-
 #### Ichimoku Cloud
 
-The [ichimokuCloud](./ichimokuCloud.ts), also known as Ichimoku Kinko Hyo, calculates a versatile indicator that defines support and resistence, identifies tred direction, gauges momentum, and provides trading signals.
+The [ichimokuCloud](./ichimokuCloud.ts), also known as Ichimoku Kinko Hyo, calculates a versatile indicator that defines support and resistence, identifies trend direction, gauges momentum, and provides trading signals.
 
 ```
 Tenkan-sen (Conversion Line) = (9-Period High + 9-Period Low) / 2
@@ -75,19 +66,10 @@ Chikou Span (Lagging Span) = Closing plotted 26 days in the past.
 ```
 
 ```TypeScript
-import {ichimokuCloud} from 'indicatorts';
+import { ichimokuCloud } from 'indicatorts';
 
-const result = ichimokuCloud(
-    highs,
-    lows,
-    closings,
-    {
-        short: 9,
-        medium: 26,
-        long: 52,
-        close: 26,
-    }
-);
+const defaultConfig = { short: 9, medium: 26, long: 52, close: 26 };
+const { conversion, base, leadingSpanA, leadingSpanB, leadingSpan } = ichimokuCloud(highs, lows, closings, defaultConfig);
 ```
 
 #### Percentage Price Oscillator (PPO)
@@ -101,22 +83,13 @@ Histogram = PPO - Signal
 ```
 
 ```TypeScript
-import {percentagePriceOscillator} from 'indicatorts';
+import { ppo } from 'indicatorts';
 
-const result = percentagePriceOscillator(
-    fastPeriod,
-    slowPeriod,
-    signalPeriod,
-    prices
-);
-```
+const defaultConfig = { fast: 12, slow: 26, signal: 9 };
+const { ppo, signal, histogram } = ppo(prices, defaultConfig);
 
-The [defaultPercentagePriceOscillator](./percentagePriceOscillator.ts) function calculates it with the default periods of 12, 26, 9.
-
-```TypeScript
-import {defaultPercentagePriceOscillator} from 'indicatorts';
-
-const result = defaultPercentagePriceOscillator(prices);
+// Alternatively:
+// const { ppo, signal, histogram } = percentagePriceOscillator(prices, defaultConfig);
 ```
 
 #### Percentage Volume Oscillator (PVO)
@@ -130,22 +103,13 @@ Histogram = PVO - Signal
 ```
 
 ```TypeScript
-import {percentageVolumeOscillator} from 'indicatorts';
+import { pvo } from 'indicatorts';
 
-const result = percentageVolumeOscillator(
-    fastPeriod,
-    slowPeriod,
-    signalPeriod,
-    volumes
-);
-```
+const defaultConfig = { fast: 12, slow: 26, signal: 9 };
+const { pvo, signal, histogram } = pvo(volumes, defaultConfig);
 
-The [defaultPercentageVolumeOscillator](./percentageVolumeOscillator.ts) function calculates it with the default periods of 12, 26, 9.
-
-```TypeScript
-import {defaultPercentageVolumeOscillator} from 'indicatorts';
-
-const result = defaultPercentageVolumeOscillator(volumes);
+// Alternatively:
+// const { pvo, signal, histogram } = percentageVolumeOscillator(volumes, defaultConfig);
 ```
 
 #### Price Rate of Change (ROC)
@@ -158,19 +122,20 @@ ROC[i] = (close[i] / close[i-period] - 1) * 100 when i >= period
 ```
 
 ```TypeScript
-import {roc} from 'indicatorts';
+import { roc } from 'indicatorts';
 
-const result = roc(
-    period,
-    close
-);
+const defaultConfig = { period: 3 };
+const result = roc(close, defaultConfig);
+
+// Alternatively:
+// const result = priceRateOfChange(close, defaultConfig);
 ```
 
 Ensure that the array `close` does not contain $0$ to avoid division by 0 errors.
 
 #### Relative Strength Index (RSI)
 
-The [rsi](./rsi.ts) function calculates a momentum indicator that measures the magnitude of recent price changes to evaluate overbought and oversold conditions using the window period of 14.
+The [rsi](./relativeStrengthIndex.ts) function calculates a momentum indicator that measures the magnitude of recent price changes to evaluate overbought and oversold conditions using a window period.
 
 ```
 RS = Average Gain / Average Loss
@@ -178,19 +143,13 @@ RSI = 100 - (100 / (1 + RS))
 ```
 
 ```TypeScript
-import {rsi} from 'indicatorts';
+import { rsi } from 'indicatorts';
 
-const result = rsi(closings);
-```
+const defaultConfig = { period: 14 };
+const result = rsi(closings, defaultConfig);
 
-#### RSI 2
-
-The [rsi2](./rsi2.ts) function calculates a RSI with 2 period that provides a mean-reversion trading strategy. It is developed by Larry Connors.
-
-```TypeScript
-import {rsi2} from 'indicatorts';
-
-const result = rsi2(closings);
+// Alternatively:
+// const result = relativeStrengthIndex(closings, defaultConfig);
 ```
 
 #### Stochastic Oscillator
@@ -203,9 +162,13 @@ D = 3-Period SMA of K
 ```
 
 ```TypeScript
-import {stochasticOscillator} from 'indicatorts';
+import { stoch } from 'indicatorts';
 
-const result = stochasticOscillator(highs, lows, closings);
+const defaultConfig = { kPeriod: 14, dPeriod: 3 };
+const { k, d } = stoch(highs, lows, closings, defaultConfig);
+
+// Alternatively:
+// const { k, d } = stochasticOscillator(highs, lows, closings, defaultConfig);
 ```
 
 #### Williams R
@@ -217,9 +180,13 @@ WR = (Highest High - Closing) / (Highest High - Lowest Low)
 ```
 
 ```TypeScript
-import {williamsR} from 'indicatorts';
+import { willr } from 'indicatorts';
 
-const result = williamsR(highs, lows, closings);
+const defaultConfig = { period: 14 };
+const result = willr(highs, lows, closings, defaultConfig);
+
+// Alternatively:
+// const result = williamsR(highs, lows, closings, defaultConfig);
 ```
 
 ## Disclaimer

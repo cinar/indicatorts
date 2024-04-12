@@ -17,6 +17,10 @@ export const ROCDefaultConfig: Required<ROCConfig> = {
 
 /**
  * Price Rate of Change (ROC).
+ *
+ * ROC[i] = 0 when i < period
+ * ROC[i] = (close[i] / close[i-period] - 1) * 100 when i >= period
+ *
  * @param values values array.
  * @return ROC values.
  */
