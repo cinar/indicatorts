@@ -1,16 +1,19 @@
-### Backtest
+# Backtest
 
 Backtesting is the method for seeing how well a strategy would have done. The following backtesting functions are provided for evaluating strategies.
 
-- [Strategy Info](#strategy-info)
-- [Strategy Result](#strategy-result)
-- [Backtest Function](#backtest-function)
-- [Company Info](#company-info)
-- [Company Result](#company-result)
-- [Strategy Stats](#strategy-stats)
-  - [Compute Strategy Stats](#compute-strategy-stats)
+- [Backtest](#backtest)
+  - [Strategy Info](#strategy-info)
+  - [Strategy Result](#strategy-result)
+  - [Backtest Function](#backtest-function)
+  - [Company Info](#company-info)
+  - [Company Result](#company-result)
+  - [Strategy Stats](#strategy-stats)
+    - [Compute Strategy Stats](#compute-strategy-stats)
+  - [Disclaimer](#disclaimer)
+  - [License](#license)
 
-#### Strategy Info
+## Strategy Info
 
 The [StrategyInfo](./strategyInfo.ts) provides a strategy function with a name.
 
@@ -36,7 +39,7 @@ const strategyInfo: StrategyInfo = {
 
 The strategy infos for all strategies are provided under [STRATEGY_INFOS](./strategyInfo.ts).
 
-#### Strategy Result
+## Strategy Result
 
 The [StrategyResult](./strategyResult.ts) provides the result of a given strategy after the backtest.
 
@@ -50,9 +53,9 @@ interface StrategyResult {
 
 The _info_ is the [Strategy Info](#strategy-info), the _gain_ is the result of the strategy at the end, and the _lastAction_ is the last action provided by the given strategy.
 
-#### Backtest Function
+## Backtest Function
 
-The [backtest](./backtest.ts) function takes an [Asset](../strategy/index.md#Asset), an array of [StrategyInfo](#strategy-info), and returns an array of [StrategyResult](#strategy-result).
+The [backtest](./backtest.ts) function takes an [Asset](../strategy/README.md#Asset), an array of [StrategyInfo](#strategy-info), and returns an array of [StrategyResult](#strategy-result).
 
 ```TypeScript
 import {bactest} from 'indicatorts';
@@ -60,7 +63,7 @@ import {bactest} from 'indicatorts';
 const results = backtest(asset, STRATEGY_INFOS);
 ```
 
-#### Company Info
+## Company Info
 
 The [CompanyInfo](../company/companyInfo.ts) provides the company information.
 
@@ -75,7 +78,7 @@ interface CompanyInfo {
 
 The [SP500_COMPANIES](../company/companyInfo.ts) are provided.
 
-#### Company Result
+## Company Result
 
 The [CompanyResult](./companyResult.ts) provides the company result.
 
@@ -88,7 +91,7 @@ interface CompanyResult {
 
 The _companyInfo_ is the [CompanyInfo](#company-info), and _strategyResults_ is an array of [StrategyResult](#strategy-result).
 
-#### Strategy Stats
+## Strategy Stats
 
 The [StrategyStats](./strategyStats.ts) provides the stats for a given strategy.
 
@@ -104,7 +107,7 @@ interface StrategyStats {
 
 The _strategyInfo_ is the [StrategyInfo](#strategy-info) of the given strategy, _score_ is the total count of times this strategy generated the highest gain, the _minGain_ is the minimum gain, _maxGain_ is the maximum gain, and the _averageGain_ is the average gain.
 
-##### Compute Strategy Stats
+### Compute Strategy Stats
 
 The [computeStrategyStats](./strategyStats.ts) takes an array for [CompanyResult](#company-result), and returns an array of [StrategyStats](#strategy-stats).
 

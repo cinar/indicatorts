@@ -38,7 +38,7 @@ const result = ao(highs, lows, defaultConfig);
 
 ## Chaikin Oscillator (CMO)
 
-The [chaikinOscillator](./chaikinOscillator.ts) function measures the momentum of the [Accumulation/Distribution (A/D)](../volume/index.md#accumulationdistribution-ad) using the [Moving Average Convergence Divergence (MACD)](../trend/index.md#moving-average-convergence-divergence-macd) formula. It takes the difference between fast and slow periods EMA of the A/D. Cross above the A/D line indicates bullish.
+The [chaikinOscillator](./chaikinOscillator.ts) function measures the momentum of the [Accumulation/Distribution (A/D)](../volume/README.md#accumulationdistribution-ad) using the [Moving Average Convergence Divergence (MACD)](../trend/README.md#moving-average-convergence-divergence-macd) formula. It takes the difference between fast and slow periods EMA of the A/D. Cross above the A/D line indicates bullish.
 
 ```
 CO = Ema(fastPeriod, AD) - Ema(slowPeriod, AD)
