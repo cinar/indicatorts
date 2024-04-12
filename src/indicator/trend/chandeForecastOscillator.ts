@@ -83,9 +83,9 @@ export const MCFODefaultConfig: Required<MCFOConfig> = {
  */
 export function mcfo(closings: number[], config: MCFOConfig = {}): number[] {
   const { period } = { ...MCFODefaultConfig, ...config };
-  const x = generateNumbers(0, closings.length, 1);
-  const r = movingLinearRegressionUsingLeastSquare(period, x, closings);
-  const result = multiplyBy(100, divide(subtract(closings, r), closings));
+  const xVal = generateNumbers(0, closings.length, 1);
+  const rVal = movingLinearRegressionUsingLeastSquare(period, xVal, closings);
+  const result = multiplyBy(100, divide(subtract(closings, rVal), closings));
 
   return result;
 }
