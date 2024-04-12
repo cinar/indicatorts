@@ -8,13 +8,22 @@ import {
   sqrt,
   subtract,
 } from '../../helper/numArray';
-import { mmax } from '../trend/mmax';
-import { sma } from '../trend/sma';
+import { mmax } from '../trend/movingMax';
+import { sma } from '../trend/simpleMovingAverage';
 
 /**
- * Default period for UI.
+ * Optional configuration of UI parameters.
  */
-export const UI_DEFAULT_PERIOD = 14;
+export interface UIConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of UI.
+ */
+export const UIDefaultConfig: Required<UIConfig> = {
+  period: 14,
+};
 
 /**
  * The Ulcer Index (UI) measures downside risk. The index increases in value
@@ -26,31 +35,24 @@ export const UI_DEFAULT_PERIOD = 14;
  * Squared Average = Sma(period, Percent Drawdown * Percent Drawdown)
  * Ulcer Index = Sqrt(Squared Average)
  *
- * @param period window period.
  * @param closings closing values.
+ * @param config configuration.
  * @returns ui values.
  */
-export function ulcerIndex(period: number, closings: number[]): number[] {
-  const highClosings = mmax(period, closings);
+export function ui(closings: number[], config: UIConfig = {}): number[] {
+  const { period } = { ...UIDefaultConfig, ...config };
+  const highClosings = mmax(closings, { period });
   const percentageDrawdown = multiplyBy(
     100,
     divide(subtract(closings, highClosings), highClosings)
   );
-  const squaredAverage = sma(
+  const squaredAverage = sma(multiply(percentageDrawdown, percentageDrawdown), {
     period,
-    multiply(percentageDrawdown, percentageDrawdown)
-  );
-  const ui = sqrt(squaredAverage);
+  });
+  const result = sqrt(squaredAverage);
 
-  return ui;
+  return result;
 }
 
-/**
- * The default ulcer index with the default period of 14.
- *
- * @param closings closing values.
- * @returns ui values.
- */
-export function defaultUlcerIndex(closings: number[]): number[] {
-  return ulcerIndex(UI_DEFAULT_PERIOD, closings);
-}
+// Export full name
+export { ui as ulcerIndex };

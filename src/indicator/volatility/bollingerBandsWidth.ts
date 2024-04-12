@@ -2,18 +2,30 @@
 // https://github.com/cinar/indicatorts
 
 import { divide, subtract } from '../../helper/numArray';
-import { ema } from '../trend/ema';
-import { BollingerBands } from './bollingerBands';
-
-const PERIOD = 90;
+import { ema } from '../trend/exponentialMovingAverage';
+import { BBResult } from './bollingerBands';
 
 /**
  * Bollinger bands width result.
  */
-export interface BollingerBandsWidth {
-  bandWidth: number[];
-  bandWidthEma90: number[];
+export interface BBWResult {
+  width: number[];
+  widthEma: number[];
 }
+
+/**
+ * Optional configuration of Bollinger bands width parameters.
+ */
+export interface BBWConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of Bollinger bands width.
+ */
+export const BBWDefaultConfig: Required<BBWConfig> = {
+  period: 90,
+};
 
 /**
  * Bollinger Band Width. It measures the percentage difference between the
@@ -26,15 +38,20 @@ export interface BollingerBandsWidth {
  * Band Width = (Upper Band - Lower Band) / Middle Band
  *
  * @param bb bollinger bands.
+ * @param config configuration.
  * @return bollinger bands width result.
  */
-export function bollingerBandsWidth(bb: BollingerBands): BollingerBandsWidth {
-  const bandWidth = divide(subtract(bb.upperBand, bb.lowerBand), bb.middleBand);
+export function bbw(bb: BBResult, config: BBWConfig = {}): BBWResult {
+  const { period } = { ...BBWDefaultConfig, ...config };
+  const width = divide(subtract(bb.upper, bb.lower), bb.middle);
 
-  const bandWidthEma90 = ema(PERIOD, bandWidth);
+  const widthEma = ema(width, { period });
 
   return {
-    bandWidth,
-    bandWidthEma90,
+    width,
+    widthEma,
   };
 }
+
+// Export full name
+export { bbw as bollingerBandsWidth };

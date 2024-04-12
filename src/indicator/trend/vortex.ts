@@ -9,17 +9,29 @@ import {
   shiftRightBy,
   subtract,
 } from '../../helper/numArray';
-import { msum } from './msum';
-
-const VORTEX_PERIOD = 14;
+import { msum } from './movingSum';
 
 /**
  * Vortex result.
  */
 export interface VortexResult {
-  plusVi: number[];
-  minusVi: number[];
+  plus: number[];
+  minus: number[];
 }
+
+/**
+ * Optional configuration of vortex parameters.
+ */
+export interface VortexConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of vortex.
+ */
+export const VortexDefaultConfig: Required<VortexConfig> = {
+  period: 14,
+};
 
 /**
  * Vortex Indicator. It provides two oscillators that capture positive and
@@ -45,22 +57,25 @@ export interface VortexResult {
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
+ * @param config configuration.
  * @return vortex result.
  */
 export function vortex(
   highs: number[],
   lows: number[],
-  closings: number[]
+  closings: number[],
+  config: VortexConfig = {}
 ): VortexResult {
   checkSameLength(highs, lows, closings);
 
+  const { period } = { ...VortexDefaultConfig, ...config };
   const prevClosings = shiftRightBy(1, closings);
 
   const plusVm = abs(subtract(highs, shiftRightBy(1, lows)));
   const minusVm = abs(subtract(lows, shiftRightBy(1, highs)));
 
-  const plusVmSum = msum(VORTEX_PERIOD, plusVm);
-  const minusVmSum = msum(VORTEX_PERIOD, minusVm);
+  const plusVmSum = msum(plusVm, { period });
+  const minusVmSum = msum(minusVm, { period });
 
   const tr = max(
     subtract(highs, lows),
@@ -68,13 +83,13 @@ export function vortex(
     abs(subtract(lows, prevClosings))
   );
 
-  const trSum = msum(VORTEX_PERIOD, tr);
+  const trSum = msum(tr, { period });
 
-  const plusVi = divide(plusVmSum, trSum);
-  const minusVi = divide(minusVmSum, trSum);
+  const plus = divide(plusVmSum, trSum);
+  const minus = divide(minusVmSum, trSum);
 
   return {
-    plusVi,
-    minusVi,
+    plus,
+    minus,
   };
 }

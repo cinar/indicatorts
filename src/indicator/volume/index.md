@@ -65,14 +65,6 @@ import {easeOfMovement} from 'indicatorts';
 const result = easeOfMovement(period, highs, lows, volumes);
 ```
 
-The [defaultEaseOfMovement](./easeOfMovement.ts) functio uses the default period of 14.
-
-```TypeScript
-import {defaultEaseOfMovement} from 'indicatorts';
-
-const result = defaultEaseOfMovement(highs, lows, volumes);
-```
-
 #### Force Index (FI)
 
 The [forceIndex](./forceIndex.ts) uses the closing price and the volume to assess the power behind a move and identify turning points.
@@ -85,14 +77,6 @@ Force Index = EMA(period, (Current - Previous) * Volume)
 import {forceIndex} from 'indicatorts';
 
 const result = forceIndex(period, closings, volumes);
-```
-
-The [defaultForceIndex](./forceIndex.ts) function uses the default period of 13.
-
-```TypeScript
-import {defaultForceIndex} from 'indicatorts';
-
-const result = defaultForceIndex(closings, volumes);
 ```
 
 #### Money Flow Index (MFI)

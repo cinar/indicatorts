@@ -3,7 +3,7 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { balanceOfPower } from '../../indicator/trend/balanceOfPower';
+import { bop } from '../../indicator/trend/balanceOfPower';
 
 /**
  * Balance of power strategy.
@@ -11,15 +11,10 @@ import { balanceOfPower } from '../../indicator/trend/balanceOfPower';
  * @param asset asset object.
  * @return strategy actions.
  */
-export function balanceOfPowerStrategy(asset: Asset): Action[] {
-  const bop = balanceOfPower(
-    asset.openings,
-    asset.highs,
-    asset.lows,
-    asset.closings
-  );
+export function bopStrategy(asset: Asset): Action[] {
+  const result = bop(asset.openings, asset.highs, asset.lows, asset.closings);
 
-  return bop.map((value) => {
+  return result.map((value) => {
     if (value > 0) {
       return Action.BUY;
     } else if (value < 0) {
@@ -29,3 +24,6 @@ export function balanceOfPowerStrategy(asset: Asset): Action[] {
     }
   });
 }
+
+// Export full name
+export { bopStrategy as balanceOfPowerStrategy };

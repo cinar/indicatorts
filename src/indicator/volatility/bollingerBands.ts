@@ -2,19 +2,31 @@
 // https://github.com/cinar/indicatorts
 
 import { add, multiplyBy, subtract } from '../../helper/numArray';
-import { sma } from '../trend/sma';
-import { mstd } from './mstd';
-
-const BB_PERIOD = 20;
+import { sma } from '../trend/simpleMovingAverage';
+import { mstd } from './movingStandardDeviation';
 
 /**
  * Bollinger bands result object.
  */
-export interface BollingerBands {
-  upperBand: number[];
-  middleBand: number[];
-  lowerBand: number[];
+export interface BBResult {
+  upper: number[];
+  middle: number[];
+  lower: number[];
 }
+
+/**
+ * Optional configuration of Bollinger bands parameters.
+ */
+export interface BBConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of Bollinger bands.
+ */
+export const BBDefaultConfig: Required<BBConfig> = {
+  period: 20,
+};
 
 /**
  * Bollinger Bands.
@@ -24,17 +36,22 @@ export interface BollingerBands {
  * Lower Band = 20-Period SMA - 2 (20-Period Std)
  *
  * @param closings closing values.
+ * @param config configuration.
  * @return bollinger bands.
  */
-export function bollingerBands(closings: number[]): BollingerBands {
-  const std2 = multiplyBy(2, mstd(BB_PERIOD, closings));
-  const middleBand = sma(BB_PERIOD, closings);
-  const upperBand = add(middleBand, std2);
-  const lowerBand = subtract(middleBand, std2);
+export function bb(closings: number[], config: BBConfig = {}): BBResult {
+  const { period } = { ...BBDefaultConfig, ...config };
+  const std2 = multiplyBy(2, mstd(closings, { period }));
+  const middle = sma(closings, { period });
+  const upper = add(middle, std2);
+  const lower = subtract(middle, std2);
 
   return {
-    upperBand,
-    middleBand,
-    lowerBand,
+    upper,
+    middle,
+    lower,
   };
 }
+
+// Export full name
+export { bb as bollingerBands };

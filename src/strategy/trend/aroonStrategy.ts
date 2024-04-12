@@ -3,15 +3,24 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { aroon } from '../../indicator/trend/aroon';
+import {
+  AroonConfig,
+  AroonDefaultConfig,
+  aroon,
+} from '../../indicator/trend/aroon';
 
 /**
  * Aroon strategy.
  * @param asset asset object.
+ * @param config configuration.
  * @return strategy actions.
  */
-export function aroonStrategy(asset: Asset): Action[] {
-  const indicator = aroon(asset.highs, asset.lows);
+export function aroonStrategy(
+  asset: Asset,
+  config: AroonConfig = {}
+): Action[] {
+  const strategyConfig = { ...AroonDefaultConfig, ...config };
+  const indicator = aroon(asset.highs, asset.lows, strategyConfig);
 
   const actions = new Array<Action>(indicator.up.length);
 

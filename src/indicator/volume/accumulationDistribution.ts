@@ -18,7 +18,7 @@ import { divide, multiply, subtract } from '../../helper/numArray';
  * @param volume volume values.
  * @return ad values.
  */
-export function accumulationDistribution(
+export function ad(
   highs: number[],
   lows: number[],
   closings: number[],
@@ -31,14 +31,17 @@ export function accumulationDistribution(
 
   const mfv = multiply(mfm, volume);
 
-  const ad = new Array<number>(mfv.length);
+  const result = new Array<number>(mfv.length);
 
-  for (let i = 0; i < ad.length; i++) {
-    ad[i] = mfv[i];
+  for (let i = 0; i < result.length; i++) {
+    result[i] = mfv[i];
     if (i > 0) {
-      ad[i] += ad[i - 1];
+      result[i] += result[i - 1];
     }
   }
 
-  return ad;
+  return result;
 }
+
+// Export full name
+export { ad as accumulationDistribution };

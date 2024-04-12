@@ -2,7 +2,23 @@
 // https://github.com/cinar/indicatorts
 
 import { subtract } from '../../helper/numArray';
-import { ema } from './ema';
+import { ema } from './exponentialMovingAverage';
+
+/**
+ * Optional configuration of APO parameters.
+ */
+export interface APOConfig {
+  fast?: number;
+  slow?: number;
+}
+
+/**
+ * The default configuration of APO.
+ */
+export const APODefaultConfig: Required<APOConfig> = {
+  fast: 14,
+  slow: 30,
+};
 
 /**
  * Absolute Price Oscillator (APO) function calculates the technical indicator
@@ -14,28 +30,21 @@ import { ema } from './ema';
  * Slow = EMA(slowPeriod, values)
  * APO = Fast - Slow
  *
- * @param fastPeriod fast period.
- * @param slowPeriod slow period.
  * @param values values array.
+ * @param config configuration.
  * @return apo array.
  */
-export function absolutePriceOscillator(
-  fastPeriod: number,
-  slowPeriod: number,
-  values: number[]
-): number[] {
-  const fast = ema(fastPeriod, values);
-  const slow = ema(slowPeriod, values);
-  const apo = subtract(fast, slow);
-  return apo;
+export function apo(values: number[], config: APOConfig = {}): number[] {
+  const { fast: fastPeriod, slow: slowPeriod } = {
+    ...APODefaultConfig,
+    ...config,
+  };
+  const fast = ema(values, { period: fastPeriod });
+  const slow = ema(values, { period: slowPeriod });
+  const result = subtract(fast, slow);
+
+  return result;
 }
 
-/**
- * Default APO function calculates APO with frequently used fast period 14,
- * and slow period 30.
- * @param values values array.
- * @return apo array.
- */
-export function defaultAbsolutePriceOscillator(values: number[]): number[] {
-  return absolutePriceOscillator(14, 30, values);
-}
+// Export full name
+export { apo as absolutePriceOscillator };

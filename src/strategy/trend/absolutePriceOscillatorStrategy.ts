@@ -4,56 +4,38 @@
 import { Asset } from '../asset';
 import { Action } from '../action';
 import {
-  absolutePriceOscillator,
-  defaultAbsolutePriceOscillator,
+  APOConfig,
+  APODefaultConfig,
+  apo,
 } from '../../indicator/trend/absolutePriceOscillator';
-
-/**
- * Runs the APO strategy based on the indicator.
- *
- * @param indicator APO indicator.
- * @return strategy actions.
- */
-function runStrategy(indicator: number[]): Action[] {
-  const result = new Array<number>(indicator.length);
-
-  for (let i = 0; i < result.length; i++) {
-    if (indicator[i] > 0) {
-      result[i] = Action.BUY;
-    } else if (indicator[i] < 0) {
-      result[i] = Action.SELL;
-    } else {
-      result[i] = Action.HOLD;
-    }
-  }
-
-  return result;
-}
 
 /**
  * Absolute Price Oscillator (APO) strategy function.
  *
- * @param fastPeriod fast period.
- * @param slowPeriod slow period.
  * @param asset asset object.
+ * @param config configuration.
  * @return strategy actions.
  */
-export function absolutePriceOscillatorStrategy(
-  fastPeriod: number,
-  slowPeriod: number,
-  asset: Asset
-): Action[] {
-  return runStrategy(
-    absolutePriceOscillator(fastPeriod, slowPeriod, asset.closings)
-  );
+export function apoStrategy(asset: Asset, config: APOConfig = {}): Action[] {
+  const { fast, slow } = {
+    ...APODefaultConfig,
+    ...config,
+  };
+  const result = apo(asset.closings, { fast, slow });
+  const actions = new Array<Action>(result.length);
+
+  for (let i = 0; i < actions.length; i++) {
+    if (result[i] > 0) {
+      actions[i] = Action.BUY;
+    } else if (result[i] < 0) {
+      actions[i] = Action.SELL;
+    } else {
+      actions[i] = Action.HOLD;
+    }
+  }
+
+  return actions;
 }
 
-/**
- * Default Absolute Price Oscillator (APO) strategy.
- *
- * @param asset asset object.
- * @return strategy actions.
- */
-export function defaultAbsolutePriceOscillatorStrategy(asset: Asset): Action[] {
-  return runStrategy(defaultAbsolutePriceOscillator(asset.closings));
-}
+// Export full name
+export { apoStrategy as absolutePriceOscillatorStrategy };

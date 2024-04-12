@@ -3,7 +3,7 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { rsi2 } from '../../indicator/momentum/rsi2';
+import { rsi } from '../../indicator/momentum/relativeStrengthIndex';
 
 /**
  * RSI 2. When 2-period RSI moves below 10, it is considered deeply oversold,
@@ -13,7 +13,7 @@ import { rsi2 } from '../../indicator/momentum/rsi2';
  * @returns strategy actions.
  */
 export function rsi2Strategy(asset: Asset): Action[] {
-  const indicator = rsi2(asset.closings);
+  const indicator = rsi(asset.closings, { period: 2 });
 
   const actions = new Array<Action>(indicator.length);
   for (let i = 0; i < actions.length; i++) {
