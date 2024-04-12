@@ -1,7 +1,11 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { defaultForceIndex } from '../../indicator/volume/forceIndex';
+import {
+  FIConfig,
+  FIDefaultConfig,
+  fi,
+} from '../../indicator/volume/forceIndex';
 import { Action } from '../action';
 import { Asset } from '../asset';
 
@@ -9,12 +13,14 @@ import { Asset } from '../asset';
  * Force index strategy function.
  *
  * @param asset asset object.
+ * @param config configuration.
  * @returns strategy actions.
  */
-export function forceIndexStrategy(asset: Asset): Action[] {
-  const fi = defaultForceIndex(asset.closings, asset.volumes);
+export function fiStrategy(asset: Asset, config: FIConfig = {}): Action[] {
+  const strategyConfig = { ...FIDefaultConfig, ...config };
+  const result = fi(asset.closings, asset.volumes, strategyConfig);
 
-  return fi.map((value) => {
+  return result.map((value) => {
     if (value > 0) {
       return Action.BUY;
     } else if (value < 0) {
@@ -24,3 +30,6 @@ export function forceIndexStrategy(asset: Asset): Action[] {
     }
   });
 }
+
+// Export full name
+export { fiStrategy as forceIndexStrategy };

@@ -2,7 +2,11 @@
 // https://github.com/cinar/indicatorts
 
 import { subtract } from '../../helper/numArray';
-import { defaultVolumeWeightedAveragePrice } from '../../indicator/volume/volumeWeightedAveragePrice';
+import {
+  VWAPConfig,
+  VWAPDefaultConfig,
+  vwap,
+} from '../../indicator/volume/volumeWeightedAveragePrice';
 import { Action } from '../action';
 import { Asset } from '../asset';
 
@@ -13,12 +17,17 @@ import { Asset } from '../asset';
  * the closing is below the VWAP, a HOLD action otherwise.
  *
  * @param asset asset object.
+ * @param config configuration.
  * @returns strategy actions.
  */
-export function volumeWeightedAveragePriceStrategy(asset: Asset): Action[] {
-  const vwap = defaultVolumeWeightedAveragePrice(asset.closings, asset.volumes);
+export function vwapStrategy(asset: Asset, config: VWAPConfig = {}): Action[] {
+  const strategyConfig = {
+    ...VWAPDefaultConfig,
+    ...config,
+  };
+  const result = vwap(asset.closings, asset.volumes, strategyConfig);
 
-  const diff = subtract(vwap, asset.closings);
+  const diff = subtract(result, asset.closings);
 
   return diff.map((value) => {
     if (value > 0) {
@@ -30,3 +39,6 @@ export function volumeWeightedAveragePriceStrategy(asset: Asset): Action[] {
     }
   });
 }
+
+// Export full name
+export { vwapStrategy as volumeWeightedAveragePriceStrategy };

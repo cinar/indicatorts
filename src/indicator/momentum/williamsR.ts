@@ -2,10 +2,22 @@
 // https://github.com/cinar/indicatorts
 
 import { divide, multiplyBy, subtract } from '../../helper/numArray';
-import { mmax } from '../trend/mmax';
-import { mmin } from '../trend/mmin';
+import { mmax } from '../trend/movingMax';
+import { mmin } from '../trend/movingMin';
 
-const PERIOD = 14;
+/**
+ * Optional configuration of Williams R parameters.
+ */
+export interface WillrConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of Williams R.
+ */
+export const WillrDefaultConfig: Required<WillrConfig> = {
+  period: 14,
+};
 
 /**
  * Williams R. Determine overbought and oversold.
@@ -17,17 +29,25 @@ const PERIOD = 14;
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
+ * @param config configuration.
  * @return wr values.
  */
-export function williamsR(
+export function willr(
   highs: number[],
   lows: number[],
-  closings: number[]
+  closings: number[],
+  config: WillrConfig = {}
 ): number[] {
-  const highestHigh = mmax(PERIOD, highs);
-  const lowestLow = mmin(PERIOD, lows);
-  return multiplyBy(
+  const { period } = { ...WillrDefaultConfig, ...config };
+  const highestHigh = mmax(highs, { period });
+  const lowestLow = mmin(lows, { period });
+  const result = multiplyBy(
     -100,
     divide(subtract(highestHigh, closings), subtract(highestHigh, lowestLow))
   );
+
+  return result;
 }
+
+// Export full name
+export { willr as williamsR };

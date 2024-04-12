@@ -3,21 +3,26 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { sma } from '../../indicator/trend/sma';
-import { DEFAULT_VWMA_PERIOD, vwma } from '../../indicator/trend/vwma';
+import { sma } from '../../indicator/trend/simpleMovingAverage';
+import {
+  VWMAConfig,
+  VWMADefaultConfig,
+  vwma,
+} from '../../indicator/trend/volumeWeightedMovingAverage';
 
 /**
  * The vwmaStrategy function uses SMA and VWMA indicators to provide
  * a BUY action when VWMA is above SMA, and a SELL signal when VWMA
  * is below SMA, a HOLD signal otherwse.
  *
- * @param period period value.
  * @param asset asset object.
+ * @param config configuration.
  * @returns strategy actions.
  */
-export function wvmaStrategy(period: number, asset: Asset): Action[] {
-  const smaValues = sma(period, asset.closings);
-  const vwmaValues = vwma(period, asset.closings, asset.volumes);
+export function vwmaStrategy(asset: Asset, config: VWMAConfig = {}): Action[] {
+  const strategyConfig = { ...VWMADefaultConfig, ...config };
+  const smaValues = sma(asset.closings, strategyConfig);
+  const vwmaValues = vwma(asset.closings, asset.volumes, strategyConfig);
 
   const result = new Array<Action>(vwmaValues.length);
 
@@ -34,12 +39,5 @@ export function wvmaStrategy(period: number, asset: Asset): Action[] {
   return result;
 }
 
-/**
- * The defaultVwmaStrategy function calculates VWMA with a period of 20.
- *
- * @param asset asset object.
- * @returns strategy actions.
- */
-export function defaultVwmaStrategy(asset: Asset): Action[] {
-  return wvmaStrategy(DEFAULT_VWMA_PERIOD, asset);
-}
+// Export full name
+export { vwmaStrategy as volumeWeightedMovingAverageStrategy };

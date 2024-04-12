@@ -3,21 +3,27 @@
 
 import { Asset } from '../asset';
 import { Action } from '../action';
-import { macd } from '../../indicator/trend/macd';
+import {
+  MACDConfig,
+  MACDDefaultConfig,
+  macd,
+} from '../../indicator/trend/movingAverageConvergenceDivergence';
 
 /**
  * MACD strategy.
  * @param asset asset object.
+ * @param config configuration.
  * @return strategy actions.
  */
-export function macdStrategy(asset: Asset): Action[] {
-  const macdResult = macd(asset.closings);
-  const actions = new Array<number>(macdResult.macdLine.length);
+export function macdStrategy(asset: Asset, config: MACDConfig = {}): Action[] {
+  const strategyConfig = { ...MACDDefaultConfig, ...config };
+  const result = macd(asset.closings, strategyConfig);
+  const actions = new Array<number>(result.macd.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (macdResult.macdLine[i] > macdResult.signalLine[i]) {
+    if (result.macd[i] > result.signal[i]) {
       actions[i] = Action.BUY;
-    } else if (macdResult.macdLine[i] < macdResult.signalLine[i]) {
+    } else if (result.macd[i] < result.signal[i]) {
       actions[i] = Action.SELL;
     } else {
       actions[i] = Action.HOLD;
@@ -26,3 +32,6 @@ export function macdStrategy(asset: Asset): Action[] {
 
   return actions;
 }
+
+// Export full name
+export { macdStrategy as movingAverageConvergenceDivergenceStrategy };
