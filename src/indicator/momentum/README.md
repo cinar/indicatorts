@@ -48,10 +48,10 @@ CO = Ema(fastPeriod, AD) - Ema(slowPeriod, AD)
 import { cmo } from 'indicatorts';
 
 const defaultConfig =  { fast: 3, slow: 10 };
-const { ad, cmo } = cmo(highs, lows, closings, volumes, defaultConfig);
+const { adResult, cmoResult } = cmo(highs, lows, closings, volumes, defaultConfig);
 
 // Alternatively:
-// const { ad, cmo } = chaikinOscillator(highs, lows, closings, volumes, defaultConfig);
+// const { adResult, cmoResult } = chaikinOscillator(highs, lows, closings, volumes, defaultConfig);
 ```
 
 Most frequently used fast and short periods are 3 and 10.
@@ -89,10 +89,10 @@ Histogram = PPO - Signal
 import { ppo } from 'indicatorts';
 
 const defaultConfig = { fast: 12, slow: 26, signal: 9 };
-const { ppo, signal, histogram } = ppo(prices, defaultConfig);
+const { ppoResult, signal, histogram } = ppo(prices, defaultConfig);
 
 // Alternatively:
-// const { ppo, signal, histogram } = percentagePriceOscillator(prices, defaultConfig);
+// const { ppoResult, signal, histogram } = percentagePriceOscillator(prices, defaultConfig);
 ```
 
 ## Percentage Volume Oscillator (PVO)
@@ -109,10 +109,10 @@ Histogram = PVO - Signal
 import { pvo } from 'indicatorts';
 
 const defaultConfig = { fast: 12, slow: 26, signal: 9 };
-const { pvo, signal, histogram } = pvo(volumes, defaultConfig);
+const { pvoResult, signal, histogram } = pvo(volumes, defaultConfig);
 
 // Alternatively:
-// const { pvo, signal, histogram } = percentageVolumeOscillator(volumes, defaultConfig);
+// const { pvoResult, signal, histogram } = percentageVolumeOscillator(volumes, defaultConfig);
 ```
 
 ## Price Rate of Change (ROC)

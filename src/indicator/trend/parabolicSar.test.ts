@@ -43,7 +43,7 @@ describe('Parabolic SAR (SAR)', () => {
       step: 0.01,
       max: 0.3,
     });
-    deepStrictEqual(roundDigitsAll(2, actual.psar), expectedPsar);
+    deepStrictEqual(roundDigitsAll(2, actual.psarResult), expectedPsar);
     deepStrictEqual(actual.trends, expectedTrends);
   });
 
@@ -65,7 +65,7 @@ describe('Parabolic SAR (SAR)', () => {
     ];
 
     const actual = psar(highs, lows, closings);
-    deepStrictEqual(roundDigitsAll(2, actual.psar), expectedPsar);
+    deepStrictEqual(roundDigitsAll(2, actual.psarResult), expectedPsar);
     deepStrictEqual(actual.trends, expectedTrends);
   });
 });

@@ -171,12 +171,13 @@ npm install indicatorts
 Import indicator.
 
 ```TypeScript
-import {awesomeOscillator} from 'indicatorts';
+import { ao } from 'indicatorts';
 
 const highs = [10, 20, 30, 40];
 const lows = [1, 2, 3, 4];
 
-const ao = awesomeOscillator(highs, lows);
+// Awesome Oscillator!
+const result = ao(highs, lows);
 ```
 
 ## Disclaimer

@@ -18,8 +18,8 @@ import { mmin } from '../trend/movingMin';
  * Projection oscillator result object.
  */
 export interface POResult {
-  po: number[];
-  spo: number[];
+  poResult: number[];
+  spoResult: number[];
 }
 
 /**
@@ -76,12 +76,15 @@ export function po(
   const pu = mmax(vHighs, { period });
   const pl = mmin(vLows, { period });
 
-  const po = divide(multiplyBy(100, subtract(closings, pl)), subtract(pu, pl));
-  const spo = ema(po, { period: smooth });
+  const poResult = divide(
+    multiplyBy(100, subtract(closings, pl)),
+    subtract(pu, pl)
+  );
+  const spoResult = ema(poResult, { period: smooth });
 
   return {
-    po,
-    spo,
+    poResult,
+    spoResult,
   };
 }
 

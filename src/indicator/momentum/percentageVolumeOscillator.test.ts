@@ -59,7 +59,7 @@ describe('Percent Volume Oscillator (PVO)', () => {
       signal: 7,
     });
 
-    deepStrictEqual(roundDigitsAll(2, actual.pvo), expectedPVO);
+    deepStrictEqual(roundDigitsAll(2, actual.pvoResult), expectedPVO);
     deepStrictEqual(roundDigitsAll(2, actual.signal), expectedSignal);
     deepStrictEqual(roundDigitsAll(2, actual.histogram), expectedHistogram);
   });
@@ -101,7 +101,7 @@ describe('Percent Volume Oscillator (PVO)', () => {
     ];
 
     const actual = pvo(volumes);
-    deepStrictEqual(roundDigitsAll(2, actual.pvo), expectedPVO);
+    deepStrictEqual(roundDigitsAll(2, actual.pvoResult), expectedPVO);
     deepStrictEqual(roundDigitsAll(2, actual.signal), expectedSignal);
     deepStrictEqual(roundDigitsAll(2, actual.histogram), expectedHistogram);
   });

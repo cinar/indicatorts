@@ -52,10 +52,10 @@ ATR = 14-Period SMA TR
 import { atr } from 'indicatorts';
 
 const defaultConfig = { period: 14 };
-const { tr, atr } = atr(highs, lows, closings, defaultConfig);
+const { trLine, atrLine } = atr(highs, lows, closings, defaultConfig);
 
 // Alternatively:
-// const { tr, atr } = averageTrueRange(highs, lows, closings, defaultConfig);
+// const { trLine, atrLine } = averageTrueRange(highs, lows, closings, defaultConfig);
 ```
 
 ## Bollinger Bands (BB)
@@ -190,10 +190,10 @@ SPO = EMA(smooth, PO)
 import { po } from 'indicatorts';
 
 const defaultConfig = { period: 14, smooth: 3 };
-const { po, spo } = po(highs, lows, closings, defaultConfig);
+const { poResult, spoResult } = po(highs, lows, closings, defaultConfig);
 
 // Alternatively:
-// const { po, spo } = projectionOscillator(highs, lows, closings, defaultConfig);
+// const { poResult, spoResult } = projectionOscillator(highs, lows, closings, defaultConfig);
 ```
 
 ## True Range (TR)

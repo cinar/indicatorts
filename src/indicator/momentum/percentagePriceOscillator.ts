@@ -8,7 +8,7 @@ import { ema } from '../trend/exponentialMovingAverage';
  * Percentage price oscillator result.
  */
 export interface PPOResult {
-  ppo: number[];
+  ppoResult: number[];
   signal: number[];
   histogram: number[];
 }
@@ -53,12 +53,15 @@ export function ppo(prices: number[], config: PPOConfig = {}): PPOResult {
   const fastEma = ema(prices, { period: fastPeriod });
   const slowEma = ema(prices, { period: slowPeriod });
 
-  const ppo = multiplyBy(100, divide(subtract(fastEma, slowEma), slowEma));
-  const signal = ema(ppo, { period: signalPeriod });
-  const histogram = subtract(ppo, signal);
+  const ppoResult = multiplyBy(
+    100,
+    divide(subtract(fastEma, slowEma), slowEma)
+  );
+  const signal = ema(ppoResult, { period: signalPeriod });
+  const histogram = subtract(ppoResult, signal);
 
   return {
-    ppo,
+    ppoResult,
     signal,
     histogram,
   };

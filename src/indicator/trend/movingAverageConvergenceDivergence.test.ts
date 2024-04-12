@@ -17,8 +17,8 @@ describe('Moving Average Convergence Divergence (MACD)', () => {
     ];
 
     const actual = macd(closings, { fast: 14, slow: 28, signal: 7 });
-    deepStrictEqual(roundDigitsAll(2, actual.macd), expectedMACD);
-    deepStrictEqual(roundDigitsAll(2, actual.signal), expectedSignal);
+    deepStrictEqual(roundDigitsAll(2, actual.macdLine), expectedMACD);
+    deepStrictEqual(roundDigitsAll(2, actual.signalLine), expectedSignal);
   });
 
   it('should be able to compute without a config', () => {
@@ -30,7 +30,7 @@ describe('Moving Average Convergence Divergence (MACD)', () => {
     ];
 
     const actual = macd(closings);
-    deepStrictEqual(roundDigitsAll(2, actual.macd), expectedMACD);
-    deepStrictEqual(roundDigitsAll(2, actual.signal), expectedSignal);
+    deepStrictEqual(roundDigitsAll(2, actual.macdLine), expectedMACD);
+    deepStrictEqual(roundDigitsAll(2, actual.signalLine), expectedSignal);
   });
 });

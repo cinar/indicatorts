@@ -61,7 +61,7 @@ describe('Percent Price Oscillator (PPO)', () => {
       signal: 7,
     });
 
-    deepStrictEqual(roundDigitsAll(2, actual.ppo), expectedPPO);
+    deepStrictEqual(roundDigitsAll(2, actual.ppoResult), expectedPPO);
     deepStrictEqual(roundDigitsAll(2, actual.signal), expectedSignal);
     deepStrictEqual(roundDigitsAll(2, actual.histogram), expectedHistogram);
   });
@@ -101,7 +101,7 @@ describe('Percent Price Oscillator (PPO)', () => {
     ];
 
     const actual = ppo(prices);
-    deepStrictEqual(roundDigitsAll(2, actual.ppo), expectedPPO);
+    deepStrictEqual(roundDigitsAll(2, actual.ppoResult), expectedPPO);
     deepStrictEqual(roundDigitsAll(2, actual.signal), expectedSignal);
     deepStrictEqual(roundDigitsAll(2, actual.histogram), expectedHistogram);
   });

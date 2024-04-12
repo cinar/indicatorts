@@ -18,12 +18,12 @@ import {
 export function macdStrategy(asset: Asset, config: MACDConfig = {}): Action[] {
   const strategyConfig = { ...MACDDefaultConfig, ...config };
   const result = macd(asset.closings, strategyConfig);
-  const actions = new Array<number>(result.macd.length);
+  const actions = new Array<number>(result.macdLine.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (result.macd[i] > result.signal[i]) {
+    if (result.macdLine[i] > result.signalLine[i]) {
       actions[i] = Action.BUY;
-    } else if (result.macd[i] < result.signal[i]) {
+    } else if (result.macdLine[i] < result.signalLine[i]) {
       actions[i] = Action.SELL;
     } else {
       actions[i] = Action.HOLD;

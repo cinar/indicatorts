@@ -208,10 +208,10 @@ Signal = 9-Period EMA of MACD.
 import { macd } from 'indicatorts';
 
 const defaultConfig = { fast: 12, slow: 26, signal: 9 };
-const { macd, signal } = macd(closings);
+const { macdLine, signalLine } = macd(closings);
 
 // Alternatively:
-// const { macd, signal } = movingAverageConvergenceDivergence(closings, defaultConfig);
+// const { macdLine, signalLine } = movingAverageConvergenceDivergence(closings, defaultConfig);
 ```
 
 ## Moving Max (MMAX)
@@ -286,10 +286,10 @@ Based on video [How to Calculate the PSAR Using Excel - Revised Version](https:/
 import { psar } from 'indicatorts';
 
 const defaultConfig = { step: 0.02, max: 0.2 };
-const { trends, psar } = psar(highs, lows, closings, defaultConfig);
+const { trends, psarResult } = psar(highs, lows, closings, defaultConfig);
 
 // Alternatively:
-// const { trends, psar } = parabolicSar(highs, lows, closings, defaultConfig);
+// const { trends, psarResult } = parabolicSar(highs, lows, closings, defaultConfig);
 ```
 
 ## Qstick

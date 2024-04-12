@@ -8,7 +8,7 @@ import { ema } from '../trend/exponentialMovingAverage';
  * Percentage volume oscillator result.
  */
 export interface PVOResult {
-  pvo: number[];
+  pvoResult: number[];
   signal: number[];
   histogram: number[];
 }
@@ -53,12 +53,15 @@ export function pvo(volumes: number[], config: PVOConfig = {}): PVOResult {
   const fastEma = ema(volumes, { period: fastPeriod });
   const slowEma = ema(volumes, { period: slowPeriod });
 
-  const pvo = multiplyBy(100, divide(subtract(fastEma, slowEma), slowEma));
-  const signal = ema(pvo, { period: signalPeriod });
-  const histogram = subtract(pvo, signal);
+  const pvoResult = multiplyBy(
+    100,
+    divide(subtract(fastEma, slowEma), slowEma)
+  );
+  const signal = ema(pvoResult, { period: signalPeriod });
+  const histogram = subtract(pvoResult, signal);
 
   return {
-    pvo,
+    pvoResult,
     signal,
     histogram,
   };
