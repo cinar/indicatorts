@@ -13,6 +13,20 @@ import {
 } from '../../helper/regression';
 
 /**
+ * Optional configuration of Chande forecast oscillator parameters.
+ */
+export interface CFOConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of Chande forecast oscillator.
+ */
+export const CFODefaultConfig: Required<CFOConfig> = {
+  period: 4,
+};
+
+/**
  * The Chande Forecast Oscillator developed by Tushar Chande The Forecast
  * Oscillator plots the percentage difference between the closing price and
  * the n-period linear regression forecasted price. The oscillator is above
