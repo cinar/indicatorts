@@ -80,3 +80,6 @@ export function kdj(
     j: jValue,
   };
 }
+
+// Export full name
+export { kdj as randomIndex };

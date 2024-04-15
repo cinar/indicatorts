@@ -16,7 +16,10 @@ import {
  * @param config configuration.
  * @return strategy actions.
  */
-export function soStrategy(asset: Asset, config: StochConfig = {}): Action[] {
+export function stochStrategy(
+  asset: Asset,
+  config: StochConfig = {}
+): Action[] {
   const strategyConfig = { ...StochDefaultConfig, ...config };
   const result = stoch(asset.highs, asset.lows, asset.closings, strategyConfig);
 
@@ -36,4 +39,4 @@ export function soStrategy(asset: Asset, config: StochConfig = {}): Action[] {
 }
 
 // Export full name
-export { soStrategy as stochasticOscillatorStrategy };
+export { stochStrategy as stochasticOscillatorStrategy };

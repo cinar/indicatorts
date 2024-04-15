@@ -14,8 +14,8 @@ describe('Average True Range (ATR)', () => {
     const expectedAtr = [4, 3, 3, 4, 3.6];
 
     const actual = atr(highs, lows, closings, { period: 9 });
-    expect(roundDigitsAll(2, actual.tr)).toStrictEqual(expectedTr);
-    expect(roundDigitsAll(2, actual.atr)).toStrictEqual(expectedAtr);
+    expect(roundDigitsAll(2, actual.trLine)).toStrictEqual(expectedTr);
+    expect(roundDigitsAll(2, actual.atrLine)).toStrictEqual(expectedAtr);
   });
 
   it('should be able to compute without a config', () => {
@@ -23,7 +23,7 @@ describe('Average True Range (ATR)', () => {
     const expectedAtr = [4, 3, 3, 4, 3.6];
 
     const actual = atr(highs, lows, closings);
-    expect(roundDigitsAll(2, actual.tr)).toStrictEqual(expectedTr);
-    expect(roundDigitsAll(2, actual.atr)).toStrictEqual(expectedAtr);
+    expect(roundDigitsAll(2, actual.trLine)).toStrictEqual(expectedTr);
+    expect(roundDigitsAll(2, actual.atrLine)).toStrictEqual(expectedAtr);
   });
 });

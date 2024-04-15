@@ -51,6 +51,20 @@ export function cfo(closings: number[]): number[] {
 export { cfo as chandeForecastOscillator };
 
 /**
+ * Optional configuration of moving Chande forecast oscillator parameters.
+ */
+export interface MCFOConfig {
+  period?: number;
+}
+
+/**
+ * The default configuration of moving Chande forecast oscillator.
+ */
+export const MCFODefaultConfig: Required<MCFOConfig> = {
+  period: 4,
+};
+
+/**
  * Moving Chande Forecast Oscillator calculates based on
  * the given period.
  *
@@ -67,11 +81,11 @@ export { cfo as chandeForecastOscillator };
  * @param config configuration.
  * @return moving cfo.
  */
-export function mcfo(closings: number[], config: CFOConfig = {}): number[] {
-  const { period } = { ...CFODefaultConfig, ...config };
-  const x = generateNumbers(0, closings.length, 1);
-  const r = movingLinearRegressionUsingLeastSquare(period, x, closings);
-  const result = multiplyBy(100, divide(subtract(closings, r), closings));
+export function mcfo(closings: number[], config: MCFOConfig = {}): number[] {
+  const { period } = { ...MCFODefaultConfig, ...config };
+  const xVal = generateNumbers(0, closings.length, 1);
+  const rVal = movingLinearRegressionUsingLeastSquare(period, xVal, closings);
+  const result = multiplyBy(100, divide(subtract(closings, rVal), closings));
 
   return result;
 }

@@ -5,8 +5,8 @@ import { subtract } from '../../helper/numArray';
 import { ema } from './exponentialMovingAverage';
 
 export interface MACDResult {
-  macd: number[];
-  signal: number[];
+  macdLine: number[];
+  signalLine: number[];
 }
 
 /**
@@ -49,8 +49,8 @@ export function macd(closings: number[], config: MACDConfig = {}): MACDResult {
   const signalLine = ema(macdLine, { period: signal });
 
   return {
-    macd: macdLine,
-    signal: signalLine,
+    macdLine,
+    signalLine,
   };
 }
 

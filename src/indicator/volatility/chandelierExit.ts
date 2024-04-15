@@ -49,7 +49,7 @@ export function ce(
 ): CEResult {
   const { period } = { ...CEDefaultConfig, ...config };
   const atrResult = atr(highs, lows, closings, { period });
-  const atrLine3 = multiplyBy(3, atrResult.atr);
+  const atrLine3 = multiplyBy(3, atrResult.atrLine);
   const highestHigh = mmax(highs, { period });
   const lowestLow = mmin(lows, { period });
 

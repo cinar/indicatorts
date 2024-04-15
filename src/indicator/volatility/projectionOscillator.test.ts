@@ -14,8 +14,8 @@ describe('Projection Oscillator (PO)', () => {
     const expectedSPO = [75, 108.33, 44.44, 36.15, 22.72];
 
     const actual = po(highs, lows, closings, { period: 9, smooth: 2 });
-    expect(roundDigitsAll(2, actual.po)).toStrictEqual(expectedPO);
-    expect(roundDigitsAll(2, actual.spo)).toStrictEqual(expectedSPO);
+    expect(roundDigitsAll(2, actual.poResult)).toStrictEqual(expectedPO);
+    expect(roundDigitsAll(2, actual.spoResult)).toStrictEqual(expectedSPO);
   });
 
   it('should be able to compute without a config', () => {
@@ -23,7 +23,7 @@ describe('Projection Oscillator (PO)', () => {
     const expectedSPO = [75, 100, 56.25, 44.13, 30.06];
 
     const actual = po(highs, lows, closings);
-    expect(roundDigitsAll(2, actual.po)).toStrictEqual(expectedPO);
-    expect(roundDigitsAll(2, actual.spo)).toStrictEqual(expectedSPO);
+    expect(roundDigitsAll(2, actual.poResult)).toStrictEqual(expectedPO);
+    expect(roundDigitsAll(2, actual.spoResult)).toStrictEqual(expectedSPO);
   });
 });

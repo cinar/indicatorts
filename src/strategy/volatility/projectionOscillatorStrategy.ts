@@ -20,12 +20,12 @@ export function poStrategy(asset: Asset, config: POConfig = {}): Action[] {
   const strategyConfig = { ...PODefaultConfig, ...config };
   const result = po(asset.highs, asset.lows, asset.closings, strategyConfig);
 
-  const actions = new Array<Action>(result.po.length);
+  const actions = new Array<Action>(result.poResult.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (result.po[i] > result.spo[i]) {
+    if (result.poResult[i] > result.spoResult[i]) {
       actions[i] = Action.BUY;
-    } else if (result.po[i] < result.spo[i]) {
+    } else if (result.poResult[i] < result.spoResult[i]) {
       actions[i] = Action.SELL;
     } else {
       actions[i] = Action.HOLD;

@@ -9,8 +9,8 @@ import { ad } from '../volume/accumulationDistribution';
  * Chaikin oscillator result object.
  */
 export interface CMOResult {
-  ad: number[];
-  cmo: number[];
+  adResult: number[];
+  cmoResult: number[];
 }
 
 /**
@@ -59,7 +59,7 @@ export function cmo(
     ema(adResult, { period: slow })
   );
 
-  return { ad: adResult, cmo: cmoResult };
+  return { adResult, cmoResult };
 }
 
 // Export full name

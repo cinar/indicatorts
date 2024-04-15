@@ -63,3 +63,6 @@ export function rsi(closings: number[], config: RSIConfig = {}): number[] {
 
   return rValue;
 }
+
+// Export full name
+export { rsi as relativeStrengthIndex };

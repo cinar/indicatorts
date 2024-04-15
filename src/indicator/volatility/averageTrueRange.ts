@@ -8,8 +8,8 @@ import { sma } from '../trend/simpleMovingAverage';
  * Average true range result.
  */
 export interface ATRResult {
-  tr: number[];
-  atr: number[];
+  trLine: number[];
+  atrLine: number[];
 }
 
 /**
@@ -51,8 +51,8 @@ export function atr(
   const atrLine = sma(trLine, { period });
 
   return {
-    tr: trLine,
-    atr: atrLine,
+    trLine,
+    atrLine,
   };
 }
 

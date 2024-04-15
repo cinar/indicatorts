@@ -1,14 +1,17 @@
-### Chart
+# Chart
 
 Chart provides an easy way to plot the outcome of the indicators and the strategies.
 
-- [Chart Initialization](#chart-initialization)
-- [Data Set](#data-set)
-- [Add Data](#add-data)
-- [Remove Data](#remove-data)
-- [Draw Chart](#draw-chart)
+- [Chart](#chart)
+  - [Chart Initialization](#chart-initialization)
+  - [Data Set](#data-set)
+  - [Add Data](#add-data)
+  - [Remove Data](#remove-data)
+  - [Draw Chart](#draw-chart)
+  - [Disclaimer](#disclaimer)
+  - [License](#license)
 
-#### Chart Initialization
+## Chart Initialization
 
 The [Chart](./chart.ts) is used to draw the plot on a given canvas.
 
@@ -22,7 +25,7 @@ import {Chart} from 'indicatorts';
 const chart = new Chart('canvas');
 ```
 
-#### Data Set
+## Data Set
 
 The [DataSet](./chart.ts) interface provides the necessary information for ploting the data.
 
@@ -37,7 +40,7 @@ export interface DataSet {
 
 The _legend_ is the legend to display for the data, the _values_ are the data values, the optional _style_ is either a single color, or an array of colors, and the optional _width_ is the width of the line.
 
-#### Add Data
+## Add Data
 
 The [add](./chart.ts) function is used to add data to the chart.
 
@@ -50,7 +53,7 @@ chart.add({
 });
 ```
 
-#### Remove Data
+## Remove Data
 
 The [remove](./chart.ts) function is used to remove data from chart by the given _legend_ value.
 
@@ -58,7 +61,7 @@ The [remove](./chart.ts) function is used to remove data from chart by the given
 const removed = chart.remove(legend);
 ```
 
-#### Draw Chart
+## Draw Chart
 
 The [draw](./chart.ts) function is used to draw the added data to the chart.
 

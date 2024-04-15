@@ -23,8 +23,8 @@ describe('Chaikin Oscillator (CMO)', () => {
       fast: 2,
       slow: 5,
     });
-    deepStrictEqual(roundDigitsAll(2, actual.ad), expectedAD);
-    deepStrictEqual(roundDigitsAll(2, actual.cmo), expectedCMO);
+    deepStrictEqual(roundDigitsAll(2, actual.adResult), expectedAD);
+    deepStrictEqual(roundDigitsAll(2, actual.cmoResult), expectedCMO);
   });
 
   it('should be able to compute without a config', () => {
@@ -36,7 +36,7 @@ describe('Chaikin Oscillator (CMO)', () => {
     ];
 
     const actual = cmo(highs, lows, closings, volumes);
-    deepStrictEqual(roundDigitsAll(2, actual.ad), expectedAD);
-    deepStrictEqual(roundDigitsAll(2, actual.cmo), expectedCMO);
+    deepStrictEqual(roundDigitsAll(2, actual.adResult), expectedAD);
+    deepStrictEqual(roundDigitsAll(2, actual.cmoResult), expectedCMO);
   });
 });

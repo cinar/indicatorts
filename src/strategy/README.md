@@ -1,19 +1,22 @@
-### Strategies
+# Strategies
 
 The strategies are where the results from one or more indicators gets combined to produce a recommended action.
 
 **The information provided on this project is strictly for informational purposes and is not to be construed as advice or solicitation to buy or sell any security.**
 
-- [Asset](#asset)
-  - [New Asset with Length](#new-asset-with-length)
-  - [Concat Assets](#concat-assets)
-- [Action](#action)
-  - [Reverse Actions](#reverse-actions)
-  - [Apply Actions](#apply-actions)
-- [Strategy Function](#strategy-function)
-- [Buy and Hold Strategy](#buy-and-hold-strategy)
+- [Strategies](#strategies)
+  - [Asset](#asset)
+    - [New Asset with Length](#new-asset-with-length)
+    - [Concat Assets](#concat-assets)
+  - [Strategy Function](#strategy-function)
+  - [Action](#action)
+    - [Reverse Actions](#reverse-actions)
+    - [Apply Actions](#apply-actions)
+  - [Buy and Hold Strategy](#buy-and-hold-strategy)
+  - [Disclaimer](#disclaimer)
+  - [License](#license)
 
-#### Asset
+## Asset
 
 The stragies operates on an [Asset](./asset.ts) with the following members.
 
@@ -28,7 +31,7 @@ interface Asset {
 }
 ```
 
-##### New Asset with Length
+### New Asset with Length
 
 The [newAssetWithLength](./asset.ts) function provides a new asset with each field initialized to the given length.
 
@@ -41,7 +44,7 @@ asset.closings[0] = 10;
 asset.closings[1] = 20;
 ```
 
-##### Concat Assets
+### Concat Assets
 
 The [concatAssets](./asset.ts) function concats the given two assets.
 
@@ -51,7 +54,7 @@ import {concatAssets} from 'indicatorts';
 const asset = concatAssets(asset1, asset2);
 ```
 
-#### Strategy Function
+## Strategy Function
 
 The [StrategyFunction](./strategyFunction.ts) takes an [Asset](#asset), and provides an array of [Action](#action) for each row.
 
@@ -59,7 +62,7 @@ The [StrategyFunction](./strategyFunction.ts) takes an [Asset](#asset), and prov
 type StrategyFunction = (asset: Asset) => Action[];
 ```
 
-#### Action
+## Action
 
 The following [Action](./action.ts) values are currently provided.
 
@@ -71,7 +74,7 @@ enum Action {
 }
 ```
 
-##### Reverse Actions
+### Reverse Actions
 
 The [reverseActions](./action.ts) function returns the reverse of the provided actions.
 
@@ -92,7 +95,7 @@ const result = reverseActions(actions);
 // ];
 ```
 
-##### Apply Actions
+### Apply Actions
 
 The [applyActions](./action.ts) function applies the given actions to the given closings and provides the gains at each step.
 
@@ -102,7 +105,7 @@ import {applyActions} from 'indicatorts';
 const gains = applyActions(closings, actions);
 ```
 
-#### Buy and Hold Strategy
+## Buy and Hold Strategy
 
 The [buyAndHoldStrategy](./buyAndHoldStrategy.ts) provides a simple strategy to buy the given asset and hold it. It provides a good indicator for the change of asset's value without any other strategy is used.
 
