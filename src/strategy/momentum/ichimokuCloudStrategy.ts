@@ -1,13 +1,9 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { Asset } from '../asset';
-import { Action } from '../action';
-import {
-  IchimokuCloudConfig,
-  IchimokuCloudDefaultConfig,
-  ichimokuCloud,
-} from '../../indicator/momentum/ichimokuCloud';
+import {Asset} from '../asset';
+import {Action} from '../action';
+import {ichimokuCloud, IchimokuCloudConfig, IchimokuCloudDefaultConfig,} from '../../indicator/momentum/ichimokuCloud';
 
 /**
  * Ichimoku cloud.
@@ -28,12 +24,12 @@ export function ichimokuCloudStrategy(
     strategyConfig
   );
 
-  const actions = new Array<Action>(indicator.base.length);
+  const actions = new Array<Action>(indicator.kijun.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (indicator.leadingSpanA[i] > indicator.leadingSpanB[i]) {
+    if (indicator.ssa[i] > indicator.ssb[i]) {
       actions[i] = Action.BUY;
-    } else if (indicator.leadingSpanA[i] < indicator.leadingSpanB[i]) {
+    } else if (indicator.ssa[i] < indicator.ssb[i]) {
       actions[i] = Action.SELL;
     } else {
       actions[i] = Action.HOLD;

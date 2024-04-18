@@ -1,47 +1,70 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import { deepStrictEqual } from 'assert';
-import { roundDigitsAll } from '../../helper/numArray';
-import { ichimokuCloud } from './ichimokuCloud';
+import {deepStrictEqual} from 'assert';
+import {roundDigitsAll} from '../../helper/numArray';
+import {ichimokuCloud} from './ichimokuCloud';
 
 describe('Ichimoku Cloud', () => {
-  const highs = [10, 11, 12, 13, 14, 15, 16, 17];
-  const lows = [1, 2, 3, 4, 5, 6, 7, 8];
-  const closings = [5, 6, 7, 8, 9, 10, 11, 12];
+    it('calculates Tenkan-sen as the middle point between high and low over the configured short period', () => {
+        const highs = [2, 4]
+        const lows = [1, 3]
+        const closings = [1.5, 3.5]
 
-  it('should be able to compute with a config', () => {
-    const conversion = [5.5, 6, 7, 8, 9, 10, 11, 12];
-    const base = [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9];
-    const leadingSpanA = [5.5, 6, 6.75, 7.5, 8.25, 9, 9.75, 10.5];
-    const leadingSpanB = [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9];
-    const laggingSpan = [0, 0, 0, 0, 0, 0, 0, 0];
+        {
+            const {tenkan} = ichimokuCloud(highs, lows, closings, {short: 1})
+            deepStrictEqual(roundDigitsAll(2, tenkan), [(2 + 1) / 2, (4 + 3) / 2]);
+        }
+        {
+            const {tenkan} = ichimokuCloud(highs, lows, closings, {short: 2})
+            deepStrictEqual(roundDigitsAll(2, tenkan), [0, (4 + 1) / 2]);
+        }
+    })
 
-    const actual = ichimokuCloud(highs, lows, closings, {
-      short: 2,
-      medium: 24,
-      long: 48,
-      close: 28,
-    });
-    deepStrictEqual(roundDigitsAll(2, actual.conversion), conversion);
-    deepStrictEqual(roundDigitsAll(2, actual.base), base);
-    deepStrictEqual(roundDigitsAll(2, actual.leadingSpanA), leadingSpanA);
-    deepStrictEqual(roundDigitsAll(2, actual.leadingSpanB), leadingSpanB);
-    deepStrictEqual(roundDigitsAll(2, actual.laggingSpan), laggingSpan);
-  });
+    it('calculates Kijun-sen as the middle point between high and low over the configured medium period', () => {
+        const highs = [2, 4]
+        const lows = [1, 3]
+        const closings = [1.5, 3.5]
 
-  it('should be able to compute without a config', () => {
-    const conversion = [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9];
-    const base = [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9];
-    const leadingSpanA = [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9];
-    const leadingSpanB = [5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9];
-    const laggingSpan = [0, 0, 0, 0, 0, 0, 0, 0];
+        {
+            const {kijun} = ichimokuCloud(highs, lows, closings, {medium: 1})
+            deepStrictEqual(roundDigitsAll(2, kijun), [(2 + 1) / 2, (4 + 3) / 2]);
+        }
+        {
+            const {kijun} = ichimokuCloud(highs, lows, closings, {medium: 2})
+            deepStrictEqual(roundDigitsAll(2, kijun), [0, (4 + 1) / 2]);
+        }
+    })
 
-    const actual = ichimokuCloud(highs, lows, closings);
-    deepStrictEqual(roundDigitsAll(2, actual.conversion), conversion);
-    deepStrictEqual(roundDigitsAll(2, actual.base), base);
-    deepStrictEqual(roundDigitsAll(2, actual.leadingSpanA), leadingSpanA);
-    deepStrictEqual(roundDigitsAll(2, actual.leadingSpanB), leadingSpanB);
-    deepStrictEqual(roundDigitsAll(2, actual.laggingSpan), laggingSpan);
-  });
+    it('calculates SSA (Senkou-Span A) as the average between Tenkan-Sen and Kijun-Sen projected in the future by the medium period', () => {
+        const highs = [2, 4]
+        const lows = [1, 3]
+        const closings = [1.5, 3.5]
+
+        const {ssa} = ichimokuCloud(highs, lows, closings, {short: 1, medium: 2})
+
+        const tenkan = (4 + 3) / 2
+        const kijun = (4 + 1) / 2
+        deepStrictEqual(roundDigitsAll(2, ssa), [0, 0, 0, (tenkan + kijun) / 2]);
+    })
+
+    it('calculates SSB (Senkou-Span B) as the middle point between high and low over the configured long period projected in the future by the medium period', () => {
+        const highs = [2, 4, 8, 10]
+        const lows = [1, 3, 6, 3]
+        const closings = [1.5, 3.5, 7.5, 3.5]
+
+        const {ssb} = ichimokuCloud(highs, lows, closings, {medium: 2, long: 3})
+
+        deepStrictEqual(roundDigitsAll(2, ssb), [0, 0, 0, 0, (8 + 1) / 2, (10 + 3) / 2]);
+    })
+
+    it('laggingSpan (Chikou-Span) is closings projected in the past by the close periods', () => {
+        const highs = [2, 4, 8, 10]
+        const lows = [1, 3, 6, 3]
+        const closings = [1.5, 3.5, 7.5, 3.5]
+
+        const {laggingSpan} = ichimokuCloud(highs, lows, closings, {close: 2})
+
+        deepStrictEqual(roundDigitsAll(2, laggingSpan), [7.5, 3.5, 0, 0]);
+    })
 });
