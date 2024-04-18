@@ -63,16 +63,16 @@ The [ichimokuCloud](./ichimokuCloud.ts), also known as Ichimoku Kinko Hyo, calcu
 ```
 Tenkan-sen (Conversion Line) = (9-Period High + 9-Period Low) / 2
 Kijun-sen (Base Line) = (26-Period High + 26-Period Low) / 2
-Senkou Span A (Leading Span A) = (Conversion Line + Base Line) / 2
-Senkou Span B (Leading Span B) = (52-Period High + 52-Period Low) / 2
-Chikou Span (Lagging Span) = Closing plotted 26 days in the past.
+Senkou Span A (Leading Span A) = (Conversion Line + Base Line) / 2 projected 26 periods in the future
+Senkou Span B (Leading Span B) = (52-Period High + 52-Period Low) / 2 projected 26 periods in the future
+Chikou Span (Lagging Span) = Closing plotted 26 periods in the past.
 ```
 
 ```TypeScript
 import { ichimokuCloud } from 'indicatorts';
 
 const defaultConfig = { short: 9, medium: 26, long: 52, close: 26 };
-const { conversion, base, leadingSpanA, leadingSpanB, leadingSpan } = ichimokuCloud(highs, lows, closings, defaultConfig);
+const { tenkan, kijub, ssa, ssb, leadingSpan } = ichimokuCloud(highs, lows, closings, defaultConfig);
 ```
 
 ## Percentage Price Oscillator (PPO)
