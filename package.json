@@ -1,6 +1,6 @@
 {
   "name": "indicatorts",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Stock technical indicators and strategies in TypeScript for browser and server programs.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
