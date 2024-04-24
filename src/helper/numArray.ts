@@ -209,14 +209,12 @@ export function shiftLeftAndFillBy(
     fill: number,
     values: number[]
 ): number[] {
-  const result = new Array<number>(values.length);
+  const length = values.length
+  const result: number[] = Array(length).fill(fill);
 
-  for (let i = 0; i < result.length; i++) {
-    if (i < n) {
-      result[i] = values[i+n];
-    } else {
-      result[i] = fill;
-    }
+  for (let i = n; i < length; i++) {
+    const newIndex = (i - n + length) % length;
+    result[newIndex] = values[i];
   }
 
   return result;

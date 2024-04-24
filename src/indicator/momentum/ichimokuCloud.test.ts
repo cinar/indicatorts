@@ -59,12 +59,12 @@ describe('Ichimoku Cloud', () => {
     })
 
     it('laggingSpan (Chikou-Span) is closings projected in the past by the close periods', () => {
-        const highs = [2, 4, 8, 10]
-        const lows = [1, 3, 6, 3]
-        const closings = [1.5, 3.5, 7.5, 3.5]
+        const highs = [2, 4, 8, 10, 11]
+        const lows = [1, 3, 6, 3, 4]
+        const closings = [1.5, 3.5, 7.5, 3.5, 8]
 
         const {laggingSpan} = ichimokuCloud(highs, lows, closings, {close: 2})
 
-        deepStrictEqual(roundDigitsAll(2, laggingSpan), [7.5, 3.5, 0, 0]);
+        deepStrictEqual(roundDigitsAll(2, laggingSpan), [7.5, 3.5, 8, 0, 0]);
     })
 });
