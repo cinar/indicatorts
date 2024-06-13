@@ -1,9 +1,13 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
-import {Asset} from '../asset';
-import {Action} from '../action';
-import {ichimokuCloud, IchimokuCloudConfig, IchimokuCloudDefaultConfig,} from '../../indicator/momentum/ichimokuCloud';
+import { Asset } from '../asset';
+import { Action } from '../action';
+import {
+  ichimokuCloud,
+  IchimokuCloudConfig,
+  IchimokuCloudDefaultConfig,
+} from '../../indicator/momentum/ichimokuCloud';
 
 /**
  * Ichimoku cloud.

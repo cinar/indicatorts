@@ -205,11 +205,11 @@ export function shiftRightBy(n: number, values: number[]): number[] {
  * @returns shifted and filled values.
  */
 export function shiftLeftAndFillBy(
-    n: number,
-    fill: number,
-    values: number[]
+  n: number,
+  fill: number,
+  values: number[]
 ): number[] {
-  const length = values.length
+  const length = values.length;
   const result: number[] = Array(length).fill(fill);
 
   for (let i = n; i < length; i++) {
