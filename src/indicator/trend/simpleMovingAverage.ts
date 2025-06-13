@@ -5,14 +5,14 @@
  * Optional configuration of SMA parameters.
  */
 export interface SMAConfig {
-  period?: number;
+	period?: number;
 }
 
 /**
  * The default configuration of SMA.
  */
 export const SMADefaultConfig: Required<SMAConfig> = {
-  period: 2,
+	period: 2,
 };
 
 /**
@@ -22,22 +22,14 @@ export const SMADefaultConfig: Required<SMAConfig> = {
  * @return SMA values.
  */
 export function sma(values: number[], config: SMAConfig = {}): number[] {
-  const { period } = { ...SMADefaultConfig, ...config };
-  const result = new Array<number>(values.length);
-  let sum = 0;
-
-  for (let i = 0; i < values.length; i++) {
-    sum += values[i];
-
-    if (i >= period) {
-      sum -= values[i - period];
-      result[i] = sum / period;
-    } else {
-      result[i] = sum / (i + 1);
-    }
-  }
-
-  return result;
+	const { period } = { ...SMADefaultConfig, ...config };
+	return values.map((_, i) => {
+		const range = values.slice(Math.max(0, i - period + 1), i + 1);
+		const valid = range.filter((v) => !Number.isNaN(v));
+		return valid.length < period
+			? Number.NaN
+			: valid.reduce((a, b) => a + b, 0) / period;
+	});
 }
 
 // Export full name
