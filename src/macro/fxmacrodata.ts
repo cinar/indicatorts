@@ -23,6 +23,9 @@ export interface FXMacroDataCalendarOptions {
 
 const DEFAULT_BASE_URL = 'https://fxmacrodata.com/api/v1';
 
+/**
+ * Fetches release-calendar events from the FXMacroData API.
+ */
 export async function fxMacroDataReleaseCalendar(
   options: FXMacroDataCalendarOptions = {},
 ): Promise<FXMacroDataReleaseEvent[]> {
@@ -50,11 +53,15 @@ export async function fxMacroDataReleaseCalendar(
     return events.slice(0, limit);
   }
 
+  const minTier = options.minTier;
   return events
-    .filter((event) => (event.market_tier ?? 99) <= options.minTier!)
+    .filter((event) => (event.market_tier ?? 99) <= minTier)
     .slice(0, limit);
 }
 
+/**
+ * Checks whether a release-calendar event falls on a given UTC date.
+ */
 export function hasMacroEventOnDate(
   events: FXMacroDataReleaseEvent[],
   date: Date,
