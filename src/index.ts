@@ -6,4 +6,5 @@ export * from './chart/index';
 export * from './company/index';
 export * from './helper/index';
 export * from './indicator/index';
+export * from './macro/index';
 export * from './strategy/index';
