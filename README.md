@@ -145,6 +145,12 @@ Chart provides utilities to plot indicator values and simulated strategies:
 - [Remove Data](src/chart/README.md#remove-data)
 - [Draw Chart](src/chart/README.md#draw-chart)
 
+## Macro
+
+Macro provides integration with macroeconomic data providers.
+
+- [FXMacroData Integration](src/macro/README.md#fxmacrodata-integration)
+
 ## Build
 
 The project can be built from source:

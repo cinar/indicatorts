@@ -1,6 +1,10 @@
 // Copyright (c) 2022 Onur Cinar. All Rights Reserved.
 // https://github.com/cinar/indicatorts
 
+/**
+ * Represents a single macroeconomic release-calendar event from the FXMacroData API.
+ * For more details, see the official documentation at https://fxmacrodata.com/api-data-docs.
+ */
 export interface FXMacroDataReleaseEvent {
   date?: string;
   release?: string;
@@ -13,6 +17,13 @@ export interface FXMacroDataReleaseEvent {
   [key: string]: unknown;
 }
 
+/**
+ * Configuration options for requesting the FXMacroData macroeconomic calendar.
+ *
+ * Note: Free access is provided for USD-based macroeconomic endpoints and forex price data
+ * without requiring an API key. Paid options or commercial redistribution may require
+ * an API key and additional licensing terms from FXMacroData.
+ */
 export interface FXMacroDataCalendarOptions {
   currency?: string;
   limit?: number;
@@ -25,6 +36,13 @@ const DEFAULT_BASE_URL = 'https://fxmacrodata.com/api/v1';
 
 /**
  * Fetches release-calendar events from the FXMacroData API.
+ *
+ * For licensing details, terms of service, and api keys, please visit:
+ * - Home Page: https://fxmacrodata.com
+ * - API Documentation: https://fxmacrodata.com/api-data-docs
+ *
+ * @param options configuration options.
+ * @return release-calendar events.
  */
 export async function fxMacroDataReleaseCalendar(
   options: FXMacroDataCalendarOptions = {},
@@ -61,6 +79,10 @@ export async function fxMacroDataReleaseCalendar(
 
 /**
  * Checks whether a release-calendar event falls on a given UTC date.
+ *
+ * @param events list of release-calendar events.
+ * @param date the date to check.
+ * @return true if a macro event falls on the given date, false otherwise.
  */
 export function hasMacroEventOnDate(
   events: FXMacroDataReleaseEvent[],
