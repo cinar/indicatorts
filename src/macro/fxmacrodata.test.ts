@@ -41,7 +41,7 @@ describe('FXMacroData Integration', () => {
 
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ data: mockEvents }),
+      json: () => Promise.resolve({ data: mockEvents }),
     });
 
     const result = await fxMacroDataReleaseCalendar();
@@ -63,7 +63,7 @@ describe('FXMacroData Integration', () => {
 
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ data: mockEvents }),
+      json: () => Promise.resolve({ data: mockEvents }),
     });
 
     const result = await fxMacroDataReleaseCalendar({
@@ -88,7 +88,7 @@ describe('FXMacroData Integration', () => {
   it('should enforce limit boundaries', async () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ data: [] }),
+      json: () => Promise.resolve({ data: [] }),
     });
 
     await fxMacroDataReleaseCalendar({ limit: 150 });
@@ -99,7 +99,7 @@ describe('FXMacroData Integration', () => {
 
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ data: [] }),
+      json: () => Promise.resolve({ data: [] }),
     });
 
     await fxMacroDataReleaseCalendar({ limit: 0 });
@@ -125,7 +125,7 @@ describe('FXMacroData Integration', () => {
   it('should handle payload with missing data field', async () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({}),
+      json: () => Promise.resolve({}),
     });
 
     const result = await fxMacroDataReleaseCalendar();
@@ -139,7 +139,7 @@ describe('FXMacroData Integration', () => {
 
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ data: mockEvents }),
+      json: () => Promise.resolve({ data: mockEvents }),
     });
 
     const result = await fxMacroDataReleaseCalendar({
