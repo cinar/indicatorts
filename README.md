@@ -10,6 +10,16 @@ Indicator is a TypeScript module providing various stock technical analysis indi
 
 _This is a clone of my [Indicator Go](https://github.com/cinar/indicator) Golang module._
 
+## ⚠️ Risk Disclosure & Disclaimer
+
+**Financial Risk:** Trading stocks, futures, and cryptocurrencies involves significant risk of loss and is not suitable for every investor. The use of leveraged instruments can lead to losses greater than the initial investment.
+
+**Not Financial Advice:** The information and tools provided in this project are strictly for educational and informational purposes and are not to be construed as advice or solicitation to buy or sell any security. They do NOT constitute financial, investment, or trading advice. Onur Cinar is not a financial advisor.
+
+**No Warranties:** This software is provided "AS IS," without warranty of any kind. Technical analysis indicators are based on historical data and do not guarantee future results. While we strive for 90%+ test coverage, software can contain bugs.
+
+**Limitation of Liability:** In no event shall the author or contributors be liable for any financial loss, data loss, or any other damages arising from the use of this library. Use at your own risk.
+
 ## Indicators Provided
 
 The following list of indicators are currently supported by this package:
@@ -179,17 +189,6 @@ const lows = [1, 2, 3, 4];
 // Awesome Oscillator!
 const result = ao(highs, lows);
 ```
-
-⚠️ Risk Disclosure & Disclaimer
--------------------------------
-
-**Financial Risk:** Trading stocks, futures, and cryptocurrencies involves significant risk of loss and is not suitable for every investor. The use of leveraged instruments can lead to losses greater than the initial investment.
-
-**Not Financial Advice:** The information and tools provided in this project are strictly for educational and informational purposes and are not to be construed as advice or solicitation to buy or sell any security. They do NOT constitute financial, investment, or trading advice. Onur Cinar is not a financial advisor.
-
-**No Warranties:** This software is provided "AS IS," without warranty of any kind. Technical analysis indicators are based on historical data and do not guarantee future results. While we strive for 90%+ test coverage, software can contain bugs.
-
-**Limitation of Liability:** In no event shall the author or contributors be liable for any financial loss, data loss, or any other damages arising from the use of this library. Use at your own risk.
 
 ## License
 
