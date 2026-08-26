@@ -162,6 +162,12 @@ Chart provides an easy way to plot the outcome of the indicators and the strateg
 - [Remove Data](src/chart/README.md#remove-data)
 - [Draw Chart](src/chart/README.md#draw-chart)
 
+## Macro
+
+Macro provides integration with macroeconomic data providers.
+
+- [FXMacroData Integration](src/macro/README.md#fxmacrodata-integration)
+
 ## Build
 
 The project can be build from its source through the build command.
