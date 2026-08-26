@@ -32,7 +32,7 @@ export interface FXMacroDataCalendarOptions {
   baseUrl?: string;
 }
 
-const DEFAULT_BASE_URL = 'https://fxmacrodata.com/api/v1';
+const DEFAULT_BASE_URL = 'https://api.fxmacrodata.com/v1';
 
 /**
  * Fetches release-calendar events from the FXMacroData API.
