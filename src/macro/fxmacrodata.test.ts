@@ -49,7 +49,7 @@ describe('FXMacroData Integration', () => {
     strictEqual(mockFetch.mock.calls.length, 1);
     strictEqual(
       mockFetch.mock.calls[0][0],
-      'https://fxmacrodata.com/api/v1/calendar/usd?limit=50',
+      'https://api.fxmacrodata.com/v1/calendar/usd?limit=50',
     );
     deepStrictEqual(result, mockEvents);
   });
@@ -94,7 +94,7 @@ describe('FXMacroData Integration', () => {
     await fxMacroDataReleaseCalendar({ limit: 150 });
     strictEqual(
       mockFetch.mock.calls[0][0],
-      'https://fxmacrodata.com/api/v1/calendar/usd?limit=100',
+      'https://api.fxmacrodata.com/v1/calendar/usd?limit=100',
     );
 
     mockFetch.mockResolvedValueOnce({
@@ -105,7 +105,7 @@ describe('FXMacroData Integration', () => {
     await fxMacroDataReleaseCalendar({ limit: 0 });
     strictEqual(
       mockFetch.mock.calls[1][0],
-      'https://fxmacrodata.com/api/v1/calendar/usd?limit=1',
+      'https://api.fxmacrodata.com/v1/calendar/usd?limit=1',
     );
   });
 
