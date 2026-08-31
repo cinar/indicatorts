@@ -43,7 +43,7 @@
     "trading-strategies",
     "yahoo-finance"
   ],
-  "author": "Onur Cinar <onur.cinar@gmail.com>",
+  "author": "The Indicator Authors",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/cinar/indicatorts/issues"
