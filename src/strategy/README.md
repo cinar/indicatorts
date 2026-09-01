@@ -1,10 +1,8 @@
-# Strategies
+# Strategy Core Primitives
 
-The strategies are where the results from one or more indicators gets combined to produce a recommended action.
+This module provides the lightweight, generic abstractions and data structures for defining trading strategies, managing asset time series, and evaluating strategy action signals.
 
-**The information provided on this project is strictly for informational purposes and is not to be construed as advice or solicitation to buy or sell any security.**
-
-- [Strategies](#strategies)
+- [Strategy Core Primitives](#strategy-core-primitives)
   - [Asset](#asset)
     - [New Asset with Length](#new-asset-with-length)
     - [Concat Assets](#concat-assets)
@@ -12,13 +10,13 @@ The strategies are where the results from one or more indicators gets combined t
   - [Action](#action)
     - [Reverse Actions](#reverse-actions)
     - [Apply Actions](#apply-actions)
-  - [Buy and Hold Strategy](#buy-and-hold-strategy)
+  - [Strategy Examples](#strategy-examples)
   - [Disclaimer](#disclaimer)
   - [License](#license)
 
 ## Asset
 
-The stragies operates on an [Asset](./asset.ts) with the following members.
+The [Asset](./asset.ts) interface represents OHLCV (Open, High, Low, Close, Volume) bar series data along with timestamps:
 
 ```TypeScript
 interface Asset {
@@ -33,30 +31,29 @@ interface Asset {
 
 ### New Asset with Length
 
-The [newAssetWithLength](./asset.ts) function provides a new asset with each field initialized to the given length.
+The [newAssetWithLength](./asset.ts) helper allocates an `Asset` object with all array fields pre-allocated to the specified length:
 
 ```TypeScript
-import {newAssetWithLength} from 'indicatorts';
+import { newAssetWithLength } from 'indicatorts';
 
 const asset = newAssetWithLength(2);
-
 asset.closings[0] = 10;
 asset.closings[1] = 20;
 ```
 
 ### Concat Assets
 
-The [concatAssets](./asset.ts) function concats the given two assets.
+The [concatAssets](./asset.ts) helper joins two `Asset` time series into a single contiguous `Asset`:
 
 ```TypeScript
-import {concatAssets} from 'indicatorts';
+import { concatAssets } from 'indicatorts';
 
-const asset = concatAssets(asset1, asset2);
+const combined = concatAssets(asset1, asset2);
 ```
 
 ## Strategy Function
 
-The [StrategyFunction](./strategyFunction.ts) takes an [Asset](#asset), and provides an array of [Action](#action) for each row.
+The [StrategyFunction](./strategyFunction.ts) type represents a generic mathematical strategy mapping price bars into an array of signal actions:
 
 ```TypeScript
 type StrategyFunction = (asset: Asset) => Action[];
@@ -64,7 +61,7 @@ type StrategyFunction = (asset: Asset) => Action[];
 
 ## Action
 
-The following [Action](./action.ts) values are currently provided.
+The [Action](./action.ts) enum provides generic execution action states:
 
 ```TypeScript
 enum Action {
@@ -76,48 +73,33 @@ enum Action {
 
 ### Reverse Actions
 
-The [reverseActions](./action.ts) function returns the reverse of the provided actions.
+The [reverseActions](./action.ts) function inverts an array of actions (`BUY` becomes `SELL`, `SELL` becomes `BUY`, `HOLD` remains `HOLD`):
 
 ```TypeScript
-import {Action, reverseActions} from 'indicatorts';
+import { Action, reverseActions } from 'indicatorts';
 
-const actions = [
-	Action.SELL,
-	Action.HOLD,
-	Action.BUY
-];
-
-const result = reverseActions(actions);
-// [
-// 	Actions.BUY,
-// 	Actions.HOLD,
-// 	Actions.SELL
-// ];
+const actions = [Action.SELL, Action.HOLD, Action.BUY];
+const reversed = reverseActions(actions);
+// [Action.BUY, Action.HOLD, Action.SELL]
 ```
 
 ### Apply Actions
 
-The [applyActions](./action.ts) function applies the given actions to the given closings and provides the gains at each step.
+The [applyActions](./action.ts) function computes cumulative simulated gains across price bars given an array of actions and closing prices:
 
 ```TypeScript
-import {applyActions} from 'indicatorts';
+import { applyActions } from 'indicatorts';
 
 const gains = applyActions(closings, actions);
 ```
 
-## Buy and Hold Strategy
+## Strategy Examples
 
-The [buyAndHoldStrategy](./buyAndHoldStrategy.ts) provides a simple strategy to buy the given asset and hold it. It provides a good indicator for the change of asset's value without any other strategy is used.
-
-```TypeScript
-import {buyAndHoldStrategy} from 'indicatorts';
-
-const actions = buyAndHoldStrategy(asset);
-```
+Concrete strategy implementations (such as moving average crossovers, RSI thresholding, MACD signal lines, Bollinger Band breakouts, etc.) are located in the [`examples/`](../../examples) directory as pedagogical demonstrations.
 
 ## Disclaimer
 
-The information provided on this project is strictly for informational purposes and is not to be construed as advice or solicitation to buy or sell any security.
+The mathematical calculations, generic abstractions, and backtesting utilities provided in this project are strictly for educational and research purposes. They do not constitute investment advice or trading recommendations.
 
 ## License
 

@@ -1,6 +1,6 @@
 # Backtest
 
-Backtesting is the method for seeing how well a strategy would have done. The following backtesting functions are provided for evaluating strategies.
+Backtesting evaluates how historical price series data would have behaved under a defined strategy function. The following backtesting data structures and functions are provided.
 
 - [Backtest](#backtest)
   - [Strategy Info](#strategy-info)
@@ -15,7 +15,7 @@ Backtesting is the method for seeing how well a strategy would have done. The fo
 
 ## Strategy Info
 
-The [StrategyInfo](./strategyInfo.ts) provides a strategy function with a name.
+The [StrategyInfo](./strategyInfo.ts) pairs a strategy function with an identifying name.
 
 ```TypeScript
 interface StrategyInfo {
@@ -24,24 +24,25 @@ interface StrategyInfo {
 }
 ```
 
-It is used to define a new strategy for the backtest.
+It is used to define strategies for evaluation:
 
 ```TypeScript
-import {StrategyInfo} from 'indicatorts';
+import { StrategyInfo, Asset, Action } from 'indicatorts';
 
-const strategyInfo: StrategyInfo = {
-    name: 'My Strategy',
-    strategy: (asset: Asset): Action[] => {
-        // Strategy Function
-    }
+const myStrategyInfo: StrategyInfo = {
+  name: 'Sample Strategy',
+  strategy: (asset: Asset): Action[] => {
+    // Custom strategy implementation returning Action[]
+    return new Array(asset.closings.length).fill(Action.HOLD);
+  }
 };
 ```
 
-The strategy infos for all strategies are provided under [STRATEGY_INFOS](./strategyInfo.ts).
+For pre-built illustrative strategy examples, see the [examples/](../../examples) directory.
 
 ## Strategy Result
 
-The [StrategyResult](./strategyResult.ts) provides the result of a given strategy after the backtest.
+The [StrategyResult](./strategyResult.ts) provides the evaluated outcome of a strategy on an asset:
 
 ```TypeScript
 interface StrategyResult {
@@ -51,21 +52,21 @@ interface StrategyResult {
 }
 ```
 
-The _info_ is the [Strategy Info](#strategy-info), the _gain_ is the result of the strategy at the end, and the _lastAction_ is the last action provided by the given strategy.
+The _info_ is the [Strategy Info](#strategy-info), the _gain_ is the cumulative return at the end of the time series, and _lastAction_ is the final signal generated.
 
 ## Backtest Function
 
-The [backtest](./backtest.ts) function takes an [Asset](../strategy/README.md#Asset), an array of [StrategyInfo](#strategy-info), and returns an array of [StrategyResult](#strategy-result).
+The [backtest](./backtest.ts) function takes an [Asset](../strategy/README.md#asset) and an array of [StrategyInfo](#strategy-info), returning a ranked array of [StrategyResult](#strategy-result) sorted by gain descending.
 
 ```TypeScript
-import {bactest} from 'indicatorts';
+import { backtest } from 'indicatorts';
 
-const results = backtest(asset, STRATEGY_INFOS);
+const results = backtest(asset, [myStrategyInfo]);
 ```
 
 ## Company Info
 
-The [CompanyInfo](../company/companyInfo.ts) provides the company information.
+The [CompanyInfo](../company/companyInfo.ts) provides metadata for a tracked instrument or company:
 
 ```TypeScript
 interface CompanyInfo {
@@ -76,11 +77,9 @@ interface CompanyInfo {
 }
 ```
 
-The [SP500_COMPANIES](../company/companyInfo.ts) are provided.
-
 ## Company Result
 
-The [CompanyResult](./companyResult.ts) provides the company result.
+The [CompanyResult](./companyResult.ts) associates company metadata with its strategy backtest results:
 
 ```TypeScript
 interface CompanyResult {
@@ -89,11 +88,9 @@ interface CompanyResult {
 }
 ```
 
-The _companyInfo_ is the [CompanyInfo](#company-info), and _strategyResults_ is an array of [StrategyResult](#strategy-result).
-
 ## Strategy Stats
 
-The [StrategyStats](./strategyStats.ts) provides the stats for a given strategy.
+The [StrategyStats](./strategyStats.ts) aggregates strategy performance across multiple company/asset results:
 
 ```TypeScript
 interface StrategyStats {
@@ -105,21 +102,19 @@ interface StrategyStats {
 }
 ```
 
-The _strategyInfo_ is the [StrategyInfo](#strategy-info) of the given strategy, _score_ is the total count of times this strategy generated the highest gain, the _minGain_ is the minimum gain, _maxGain_ is the maximum gain, and the _averageGain_ is the average gain.
-
 ### Compute Strategy Stats
 
-The [computeStrategyStats](./strategyStats.ts) takes an array for [CompanyResult](#company-result), and returns an array of [StrategyStats](#strategy-stats).
+The [computeStrategyStats](./strategyStats.ts) aggregates an array of [CompanyResult](#company-result) into [StrategyStats](#strategy-stats):
 
 ```TypeScript
-import {StrategyStats, computeStrategyStats} from 'indicatorts';
+import { computeStrategyStats } from 'indicatorts';
 
 const stats = computeStrategyStats(companyResults);
 ```
 
 ## Disclaimer
 
-The information provided on this project is strictly for informational purposes and is not to be construed as advice or solicitation to buy or sell any security.
+The information and backtest framework provided in this project are strictly for informational, educational, and research purposes. Simulated results do not represent actual trading and are subject to inherent limitations.
 
 ## License
 
