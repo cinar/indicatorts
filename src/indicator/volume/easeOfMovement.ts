@@ -47,8 +47,16 @@ export function emv(
 ): number[] {
   const { period } = { ...EMVDefaultConfig, ...config };
   const distanceMoved = changes(1, divideBy(2, add(highs, lows)));
-  const boxRatio = divide(divideBy(100000000, volumes), subtract(highs, lows));
-  const result = sma(divide(distanceMoved, boxRatio), { period });
+  const range = subtract(highs, lows);
+  const boxRatio = divide(divideBy(100000000, volumes), range);
+
+  // When the high and low are equal, there is no price movement within
+  // the bar, so the box ratio's division by zero would otherwise produce
+  // NaN/Infinity. EMV(1) for that bar is treated as 0 instead.
+  const emv1 = divide(distanceMoved, boxRatio).map((value, i) =>
+    range[i] === 0 ? 0 : value
+  );
+  const result = sma(emv1, { period });
 
   return result;
 }

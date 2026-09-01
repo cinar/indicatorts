@@ -52,4 +52,24 @@ describe('Stochastic Oscillator (STOCH)', () => {
     deepStrictEqual(roundDigitsAll(2, actual.k), expectedK);
     deepStrictEqual(roundDigitsAll(2, actual.d), expectedD);
   });
+
+  it('should return the midpoint when the high-low range is flat', () => {
+    const flatHighs = [50, 50, 50, 50];
+    const flatLows = [50, 50, 50, 50];
+    const flatClosings = [50, 45, 55, 50];
+
+    const actual = stoch(flatHighs, flatLows, flatClosings, {
+      kPeriod: 2,
+      dPeriod: 2,
+    });
+
+    actual.k.forEach((value) => {
+      deepStrictEqual(Number.isNaN(value), false);
+      deepStrictEqual(value, 50);
+    });
+    actual.d.forEach((value) => {
+      deepStrictEqual(Number.isNaN(value), false);
+      deepStrictEqual(value, 50);
+    });
+  });
 });

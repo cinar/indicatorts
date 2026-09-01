@@ -47,4 +47,29 @@ describe('Random Index (KDJ)', () => {
     deepStrictEqual(roundDigitsAll(2, kdjResult.d), expectedD);
     deepStrictEqual(roundDigitsAll(2, kdjResult.j), expectedJ);
   });
+
+  it('should return the midpoint when the high-low range is flat', () => {
+    const flatHighs = [50, 50, 50, 50];
+    const flatLows = [50, 50, 50, 50];
+    const flatClosings = [50, 45, 55, 50];
+
+    const kdjResult = kdj(flatHighs, flatLows, flatClosings, {
+      rPeriod: 2,
+      kPeriod: 2,
+      dPeriod: 2,
+    });
+
+    kdjResult.k.forEach((value) => {
+      deepStrictEqual(Number.isNaN(value), false);
+      deepStrictEqual(value, 50);
+    });
+    kdjResult.d.forEach((value) => {
+      deepStrictEqual(Number.isNaN(value), false);
+      deepStrictEqual(value, 50);
+    });
+    kdjResult.j.forEach((value) => {
+      deepStrictEqual(Number.isNaN(value), false);
+      deepStrictEqual(value, 50);
+    });
+  });
 });

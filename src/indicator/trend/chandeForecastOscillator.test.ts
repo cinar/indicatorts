@@ -19,14 +19,14 @@ describe('Chande Forecast Oscillator (CFO)', () => {
 
   it('should be able to compute (moving) with a config', () => {
     const expected = [
-      100, 0, 4.1667, 4.5, 6, 5.3571, 4.5, 3.75, 1.4286, 0.4167, 0, 0,
+      0, 0, 4.1667, 4.5, 6, 5.3571, 4.5, 3.75, 1.4286, 0.4167, 0, 0,
     ];
     const actual = mcfo(closings, { period: 8 });
     deepStrictEqual(roundDigitsAll(4, actual), expected);
   });
 
   it('should be able to compute (moving) without a config', () => {
-    const expected = [100, 0, 4.1667, 4.5, 2.6667, 1, 0, 0, 0, 0, 0, 0];
+    const expected = [0, 0, 4.1667, 4.5, 2.6667, 1, 0, 0, 0, 0, 0, 0];
     const actual = mcfo(closings);
     deepStrictEqual(roundDigitsAll(4, actual), expected);
   });

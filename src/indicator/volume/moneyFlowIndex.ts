@@ -51,9 +51,10 @@ export function mfi(
   config: MFIConfig = {}
 ): number[] {
   const { period } = { ...MFIDefaultConfig, ...config };
-  const rawMoneyFlow = multiply(typprice(highs, lows, closings), volumes);
+  const typicalPrice = typprice(highs, lows, closings);
+  const rawMoneyFlow = multiply(typicalPrice, volumes);
 
-  const signs = extractSigns(changes(1, rawMoneyFlow));
+  const signs = extractSigns(changes(1, typicalPrice));
   const moneyFlow = multiply(signs, rawMoneyFlow);
 
   const positiveMoneyFlow = moneyFlow.map((value) => (value >= 0 ? value : 0));

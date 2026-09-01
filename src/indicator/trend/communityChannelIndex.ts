@@ -44,7 +44,12 @@ export function cci(
   const tp = typprice(highs, lows, closings);
   const ma = sma(tp, { period });
   const md = sma(abs(subtract(tp, ma)), { period });
-  const result = divide(subtract(tp, ma), multiplyBy(0.015, md));
+  const resultRaw = divide(subtract(tp, ma), multiplyBy(0.015, md));
+
+  // When the mean deviation is 0 (typical price exactly tracks its own
+  // moving average, or there isn't enough data yet), CCI is treated as 0
+  // instead of NaN (0 / 0).
+  const result = resultRaw.map((value, i) => (md[i] === 0 ? 0 : value));
   return result;
 }
 

@@ -41,9 +41,12 @@ export function willr(
   const { period } = { ...WillrDefaultConfig, ...config };
   const highestHigh = mmax(highs, { period });
   const lowestLow = mmin(lows, { period });
+  const range = subtract(highestHigh, lowestLow);
+
+  const raw = divide(subtract(highestHigh, closings), range);
   const result = multiplyBy(
     -100,
-    divide(subtract(highestHigh, closings), subtract(highestHigh, lowestLow))
+    raw.map((value, i) => (range[i] === 0 ? 0.5 : value))
   );
 
   return result;

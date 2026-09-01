@@ -21,4 +21,15 @@ describe('Volume Weighted Average Price (VWAP)', () => {
     const actual = vwap(closings, volumes);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
+
+  it('should not propagate NaN when a window has zero volume', () => {
+    // Both bars have zero volume, so the volume sum for every window
+    // is 0, which would otherwise divide by zero.
+    const flatClosings = [9, 11];
+    const zeroVolumes = [0, 0];
+    const expected = [0, 0];
+
+    const actual = vwap(flatClosings, zeroVolumes, { period: 2 });
+    expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
+  });
 });
