@@ -44,4 +44,17 @@ describe('Williams R (WILLR)', () => {
     const actual = willr(highs, lows, closings);
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
+
+  it('should return the midpoint when the high-low range is flat', () => {
+    const flatHighs = [50, 50, 50, 50];
+    const flatLows = [50, 50, 50, 50];
+    const flatClosings = [50, 45, 55, 50];
+
+    const actual = willr(flatHighs, flatLows, flatClosings, { period: 2 });
+
+    actual.forEach((value) => {
+      deepStrictEqual(Number.isNaN(value), false);
+      deepStrictEqual(value, -50);
+    });
+  });
 });

@@ -64,10 +64,12 @@ export function kdj(
   const { rPeriod, kPeriod, dPeriod } = { ...KDJDefaultConfig, ...config };
   const highest = mmax(highs, { period: rPeriod });
   const lowest = mmin(lows, { period: rPeriod });
+  const range = subtract(highest, lowest);
 
+  const rsvRaw = divide(subtract(closings, lowest), range);
   const rsv = multiplyBy(
     100,
-    divide(subtract(closings, lowest), subtract(highest, lowest))
+    rsvRaw.map((value, i) => (range[i] === 0 ? 0.5 : value))
   );
 
   const kValue = sma(rsv, { period: kPeriod });
