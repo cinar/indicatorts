@@ -42,7 +42,8 @@ function updateStrategyStats(stats: StrategyStats, result: StrategyResult) {
   stats.score++;
   stats.minGain = Math.min(stats.minGain, result.gain);
   stats.maxGain = Math.max(stats.maxGain, result.gain);
-  stats.averageGain = (stats.averageGain + result.gain) / 2;
+  stats.averageGain =
+    stats.averageGain + (result.gain - stats.averageGain) / stats.score;
 }
 
 /**

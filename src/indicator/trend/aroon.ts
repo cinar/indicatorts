@@ -7,9 +7,6 @@ import {
   divideBy,
   multiplyBy,
 } from '../../helper/numArray';
-import { since } from './since';
-import { mmin } from './movingMin';
-import { mmax } from './movingMax';
 
 /**
  * Aroon result.
@@ -32,6 +29,43 @@ export interface AroonConfig {
 export const AroonDefaultConfig: Required<AroonConfig> = {
   period: 25,
 };
+
+/**
+ * Computes, for each bar, the number of bars since the most recent
+ * occurrence of the extreme (max or min) value within the trailing
+ * `period`-bar window ending at that bar. During warmup (before `period`
+ * bars have been seen) the window is `[0, i]`, matching the effective
+ * window used by `mmax`/`mmin`. When there are ties for the extreme value
+ * within the window, the most recent occurrence is preferred.
+ *
+ * @param values input values.
+ * @param period window size.
+ * @param isMoreExtreme comparator returning true when `candidate` should
+ *   replace `current` as the extreme (e.g. `(a, b) => a >= b` for max).
+ * @return periods since the extreme value for each bar.
+ */
+function periodsSinceExtreme(
+  values: number[],
+  period: number,
+  isMoreExtreme: (candidate: number, current: number) => boolean
+): number[] {
+  const result = new Array<number>(values.length);
+
+  for (let i = 0; i < values.length; i++) {
+    const from = Math.max(0, i - period + 1);
+    let extremeIndex = from;
+
+    for (let j = from + 1; j <= i; j++) {
+      if (isMoreExtreme(values[j], values[extremeIndex])) {
+        extremeIndex = j;
+      }
+    }
+
+    result[i] = i - extremeIndex;
+  }
+
+  return result;
+}
 
 /**
  * Aroon Indicator. It is a technical indicator that is used to identify trend changes
@@ -58,8 +92,8 @@ export function aroon(
 
   const { period } = { ...AroonDefaultConfig, ...config };
 
-  const sinceLastHigh = since(mmax(highs, { period }));
-  const sinceLastLow = since(mmin(lows, { period }));
+  const sinceLastHigh = periodsSinceExtreme(highs, period, (a, b) => a >= b);
+  const sinceLastLow = periodsSinceExtreme(lows, period, (a, b) => a <= b);
 
   const up = multiplyBy(
     100,
