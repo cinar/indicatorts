@@ -7,6 +7,7 @@ import {
   sortCompanyResults,
 } from './companyResult';
 import { StrategyResult } from './strategyResult';
+import { StrategyInfo } from './strategyInfo';
 import { Action } from '../strategy/action';
 
 function newCompanyResult(
@@ -40,6 +41,45 @@ function newStrategyResult(
 }
 
 describe('sortCompanyResults', () => {
+  it('should not mutate the original companyResults array', () => {
+    const strategyInfo: StrategyInfo = {
+      name: 'Test Strategy',
+      strategy: () => [],
+    };
+
+    const companyResults: CompanyResult[] = ['C', 'A', 'B'].map((symbol) => ({
+      companyInfo: {
+        symbol,
+        name: `Company ${symbol}`,
+        sector: 'Technology',
+        subIndustry: 'Software',
+      },
+      strategyResults: [
+        {
+          info: strategyInfo,
+          gain: 0,
+          lastAction: Action.HOLD,
+        },
+      ],
+    }));
+
+    const original = companyResults.slice();
+
+    const sorted = sortCompanyResults(
+      companyResults,
+      CompanyResultSortBy.SYMBOL,
+      true
+    );
+
+    // The original array reference passed in must be unchanged.
+    expect(companyResults.map((r) => r.companyInfo.symbol)).toEqual(
+      original.map((r) => r.companyInfo.symbol)
+    );
+
+    // The returned array reflects the requested sort order.
+    expect(sorted.map((r) => r.companyInfo.symbol)).toEqual(['A', 'B', 'C']);
+  });
+
   const sortByCases = [
     CompanyResultSortBy.STRATEGY,
     CompanyResultSortBy.GAIN,

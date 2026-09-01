@@ -7,6 +7,32 @@ import { StrategyInfo } from './strategyInfo';
 import { StrategyResult } from './strategyResult';
 
 /**
+ * Compares two strategy results by gain in descending order, treating a
+ * missing gain as the worst possible value.
+ *
+ * Note: StrategyResult.gain is typed as `number`, but at runtime it can be
+ * `undefined` when an asset has empty price history (e.g. the gains array
+ * computed by applyActions() is empty, so its last element is `undefined`).
+ * Falling back to `-Infinity` for a missing gain keeps the comparator from
+ * ever returning NaN, which Array.prototype.sort treats as 0 and would
+ * otherwise leave such entries in an arbitrary position instead of
+ * consistently sorting them to the bottom.
+ *
+ * @param a first strategy result.
+ * @param b second strategy result.
+ * @return comparison result.
+ */
+export function compareStrategyResultsByGainDesc(
+  a: StrategyResult,
+  b: StrategyResult
+): number {
+  return (
+    ((b.gain as number | undefined) ?? -Infinity) -
+    ((a.gain as number | undefined) ?? -Infinity)
+  );
+}
+
+/**
  * Backtests the given strategies.
  *
  * @param asset asset object.
@@ -30,7 +56,7 @@ export function backtest(
     };
   }
 
-  result.sort((a, b) => b.gain - a.gain);
+  result.sort(compareStrategyResultsByGainDesc);
 
   return result;
 }

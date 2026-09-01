@@ -40,19 +40,19 @@ export function sortCompanyResults(
 
   switch (sortBy) {
     case CompanyResultSortBy.SYMBOL:
-      sorted = companyResults.sort((a, b) => {
+      sorted = companyResults.slice().sort((a, b) => {
         return a.companyInfo.symbol.localeCompare(b.companyInfo.symbol);
       });
       break;
 
     case CompanyResultSortBy.NAME:
-      sorted = companyResults.sort((a, b) => {
+      sorted = companyResults.slice().sort((a, b) => {
         return a.companyInfo.name.localeCompare(b.companyInfo.name);
       });
       break;
 
     case CompanyResultSortBy.STRATEGY:
-      sorted = companyResults.sort((a, b) => {
+      sorted = companyResults.slice().sort((a, b) => {
         return (a.strategyResults[0]?.info.name ?? '').localeCompare(
           b.strategyResults[0]?.info.name ?? ''
         );
@@ -60,7 +60,7 @@ export function sortCompanyResults(
       break;
 
     case CompanyResultSortBy.GAIN:
-      sorted = companyResults.sort((a, b) => {
+      sorted = companyResults.slice().sort((a, b) => {
         return (
           (a.strategyResults[0]?.gain ?? 0) - (b.strategyResults[0]?.gain ?? 0)
         );
@@ -68,7 +68,7 @@ export function sortCompanyResults(
       break;
 
     case CompanyResultSortBy.ACTION:
-      sorted = companyResults.sort((a, b) => {
+      sorted = companyResults.slice().sort((a, b) => {
         return (
           (a.strategyResults[0]?.lastAction ?? 0) -
           (b.strategyResults[0]?.lastAction ?? 0)
