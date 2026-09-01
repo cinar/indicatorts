@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Onur Cinar. All Rights Reserved.
+// Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
 export * from './backtest/index';

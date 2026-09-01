@@ -198,6 +198,6 @@ The information provided on this project is strictly for informational purposes 
 
 ## License
 
-Copyright (c) 2022 Onur Cinar. All Rights Reserved.
+Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 
 The source code is provided under MIT License.
