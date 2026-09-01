@@ -108,8 +108,10 @@ export function movingLeastSquare(
       m[i] = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
       b[i] = (sumY - m[i] * sumX) / n;
     } else {
+      // With a single point in the window, the least squares fit
+      // degenerates to the horizontal line through that point.
       m[i] = 0;
-      b[i] = 0;
+      b[i] = y[i];
     }
   }
 
