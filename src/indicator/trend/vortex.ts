@@ -6,7 +6,7 @@ import {
   checkSameLength,
   divide,
   max,
-  shiftRightBy,
+  shiftRightAndFillBy,
   subtract,
 } from '../../helper/numArray';
 import { msum } from './movingSum';
@@ -69,10 +69,12 @@ export function vortex(
   checkSameLength(highs, lows, closings);
 
   const { period } = { ...VortexDefaultConfig, ...config };
-  const prevClosings = shiftRightBy(1, closings);
+  const prevClosings = shiftRightAndFillBy(1, closings[0], closings);
+  const prevLows = shiftRightAndFillBy(1, lows[0], lows);
+  const prevHighs = shiftRightAndFillBy(1, highs[0], highs);
 
-  const plusVm = abs(subtract(highs, shiftRightBy(1, lows)));
-  const minusVm = abs(subtract(lows, shiftRightBy(1, highs)));
+  const plusVm = abs(subtract(highs, prevLows));
+  const minusVm = abs(subtract(lows, prevHighs));
 
   const plusVmSum = msum(plusVm, { period });
   const minusVmSum = msum(minusVm, { period });

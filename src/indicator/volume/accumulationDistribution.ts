@@ -24,10 +24,18 @@ export function ad(
   closings: number[],
   volume: number[]
 ): number[] {
-  const mfm = divide(
+  const range = subtract(highs, lows);
+  const mfmRaw = divide(
     subtract(subtract(closings, lows), subtract(highs, closings)),
-    subtract(highs, lows)
+    range
   );
+
+  // When the high and low are equal, there is no price movement within
+  // the bar, so the money flow multiplier is treated as 0 instead of
+  // NaN (0 / 0). Without this guard, a single flat/halted bar would
+  // introduce a NaN that propagates through every subsequent value,
+  // since AD is a cumulative sum.
+  const mfm = mfmRaw.map((value, i) => (range[i] === 0 ? 0 : value));
 
   const mfv = multiply(mfm, volume);
 
