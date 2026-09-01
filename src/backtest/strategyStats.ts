@@ -102,25 +102,27 @@ export function sortStrategyStats(
 
   switch (sortBy) {
     case StrategyStatsSortBy.STRATEGY:
-      sorted = strategyStats.sort((a, b) =>
-        a.strategyInfo.name.localeCompare(b.strategyInfo.name)
-      );
+      sorted = strategyStats
+        .slice()
+        .sort((a, b) => a.strategyInfo.name.localeCompare(b.strategyInfo.name));
       break;
 
     case StrategyStatsSortBy.SCORE:
-      sorted = strategyStats.sort((a, b) => a.score - b.score);
+      sorted = strategyStats.slice().sort((a, b) => a.score - b.score);
       break;
 
     case StrategyStatsSortBy.MIN:
-      sorted = strategyStats.sort((a, b) => a.minGain - b.minGain);
+      sorted = strategyStats.slice().sort((a, b) => a.minGain - b.minGain);
       break;
 
     case StrategyStatsSortBy.MAX:
-      sorted = strategyStats.sort((a, b) => a.maxGain - b.maxGain);
+      sorted = strategyStats.slice().sort((a, b) => a.maxGain - b.maxGain);
       break;
 
     case StrategyStatsSortBy.AVERAGE:
-      sorted = strategyStats.sort((a, b) => a.averageGain - b.averageGain);
+      sorted = strategyStats
+        .slice()
+        .sort((a, b) => a.averageGain - b.averageGain);
       break;
   }
 
