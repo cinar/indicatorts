@@ -72,6 +72,9 @@ export function sortCompanyResults(
         );
       });
       break;
+
+    default:
+      break;
   }
 
   if (!ascending) {

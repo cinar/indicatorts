@@ -124,6 +124,9 @@ export function sortStrategyStats(
         .slice()
         .sort((a, b) => a.averageGain - b.averageGain);
       break;
+
+    default:
+      break;
   }
 
   if (!ascending) {
