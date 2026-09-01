@@ -2,14 +2,12 @@
 // https://github.com/cinar/indicatorts
 
 import {
-  add,
   divide,
   generateNumbers,
-  multiply,
   multiplyBy,
   subtract,
 } from '../../helper/numArray';
-import { movingLeastSquare } from '../../helper/regression';
+import { movingLinearRegressionUsingLeastSquare } from '../../helper/regression';
 import { ema } from '../trend/exponentialMovingAverage';
 import { mmax } from '../trend/movingMax';
 import { mmin } from '../trend/movingMin';
@@ -45,8 +43,11 @@ export const PODefaultConfig: Required<POConfig> = {
  * Period defines the moving window to calculates the PO, and the smooth
  * period defines the moving windows to take EMA of PO.
  *
- * PL = Min(period, (high + MLS(period, x, high)))
- * PU = Max(period, (low + MLS(period, x, low)))
+ * The highs and lows are projected using the fitted moving linear
+ * regression line (m * x + b), obtained through the least squares method.
+ *
+ * PU = Max(period, MLR(period, x, high))
+ * PL = Min(period, MLR(period, x, low))
  * PO = 100 * (Closing - PL) / (PU - PL)
  * SPO = EMA(smooth, PO)
  *
@@ -67,11 +68,8 @@ export function po(
     ...config,
   };
   const x = generateNumbers(0, closings.length, 1);
-  const lsHighs = movingLeastSquare(period, x, highs);
-  const lsLows = movingLeastSquare(period, x, lows);
-
-  const vHighs = add(highs, multiply(lsHighs.m, x));
-  const vLows = add(lows, multiply(lsLows.m, x));
+  const vHighs = movingLinearRegressionUsingLeastSquare(period, x, highs);
+  const vLows = movingLinearRegressionUsingLeastSquare(period, x, lows);
 
   const pu = mmax(vHighs, { period });
   const pl = mmin(vLows, { period });
