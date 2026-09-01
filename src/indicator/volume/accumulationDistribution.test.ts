@@ -17,4 +17,19 @@ describe('Accumulation/Distribution (A/D)', () => {
     const actual = ad(highs, lows, closings, volumes);
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
+
+  it('should not propagate NaN when a bar has zero high-low range', () => {
+    // Bar index 2 is a flat/halted bar where high equals low, which
+    // would otherwise divide by zero when computing the money flow
+    // multiplier for that bar.
+    const highs = [10, 12, 8, 14, 15];
+    const lows = [5, 7, 8, 9, 10];
+    const closings = [8, 10, 8, 12, 13];
+    const volumes = [100, 200, 300, 400, 500];
+
+    const expected = [20, 60, 60, 140, 240];
+
+    const actual = ad(highs, lows, closings, volumes);
+    deepStrictEqual(roundDigitsAll(2, actual), expected);
+  });
 });
