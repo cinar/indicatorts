@@ -26,4 +26,32 @@ describe('Aroon', () => {
     deepStrictEqual(roundDigitsAll(2, actual.up), expectedUp);
     deepStrictEqual(roundDigitsAll(2, actual.down), expectedDown);
   });
+
+  it('should measure periods since the actual window high/low when the window slides', () => {
+    // period is smaller than the number of bars, so the trailing window
+    // actually slides, and highs contains a tie (index 1 and 2 both 20)
+    // to exercise the "most recent occurrence wins" tie-break rule.
+    const slidingHighs = [10, 20, 20, 15];
+    const slidingLows = [20, 25, 10, 30];
+
+    // Highs: window [i-1, i] once i >= 1.
+    //  i=0: window=[10]           -> high=10 at 0 -> since=0
+    //  i=1: window=[10,20]        -> high=20 at 1 -> since=0
+    //  i=2: window=[20,20]        -> high=20 at 2 (tie, latest wins) -> since=0
+    //  i=3: window=[20,15]        -> high=20 at 2 -> since=1
+    // Aroon Up = ((2 - since) / 2) * 100
+    const expectedUp = [100, 100, 100, 50];
+
+    // Lows: window [i-1, i] once i >= 1.
+    //  i=0: window=[20]           -> low=20 at 0 -> since=0
+    //  i=1: window=[20,25]        -> low=20 at 0 -> since=1
+    //  i=2: window=[25,10]        -> low=10 at 2 -> since=0
+    //  i=3: window=[10,30]        -> low=10 at 2 -> since=1
+    // Aroon Down = ((2 - since) / 2) * 100
+    const expectedDown = [100, 50, 100, 50];
+
+    const actual = aroon(slidingHighs, slidingLows, { period: 2 });
+    deepStrictEqual(roundDigitsAll(2, actual.up), expectedUp);
+    deepStrictEqual(roundDigitsAll(2, actual.down), expectedDown);
+  });
 });
