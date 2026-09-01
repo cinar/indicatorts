@@ -8,7 +8,19 @@
 
 Indicator is a TypeScript module providing various stock technical analysis indicators, strategies, and a backtest framework for trading.
 
-_This is a clone of my [Indicator Go](https://github.com/cinar/indicator) Golang module._
+_This is a TypeScript implementation of [Indicator Go](https://github.com/cinar/indicator) Golang module._
+
+## ⚠️ Risk Disclosure & Disclaimer
+
+**Financial Risk:** Trading stocks, options, futures, foreign exchange, and cryptocurrencies involves substantial risk of loss and is not suitable for every investor. Valuation of securities and financial instruments may fluctuate, and investors may lose more than their initial investment.
+
+**Not Financial or Investment Advice:** The software, algorithms, indicators, strategies, and backtest results provided in this project are strictly for educational, research, and informational purposes. Nothing contained in this project or its associated tools constitutes a solicitation, recommendation, endorsement, or financial/investment/trading advice by The Indicator Authors or any contributor. You are solely responsible for evaluating the merits and risks associated with the use of any information or software before making any financial decisions.
+
+**Hypothetical Performance Disclosure (CFTC Rule 4.41):** Hypothetical or simulated performance results have certain inherent limitations. Unlike an actual performance record, simulated results do not represent actual trading. Also, since the trades have not actually been executed, the results may have under- or over-compensated for the impact, if any, of certain market factors, such as lack of liquidity or market slippage. Simulated trading programs in general are also subject to the fact that they are designed with the benefit of hindsight. No representation is being made that any account will or is likely to achieve profits or losses similar to those shown.
+
+**No Warranties:** This software is provided "AS IS," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and non-infringement. Past performance is no guarantee of future results.
+
+**Limitation of Liability:** In no event shall the author, contributors, or copyright holders be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, financial loss, loss of profits, trading losses, loss of data, or business interruption) however caused and on any theory of liability arising in any way out of the use of this software, even if advised of the possibility of such damage.
 
 ## Indicators Provided
 
@@ -180,12 +192,21 @@ const lows = [1, 2, 3, 4];
 const result = ao(highs, lows);
 ```
 
-## Disclaimer
-
-The information provided on this project is strictly for informational purposes and is not to be construed as advice or solicitation to buy or sell any security.
-
 ## License
 
-Copyright (c) 2022 Onur Cinar. All Rights Reserved.
-
 The source code is provided under MIT License.
+
+```
+Copyright © 2022-2026 The Indicator Authors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
+
+## Trademarks
+
+- **Bollinger Bands®** is a registered trademark of John Bollinger.
+- All other product names, logos, and brands mentioned herein are trademarks or registered trademarks of their respective owners. Mention of third-party products, services, or trademarks is for nominative identification and educational purposes only and does not imply affiliation or endorsement.
