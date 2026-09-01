@@ -53,22 +53,25 @@ export function sortCompanyResults(
 
     case CompanyResultSortBy.STRATEGY:
       sorted = companyResults.sort((a, b) => {
-        return a.strategyResults[0].info.name.localeCompare(
-          b.strategyResults[0].info.name
+        return (a.strategyResults[0]?.info.name ?? '').localeCompare(
+          b.strategyResults[0]?.info.name ?? ''
         );
       });
       break;
 
     case CompanyResultSortBy.GAIN:
       sorted = companyResults.sort((a, b) => {
-        return a.strategyResults[0].gain - b.strategyResults[0].gain;
+        return (
+          (a.strategyResults[0]?.gain ?? 0) - (b.strategyResults[0]?.gain ?? 0)
+        );
       });
       break;
 
     case CompanyResultSortBy.ACTION:
       sorted = companyResults.sort((a, b) => {
         return (
-          a.strategyResults[0].lastAction - b.strategyResults[0].lastAction
+          (a.strategyResults[0]?.lastAction ?? 0) -
+          (b.strategyResults[0]?.lastAction ?? 0)
         );
       });
       break;
