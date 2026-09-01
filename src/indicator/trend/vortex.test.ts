@@ -27,4 +27,18 @@ describe('Vortex Indicator', () => {
     deepStrictEqual(roundDigitsAll(5, actual.plus), expectedPlus);
     deepStrictEqual(roundDigitsAll(5, actual.minus), expectedMinus);
   });
+
+  it('should not propagate NaN when the true range sum is zero', () => {
+    // A fully flat/halted market where every bar has zero true range,
+    // so the true range sum for every window is 0.
+    const flatHighs = [10, 10, 10];
+    const flatLows = [10, 10, 10];
+    const flatClosings = [10, 10, 10];
+    const expectedPlus = [0, 0, 0];
+    const expectedMinus = [0, 0, 0];
+
+    const actual = vortex(flatHighs, flatLows, flatClosings, { period: 2 });
+    deepStrictEqual(roundDigitsAll(5, actual.plus), expectedPlus);
+    deepStrictEqual(roundDigitsAll(5, actual.minus), expectedMinus);
+  });
 });

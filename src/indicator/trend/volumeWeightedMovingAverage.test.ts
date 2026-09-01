@@ -22,4 +22,15 @@ describe('Volume Weighted Moving Average (VWMA)', () => {
     const actual = vwma(closings, volumes);
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
+
+  it('should not propagate NaN when a window has zero volume', () => {
+    // Both bars have zero volume, so the volume sum for every window
+    // is 0, which would otherwise divide by zero.
+    const flatClosings = [20, 21];
+    const zeroVolumes = [0, 0];
+    const expected = [0, 0];
+
+    const actual = vwma(flatClosings, zeroVolumes, { period: 2 });
+    deepStrictEqual(roundDigitsAll(2, actual), expected);
+  });
 });

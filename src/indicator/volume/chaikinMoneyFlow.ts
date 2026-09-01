@@ -41,17 +41,27 @@ export function cmf(
   config: CMFConfig = {}
 ): number[] {
   const { period } = { ...CMFDefaultConfig, ...config };
-  const moneyFlowMultipler = divide(
+  const range = subtract(highs, lows);
+  const moneyFlowMultiplerRaw = divide(
     subtract(subtract(closings, lows), subtract(highs, closings)),
-    subtract(highs, lows)
+    range
+  );
+
+  // When the high and low are equal, there is no price movement within
+  // the bar, so the money flow multiplier is treated as 0 instead of
+  // NaN (0 / 0).
+  const moneyFlowMultipler = moneyFlowMultiplerRaw.map((value, i) =>
+    range[i] === 0 ? 0 : value
   );
 
   const moneyFlowVolume = multiply(moneyFlowMultipler, volumes);
 
-  const result = divide(
-    msum(moneyFlowVolume, { period }),
-    msum(volumes, { period })
-  );
+  const volumeSum = msum(volumes, { period });
+  const resultRaw = divide(msum(moneyFlowVolume, { period }), volumeSum);
+
+  // When the volume sum for a window is 0 (no trading volume), treat the
+  // Chaikin Money Flow as 0 instead of NaN (0 / 0).
+  const result = resultRaw.map((value, i) => (volumeSum[i] === 0 ? 0 : value));
 
   return result;
 }

@@ -23,7 +23,13 @@ export function bop(
   lows: number[],
   closings: number[]
 ): number[] {
-  return divide(subtract(closings, openings), subtract(highs, lows));
+  const range = subtract(highs, lows);
+  const resultRaw = divide(subtract(closings, openings), range);
+
+  // When the high and low are equal, there is no price movement within
+  // the bar, so balance of power is treated as 0 (balanced) instead of
+  // NaN (0 / 0).
+  return resultRaw.map((value, i) => (range[i] === 0 ? 0 : value));
 }
 
 // Export full name

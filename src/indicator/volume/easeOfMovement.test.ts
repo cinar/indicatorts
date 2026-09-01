@@ -22,4 +22,17 @@ describe('Ease of Movement (EMV)', () => {
     const actual = emv(highs, lows, volumes);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
+
+  it('should not propagate NaN when a bar has zero high-low range and zero volume', () => {
+    // Bar index 1 is a flat/halted bar with zero volume, where high
+    // equals low, which would otherwise divide by zero (0 / 0) when
+    // computing the box ratio.
+    const flatHighs = [10, 10, 14];
+    const flatLows = [6, 10, 10];
+    const zeroVolumes = [100, 0, 90];
+    const expected = [32000000, 16000000, 4444444.44];
+
+    const actual = emv(flatHighs, flatLows, zeroVolumes, { period: 2 });
+    expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
+  });
 });

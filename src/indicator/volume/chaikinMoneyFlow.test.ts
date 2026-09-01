@@ -23,4 +23,19 @@ describe('Chaikin Money Flow (CMF)', () => {
     const actual = cmf(highs, lows, closings, volumes);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
+
+  it('should not propagate NaN when a window has zero volume', () => {
+    // Both bars have zero volume, so the volume sum for every window
+    // is 0, which would otherwise divide by zero.
+    const flatHighs = [10, 12];
+    const flatLows = [5, 7];
+    const flatClosings = [8, 10];
+    const zeroVolumes = [0, 0];
+    const expected = [0, 0];
+
+    const actual = cmf(flatHighs, flatLows, flatClosings, zeroVolumes, {
+      period: 2,
+    });
+    expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
+  });
 });
