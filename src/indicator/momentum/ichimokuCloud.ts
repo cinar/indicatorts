@@ -5,6 +5,12 @@ import {checkSameLength, shiftLeftBy,} from '../../helper/numArray';
 
 /**
  * Ichimoku cloud result object.
+ *
+ * All five arrays are the same length as the input `highs`/`lows`/`closings`.
+ * Each array represents that indicator's value as of that bar; Senkou Span A
+ * (`ssa`) and Senkou Span B (`ssb`) are conventionally *plotted* `medium`
+ * periods ahead on a chart, but that projection is left to the caller/renderer
+ * and is not reflected in the array shape/indexing itself.
  */
 export interface IchimokuCloudResult {
     tenkan: number[];
@@ -84,43 +90,38 @@ const calculateKijunSen = ({highs, lows, medium}: {
 }) => highs.reduce(averagePriceReducer({period: medium, highs, lows}), [] as Array<number>)
 
 /**
- * Senkou Span A (Leading Span A) = (Tenkan-sen Line + Kijun-sen) / 2 projected 26 periods in the future
+ * Senkou Span A (Leading Span A) = (Tenkan-sen Line + Kijun-sen) / 2
+ *
+ * Note: conventionally this is *plotted* 26 periods ahead on a chart, but
+ * the returned array itself stays the same length as the other indicator
+ * arrays and represents each bar's value as of that bar. Projecting it
+ * forward for display is the caller's/renderer's responsibility.
  *
  * @param tenkanSen Tenkan-sen values.
  * @param kijunSen Kijun-sen values.
- * @param medium medium period.
  */
-const calculateSenkouSpanA = ({tenkanSen, kijunSen, medium}: {
+const calculateSenkouSpanA = ({tenkanSen, kijunSen}: {
     tenkanSen: number[],
     kijunSen: number[],
-    medium: number
-}) => {
-    const ssa = new Array<number>(kijunSen.length + medium).fill(0)
-    kijunSen.forEach((k, i) => {
-        if (k) ssa[i + medium] = (k + tenkanSen[i]) / 2
-    })
-    return ssa
-}
+}) => kijunSen.map((k, i) => (k + tenkanSen[i]) / 2)
 
 /**
- * Senkou Span B (Leading Span B) = (52-Period High + 52-Period Low) / 2 projected 26 periods in the future
+ * Senkou Span B (Leading Span B) = (52-Period High + 52-Period Low) / 2
+ *
+ * Note: conventionally this is *plotted* 26 periods ahead on a chart, but
+ * the returned array itself stays the same length as the other indicator
+ * arrays and represents each bar's value as of that bar. Projecting it
+ * forward for display is the caller's/renderer's responsibility.
  *
  * @param highs high values.
  * @param lows low values.
  * @param long long period.
- * @param medium mediym period.
  */
-const calculateSenkouSpanB = ({highs, lows, long, medium}: {
+const calculateSenkouSpanB = ({highs, lows, long}: {
     highs: number[],
     lows: number[],
     long: number,
-    medium: number
-}) => new Array<number>(highs.length + medium).fill(0).reduce(averagePriceReducer({
-    period: long + medium,
-    highs,
-    lows,
-    projection: medium
-}), [] as Array<number>)
+}) => highs.reduce(averagePriceReducer({period: long, highs, lows}), [] as Array<number>)
 
 /**
  * Ichimoku Cloud. Also known as Ichimoku Kinko Hyo, is a versatile indicator
@@ -129,9 +130,16 @@ const calculateSenkouSpanB = ({highs, lows, long, medium}: {
  *
  * Tenkan-sen (Conversion Line) = (9-Period High + 9-Period Low) / 2
  * Kijun-sen (Base Line) = (26-Period High + 26-Period Low) / 2
- * Senkou Span A (Leading Span A) = (Conversion Line + Base Line) / 2 projected 26 periods in the future
- * Senkou Span B (Leading Span B) = (52-Period High + 52-Period Low) / 2 projected 26 periods in the future
+ * Senkou Span A (Leading Span A) = (Conversion Line + Base Line) / 2, conventionally plotted 26 periods in the future
+ * Senkou Span B (Leading Span B) = (52-Period High + 52-Period Low) / 2, conventionally plotted 26 periods in the future
  * Chikou Span (Lagging Span) = Closing plotted 26 periods in the past.
+ *
+ * All five arrays returned (`tenkan`, `kijun`, `ssa`, `ssb`, `laggingSpan`) are
+ * the same length as the input (`highs`/`lows`/`closings`), each representing
+ * that indicator's value as of that bar. Senkou Span A/B are conventionally
+ * *plotted* `medium` periods ahead of their bar on a chart, but that forward
+ * projection is a display/rendering concern left to the caller -- it is not
+ * baked into the shape of the returned `ssa`/`ssb` arrays.
  *
  * @param highs high values.
  * @param lows low values.
@@ -158,8 +166,8 @@ export function ichimokuCloud(
     return {
         tenkan,
         kijun,
-        ssa: calculateSenkouSpanA({tenkanSen: tenkan, kijunSen: kijun, medium}),
-        ssb: calculateSenkouSpanB({highs, lows, medium, long}),
+        ssa: calculateSenkouSpanA({tenkanSen: tenkan, kijunSen: kijun}),
+        ssb: calculateSenkouSpanB({highs, lows, long}),
         laggingSpan: shiftLeftBy(close, closings),
     };
 }
