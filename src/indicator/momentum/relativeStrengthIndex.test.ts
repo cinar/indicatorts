@@ -29,4 +29,12 @@ describe('Relative Strength Index (RSI)', () => {
     const actual = rsi(closings);
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
+
+  it('should return neutral 50 instead of NaN on a fully flat price window', () => {
+    const flatClosings = [100, 100, 100, 100, 100];
+    const expected = [0, 50, 50, 50, 50];
+
+    const actual = rsi(flatClosings, { period: 2 });
+    deepStrictEqual(actual, expected);
+  });
 });

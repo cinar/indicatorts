@@ -57,8 +57,12 @@ export function rsi(closings: number[], config: RSIConfig = {}): number[] {
   rValue[0] = rsValue[0] = 0;
 
   for (let i = 1; i < closings.length; i++) {
-    rsValue[i] = meanGains[i] / meanLosses[i];
-    rValue[i] = 100 - 100 / (1 + rsValue[i]);
+    if (meanGains[i] === 0 && meanLosses[i] === 0) {
+      rValue[i] = 50;
+    } else {
+      rsValue[i] = meanGains[i] / meanLosses[i];
+      rValue[i] = 100 - 100 / (1 + rsValue[i]);
+    }
   }
 
   return rValue;
