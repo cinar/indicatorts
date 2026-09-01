@@ -16,4 +16,17 @@ describe('Balance of Powers (BOP)', () => {
     const actual = bop(openings, highs, lows, closings);
     deepStrictEqual(roundDigitsAll(2, actual), expected);
   });
+
+  it('should not propagate NaN when a bar has zero high-low range', () => {
+    // Bar index 1 is a flat/halted bar where high equals low, which
+    // would otherwise divide by zero.
+    const openings = [10, 15];
+    const highs = [20, 12];
+    const lows = [5, 12];
+    const closings = [15, 12];
+    const expected = [0.33, 0];
+
+    const actual = bop(openings, highs, lows, closings);
+    deepStrictEqual(roundDigitsAll(2, actual), expected);
+  });
 });

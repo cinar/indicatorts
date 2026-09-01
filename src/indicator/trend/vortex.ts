@@ -87,8 +87,14 @@ export function vortex(
 
   const trSum = msum(tr, { period });
 
-  const plus = divide(plusVmSum, trSum);
-  const minus = divide(minusVmSum, trSum);
+  const plusRaw = divide(plusVmSum, trSum);
+  const minusRaw = divide(minusVmSum, trSum);
+
+  // When the true range sum for a window is 0 (every bar in the window
+  // was flat/halted), both oscillators are treated as 0 instead of
+  // NaN (0 / 0).
+  const plus = plusRaw.map((value, i) => (trSum[i] === 0 ? 0 : value));
+  const minus = minusRaw.map((value, i) => (trSum[i] === 0 ? 0 : value));
 
   return {
     plus,

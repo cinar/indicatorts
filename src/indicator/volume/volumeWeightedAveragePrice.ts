@@ -35,10 +35,12 @@ export function vwap(
   config: VWAPConfig = {}
 ): number[] {
   const { period } = { ...VWAPDefaultConfig, ...config };
-  const result = divide(
-    msum(multiply(closings, volumes), { period }),
-    msum(volumes, { period })
-  );
+  const volumeSum = msum(volumes, { period });
+  const resultRaw = divide(msum(multiply(closings, volumes), { period }), volumeSum);
+
+  // When the volume sum for a window is 0 (no trading volume), VWAP is
+  // treated as 0 instead of NaN (0 / 0).
+  const result = resultRaw.map((value, i) => (volumeSum[i] === 0 ? 0 : value));
 
   return result;
 }
