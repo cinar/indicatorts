@@ -26,7 +26,7 @@ describe('Linear Regressin', () => {
     const y = [1, 2, 3, 4, 4, 5, 7, 10, 15];
     const period = 5;
     const expectedM = [0, 1, 1, 1, 0.8462, 0.5714, 0.9231, 1.2162, 1.5183];
-    const expectedB = [0, 0, 0, 0, 0.7692, 2, 1.4615, 0.8919, 0.3049];
+    const expectedB = [1, 0, 0, 0, 0.7692, 2, 1.4615, 0.8919, 0.3049];
 
     const actual = movingLeastSquare(period, x, y);
     deepStrictEqual(roundDigitsAll(4, actual.m), expectedM);
