@@ -1,6 +1,6 @@
 {
   "name": "indicatorts",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Stock technical indicators and strategies in TypeScript for browser and server programs.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -43,7 +43,7 @@
     "trading-strategies",
     "yahoo-finance"
   ],
-  "author": "Onur Cinar <onur.cinar@gmail.com>",
+  "author": "The Indicator Authors",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/cinar/indicatorts/issues"
