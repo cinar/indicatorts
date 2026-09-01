@@ -6,25 +6,32 @@
 
 # Indicator TS
 
-Indicator is a TypeScript module providing various stock technical analysis indicators, strategies, and a backtest framework for trading.
+Indicator TS is a TypeScript module providing pure technical analysis mathematics, statistical calculations, and generic backtesting utilities for browser and server environments.
 
-_This is a TypeScript implementation of [Indicator Go](https://github.com/cinar/indicator) Golang module._
+_This is a TypeScript implementation of the [Indicator Go](https://github.com/cinar/indicator) Golang module._
 
-## ⚠️ Risk Disclosure & Disclaimer
+## ⚠️ Legal Disclaimers & Risk Disclosures
 
-**Financial Risk:** Trading stocks, options, futures, foreign exchange, and cryptocurrencies involves substantial risk of loss and is not suitable for every investor. Valuation of securities and financial instruments may fluctuate, and investors may lose more than their initial investment.
+### 1. Educational and Research Purpose Only
+The software, algorithms, technical indicators, mathematical formulas, demonstrative strategy examples, and backtesting utilities provided in this project are strictly for educational, research, and informational purposes. Nothing contained in this codebase, documentation, or associated examples constitutes financial, investment, legal, tax, or trading advice, nor a solicitation, recommendation, endorsement, or offer to buy or sell any security, commodity, futures contract, option, cryptocurrency, or other financial instrument.
 
-**Not Financial or Investment Advice:** The software, algorithms, indicators, strategies, and backtest results provided in this project are strictly for educational, research, and informational purposes. Nothing contained in this project or its associated tools constitutes a solicitation, recommendation, endorsement, or financial/investment/trading advice by The Indicator Authors or any contributor. You are solely responsible for evaluating the merits and risks associated with the use of any information or software before making any financial decisions.
+### 2. Non-Advisory and Non-Fiduciary Status
+The authors, maintainers, and contributors of this library are NOT registered investment advisors (RIAs), commodity trading advisors (CTAs), broker-dealers, or certified financial analysts under the jurisdiction of the U.S. Securities and Exchange Commission (SEC), Commodity Futures Trading Commission (CFTC), Financial Industry Regulatory Authority (FINRA), or any other regulatory authority worldwide. No fiduciary, advisory, or professional relationship is created through your access, use, or implementation of this software.
 
-**Hypothetical Performance Disclosure (CFTC Rule 4.41):** Hypothetical or simulated performance results have certain inherent limitations. Unlike an actual performance record, simulated results do not represent actual trading. Also, since the trades have not actually been executed, the results may have under- or over-compensated for the impact, if any, of certain market factors, such as lack of liquidity or market slippage. Simulated trading programs in general are also subject to the fact that they are designed with the benefit of hindsight. No representation is being made that any account will or is likely to achieve profits or losses similar to those shown.
+### 3. Risk of Substantial Financial Loss and Leverage
+Trading in financial markets—including stocks, options, futures, foreign exchange (Forex), and cryptocurrencies—involves substantial risk of loss and is not suitable for every investor. Market values fluctuate rapidly, and the use of leverage, margin, or derivative instruments can multiply losses, potentially resulting in the total loss of capital or liabilities exceeding the initial investment. You should independently assess your risk tolerance and financial situation before engaging in any trading activity.
 
-**No Warranties:** This software is provided "AS IS," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and non-infringement. Past performance is no guarantee of future results.
+### 4. CFTC Rule 4.41: Hypothetical Performance Disclosure
+HYPOTHETICAL OR SIMULATED PERFORMANCE RESULTS HAVE CERTAIN INHERENT LIMITATIONS. UNLIKE AN ACTUAL PERFORMANCE RECORD, SIMULATED RESULTS DO NOT REPRESENT ACTUAL TRADING. ALSO, SINCE THE TRADES HAVE NOT ACTUALLY BEEN EXECUTED, THE RESULTS MAY HAVE UNDER- OR OVER-COMPENSATED FOR THE IMPACT, IF ANY, OF CERTAIN MARKET FACTORS, SUCH AS LACK OF LIQUIDITY, SPREADS, COMMISSIONS, OR MARKET SLIPPAGE. SIMULATED TRADING PROGRAMS IN GENERAL ARE ALSO SUBJECT TO THE FACT THAT THEY ARE DESIGNED WITH THE BENEFIT OF HINDSIGHT. NO REPRESENTATION IS BEING MADE THAT ANY ACCOUNT WILL OR IS LIKELY TO ACHIEVE PROFITS OR LOSSES SIMILAR TO THOSE SHOWN. PAST PERFORMANCE IS NO GUARANTEE OF FUTURE RESULTS.
 
-**Limitation of Liability:** In no event shall the author, contributors, or copyright holders be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, financial loss, loss of profits, trading losses, loss of data, or business interruption) however caused and on any theory of liability arising in any way out of the use of this software, even if advised of the possibility of such damage.
+### 5. "AS IS" Warranty & Limitation of Liability
+THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, ACCURACY, AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, FINANCIAL LOSSES, TRADING LOSSES, LOSS OF PROFITS, DATA LOSS OR CORRUPTION, SYSTEM DOWNTIME, OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY ARISING IN ANY WAY OUT OF THE USE OF OR INABILITY TO USE THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+---
 
 ## Indicators Provided
 
-The following list of indicators are currently supported by this package:
+The following technical analysis indicators are supported by this package:
 
 ### Trend Indicators
 
@@ -91,9 +98,9 @@ The following list of indicators are currently supported by this package:
 - [Volume Price Trend (VPT)](src/indicator/volume/README.md#volume-price-trend-vpt)
 - [Volume Weighted Average Price (VWAP)](src/indicator/volume/README.md#volume-weighted-average-price-vwap)
 
-## Strategies Provided
+## Strategy Primitives & Execution Abstractions
 
-Strategies relies on the following:
+The core engine provides lightweight, generic abstractions for price bar series and trading signals:
 
 - [Asset](src/strategy/README.md#asset)
   - [New Asset with Length](src/strategy/README.md#new-asset-with-length)
@@ -102,49 +109,20 @@ Strategies relies on the following:
   - [Reverse Actions](src/strategy/README.md#reverse-actions)
   - [Apply Actions](src/strategy/README.md#apply-actions)
 - [Strategy Function](src/strategy/README.md#strategy-function)
-- [Buy and Hold Strategy](src/strategy/README.md#buy-and-hold-strategy)
 
-The following list of strategies are currently supported by this package:
+## Educational Strategy Examples
 
-### Trend Strategies
+Pre-baked illustrative strategies are organized in the [`examples/`](examples) directory as pedagogical demonstrations showing how developers can consume indicator mathematics:
 
-- [Absolute Price Oscillator Strategy](src/strategy/trend/README.md#absolute-price-oscillator-strategy)
-- [Aroon Strategy](src/strategy/trend/README.md#aroon-strategy)
-- [Balance of Power Strategy](src/strategy/trend/README.md#balance-of-power-strategy)
-- [Chande Forecast Oscillator Strategy](src/strategy/trend/README.md#chande-forecast-oscillator-strategy)
-- [KDJ Strategy](src/strategy/trend/README.md#kdj-strategy)
-- [MACD Strategy](src/strategy/trend/README.md#macd-strategy)
-- [Parabolic SAR Strategy](src/strategy/trend/README.md#parabolic-sar-strategy)
-- [Typical Price Strategy](src/strategy/trend/README.md#typical-price-strategy)
-- [Volume Weighted Moving Average (VWMA) Strategy](src/strategy/trend/README.md#volume-weighted-moving-average-vwma-strategy)
-- [Vortex Strategy](src/strategy/trend/README.md#vortex-strategy)
+- **Baseline Strategy:** [Buy and Hold Strategy](examples/buyAndHoldStrategy.ts)
+- **Momentum Strategy Examples:** [Awesome Oscillator](examples/momentum/README.md#awesome-oscillator-strategy), [Ichimoku Cloud](examples/momentum/README.md#ichimoku-cloud-strategy), [RSI 2](examples/momentum/README.md#rsi-2-strategy), [Stochastic Oscillator](examples/momentum/README.md#stochastic-oscillator-strategy), [Williams R](examples/momentum/README.md#williams-r-strategy)
+- **Trend Strategy Examples:** [APO](examples/trend/README.md#absolute-price-oscillator-strategy), [Aroon](examples/trend/README.md#aroon-strategy), [BOP](examples/trend/README.md#balance-of-power-strategy), [CFO](examples/trend/README.md#chande-forecast-oscillator-strategy), [KDJ](examples/trend/README.md#kdj-strategy), [MACD](examples/trend/README.md#macd-strategy), [Parabolic SAR](examples/trend/README.md#parabolic-sar-strategy), [Typical Price](examples/trend/README.md#typical-price-strategy), [VWMA](examples/trend/README.md#volume-weighted-moving-average-vwma-strategy), [Vortex](examples/trend/README.md#vortex-strategy)
+- **Volatility Strategy Examples:** [Acceleration Bands](examples/volatility/README.md#acceleration-bands-strategy), [Bollinger Bands](examples/volatility/README.md#bollinger-bands-strategy), [Projection Oscillator](examples/volatility/README.md#projection-oscillator-strategy)
+- **Volume Strategy Examples:** [Chaikin Money Flow](examples/volume/README.md#chaikin-money-flow-strategy), [Ease of Movement](examples/volume/README.md#ease-of-movement-strategy), [Force Index](examples/volume/README.md#force-index-strategy), [Money Flow Index](examples/volume/README.md#money-flow-index-strategy), [Negative Volume Index](examples/volume/README.md#negative-volume-index-strategy), [VWAP](examples/volume/README.md#volume-weighted-average-price-strategy)
 
-### Momentum Strategies
+## Backtest Framework
 
-- [Awesome Oscillator Strategy](src/strategy/momentum/README.md#awesome-oscillator-strategy)
-- [Ichimoku Cloud Strategy](src/strategy/momentum/README.md#ichimoku-cloud-strategy)
-- [RSI 2 Stategy](src/strategy/momentum/README.md#rsi-2-strategy)
-- [Stochastic Oscillator Strategy](src/strategy/momentum/README.md#stochastic-oscillator-strategy)
-- [Williams R Strategy](src/strategy/momentum/README.md#williams-r-strategy)
-
-### Volatility Strategies
-
-- [Acceleration Bands Strategy](src/strategy/volatility/README.md#acceleration-bands-strategy)
-- [Bollinger Bands Strategy](src/strategy/volatility/README.md#bollinger-bands-strategy)
-- [Projection Oscillator Strategy](src/strategy/volatility/README.md#projection-oscillator-strategy)
-
-### Volume Strategies
-
-- [Chaikin Money Flow Strategy](src/strategy/volume/README.md#chaikin-money-flow-strategy)
-- [Ease of Movement Strategy](src/strategy/volume/README.md#ease-of-movement-strategy)
-- [Force Index Strategy](src/strategy/volume/README.md#force-index-strategy)
-- [Money Flow Index Strategy](src/strategy/volume/README.md#money-flow-index-strategy)
-- [Negative Volume Index Strategy](src/strategy/volume/README.md#negative-volume-index-strategy)
-- [Volume Weighted Average Price Strategy](src/strategy/volume/README.md#volume-weighted-average-price-strategy)
-
-## Backtest
-
-Backtesting is the method for seeing how well a strategy would have done. The following backtesting functions are provided for evaluating strategies.
+A lightweight, generic backtest utility is provided for evaluating custom strategy functions against historical data:
 
 - [Strategy Info](src/backtest/README.md#strategy-info)
 - [Strategy Result](src/backtest/README.md#strategy-result)
@@ -156,7 +134,7 @@ Backtesting is the method for seeing how well a strategy would have done. The fo
 
 ## Chart
 
-Chart provides an easy way to plot the outcome of the indicators and the strategies.
+Chart provides utilities to plot indicator values and simulated strategies:
 
 - [Chart Initialization](src/chart/README.md#chart-initialization)
 - [Data Set](src/chart/README.md#data-set)
@@ -166,7 +144,7 @@ Chart provides an easy way to plot the outcome of the indicators and the strateg
 
 ## Build
 
-The project can be build from its source through the build command.
+The project can be built from source:
 
 ```bash
 npm run build
@@ -174,13 +152,13 @@ npm run build
 
 ## Usage
 
-Install package.
+Install the package:
 
 ```bash
 npm install indicatorts
 ```
 
-Import indicator.
+Import and calculate technical indicators:
 
 ```TypeScript
 import { ao } from 'indicatorts';
@@ -188,13 +166,13 @@ import { ao } from 'indicatorts';
 const highs = [10, 20, 30, 40];
 const lows = [1, 2, 3, 4];
 
-// Awesome Oscillator!
+// Calculate Awesome Oscillator (AO)
 const result = ao(highs, lows);
 ```
 
 ## License
 
-The source code is provided under MIT License.
+The source code is provided under the MIT License.
 
 ```
 Copyright © 2022-2026 The Indicator Authors
