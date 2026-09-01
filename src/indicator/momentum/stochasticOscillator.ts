@@ -56,10 +56,12 @@ export function stoch(
   };
   const highestHigh = mmax(highs, { period: kPeriod });
   const lowestLow = mmin(lows, { period: kPeriod });
+  const range = subtract(highestHigh, lowestLow);
 
+  const kRaw = divide(subtract(closings, lowestLow), range);
   const kValue = multiplyBy(
     100,
-    divide(subtract(closings, lowestLow), subtract(highestHigh, lowestLow))
+    kRaw.map((value, i) => (range[i] === 0 ? 0.5 : value))
   );
 
   const dValue = sma(kValue, { period: dPeriod });
