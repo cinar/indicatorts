@@ -258,7 +258,7 @@ const result = msum(values, defaultConfig);
 
 ## Parabolic SAR (PSAR)
 
-The [parabolicSar](./parabolicSar.ts) function calculates an identifier for the trend and the trailing stop.
+The [psar](./parabolicSar.ts) function calculates an identifier for the trend and the trailing stop.
 
 ```
 PSAR = PSAR[i - 1] - ((PSAR[i - 1] - EP) * AF)
@@ -267,14 +267,14 @@ PSAR = PSAR[i - 1] - ((PSAR[i - 1] - EP) * AF)
 If the trend is Falling:
 
 - PSAR is the maximum of PSAR or the previous two high values.
-- If the current high is greather than or equals to PSAR, use EP.
+- If the current high is greater than or equals to PSAR, use EP.
 
 If the trend is Rising:
 
 - PSAR is the minimum of PSAR or the previous two low values.
-- If the current low is less than or equials to PSAR, use EP.
+- If the current low is less than or equals to PSAR, use EP.
 
-If PSAR is greather than the closing, trend is falling, and the EP is set to the minimum of EP or the low.
+If PSAR is greater than the closing, trend is falling, and the EP is set to the minimum of EP or the low.
 
 If PSAR is lower than or equals to the closing, trend is rising, and the EP is set to the maximum of EP or the high.
 
@@ -287,9 +287,6 @@ import { psar } from 'indicatorts';
 
 const defaultConfig = { step: 0.02, max: 0.2 };
 const { trends, psarResult } = psar(highs, lows, closings, defaultConfig);
-
-// Alternatively:
-// const { trends, psarResult } = parabolicSar(highs, lows, closings, defaultConfig);
 ```
 
 ## Qstick

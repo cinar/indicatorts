@@ -42,7 +42,7 @@ export function cmf(
 ): number[] {
   const { period } = { ...CMFDefaultConfig, ...config };
   const range = subtract(highs, lows);
-  const moneyFlowMultiplerRaw = divide(
+  const moneyFlowMultiplierRaw = divide(
     subtract(subtract(closings, lows), subtract(highs, closings)),
     range
   );
@@ -50,11 +50,11 @@ export function cmf(
   // When the high and low are equal, there is no price movement within
   // the bar, so the money flow multiplier is treated as 0 instead of
   // NaN (0 / 0).
-  const moneyFlowMultipler = moneyFlowMultiplerRaw.map((value, i) =>
+  const moneyFlowMultiplier = moneyFlowMultiplierRaw.map((value, i) =>
     range[i] === 0 ? 0 : value
   );
 
-  const moneyFlowVolume = multiply(moneyFlowMultipler, volumes);
+  const moneyFlowVolume = multiply(moneyFlowMultiplier, volumes);
 
   const volumeSum = msum(volumes, { period });
   const resultRaw = divide(msum(moneyFlowVolume, { period }), volumeSum);
