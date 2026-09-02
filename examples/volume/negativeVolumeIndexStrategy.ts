@@ -26,6 +26,7 @@ export function nviStrategy(asset: Asset, config: NVIConfig = {}): Action[] {
   const strategyConfig = { ...NVIDefaultConfig, ...config };
   const result = nvi(asset.closings, asset.volumes, strategyConfig);
 
+  // Reuses NVIConfig's period (unused by nvi() itself) for the EMA signal line.
   const nviEma = ema(result, { period: strategyConfig.period });
 
   const actions = new Array<Action>(result.length);

@@ -5,6 +5,11 @@ import { checkSameLength } from '../../helper/numArray';
 
 /**
  * Optional configuration of NVI parameters.
+ *
+ * Note: `period` is not used by nvi() itself — it only affects `start`.
+ * `period` is provided so callers can pass this same config object to a
+ * downstream smoothing function (e.g. an EMA signal line) alongside nvi(),
+ * as demonstrated in examples/volume/negativeVolumeIndexStrategy.ts.
  */
 export interface NVIConfig {
   start?: number;
@@ -43,6 +48,7 @@ export function nvi(
 ): number[] {
   checkSameLength(closings, volumes);
 
+  // period is intentionally unused here — see NVIConfig's JSDoc.
   const { start } = { ...NVIDefaultConfig, ...config };
   const result = new Array<number>(closings.length);
 
