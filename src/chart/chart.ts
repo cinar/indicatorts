@@ -32,7 +32,7 @@ export class Chart {
   private canvas: HTMLCanvasElement;
   private context: CanvasRenderingContext2D;
   private dataSets: Map<string, DataSet>;
-  private dateSetsChanged: boolean;
+  private dataSetsChanged: boolean;
   private xScaler: NumScaler;
   private yScaler: NumScaler;
   private xFocus: number;
@@ -58,7 +58,7 @@ export class Chart {
 
     this.context = context;
     this.dataSets = new Map<string, DataSet>();
-    this.dateSetsChanged = false;
+    this.dataSetsChanged = false;
     this.xScaler = new NumScaler(DEFAULT_RANGE, DEFAULT_RANGE);
     this.yScaler = new NumScaler(DEFAULT_RANGE, DEFAULT_RANGE);
     this.xFocus = NO_FOCUS;
@@ -73,7 +73,7 @@ export class Chart {
    */
   add(dataSet: DataSet): void {
     this.dataSets.set(dataSet.legend, dataSet);
-    this.dateSetsChanged = true;
+    this.dataSetsChanged = true;
   }
 
   /**
@@ -84,7 +84,7 @@ export class Chart {
   remove(legend: string): boolean {
     const found = this.dataSets.delete(legend);
     if (found) {
-      this.dateSetsChanged = true;
+      this.dataSetsChanged = true;
     }
 
     return found;
@@ -94,9 +94,9 @@ export class Chart {
    * Draw canvas.
    */
   draw(): void {
-    if (this.dateSetsChanged) {
+    if (this.dataSetsChanged) {
       this.updateScalers();
-      this.dateSetsChanged = false;
+      this.dataSetsChanged = false;
     }
 
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -145,7 +145,7 @@ export class Chart {
     if (dataSet.style === undefined) {
       return DEFAULT_STYLE;
     } else if (Array.isArray(dataSet.style)) {
-      return dataSet.style[index];
+      return dataSet.style[index] ?? DEFAULT_STYLE;
     } else {
       return dataSet.style;
     }
@@ -217,7 +217,9 @@ export class Chart {
     this.xScaler = new NumScaler(
       new NumRange(
         0,
-        Math.max(...Array.from(this.dataSets.values(), (d) => d.values.length))
+        Math.max(
+          ...Array.from(this.dataSets.values(), (d) => d.values.length)
+        ) - 1
       ),
       new NumRange(0, this.canvas.width)
     );

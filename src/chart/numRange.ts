@@ -46,8 +46,13 @@ export class NumRange {
    * Merge function merges the given ranges.
    * @param ranges range objects.
    * @return merged ranges.
+   * @throws Error if the given ranges array is empty.
    */
   static merge(ranges: NumRange[]): NumRange {
+    if (ranges.length === 0) {
+      throw new Error('Cannot merge an empty array of ranges');
+    }
+
     return ranges.reduce(
       (p, c) => new NumRange(Math.min(p.min, c.min), Math.max(p.max, c.max))
     );
