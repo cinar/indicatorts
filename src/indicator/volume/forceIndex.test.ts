@@ -9,16 +9,24 @@ describe('Force Index (FI)', () => {
   const volumes = [100, 110, 80, 120, 90];
 
   it('should be able to compute with a config', () => {
-    const expected = [900, 220, -320, 360, -180];
+    const expected = [0, 220, -320, 360, -180];
 
     const actual = fi(closings, volumes, { period: 1 });
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 
   it('should be able to compute without a config', () => {
-    const expected = [900, 802.86, 642.45, 602.1, 490.37];
+    const expected = [0, 31.43, -18.78, 35.34, 4.57];
 
     const actual = fi(closings, volumes);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
+  });
+
+  it('should not produce an artificial spike on the first day', () => {
+    // Day 0 has no prior close to compare against, so the price change
+    // (and therefore the force index) should be 0, not
+    // closings[0] * volumes[0] (900 * 100 = 90000).
+    const actual = fi(closings, volumes, { period: 1 });
+    expect(roundDigitsAll(2, actual)[0]).toBe(0);
   });
 });

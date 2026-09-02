@@ -3,9 +3,9 @@
 
 import {
   add,
-  changes,
   divide,
   divideBy,
+  shiftRightAndFillBy,
   subtract,
 } from '../../helper/numArray';
 import { sma } from '../trend/simpleMovingAverage';
@@ -46,7 +46,11 @@ export function emv(
   config: EMVConfig = {}
 ): number[] {
   const { period } = { ...EMVDefaultConfig, ...config };
-  const distanceMoved = changes(1, divideBy(2, add(highs, lows)));
+  const midpoint = divideBy(2, add(highs, lows));
+  const distanceMoved = subtract(
+    midpoint,
+    shiftRightAndFillBy(1, midpoint[0], midpoint)
+  );
   const range = subtract(highs, lows);
   const boxRatio = divide(divideBy(100000000, volumes), range);
 
