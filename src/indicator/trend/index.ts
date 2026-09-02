@@ -5,7 +5,7 @@ export * from './absolutePriceOscillator';
 export * from './aroon';
 export * from './balanceOfPower';
 export * from './chandeForecastOscillator';
-export * from './communityChannelIndex';
+export * from './commodityChannelIndex';
 export * from './doubleExponentialMovingAverage';
 export * from './exponentialMovingAverage';
 export * from './massIndex';

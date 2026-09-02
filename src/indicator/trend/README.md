@@ -7,7 +7,7 @@ Trend indicators measure the direction and strength of a trend.
   - [Aroon](#aroon)
   - [Balance of Power (BOP)](#balance-of-power-bop)
   - [Chande Forecast Oscillator (CFO)](#chande-forecast-oscillator-cfo)
-  - [Community Channel Index (CCI)](#community-channel-index-cci)
+  - [Commodity Channel Index (CCI)](#commodity-channel-index-cci)
   - [Double Exponential Moving Average (DEMA)](#double-exponential-moving-average-dema)
   - [Exponential Moving Average (EMA)](#exponential-moving-average-ema)
   - [Mass Index (MI)](#mass-index-mi)
@@ -118,14 +118,14 @@ const result = mfco(closings, defaultConfig);
 // const result = movingChandeForecastOscillator(closings, defaultConfig);
 ```
 
-## Community Channel Index (CCI)
+## Commodity Channel Index (CCI)
 
-The [communityChannelIndex](./communityChannelIndex.ts) is a momentum-based oscillator used to help determine when an investment vehicle is reaching a condition of being overbought or oversold.
+The [commodityChannelIndex](./commodityChannelIndex.ts) is a momentum-based oscillator used to help determine when an investment vehicle is reaching a condition of being overbought or oversold.
 
 ```
 Moving Average = Sma(Period, Typical Price)
 Mean Deviation = Sma(Period, Abs(Typical Price - Moving Average))
-CMI = (Typical Price - Moving Average) / (0.015 * Mean Deviation)
+CCI = (Typical Price - Moving Average) / (0.015 * Mean Deviation)
 ```
 
 ```TypeScript
@@ -135,7 +135,7 @@ const defaultConfig = { period: 20 };
 const result = cci(highs, lows, closings, defaultConfig);
 
 // Alternatively:
-// const result = communityChannelIndex(highs, lows, closings, defaultConfig);
+// const result = commodityChannelIndex(highs, lows, closings, defaultConfig);
 ```
 
 ## Double Exponential Moving Average (DEMA)
