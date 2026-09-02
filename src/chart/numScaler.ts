@@ -19,7 +19,7 @@ export class NumScaler {
   constructor(from: NumRange, to: NumRange) {
     this.fromDelta = from.getMin();
     this.toDelta = to.getMin();
-    this.multiplier = to.span() / from.span();
+    this.multiplier = from.span() === 0 ? 0 : to.span() / from.span();
   }
 
   /**
