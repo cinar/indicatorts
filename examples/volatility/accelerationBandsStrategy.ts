@@ -24,7 +24,7 @@ export function abStrategy(asset: Asset, config: ABConfig = {}): Action[] {
   const strategyConfig = { ...ABDefaultConfig, ...config };
   const result = ab(asset.highs, asset.lows, asset.closings, strategyConfig);
 
-  const actions = new Array<number>(result.upper.length);
+  const actions = new Array<Action>(result.upper.length);
 
   for (let i = 0; i < actions.length; i++) {
     if (asset.closings[i] >= result.upper[i]) {
