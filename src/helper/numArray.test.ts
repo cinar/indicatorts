@@ -133,6 +133,13 @@ describe('Number Array', () => {
     deepStrictEqual(actual, expected);
   });
 
+  it('should be able to transpose with no arguments', () => {
+    const expected: number[][] = [];
+
+    const actual = NumArray.transpose();
+    deepStrictEqual(actual, expected);
+  });
+
   it('should be able to compute max', () => {
     const values1 = [1, 4, 6, 8];
     const values2 = [2, 1, 1, 9];
@@ -163,6 +170,12 @@ describe('Number Array', () => {
   it('should be able to generate numbers', () => {
     const expected = [2, 4, 6, 8];
     const actual = NumArray.generateNumbers(2, 10, 2);
+    deepStrictEqual(actual, expected);
+  });
+
+  it('should be able to generate numbers with a non-integer step count', () => {
+    const expected = [0, 2, 4];
+    const actual = NumArray.generateNumbers(0, 5, 2);
     deepStrictEqual(actual, expected);
   });
 

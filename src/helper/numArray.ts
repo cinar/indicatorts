@@ -258,6 +258,10 @@ export function extractSigns(values: number[]): number[] {
 export function transpose(...values: number[][]): number[][] {
   checkSameLength(...values);
 
+  if (values.length === 0) {
+    return [];
+  }
+
   const result = new Array<number[]>(values[0].length);
 
   for (let i = 0; i < result.length; i++) {
@@ -313,7 +317,8 @@ export function generateNumbers(
   end: number,
   step: number
 ): number[] {
-  const result = new Array<number>((end - begin) / step);
+  const length = Math.max(0, Math.ceil((end - begin) / step));
+  const result = new Array<number>(length);
 
   for (let i = 0; i < result.length; i++) {
     result[i] = begin + step * i;
