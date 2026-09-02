@@ -63,7 +63,7 @@ The following technical analysis indicators are supported by this package:
 ### Momentum Indicators
 
 - [Awesome Oscillator (AO)](src/indicator/momentum/README.md#awesome-oscillator-ao)
-- [Chaikin Oscillator (CMO)](src/indicator/momentum/README.md#chaikin-oscillator-cmo)
+- [Chaikin Oscillator (CO)](src/indicator/momentum/README.md#chaikin-oscillator-co)
 - [Ichimoku Cloud](src/indicator/momentum/README.md#ichimoku-cloud)
 - [Percentage Price Oscillator (PPO)](src/indicator/momentum/README.md#percentage-price-oscillator-ppo)
 - [Percentage Volume Oscillator (PVO)](src/indicator/momentum/README.md#percentage-volume-oscillator-pvo)

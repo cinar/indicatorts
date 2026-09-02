@@ -8,15 +8,15 @@ import { ad } from '../volume/accumulationDistribution';
 /**
  * Chaikin oscillator result object.
  */
-export interface CMOResult {
+export interface COResult {
   adResult: number[];
-  cmoResult: number[];
+  coResult: number[];
 }
 
 /**
  * Optional configuration of Chaikin oscillator parameters.
  */
-export interface CMOConfig {
+export interface COConfig {
   fast?: number;
   slow?: number;
 }
@@ -24,7 +24,7 @@ export interface CMOConfig {
 /**
  * The default configuration of Chaikin oscillator.
  */
-export const CMODefaultConfig: Required<CMOConfig> = {
+export const CODefaultConfig: Required<COConfig> = {
   fast: 3,
   slow: 10,
 };
@@ -45,22 +45,22 @@ export const CMODefaultConfig: Required<CMOConfig> = {
  * @param config configuration.
  * @return chaikin oscillator.
  */
-export function cmo(
+export function co(
   highs: number[],
   lows: number[],
   closings: number[],
   volumes: number[],
-  config: CMOConfig = {}
-): CMOResult {
-  const { fast, slow } = { ...CMODefaultConfig, ...config };
+  config: COConfig = {}
+): COResult {
+  const { fast, slow } = { ...CODefaultConfig, ...config };
   const adResult = ad(highs, lows, closings, volumes);
-  const cmoResult = subtract(
+  const coResult = subtract(
     ema(adResult, { period: fast }),
     ema(adResult, { period: slow })
   );
 
-  return { adResult, cmoResult };
+  return { adResult, coResult };
 }
 
 // Export full name
-export { cmo as chaikinOscillator };
+export { co as chaikinOscillator };
