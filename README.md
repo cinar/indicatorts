@@ -1,8 +1,11 @@
-[![npm version](https://badge.fury.io/js/indicatorts.svg)](https://badge.fury.io/js/indicatorts)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://github.com/cinar/indicatorts/actions/workflows/ci.yml/badge.svg)](https://github.com/cinar/indicatorts/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/cinar/indicatorts/branch/main/graph/badge.svg?token=302HZICPD0)](https://codecov.io/gh/cinar/indicatorts)
-[![CodeQL Analysis](https://github.com/cinar/indicatorts/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/cinar/indicatorts/actions/workflows/codeql-analysis.yml)
+<p align="center">
+    <a href="https://www.npmjs.com/package/indicatorts"><img src="https://img.shields.io/npm/v/indicatorts?style=for-the-badge&logo=npm&logoColor=white" alt="npm version" /></a>
+    <a href="LICENSE.md"><img src="https://img.shields.io/github/license/cinar/indicatorts?style=for-the-badge" alt="License" /></a>
+    <a href="https://github.com/cinar/indicatorts/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/cinar/indicatorts/ci.yml?branch=main&style=for-the-badge&logo=github&label=CI" alt="Build Status" /></a>
+    <a href="https://codecov.io/gh/cinar/indicatorts"><img src="https://img.shields.io/codecov/c/github/cinar/indicatorts?style=for-the-badge&logo=codecov&logoColor=white" alt="codecov" /></a>
+    <a href="https://github.com/cinar/indicatorts/actions/workflows/codeql-analysis.yml"><img src="https://img.shields.io/github/actions/workflow/status/cinar/indicatorts/codeql-analysis.yml?branch=main&style=for-the-badge&logo=github&label=CodeQL" alt="CodeQL Analysis" /></a>
+    <a href="https://github.com/cinar/indicatorts/stargazers"><img src="https://img.shields.io/github/stars/cinar/indicatorts?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Stars" /></a>
+</p>
 
 # Indicator TS
 
