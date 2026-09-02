@@ -4,7 +4,7 @@ Momentum indicators measure the speed of movement.
 
 - [Momentum Indicators](#momentum-indicators)
   - [Awesome Oscillator (AO)](#awesome-oscillator-ao)
-  - [Chaikin Oscillator (CMO)](#chaikin-oscillator-cmo)
+  - [Chaikin Oscillator (CO)](#chaikin-oscillator-co)
   - [Ichimoku Cloud](#ichimoku-cloud)
   - [Percentage Price Oscillator (PPO)](#percentage-price-oscillator-ppo)
   - [Percentage Volume Oscillator (PVO)](#percentage-volume-oscillator-pvo)
@@ -36,7 +36,7 @@ const result = ao(highs, lows, defaultConfig);
 // const result = awesomeOscillator(highs, lows, defaultConfig);
 ```
 
-## Chaikin Oscillator (CMO)
+## Chaikin Oscillator (CO)
 
 The [chaikinOscillator](./chaikinOscillator.ts) function measures the momentum of the [Accumulation/Distribution (A/D)](../volume/README.md#accumulationdistribution-ad) using the [Moving Average Convergence Divergence (MACD)](../trend/README.md#moving-average-convergence-divergence-macd) formula. It takes the difference between fast and slow periods EMA of the A/D. Cross above the A/D line indicates bullish.
 
@@ -45,13 +45,13 @@ CO = Ema(fastPeriod, AD) - Ema(slowPeriod, AD)
 ```
 
 ```TypeScript
-import { cmo } from 'indicatorts';
+import { co } from 'indicatorts';
 
 const defaultConfig =  { fast: 3, slow: 10 };
-const { adResult, cmoResult } = cmo(highs, lows, closings, volumes, defaultConfig);
+const { adResult, coResult } = co(highs, lows, closings, volumes, defaultConfig);
 
 // Alternatively:
-// const { adResult, cmoResult } = chaikinOscillator(highs, lows, closings, volumes, defaultConfig);
+// const { adResult, coResult } = chaikinOscillator(highs, lows, closings, volumes, defaultConfig);
 ```
 
 Most frequently used fast and short periods are 3 and 10.
