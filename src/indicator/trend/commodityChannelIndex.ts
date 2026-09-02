@@ -20,19 +20,19 @@ export const CCIDefaultConfig: Required<CCIConfig> = {
 };
 
 /**
- * The Community Channel Index (CCI) is a momentum-based oscillator
+ * The Commodity Channel Index (CCI) is a momentum-based oscillator
  * used to help determine when an investment vehicle is reaching a
  * condition of being overbought or oversold.
  *
  * Moving Average = Sma(Period, Typical Price)
  * Mean Deviation = Sma(Period, Abs(Typical Price - Moving Average))
- * CMI = (Typical Price - Moving Average) / (0.015 * Mean Deviation)
+ * CCI = (Typical Price - Moving Average) / (0.015 * Mean Deviation)
  *
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
  * @param config configuration.
- * @returns cmi values.
+ * @returns cci values.
  */
 export function cci(
   highs: number[],
@@ -54,4 +54,4 @@ export function cci(
 }
 
 // Export full name
-export { cci as communityChannelIndex };
+export { cci as commodityChannelIndex };

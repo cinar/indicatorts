@@ -39,7 +39,7 @@ The following technical analysis indicators are supported by this package:
 - [Aroon Indicator](src/indicator/trend/README.md#aroon)
 - [Balance of Power (BOP)](src/indicator/trend/README.md#balance-of-power-bop)
 - [Chande Forecast Oscillator (CFO)](src/indicator/trend/README.md#chande-forecast-oscillator-cfo)
-- [Community Channel Index (CCI)](src/indicator/trend/README.md#community-channel-index-cci)
+- [Commodity Channel Index (CCI)](src/indicator/trend/README.md#commodity-channel-index-cci)
 - [Double Exponential Moving Average (DEMA)](src/indicator/trend/README.md#double-exponential-moving-average-dema)
 - [Exponential Moving Average (EMA)](src/indicator/trend/README.md#exponential-moving-average-ema)
 - [Mass Index (MI)](src/indicator/trend/README.md#mass-index-mi)
