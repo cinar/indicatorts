@@ -54,12 +54,16 @@ const averagePriceReducer = ({period, highs, lows, projection = 0}: {
     lows: number[],
     projection?: number
 }) => (acc: number[], _: number, i: number) => {
-    if (i < period - 1) return [...acc, 0]
+    if (i < period - 1) {
+      acc.push(0);
+      return acc;
+    }
     const from = i + 1 - period
     const to = i - projection + 1
     const max = Math.max(...highs.slice(from, to))
     const min = Math.min(...lows.slice(from, to))
-    return [...acc, (max + min) / 2]
+    acc.push((max + min) / 2)
+    return acc
 }
 
 /**
