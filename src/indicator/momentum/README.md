@@ -72,7 +72,7 @@ Chikou Span (Lagging Span) = Closing plotted 26 periods in the past.
 import { ichimokuCloud } from 'indicatorts';
 
 const defaultConfig = { short: 9, medium: 26, long: 52, close: 26 };
-const { tenkan, kijub, ssa, ssb, leadingSpan } = ichimokuCloud(highs, lows, closings, defaultConfig);
+const { tenkan, kijun, ssa, ssb, laggingSpan } = ichimokuCloud(highs, lows, closings, defaultConfig);
 ```
 
 ## Percentage Price Oscillator (PPO)
