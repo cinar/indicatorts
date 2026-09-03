@@ -43,7 +43,15 @@ export function mi(
   const { emaPeriod, miPeriod } = { ...MIDefaultConfig, ...config };
   const ema1 = ema(subtract(highs, lows), { period: emaPeriod });
   const ema2 = ema(ema1, { period: emaPeriod });
-  const ratio = divide(ema1, ema2);
+  const ratioRaw = divide(ema1, ema2);
+
+  // When a run of flat/halted bars (high === low) drives the range's EMA
+  // to zero, ema2 is also 0, so the ratio is treated as 0 instead of NaN
+  // (0 / 0). Without this guard, a single such stretch would introduce a
+  // NaN that corrupts every subsequent rolling sum, since ratio feeds
+  // into msum.
+  const ratio = ratioRaw.map((value, i) => (ema2[i] === 0 ? 0 : value));
+
   const result = msum(ratio, { period: miPeriod });
 
   return result;
