@@ -13,20 +13,6 @@ import {
 } from '../../helper/regression';
 
 /**
- * Optional configuration of Chande forecast oscillator parameters.
- */
-export interface CFOConfig {
-  period?: number;
-}
-
-/**
- * The default configuration of Chande forecast oscillator.
- */
-export const CFODefaultConfig: Required<CFOConfig> = {
-  period: 4,
-};
-
-/**
  * The Chande Forecast Oscillator developed by Tushar Chande The Forecast
  * Oscillator plots the percentage difference between the closing price and
  * the n-period linear regression forecasted price. The oscillator is above
@@ -35,6 +21,13 @@ export const CFODefaultConfig: Required<CFOConfig> = {
  *
  * R = Linreg(Closing)
  * CFO = ((Closing - R) / Closing) * 100
+ *
+ * WARNING: this computes a single linear regression over the *entire*
+ * input series — every returned value depends on all of `closings`,
+ * including bars after it. This makes cfo() unsuitable for point-in-time
+ * signals (e.g. backtesting), where it would leak future information.
+ * Use mcfo() (Moving Chande Forecast Oscillator) instead for a rolling,
+ * point-in-time-safe computation.
  *
  * @param closings closing values.
  * @return cfo values.
