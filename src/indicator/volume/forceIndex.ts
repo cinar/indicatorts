@@ -1,7 +1,7 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
-import { changes, multiply } from '../../helper/numArray';
+import { multiply, shiftRightAndFillBy, subtract } from '../../helper/numArray';
 import { ema } from '../trend/exponentialMovingAverage';
 
 /**
@@ -35,7 +35,11 @@ export function fi(
   config: FIConfig = {}
 ): number[] {
   const { period } = { ...FIDefaultConfig, ...config };
-  const result = ema(multiply(changes(1, closings), volumes), { period });
+  const priceChanges = subtract(
+    closings,
+    shiftRightAndFillBy(1, closings[0], closings)
+  );
+  const result = ema(multiply(priceChanges, volumes), { period });
 
   return result;
 }
