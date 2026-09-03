@@ -77,4 +77,92 @@ describe('sortStrategyStats', () => {
     // The returned array reflects the requested sort order.
     expect(sorted.map((s) => s.strategyInfo.name)).toEqual(['A', 'B', 'C']);
   });
+
+  const makeStrategyInfo = (name: string): StrategyInfo => ({
+    name,
+    strategy: () => [],
+  });
+
+  const strategyStatsFixture: StrategyStats[] = [
+    {
+      strategyInfo: makeStrategyInfo('C'),
+      score: 30,
+      minGain: 3,
+      maxGain: 300,
+      averageGain: 3.3,
+    },
+    {
+      strategyInfo: makeStrategyInfo('A'),
+      score: 10,
+      minGain: 1,
+      maxGain: 100,
+      averageGain: 1.1,
+    },
+    {
+      strategyInfo: makeStrategyInfo('B'),
+      score: 20,
+      minGain: 2,
+      maxGain: 200,
+      averageGain: 2.2,
+    },
+  ];
+
+  it('should sort by SCORE ascending', () => {
+    const sorted = sortStrategyStats(
+      strategyStatsFixture,
+      StrategyStatsSortBy.SCORE,
+      true
+    );
+
+    expect(sorted.map((s) => s.score)).toEqual([10, 20, 30]);
+  });
+
+  it('should sort by MIN ascending', () => {
+    const sorted = sortStrategyStats(
+      strategyStatsFixture,
+      StrategyStatsSortBy.MIN,
+      true
+    );
+
+    expect(sorted.map((s) => s.minGain)).toEqual([1, 2, 3]);
+  });
+
+  it('should sort by MAX ascending', () => {
+    const sorted = sortStrategyStats(
+      strategyStatsFixture,
+      StrategyStatsSortBy.MAX,
+      true
+    );
+
+    expect(sorted.map((s) => s.maxGain)).toEqual([100, 200, 300]);
+  });
+
+  it('should sort by AVERAGE ascending', () => {
+    const sorted = sortStrategyStats(
+      strategyStatsFixture,
+      StrategyStatsSortBy.AVERAGE,
+      true
+    );
+
+    expect(sorted.map((s) => s.averageGain)).toEqual([1.1, 2.2, 3.3]);
+  });
+
+  it('should reverse the order when ascending is false', () => {
+    const ascending = sortStrategyStats(
+      strategyStatsFixture,
+      StrategyStatsSortBy.SCORE,
+      true
+    );
+
+    const descending = sortStrategyStats(
+      strategyStatsFixture,
+      StrategyStatsSortBy.SCORE,
+      false
+    );
+
+    expect(descending.map((s) => s.score)).toEqual([30, 20, 10]);
+    expect(descending.map((s) => s.score)).toEqual(
+      ascending.map((s) => s.score).reverse()
+    );
+  });
 });
