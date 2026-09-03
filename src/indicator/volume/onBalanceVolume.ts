@@ -20,6 +20,10 @@ export function obv(closings: number[], volumes: number[]): number[] {
 
   const result = new Array<number>(closings.length);
 
+  if (result.length === 0) {
+    return result;
+  }
+
   result[0] = 0;
 
   for (let i = 1; i < result.length; i++) {

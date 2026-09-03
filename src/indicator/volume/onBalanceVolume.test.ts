@@ -13,4 +13,9 @@ describe('On Balance Volume (OBV)', () => {
     const actual = obv(closings, volumes);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
+
+  it('should return an empty array for empty input', () => {
+    const actual = obv([], []);
+    expect(actual).toStrictEqual([]);
+  });
 });
