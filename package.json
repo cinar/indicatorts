@@ -13,8 +13,8 @@
     "build-esm": "esbuild src/index.ts --bundle --outdir=dist/esm --platform=browser --format=esm --minify --sourcemap",
     "build-cjs": "esbuild src/index.ts --bundle --outdir=dist/cjs --platform=node --format=cjs --minify --sourcemap",
     "build-types": "tsc --emitDeclarationOnly --declaration --outDir dist/types",
-    "lint": "eslint --ignore-path .gitignore .",
-    "fix": "prettier --ignore-path .gitignore --write . ; eslint --fix --ext .ts src",
+    "lint": "eslint .",
+    "fix": "prettier --ignore-path .gitignore --write . ; eslint --fix .",
     "test": "jest"
   },
   "repository": {
@@ -50,12 +50,14 @@
   },
   "homepage": "https://github.com/cinar/indicatorts#readme",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/jest": "^30.0.0",
     "@typescript-eslint/eslint-plugin": "^8.68.0",
     "@typescript-eslint/parser": "^8.68.0",
     "esbuild": "^0.28.1",
     "eslint": "^10.10.0",
     "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.12.0",
     "jest": "^30.5.0",
     "prettier": "^3.2.5",
     "ts-jest": "^29.4.12",
