@@ -31,8 +31,8 @@ export const TRIMADefaultConfig: Required<TRIMAConfig> = {
  */
 export function trima(values: number[], config: TRIMAConfig = {}): number[] {
   const { period } = { ...TRIMADefaultConfig, ...config };
-  let n1 = 0;
-  let n2 = 0;
+  let n1: number;
+  let n2: number;
 
   if (period % 2 === 0) {
     n1 = period / 2;
