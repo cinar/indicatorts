@@ -70,8 +70,8 @@ const hasEvent = hasMacroEventOnDate(events, new Date('2026-07-09'));
 
 This module integrates with the third-party [FXMacroData](https://fxmacrodata.com) service.
 
-- **Attribution & API Usage:** Access to USD-based macroeconomic data is provided for free without an API key. For other currencies, higher limits, or advanced features, an API key must be supplied.
-- **Redistribution & Licensing:** Depending on your usage (e.g., displaying data in a public/customer-facing dashboard), you may need a **Commercial Redistribution** license from FXMacroData. Please review their [Terms of Service](https://fxmacrodata.com) and [API Documentation](https://fxmacrodata.com/api-data-docs) to ensure compliance.
+- **Attribution & API Usage:** Access to USD-based macroeconomic data is provided for free without an API key. For other currencies, higher limits, or advanced features, an API key must be supplied; it is sent in the `X-API-Key` request header.
+- **Redistribution & Licensing:** Depending on your usage (e.g., displaying data in a public/customer-facing dashboard), you may need a **Commercial Redistribution** license from FXMacroData. Please review their [Terms of Service](https://fxmacrodata.com) and [API Documentation](https://fxmacrodata.com/documentation/reference) to ensure compliance.
 - **Affiliation:** This package is an independent integration and is not officially affiliated with, sponsored by, or endorsed by FXMacroData.
 
 ## License

@@ -3,7 +3,7 @@
 
 /**
  * Represents a single macroeconomic release-calendar event from the FXMacroData API.
- * For more details, see the official documentation at https://fxmacrodata.com/api-data-docs.
+ * For more details, see the official documentation at https://fxmacrodata.com/documentation/reference.
  */
 export interface FXMacroDataReleaseEvent {
   date?: string;
@@ -20,9 +20,9 @@ export interface FXMacroDataReleaseEvent {
 /**
  * Configuration options for requesting the FXMacroData macroeconomic calendar.
  *
- * Note: Free access is provided for USD-based macroeconomic endpoints and forex price data
- * without requiring an API key. Paid options or commercial redistribution may require
- * an API key and additional licensing terms from FXMacroData.
+ * Note: The USD calendar is available without an API key. Other currencies require
+ * an API key, which is sent in the X-API-Key request header. Commercial redistribution
+ * may require additional licensing terms from FXMacroData.
  */
 export interface FXMacroDataCalendarOptions {
   currency?: string;
@@ -39,7 +39,7 @@ const DEFAULT_BASE_URL = 'https://api.fxmacrodata.com/v1';
  *
  * For licensing details, terms of service, and api keys, please visit:
  * - Home Page: https://fxmacrodata.com
- * - API Documentation: https://fxmacrodata.com/api-data-docs
+ * - API Documentation: https://fxmacrodata.com/documentation/reference
  *
  * @param options configuration options.
  * @return release-calendar events.
@@ -54,12 +54,14 @@ export async function fxMacroDataReleaseCalendar(
     limit: String(limit),
   });
 
+  const headers: Record<string, string> = {};
   if (options.apiKey) {
-    params.set('api_key', options.apiKey);
+    headers['X-API-Key'] = options.apiKey;
   }
 
   const response = await fetch(
     `${baseUrl.replace(/\/$/, '')}/calendar/${currency.toLowerCase()}?${params.toString()}`,
+    { headers },
   );
   if (!response.ok) {
     throw new Error(`FXMacroData returned ${response.status} ${response.statusText}`);

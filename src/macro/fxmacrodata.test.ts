@@ -51,6 +51,7 @@ describe('FXMacroData Integration', () => {
       mockFetch.mock.calls[0][0],
       'https://api.fxmacrodata.com/v1/calendar/usd?limit=50',
     );
+    deepStrictEqual(mockFetch.mock.calls[0][1], { headers: {} });
     deepStrictEqual(result, mockEvents);
   });
 
@@ -77,8 +78,11 @@ describe('FXMacroData Integration', () => {
     strictEqual(mockFetch.mock.calls.length, 1);
     strictEqual(
       mockFetch.mock.calls[0][0],
-      'https://custom-api.com/calendar/eur?limit=10&api_key=test-api-key',
+      'https://custom-api.com/calendar/eur?limit=10',
     );
+    deepStrictEqual(mockFetch.mock.calls[0][1], {
+      headers: { 'X-API-Key': 'test-api-key' },
+    });
     deepStrictEqual(result, [
       { date: '2026-07-09', market_tier: 1 },
       { date: '2026-07-10', market_tier: 2 },
