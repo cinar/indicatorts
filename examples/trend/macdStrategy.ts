@@ -13,8 +13,10 @@ import {
  * Demonstrates how to compose Moving Average Convergence Divergence (MACD)
  * line and Signal line into an illustrative crossover signal.
  *
- * Generates a BUY action when MACD Line > Signal Line, a SELL action when
- * MACD Line < Signal Line, and HOLD otherwise.
+ * Generates a BUY action when MACD Line crosses above Signal Line, a SELL action
+ * when MACD Line crosses below Signal Line, and HOLD otherwise. Equal and
+ * non-finite values produce HOLD without changing the last strictly unequal,
+ * finite side. No action is emitted until both sides have been observed.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
  * @param asset asset object.
@@ -24,16 +26,26 @@ import {
 export function macdStrategy(asset: Asset, config: MACDConfig = {}): Action[] {
   const strategyConfig = { ...MACDDefaultConfig, ...config };
   const result = macd(asset.closings, strategyConfig);
-  const actions = new Array<Action>(result.macdLine.length);
+  const actions = new Array<Action>(result.macdLine.length).fill(Action.HOLD);
+  let lastSide = Action.HOLD;
 
   for (let i = 0; i < actions.length; i++) {
-    if (result.macdLine[i] > result.signalLine[i]) {
-      actions[i] = Action.BUY;
-    } else if (result.macdLine[i] < result.signalLine[i]) {
-      actions[i] = Action.SELL;
-    } else {
-      actions[i] = Action.HOLD;
+    const currentMACD = result.macdLine[i];
+    const currentSignal = result.signalLine[i];
+
+    if (!Number.isFinite(currentMACD) || !Number.isFinite(currentSignal)) {
+      continue;
     }
+
+    if (currentMACD === currentSignal) {
+      continue;
+    }
+
+    const side = currentMACD > currentSignal ? Action.BUY : Action.SELL;
+    if (lastSide !== Action.HOLD && side !== lastSide) {
+      actions[i] = side;
+    }
+    lastSide = side;
   }
 
   return actions;
