@@ -14,9 +14,9 @@ import {
  * line and Signal line into an illustrative crossover signal.
  *
  * Generates a BUY action when MACD Line crosses above Signal Line, a SELL action
- * when MACD Line crosses below Signal Line, and HOLD otherwise. Equality does not
- * emit an action, but moving away from equality can form a crossover. The first
- * bar and bars without two consecutive finite line pairs produce HOLD.
+ * when MACD Line crosses below Signal Line, and HOLD otherwise. Equal and
+ * non-finite values produce HOLD without changing the last strictly unequal,
+ * finite side. No action is emitted until both sides have been observed.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
  * @param asset asset object.
@@ -27,27 +27,25 @@ export function macdStrategy(asset: Asset, config: MACDConfig = {}): Action[] {
   const strategyConfig = { ...MACDDefaultConfig, ...config };
   const result = macd(asset.closings, strategyConfig);
   const actions = new Array<Action>(result.macdLine.length).fill(Action.HOLD);
+  let lastSide = Action.HOLD;
 
-  for (let i = 1; i < actions.length; i++) {
-    const previousMACD = result.macdLine[i - 1];
-    const previousSignal = result.signalLine[i - 1];
+  for (let i = 0; i < actions.length; i++) {
     const currentMACD = result.macdLine[i];
     const currentSignal = result.signalLine[i];
 
-    if (
-      !Number.isFinite(previousMACD) ||
-      !Number.isFinite(previousSignal) ||
-      !Number.isFinite(currentMACD) ||
-      !Number.isFinite(currentSignal)
-    ) {
+    if (!Number.isFinite(currentMACD) || !Number.isFinite(currentSignal)) {
       continue;
     }
 
-    if (previousMACD <= previousSignal && currentMACD > currentSignal) {
-      actions[i] = Action.BUY;
-    } else if (previousMACD >= previousSignal && currentMACD < currentSignal) {
-      actions[i] = Action.SELL;
+    if (currentMACD === currentSignal) {
+      continue;
     }
+
+    const side = currentMACD > currentSignal ? Action.BUY : Action.SELL;
+    if (lastSide !== Action.HOLD && side !== lastSide) {
+      actions[i] = side;
+    }
+    lastSide = side;
   }
 
   return actions;
