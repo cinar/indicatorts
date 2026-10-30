@@ -4,6 +4,7 @@
 export * from './awesomeOscillator';
 export * from './chaikinOscillator';
 export * from './ichimokuCloud';
+export * from './kaufmanAdaptiveMovingAverage';
 export * from './percentagePriceOscillator';
 export * from './percentageVolumeOscillator';
 export * from './priceRateOfChange';

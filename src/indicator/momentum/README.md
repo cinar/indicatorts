@@ -6,6 +6,7 @@ Momentum indicators measure the speed of movement.
   - [Awesome Oscillator (AO)](#awesome-oscillator-ao)
   - [Chaikin Oscillator (CO)](#chaikin-oscillator-co)
   - [Ichimoku Cloud](#ichimoku-cloud)
+  - [Kaufman's Adaptive Moving Average (KAMA)](#kaufmans-adaptive-moving-average-kama)
   - [Percentage Price Oscillator (PPO)](#percentage-price-oscillator-ppo)
   - [Percentage Volume Oscillator (PVO)](#percentage-volume-oscillator-pvo)
   - [Price Rate of Change (ROC)](#price-rate-of-change-roc)
@@ -73,6 +74,26 @@ import { ichimokuCloud } from 'indicatorts';
 
 const defaultConfig = { short: 9, medium: 26, long: 52, close: 26 };
 const { tenkan, kijun, ssa, ssb, laggingSpan } = ichimokuCloud(highs, lows, closings, defaultConfig);
+```
+
+## Kaufman's Adaptive Moving Average (KAMA)
+
+The [kama](./kaufmanAdaptiveMovingAverage.ts) function calculates Kaufman's Adaptive Moving Average, a moving average designed to account for market noise and volatility. Its sensitivity to price changes increases during trending periods and decreases during ranging periods.
+
+```
+ER = abs(Close[i] - Close[i-period]) / Sum(abs(Close[j] - Close[j-1]), period)
+SC = (ER * (fastSC - slowSC) + slowSC)^2
+KAMA[i] = KAMA[i-1] + SC * (Close[i] - KAMA[i-1])
+```
+
+```TypeScript
+import { kama } from 'indicatorts';
+
+const defaultConfig = { period: 10, fast: 2, slow: 30 };
+const result = kama(closings, defaultConfig);
+
+// Alternatively:
+// const result = kaufmanAdaptiveMovingAverage(closings, defaultConfig);
 ```
 
 ## Percentage Price Oscillator (PPO)
