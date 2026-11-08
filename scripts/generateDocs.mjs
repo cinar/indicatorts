@@ -18,7 +18,7 @@
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'fs';
 import { basename, dirname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
-import * as prettier from 'prettier';
+import { format, resolveConfig } from 'prettier';
 import ts from 'typescript';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -109,6 +109,7 @@ function jsDocOf(node, text) {
   return docs.length > 0 ? parseJsDoc(docs[docs.length - 1]) : undefined;
 }
 
+/** Returns whether the node has an export modifier. */
 const isExported = (node) =>
   ts
     .getModifiers(node)
@@ -135,7 +136,8 @@ function readModule(path) {
         params: statement.parameters.map((param) => ({
           name: param.name.getText(source),
           type: param.type?.getText(source) ?? 'unknown',
-          optional: param.initializer !== undefined || !!param.questionToken,
+          optional:
+            param.initializer !== undefined || Boolean(param.questionToken),
         })),
         returnType: statement.type?.getText(source) ?? 'void',
       });
@@ -185,6 +187,7 @@ function readModule(path) {
   return module;
 }
 
+/** Wraps the text in Markdown inline code. */
 const code = (text) => `\`${text}\``;
 
 /** Renders a Markdown table, leaving out a last column that is all empty. */
@@ -192,14 +195,17 @@ function table(headers, rows) {
   const keep = rows.some((row) => row[row.length - 1] !== '')
     ? headers.length
     : headers.length - 1;
+  /** Renders one table row with the kept columns. */
   const line = (cells) => `| ${cells.slice(0, keep).join(' | ')} |`;
   return [line(headers), line(headers.map(() => '---')), ...rows.map(line)];
 }
+/** Escapes the text for use in a Markdown table cell. */
 const cell = (text) => text.replace(/\|/g, '\\|').replace(/\n/g, ' ');
 
 /** Renders the documentation of one function. */
 function renderFunction(module, fn, heading) {
   const out = [heading, ''];
+  /** Returns the function's JSDoc tags with the given name. */
   const tag = (name) => fn.doc.tags.filter((t) => t.name === name);
 
   if (fn.doc.description) {
@@ -320,18 +326,18 @@ export function renderCategory(category) {
     .filter((name) => name !== 'index.ts' && !name.endsWith('.test.ts'))
     .map((name) => {
       const module = readModule(join(dir, name));
-      const main = module.functions.filter((fn) =>
+      const titled = module.functions.filter((fn) =>
         fn.doc.tags.some((tag) => tag.name === 'title')
       );
-      if (main.length !== 1) {
+      if (titled.length !== 1) {
         throw new Error(
-          `${category}/${name}: expected exactly one exported function with @title, found ${main.length}`
+          `${category}/${name}: expected exactly one exported function with @title, found ${titled.length}`
         );
       }
-      const sectionTitle = main[0].doc.tags.find(
+      const sectionTitle = titled[0].doc.tags.find(
         (tag) => tag.name === 'title'
       ).text;
-      return { module, main: main[0], title: sectionTitle };
+      return { module, primary: titled[0], title: sectionTitle };
     })
     .sort((a, b) => a.title.localeCompare(b.title));
 
@@ -346,10 +352,10 @@ export function renderCategory(category) {
   }
   out.push('  - [Disclaimer](#disclaimer)', '  - [License](#license)', '');
 
-  for (const { module, main, title: sectionTitle } of sections) {
-    out.push(...renderFunction(module, main, `## ${sectionTitle}`));
+  for (const { module, primary, title: sectionTitle } of sections) {
+    out.push(...renderFunction(module, primary, `## ${sectionTitle}`));
     for (const fn of module.functions) {
-      if (fn !== main) {
+      if (fn !== primary) {
         out.push(...renderFunction(module, fn, `### ${fn.name}`));
       }
     }
@@ -365,9 +371,9 @@ export function renderCategory(category) {
  * Formats the README with the project's prettier configuration, so that
  * running prettier over the repository does not make the docs stale.
  */
-async function format(path, content) {
-  const options = (await prettier.resolveConfig(path)) ?? {};
-  return prettier.format(content, { ...options, filepath: path });
+async function formatReadme(path, content) {
+  const options = (await resolveConfig(path)) ?? {};
+  return format(content, { ...options, filepath: path });
 }
 
 /** Generates every README, or lists the stale ones when check is true. */
@@ -376,7 +382,7 @@ async function main(check) {
 
   for (const category of CATEGORIES) {
     const path = join(ROOT, category, 'README.md');
-    const content = await format(path, renderCategory(category));
+    const content = await formatReadme(path, renderCategory(category));
     const current = existsSync(path) ? readFileSync(path, 'utf8') : '';
 
     if (content !== current) {
@@ -391,7 +397,8 @@ async function main(check) {
     console.error(
       `Stale generated docs, run "npm run docs" and commit:\n  ${stale.join('\n  ')}`
     );
-    process.exit(1);
+    process.exitCode = 1;
+    return;
   }
 
   for (const path of stale) {
