@@ -3,14 +3,37 @@
 
 import { describe, it, expect } from 'vitest';
 import { deepStrictEqual, strictEqual } from 'assert';
-import * as NumArray from './numArray';
+import {
+  abs,
+  add,
+  addBy,
+  changes,
+  checkSameLength,
+  divide,
+  divideBy,
+  extractSigns,
+  generateNumbers,
+  max,
+  min,
+  multiply,
+  multiplyBy,
+  pow,
+  roundDigits,
+  roundDigitsAll,
+  shiftRightAndFillBy,
+  shiftRightBy,
+  sqrt,
+  subtract,
+  subtractBy,
+  transpose,
+} from './numArray';
 
 describe('Number Array', () => {
   it('should be able to abs values', () => {
     const values = [-1, -2, 3, 4, -5, 6, -7, 8, 9, -10];
     const expected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-    const actual = NumArray.abs(values);
+    const actual = abs(values);
     deepStrictEqual(actual, expected);
   });
 
@@ -19,7 +42,7 @@ describe('Number Array', () => {
     const values2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const expected = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
 
-    const actual = NumArray.add(values1, values2);
+    const actual = add(values1, values2);
     deepStrictEqual(actual, expected);
   });
 
@@ -28,7 +51,7 @@ describe('Number Array', () => {
     const expected = [2, 3, 4, 5];
     const n = 1;
 
-    const actual = NumArray.addBy(n, values);
+    const actual = addBy(n, values);
     deepStrictEqual(actual, expected);
   });
 
@@ -37,7 +60,7 @@ describe('Number Array', () => {
     const values2 = [2, 4, 2, 4, 2, 4, 2, 4, 2, 4];
     const expected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-    const actual = NumArray.divide(values1, values2);
+    const actual = divide(values1, values2);
     deepStrictEqual(actual, expected);
   });
 
@@ -46,7 +69,7 @@ describe('Number Array', () => {
     const expected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const n = 2;
 
-    const actual = NumArray.divideBy(n, values);
+    const actual = divideBy(n, values);
     deepStrictEqual(actual, expected);
   });
 
@@ -55,7 +78,7 @@ describe('Number Array', () => {
     const values2 = [2, 4, 2, 4, 2, 4, 2, 4, 2, 4];
     const expected = [2, 8, 6, 16, 10, 24, 14, 32, 18, 40];
 
-    const actual = NumArray.multiply(values1, values2);
+    const actual = multiply(values1, values2);
     deepStrictEqual(actual, expected);
   });
 
@@ -64,7 +87,7 @@ describe('Number Array', () => {
     const expected = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
     const n = 2;
 
-    const actual = NumArray.multiplyBy(n, values);
+    const actual = multiplyBy(n, values);
     deepStrictEqual(actual, expected);
   });
 
@@ -73,7 +96,7 @@ describe('Number Array', () => {
     const values2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const expected = [9, 18, 27, 36, 45, 54, 63, 72, 81, 90];
 
-    const actual = NumArray.subtract(values1, values2);
+    const actual = subtract(values1, values2);
     deepStrictEqual(actual, expected);
   });
 
@@ -82,7 +105,7 @@ describe('Number Array', () => {
     const expected = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99];
     const n = 1;
 
-    const actual = NumArray.subtractBy(n, values);
+    const actual = subtractBy(n, values);
     deepStrictEqual(actual, expected);
   });
 
@@ -91,7 +114,7 @@ describe('Number Array', () => {
     const expected = [1, 1, 1, 2, 3, 4, 5, 6, 7, 8];
     const n = 2;
 
-    const actual = NumArray.shiftRightAndFillBy(n, values[0], values);
+    const actual = shiftRightAndFillBy(n, values[0], values);
     deepStrictEqual(actual, expected);
   });
 
@@ -100,7 +123,7 @@ describe('Number Array', () => {
     const expected = [0, 0, 1, 2, 3, 4, 5, 6, 7, 8];
     const n = 2;
 
-    const actual = NumArray.shiftRightBy(n, values);
+    const actual = shiftRightBy(n, values);
     deepStrictEqual(actual, expected);
   });
 
@@ -108,7 +131,7 @@ describe('Number Array', () => {
     const values = [1, 2, 1, 5, 2, 4, 8, 8, 10, 4];
     const expected = [1, 1, -1, 4, -3, 2, 4, 0, 2, -6];
 
-    const actual = NumArray.changes(1, values);
+    const actual = changes(1, values);
     deepStrictEqual(actual, expected);
   });
 
@@ -116,7 +139,7 @@ describe('Number Array', () => {
     const values = [1, -2, 3, 4, -5, 0, 6, -8, -9, 10];
     const expected = [1, -1, 1, 1, -1, 1, 1, -1, -1, 1];
 
-    const actual = NumArray.extractSigns(values);
+    const actual = extractSigns(values);
     deepStrictEqual(actual, expected);
   });
 
@@ -130,14 +153,14 @@ describe('Number Array', () => {
       [7, 8],
     ];
 
-    const actual = NumArray.transpose(values1, values2);
+    const actual = transpose(values1, values2);
     deepStrictEqual(actual, expected);
   });
 
   it('should be able to transpose with no arguments', () => {
     const expected: number[][] = [];
 
-    const actual = NumArray.transpose();
+    const actual = transpose();
     deepStrictEqual(actual, expected);
   });
 
@@ -146,7 +169,7 @@ describe('Number Array', () => {
     const values2 = [2, 1, 1, 9];
     const expected = [2, 4, 6, 9];
 
-    const actual = NumArray.max(values1, values2);
+    const actual = max(values1, values2);
     deepStrictEqual(actual, expected);
   });
 
@@ -155,7 +178,7 @@ describe('Number Array', () => {
     const values2 = [2, 1, 1, 9];
     const expected = [1, 1, 1, 8];
 
-    const actual = NumArray.min(values1, values2);
+    const actual = min(values1, values2);
     deepStrictEqual(actual, expected);
   });
 
@@ -164,7 +187,7 @@ describe('Number Array', () => {
     const digits = 4;
     const expected = 1.5182;
 
-    const actual = NumArray.roundDigits(digits, value);
+    const actual = roundDigits(digits, value);
     strictEqual(actual, expected);
   });
 
@@ -173,19 +196,19 @@ describe('Number Array', () => {
     const digits = 2;
     const expected = [1.23, 2.52, 4.1, 6.78];
 
-    const actual = NumArray.roundDigitsAll(digits, values);
+    const actual = roundDigitsAll(digits, values);
     deepStrictEqual(actual, expected);
   });
 
   it('should be able to generate numbers', () => {
     const expected = [2, 4, 6, 8];
-    const actual = NumArray.generateNumbers(2, 10, 2);
+    const actual = generateNumbers(2, 10, 2);
     deepStrictEqual(actual, expected);
   });
 
   it('should be able to generate numbers with a non-integer step count', () => {
     const expected = [0, 2, 4];
-    const actual = NumArray.generateNumbers(0, 5, 2);
+    const actual = generateNumbers(0, 5, 2);
     deepStrictEqual(actual, expected);
   });
 
@@ -194,7 +217,7 @@ describe('Number Array', () => {
     const expected = [1, 4, 9, 16];
     const exponent = 2;
 
-    const actual = NumArray.pow(bases, exponent);
+    const actual = pow(bases, exponent);
     deepStrictEqual(actual, expected);
   });
 
@@ -202,14 +225,14 @@ describe('Number Array', () => {
     const values = [1, 9, 16, 25];
     const expected = [1, 3, 4, 5];
 
-    const actual = NumArray.sqrt(values);
+    const actual = sqrt(values);
     deepStrictEqual(actual, expected);
   });
 
   it('should throw when values have different lengths', () => {
-    expect(() => NumArray.checkSameLength([1, 2], [1, 2], [1])).toThrow(
+    expect(() => checkSameLength([1, 2], [1, 2], [1])).toThrow(
       'values length at 2 not 2'
     );
-    expect(() => NumArray.checkSameLength()).not.toThrow();
+    expect(() => checkSameLength()).not.toThrow();
   });
 });

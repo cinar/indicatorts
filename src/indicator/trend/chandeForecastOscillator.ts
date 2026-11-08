@@ -34,8 +34,11 @@ import {
  */
 export function cfo(closings: number[]): number[] {
   const x = generateNumbers(0, closings.length, 1);
-  const r = linearRegressionUsingLeastSquare(x, closings);
-  const result = multiplyBy(100, divide(subtract(closings, r), closings));
+  const regression = linearRegressionUsingLeastSquare(x, closings);
+  const result = multiplyBy(
+    100,
+    divide(subtract(closings, regression), closings)
+  );
 
   return result;
 }

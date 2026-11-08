@@ -8,21 +8,25 @@
  * @return ISO date.
  */
 export function toISODateString(date: Date): string {
-  const pad = (value: number, length: number): string => {
-    let text = value.toString();
-    while (text.length < length) {
-      text = '0' + text;
-    }
-    return text;
-  };
+  const year = padNumber(date.getFullYear(), 4);
+  const month = padNumber(date.getMonth() + 1, 2);
+  const day = padNumber(date.getDate(), 2);
 
-  return (
-    pad(date.getFullYear(), 4) +
-    '-' +
-    pad(date.getMonth() + 1, 2) +
-    '-' +
-    pad(date.getDate(), 2)
-  );
+  return `${year}-${month}-${day}`;
+}
+
+/**
+ * Pads the given number with leading zeros to the given length.
+ * @param value number value.
+ * @param length minimum length.
+ * @return padded string.
+ */
+function padNumber(value: number, length: number): string {
+  let text = value.toString();
+  while (text.length < length) {
+    text = `0${text}`;
+  }
+  return text;
 }
 
 /**
@@ -56,5 +60,5 @@ export function daysLaterFrom(date: Date, days: number): Date {
  * @return month and day string.
  */
 export function toMonthAndDay(date: Date): string {
-  return (date.getMonth() + 1).toString() + '/' + date.getDate().toString();
+  return `${date.getMonth() + 1}/${date.getDate()}`;
 }
