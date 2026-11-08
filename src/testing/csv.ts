@@ -16,6 +16,11 @@ import { Asset } from '../strategy/asset';
 export type CsvColumns = Record<string, number[]>;
 
 /**
+ * Input columns, which must hold finite values.
+ */
+const INPUT_COLUMNS = new Set(['open', 'high', 'low', 'close', 'volume']);
+
+/**
  * Parses one CSV cell as a number. Empty or non-numeric cells are rejected
  * so a malformed file cannot silently turn into zeros; the literal values
  * NaN, Infinity and -Infinity are accepted.
@@ -38,7 +43,8 @@ function parseCell(cell: string, location: string): number {
 /**
  * Reads the given CSV file into columns. The first line is the header. The
  * date column, if present, is parsed with Date.parse into milliseconds; all
- * other cells must be numbers.
+ * other cells must be numbers. The price and volume input columns must be
+ * finite, so a broken input cannot pass as matching NaN outputs.
  *
  * @param filePath CSV file path.
  * @return columns keyed by header name.
@@ -77,7 +83,13 @@ export function readCsv(filePath: string): CsvColumns {
         }
         columns[header].push(date);
       } else {
-        columns[header].push(parseCell(cell, location));
+        const value = parseCell(cell, location);
+        if (INPUT_COLUMNS.has(header) && !Number.isFinite(value)) {
+          throw new Error(
+            `${location}: ${header} must be finite, got '${cell}'`
+          );
+        }
+        columns[header].push(value);
       }
     });
   }

@@ -28,6 +28,7 @@ describe('Triple Exponential Average (TRIX)', () => {
     const data = readCsv(
       join(__dirname, 'testdata/tripleExponentialAverage.csv')
     );
-    assertColumn(trix(data.close), data.trix);
+    // TRIX is a ratio, so it is compared with more digits.
+    assertColumn(trix(data.close), data.trix, 6);
   });
 });

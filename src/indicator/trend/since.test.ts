@@ -22,6 +22,7 @@ describe('Since last change count', () => {
 
   it('should match the reference data', () => {
     const data = readCsv(join(__dirname, 'testdata/since.csv'));
-    assertColumn(since(data.volume), data.since);
+    // The closings are rounded to whole dollars, so values repeat.
+    assertColumn(since(data.value), data.since);
   });
 });

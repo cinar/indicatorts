@@ -10,7 +10,8 @@ import { deepStrictEqual } from 'assert';
 import { execFileSync } from 'child_process';
 import { existsSync, readdirSync, readFileSync } from 'fs';
 import { basename, dirname, join, relative } from 'path';
-import * as ts from 'typescript';
+import ts from 'typescript';
+import { readCsv } from './csv';
 
 const ROOT = join(__dirname, '..', '..');
 
@@ -22,14 +23,14 @@ const COPYRIGHT = [
 const INDICATOR_CATEGORIES = ['momentum', 'trend', 'volatility', 'volume'];
 const STRATEGY_CATEGORIES = ['.', 'momentum', 'trend', 'volatility', 'volume'];
 
-/** Lists the .ts files under the given directory, recursively. */
-function listTsFiles(dir: string): string[] {
+/** Lists the files with the given extension under a directory, recursively. */
+function listFiles(dir: string, extension: string): string[] {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
     const path = join(dir, entry.name);
     if (entry.isDirectory()) {
-      return listTsFiles(path);
+      return listFiles(path, extension);
     }
-    return entry.name.endsWith('.ts') ? [path] : [];
+    return entry.name.endsWith(extension) ? [path] : [];
   });
 }
 
@@ -41,8 +42,11 @@ function listModules(dir: string): string[] {
     .map((name) => join(dir, name));
 }
 
+/** Reads the file as UTF-8 text. */
 const read = (path: string): string => readFileSync(path, 'utf8');
+/** Returns the path relative to the repository root. */
 const rel = (path: string): string => relative(ROOT, path);
+/** Returns the module name of a .ts file. */
 const moduleName = (path: string): string => basename(path, '.ts');
 
 /** Returns the names of exported declarations that have no JSDoc comment. */
@@ -96,8 +100,8 @@ function assertNoProblems(problems: string[]): void {
 
 describe('API consistency', () => {
   const sourceFiles = [
-    ...listTsFiles(join(ROOT, 'src')),
-    ...listTsFiles(join(ROOT, 'examples')),
+    ...listFiles(join(ROOT, 'src'), '.ts'),
+    ...listFiles(join(ROOT, 'examples'), '.ts'),
   ];
 
   const indicators = INDICATOR_CATEGORIES.flatMap((category) =>
@@ -147,6 +151,23 @@ describe('API consistency', () => {
       process.execPath,
       [join(ROOT, 'scripts', 'generateDocs.mjs'), '--check'],
       { stdio: 'pipe' }
+    );
+  });
+
+  it('should have at least one finite value in every testdata column', () => {
+    // readCsv already rejects non-finite inputs; this catches an output
+    // column that was captured as all NaN.
+    const csvFiles = [
+      ...listFiles(join(ROOT, 'src'), '.csv'),
+      ...listFiles(join(ROOT, 'examples'), '.csv'),
+    ];
+    deepStrictEqual(csvFiles.length > 0, true);
+    assertNoProblems(
+      csvFiles.flatMap((path) =>
+        Object.entries(readCsv(path))
+          .filter(([, values]) => !values.some(Number.isFinite))
+          .map(([column]) => `${rel(path)}: ${column}`)
+      )
     );
   });
 

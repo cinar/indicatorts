@@ -60,6 +60,13 @@ describe('CSV test helpers', () => {
     );
   });
 
+  it('should reject a non-finite input column', () => {
+    throws(
+      () => readCsv(write('input.csv', 'close,volume\n1,NaN\n')),
+      /input.csv:2: volume must be finite, got 'NaN'/
+    );
+  });
+
   it('should reject an invalid date', () => {
     throws(
       () => readCsv(write('date.csv', 'date\nsoon\n')),

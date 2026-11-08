@@ -55,7 +55,8 @@ describe('Bollinger Bands Width (BBW)', () => {
   it('should match the reference data', () => {
     const data = readCsv(join(__dirname, 'testdata/bollingerBandsWidth.csv'));
     const actual = bbw(bb(data.close));
-    assertColumn(actual.width, data.width);
-    assertColumn(actual.widthEma, data.widthEma);
+    // The width is a ratio, so it is compared with more digits.
+    assertColumn(actual.width, data.width, 6);
+    assertColumn(actual.widthEma, data.widthEma, 6);
   });
 });
