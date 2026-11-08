@@ -60,21 +60,53 @@ Each strategy maps historical price bar data (`Asset`) into generic signal actio
 
 ## Usage Example
 
+### Backtesting your own strategies
+
+`backtest` takes an asset and a list of `StrategyInfo` objects. A `StrategyInfo` is a strategy function paired with the name used to label its result:
+
 ```TypeScript
-import { backtest } from 'indicatorts';
+import { Action, Asset, StrategyInfo, backtest, sma } from 'indicatorts';
+
+/**
+ * Illustrative strategy: BUY when the closing is above its 20-day SMA,
+ * SELL when it is below, HOLD otherwise.
+ */
+function smaCrossStrategy(asset: Asset): Action[] {
+  const average = sma(asset.closings, { period: 20 });
+
+  return asset.closings.map((closing, i) => {
+    if (closing > average[i]) {
+      return Action.BUY;
+    }
+    if (closing < average[i]) {
+      return Action.SELL;
+    }
+    return Action.HOLD;
+  });
+}
+
+const strategies: StrategyInfo[] = [
+  { name: 'SMA Cross', strategy: smaCrossStrategy },
+];
+
+// asset: your price history, for example a year of daily bars.
+const results = backtest(asset, strategies);
+console.log(results);
+```
+
+Most indicators need some history before their values settle (see [Warm-up and seeding](../README.md#warm-up-and-seeding)), so use more bars than the longest period in your strategies.
+
+### Running all of the examples
+
+[`STRATEGY_INFOS`](./strategyInfo.ts) lists every example strategy in this directory. Like the examples, it is not part of the npm package; it is meant for working in a clone of this repository, for example from a script in this directory:
+
+```TypeScript
+import { backtest } from '../src/backtest/backtest';
 import { STRATEGY_INFOS } from './strategyInfo';
 
-const asset = {
-  dates: [new Date(2023, 0, 1), new Date(2023, 0, 2)],
-  openings: [100, 102],
-  closings: [101, 105],
-  highs: [103, 106],
-  lows: [99, 101],
-  volumes: [1000, 1500],
-};
-
-const results = backtest(asset, STRATEGY_INFOS);
-console.log(results);
+for (const result of backtest(asset, STRATEGY_INFOS)) {
+  console.log(result.info.name, result.gain, result.lastAction);
+}
 ```
 
 ## License
