@@ -276,11 +276,9 @@ If the trend is Rising:
 - PSAR is the minimum of PSAR or the previous two low values.
 - If the current low is less than or equals to PSAR, use EP.
 
-If PSAR is greater than the closing, trend is falling, and the EP is set to the minimum of EP or the low.
+When EP is used, the trend reverses, EP is set to the current high (if now rising) or low (if now falling), and AF is reset to 0.02.
 
-If PSAR is lower than or equals to the closing, trend is rising, and the EP is set to the maximum of EP or the high.
-
-If the trend is the same, and AF is less than 0.20, increment it by 0.02. If the trend is not the same, set AF to 0.02.
+Otherwise the trend stays the same, EP is set to the maximum of EP or the high (if rising) or the minimum of EP or the low (if falling), and when EP changes AF is incremented by 0.02, up to 0.20.
 
 Based on video [How to Calculate the PSAR Using Excel - Revised Version](https://www.youtube.com/watch?v=MuEpGBAH7pw&t=0s).
 

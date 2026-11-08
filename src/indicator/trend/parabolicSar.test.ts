@@ -68,4 +68,37 @@ describe('Parabolic SAR (SAR)', () => {
     deepStrictEqual(roundDigitsAll(2, actual.psarResult), expectedPsar);
     deepStrictEqual(actual.trends, expectedTrends);
   });
+
+  it('should reverse on penetration even when the closing equals the EP', () => {
+    // Bar 3's low penetrates the rising SAR while its closing equals the
+    // prior EP (13), so the SAR becomes 13 and the trend must reverse.
+    const actual = psar(
+      [10, 12, 13, 13],
+      [9, 10, 11.5, 8],
+      [9.5, 11.5, 12.5, 13]
+    );
+
+    deepStrictEqual(roundDigitsAll(2, actual.psarResult), [10, 9, 9, 13]);
+    deepStrictEqual(actual.trends, [
+      Trend.FALLING,
+      Trend.RISING,
+      Trend.RISING,
+      Trend.FALLING,
+    ]);
+  });
+
+  it('should not let the acceleration factor exceed the max', () => {
+    // A steady uptrend makes a new high on every bar, so AF grows by 0.02
+    // per bar until it is capped at 0.2. Once capped, each SAR closes 20%
+    // of the gap to the EP (the previous bar's high).
+    const upHighs = Array.from({ length: 20 }, (_, i) => 10 + i);
+    const upLows = upHighs.map((high) => high - 1);
+
+    const actual = psar(upHighs, upLows, upLows);
+    for (let i = 15; i < upHighs.length; i++) {
+      const prev = actual.psarResult[i - 1];
+      const af = (actual.psarResult[i] - prev) / (upHighs[i - 1] - prev);
+      expect(af).toBeCloseTo(0.2, 10);
+    }
+  });
 });
