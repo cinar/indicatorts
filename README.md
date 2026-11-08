@@ -13,23 +13,28 @@ Indicator TS is a TypeScript module providing pure technical analysis mathematic
 
 _This is a TypeScript implementation of the [Indicator Go](https://github.com/cinar/indicator) Golang module._
 
-> **Maintenance status:** This project is no longer actively developed. New features are not planned, and issues and pull requests may not be reviewed. It is provided as is under the [MIT License](LICENSE.md). If you need changes, you are welcome to fork it.
+> **Maintenance status:** This project is no longer actively developed, and new features are not planned. I will still do my best to review issues and pull requests as quickly as I can to keep the project current. It is provided as is under the [MIT License](LICENSE.md).
 
 ## ⚠️ Legal Disclaimers & Risk Disclosures
 
 ### 1. Educational and Research Purpose Only
+
 The software, algorithms, technical indicators, mathematical formulas, demonstrative strategy examples, and backtesting utilities provided in this project are strictly for educational, research, and informational purposes. Nothing contained in this codebase, documentation, or associated examples constitutes financial, investment, legal, tax, or trading advice, nor a solicitation, recommendation, endorsement, or offer to buy or sell any security, commodity, futures contract, option, cryptocurrency, or other financial instrument.
 
 ### 2. Non-Advisory and Non-Fiduciary Status
+
 The authors, maintainers, and contributors of this library are NOT registered investment advisors (RIAs), commodity trading advisors (CTAs), broker-dealers, or certified financial analysts under the jurisdiction of the U.S. Securities and Exchange Commission (SEC), Commodity Futures Trading Commission (CFTC), Financial Industry Regulatory Authority (FINRA), or any other regulatory authority worldwide. No fiduciary, advisory, or professional relationship is created through your access, use, or implementation of this software.
 
 ### 3. Risk of Substantial Financial Loss and Leverage
+
 Trading in financial markets—including stocks, options, futures, foreign exchange (Forex), and cryptocurrencies—involves substantial risk of loss and is not suitable for every investor. Market values fluctuate rapidly, and the use of leverage, margin, or derivative instruments can multiply losses, potentially resulting in the total loss of capital or liabilities exceeding the initial investment. You should independently assess your risk tolerance and financial situation before engaging in any trading activity.
 
 ### 4. CFTC Rule 4.41: Hypothetical Performance Disclosure
+
 HYPOTHETICAL OR SIMULATED PERFORMANCE RESULTS HAVE CERTAIN INHERENT LIMITATIONS. UNLIKE AN ACTUAL PERFORMANCE RECORD, SIMULATED RESULTS DO NOT REPRESENT ACTUAL TRADING. ALSO, SINCE THE TRADES HAVE NOT ACTUALLY BEEN EXECUTED, THE RESULTS MAY HAVE UNDER- OR OVER-COMPENSATED FOR THE IMPACT, IF ANY, OF CERTAIN MARKET FACTORS, SUCH AS LACK OF LIQUIDITY, SPREADS, COMMISSIONS, OR MARKET SLIPPAGE. SIMULATED TRADING PROGRAMS IN GENERAL ARE ALSO SUBJECT TO THE FACT THAT THEY ARE DESIGNED WITH THE BENEFIT OF HINDSIGHT. NO REPRESENTATION IS BEING MADE THAT ANY ACCOUNT WILL OR IS LIKELY TO ACHIEVE PROFITS OR LOSSES SIMILAR TO THOSE SHOWN. PAST PERFORMANCE IS NO GUARANTEE OF FUTURE RESULTS.
 
 ### 5. "AS IS" Warranty & Limitation of Liability
+
 THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, ACCURACY, AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, FINANCIAL LOSSES, TRADING LOSSES, LOSS OF PROFITS, DATA LOSS OR CORRUPTION, SYSTEM DOWNTIME, OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY ARISING IN ANY WAY OUT OF THE USE OF OR INABILITY TO USE THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ---
@@ -167,6 +172,10 @@ The project can be built from source:
 ```bash
 npm run build
 ```
+
+## Contributing
+
+Bug reports and pull requests are welcome. Please see [CONTRIBUTING.md](CONTRIBUTING.md) for the development setup, coding standards and the reference data testing approach.
 
 ## Usage
 
