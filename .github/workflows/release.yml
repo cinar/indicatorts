@@ -49,6 +49,19 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify package entry points exist
+        run: |
+          node -e '
+            const pkg = require("./package.json");
+            const fs = require("fs");
+            for (const field of ["main", "module", "types"]) {
+              if (!fs.existsSync(pkg[field])) {
+                console.error(`package.json ${field} (${pkg[field]}) does not exist`);
+                process.exit(1);
+              }
+            }
+          '
+
       - name: Configure git identity
         run: |
           git config user.name "github-actions[bot]"
