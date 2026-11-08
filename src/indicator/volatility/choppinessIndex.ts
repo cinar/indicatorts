@@ -2,9 +2,9 @@
 // https://github.com/cinar/indicatorts
 
 import { checkSameLength } from '../../helper/numArray';
+import { trueRanges } from '../../helper/trueRanges';
 import {
   maskNaN,
-  trueRanges,
   windowed,
   windowedMax,
   windowedMin,

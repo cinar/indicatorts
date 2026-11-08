@@ -12,7 +12,6 @@ import {
   windowedMin,
   windowedSma,
   windowedStd,
-  trueRanges,
 } from './window';
 
 describe('Window helpers', () => {
@@ -48,11 +47,5 @@ describe('Window helpers', () => {
 
   it('should mask the values where the mask is NaN', () => {
     expect(maskNaN([1, 2, 3], [NaN, 0, 5])).toStrictEqual([NaN, 2, 3]);
-  });
-
-  it('should compute the true range from the previous close', () => {
-    // Gap up, gap down and an inside bar.
-    const actual = trueRanges([10, 15, 8, 9], [8, 13, 6, 7], [9, 14, 7, 8]);
-    expect(actual).toStrictEqual([NaN, 6, 8, 2]);
   });
 });
