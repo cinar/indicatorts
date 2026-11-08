@@ -91,8 +91,7 @@ export function uo(
 
   const result = new Array<number>(len);
   for (let i = 0; i < len; i++) {
-    result[i] =
-      (100 * (4 * avgShort[i] + 2 * avgMiddle[i] + avgLong[i])) / 7;
+    result[i] = (100 * (4 * avgShort[i] + 2 * avgMiddle[i] + avgLong[i])) / 7;
   }
 
   return result;
