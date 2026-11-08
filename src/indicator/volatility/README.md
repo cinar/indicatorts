@@ -44,8 +44,8 @@ const { upper, middle, lower } = ab(highs, lows, closings, defaultConfig);
 The [atr](./averageTrueRange.ts) function calculates a technical analysis indicator that measures market volatility by decomposing the entire range of stock prices for that period.
 
 ```
-TR = Max((High - Low), (High - Closing), (Closing - Low))
-ATR = 14-Period SMA TR
+TR = Max((High - Low), Abs(High - Previous Closing), Abs(Low - Previous Closing))
+ATR = 14-Period RMA TR (Wilder's smoothing)
 ```
 
 ```TypeScript
@@ -102,11 +102,11 @@ const { width, widthEma } = bbw(bbResult, defaultConfig);
 
 ## Chandelier Exit (CE)
 
-The [chandelierExit](./chandelierExit.ts) function sets a trailing stop-loss based on the Average True Value (ATR).
+The [chandelierExit](./chandelierExit.ts) function sets a trailing stop-loss based on the Average True Range (ATR).
 
 ```
-Chandelier Exit Long = 22-Period SMA High - ATR(22) * 3
-Chandelier Exit Short = 22-Period SMA Low + ATR(22) * 3
+Chandelier Exit Long = 22-Period Highest High - ATR(22) * 3
+Chandelier Exit Short = 22-Period Lowest Low + ATR(22) * 3
 ```
 
 ```TypeScript
@@ -180,11 +180,13 @@ The [projectionOscillator](./projectionOscillator.ts) calculates the Projection 
 Period defines the moving window to calculates the PO, and the smooth period defines the moving windows to take EMA of PO.
 
 ```
-PL = Min(period, (high + MLS(period, x, high)))
-PU = Max(period, (low + MLS(period, x, low)))
+PU = Max(High[i - k] + k * Slope(period, high)) for k = 0 .. period - 1
+PL = Min(Low[i - k] + k * Slope(period, low)) for k = 0 .. period - 1
 PO = 100 * (Closing - PL) / (PU - PL)
 SPO = EMA(smooth, PO)
 ```
+
+Each high and low in the window is projected forward to the current bar along the slope of the moving linear regression, so PO stays within 0 to 100. When PU equals PL, PO is 50.
 
 ```TypeScript
 import { po } from 'indicatorts';

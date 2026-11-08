@@ -54,4 +54,16 @@ describe('Aroon', () => {
     deepStrictEqual(roundDigitsAll(2, actual.up), expectedUp);
     deepStrictEqual(roundDigitsAll(2, actual.down), expectedDown);
   });
+
+  it('should look back period + 1 bars so that Aroon can reach 0', () => {
+    // The high (and low) stays at index 0 until a new extreme at index 5.
+    // Values from index 3 onward match TA-Lib AROON(period=3).
+    const tHighs = [5, 4, 3, 2, 1, 6, 2];
+    const tLows = [1, 2, 3, 4, 5, 0, 3];
+    const expected = [100, 66.67, 33.33, 0, 0, 100, 66.67];
+
+    const actual = aroon(tHighs, tLows, { period: 3 });
+    deepStrictEqual(roundDigitsAll(2, actual.up), expected);
+    deepStrictEqual(roundDigitsAll(2, actual.down), expected);
+  });
 });

@@ -18,4 +18,10 @@ describe('On Balance Volume (OBV)', () => {
     const actual = obv([], []);
     expect(actual).toStrictEqual([]);
   });
+
+  it('should leave the value unchanged when the closing is unchanged', () => {
+    expect(obv([10, 11, 11, 10], [100, 200, 300, 400])).toStrictEqual([
+      0, 200, 200, -200,
+    ]);
+  });
 });

@@ -32,4 +32,14 @@ describe('Volume Weighted Average Price (VWAP)', () => {
     const actual = vwap(flatClosings, zeroVolumes, { period: 2 });
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
+
+  it('should be 0 for a zero-volume window after fractional volumes', () => {
+    // Fractional (e.g. crypto) volumes used to leave a residue such as
+    // 4.4e-16 in the volume sum, producing a garbage price like -128.
+    const closings = [101.3, 102.7, 99.1, 100.9, 100, 100, 100, 100, 100];
+    const volumes = [0.1, 0.2, 0.3, 0.7, 0, 0, 0, 0, 0];
+
+    const actual = vwap(closings, volumes, { period: 4 });
+    expect(actual.slice(7)).toStrictEqual([0, 0]);
+  });
 });

@@ -31,6 +31,11 @@ export const RSIDefaultConfig: Required<RSIConfig> = {
  */
 export function rsi(closings: number[], config: RSIConfig = {}): number[] {
   const { period } = { ...RSIDefaultConfig, ...config };
+
+  if (closings.length === 0) {
+    return [];
+  }
+
   const gains = new Array<number>(closings.length);
   const losses = new Array<number>(closings.length);
 

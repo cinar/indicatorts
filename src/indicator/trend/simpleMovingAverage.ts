@@ -1,6 +1,8 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
+import { msum } from './movingSum';
+
 /**
  * Optional configuration of SMA parameters.
  */
@@ -16,28 +18,21 @@ export const SMADefaultConfig: Required<SMAConfig> = {
 };
 
 /**
- * Simple moving average (SMA).
+ * Simple moving average (SMA). Until a full period is available, the
+ * average is taken over the values seen so far.
+ *
+ * Built on msum, so a window of zeros averages to exactly 0, and a NaN or
+ * Infinity input only affects the windows that contain it.
+ *
  * @param values values array.
  * @param config configuration.
  * @return SMA values.
  */
 export function sma(values: number[], config: SMAConfig = {}): number[] {
   const { period } = { ...SMADefaultConfig, ...config };
-  const result = new Array<number>(values.length);
-  let sum = 0;
+  const sums = msum(values, { period });
 
-  for (let i = 0; i < values.length; i++) {
-    sum += values[i];
-
-    if (i >= period) {
-      sum -= values[i - period];
-      result[i] = sum / period;
-    } else {
-      result[i] = sum / (i + 1);
-    }
-  }
-
-  return result;
+  return sums.map((sum, i) => sum / Math.min(i + 1, period));
 }
 
 // Export full name

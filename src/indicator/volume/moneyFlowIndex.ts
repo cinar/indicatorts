@@ -1,15 +1,7 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
-import {
-  addBy,
-  changes,
-  divide,
-  extractSigns,
-  multiply,
-  multiplyBy,
-  pow,
-} from '../../helper/numArray';
+import { checkSameLength, multiply } from '../../helper/numArray';
 import { msum } from '../trend/movingSum';
 import { typprice } from '../trend/typicalPrice';
 
@@ -33,8 +25,14 @@ export const MFIDefaultConfig: Required<MFIConfig> = {
  * the Relative Strength Index (RSI), but it also uses the volume.
  *
  * Raw Money Flow = Typical Price * Volume
+ * Positive Money Flow = Sum of Raw Money Flow where Typical Price rose
+ * Negative Money Flow = Sum of Raw Money Flow where Typical Price fell
  * Money Ratio = Positive Money Flow / Negative Money Flow
  * Money Flow Index = 100 - (100 / (1 + Money Ratio))
+ *
+ * Bars whose typical price is unchanged from the previous bar, and the
+ * first bar (which has no previous bar), contribute to neither flow.
+ * When a window has no positive and no negative flow, the MFI is 50.
  *
  * @param highs high values.
  * @param lows low values.
@@ -50,22 +48,34 @@ export function mfi(
   volumes: number[],
   config: MFIConfig = {}
 ): number[] {
+  checkSameLength(highs, lows, closings, volumes);
   const { period } = { ...MFIDefaultConfig, ...config };
   const typicalPrice = typprice(highs, lows, closings);
   const rawMoneyFlow = multiply(typicalPrice, volumes);
 
-  const signs = extractSigns(changes(1, typicalPrice));
-  const moneyFlow = multiply(signs, rawMoneyFlow);
+  const positiveMoneyFlow = new Array<number>(rawMoneyFlow.length);
+  const negativeMoneyFlow = new Array<number>(rawMoneyFlow.length);
 
-  const positiveMoneyFlow = moneyFlow.map((value) => (value >= 0 ? value : 0));
-  const negativeMoneyFlow = moneyFlow.map((value) => (value < 0 ? value : 0));
+  for (let i = 0; i < rawMoneyFlow.length; i++) {
+    const change = i === 0 ? 0 : typicalPrice[i] - typicalPrice[i - 1];
+    positiveMoneyFlow[i] = change > 0 ? rawMoneyFlow[i] : 0;
+    negativeMoneyFlow[i] = change < 0 ? rawMoneyFlow[i] : 0;
+  }
 
-  const moneyRatio = divide(
-    msum(positiveMoneyFlow, { period }),
-    msum(multiplyBy(-1, negativeMoneyFlow), { period })
-  );
+  const positiveSum = msum(positiveMoneyFlow, { period });
+  const negativeSum = msum(negativeMoneyFlow, { period });
 
-  const result = addBy(100, multiplyBy(-100, pow(addBy(1, moneyRatio), -1)));
+  const result = new Array<number>(rawMoneyFlow.length);
+
+  for (let i = 0; i < result.length; i++) {
+    if (positiveSum[i] === 0 && negativeSum[i] === 0) {
+      result[i] = 50;
+    } else {
+      // Dividing by a zero negative sum yields Infinity, and an MFI of 100.
+      const moneyRatio = positiveSum[i] / negativeSum[i];
+      result[i] = 100 - 100 / (1 + moneyRatio);
+    }
+  }
 
   return result;
 }

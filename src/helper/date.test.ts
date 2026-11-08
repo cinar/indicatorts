@@ -1,7 +1,7 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
-import { daysLaterFrom, toISODateString } from './date';
+import { daysAgo, daysLaterFrom, toISODateString, toMonthAndDay } from './date';
 
 describe('Date helpers', () => {
   it('should be able to compute iso', () => {
@@ -12,6 +12,15 @@ describe('Date helpers', () => {
     expect(actual).toBe(expected);
   });
 
+  it.each([
+    { date: new Date(2021, 11, 23, 0, 0), expected: '2021-12-23' },
+    { date: new Date(2021, 11, 23, 23, 59), expected: '2021-12-23' },
+    { date: new Date(2021, 0, 5), expected: '2021-01-05' },
+    { date: new Date(2021, 11, 31, 23, 59), expected: '2021-12-31' },
+  ])('should use the local calendar day: $expected', ({ date, expected }) => {
+    expect(toISODateString(date)).toBe(expected);
+  });
+
   it('should be able to compute later', () => {
     const date = new Date(2021, 11, 23);
     const days = 1;
@@ -19,5 +28,19 @@ describe('Date helpers', () => {
 
     const actual = daysLaterFrom(date, days);
     expect(actual).toStrictEqual(expected);
+  });
+
+  it('should be able to compute days ago from today', () => {
+    jest.useFakeTimers({ now: new Date(2024, 2, 1, 12) });
+    try {
+      expect(daysAgo(1)).toStrictEqual(new Date(2024, 1, 29, 12));
+    } finally {
+      jest.useRealTimers();
+    }
+  });
+
+  it('should be able to format month and day', () => {
+    expect(toMonthAndDay(new Date(2024, 0, 5))).toBe('1/5');
+    expect(toMonthAndDay(new Date(2024, 11, 31))).toBe('12/31');
   });
 });

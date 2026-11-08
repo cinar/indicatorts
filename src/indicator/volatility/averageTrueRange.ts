@@ -2,7 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { tr } from './trueRange';
-import { sma } from '../trend/simpleMovingAverage';
+import { rma } from '../trend/rollingMovingAverage';
 
 /**
  * Average true range result.
@@ -31,8 +31,8 @@ export const ATRDefaultConfig: Required<ATRConfig> = {
  * measures market volatility by decomposing the entire range of stock
  * prices for that period.
  *
- * TR = Max((High - Low), (High - Closing), (Closing - Low))
- * ATR = SMA TR
+ * TR = Max((High - Low), Abs(High - Previous Closing), Abs(Low - Previous Closing))
+ * ATR = RMA TR (Wilder's smoothing)
  *
  * @param highs high values.
  * @param lows low values.
@@ -48,7 +48,7 @@ export function atr(
 ): ATRResult {
   const { period } = { ...ATRDefaultConfig, ...config };
   const trLine = tr(highs, lows, closings);
-  const atrLine = sma(trLine, { period });
+  const atrLine = rma(trLine, { period });
 
   return {
     trLine,

@@ -13,7 +13,8 @@ import { Asset } from '../../src/strategy/asset';
  * Demonstrates how to compose Chaikin Money Flow (CMF) into an illustrative
  * volume flow signal.
  *
- * Generates a BUY action when CMF < 0, a SELL action when CMF > 0, and HOLD otherwise.
+ * Generates a BUY action when CMF > 0 (buying pressure), a SELL action when
+ * CMF < 0 (selling pressure), and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
  * @param asset asset object.
@@ -31,9 +32,9 @@ export function cmfStrategy(asset: Asset, config: CMFConfig = {}): Action[] {
   );
 
   return result.map((value) => {
-    if (value < 0) {
+    if (value > 0) {
       return Action.BUY;
-    } else if (value > 0) {
+    } else if (value < 0) {
       return Action.SELL;
     } else {
       return Action.HOLD;

@@ -95,4 +95,49 @@ describe('Binary Search Tree (BST)', () => {
       strictEqual(bst.max(), expectedMax);
     }
   });
+
+  it('should throw on min and max of an empty tree', () => {
+    const bst = new BinarySearchTree();
+    expect(() => bst.min()).toThrow('Tree empty');
+    expect(() => bst.max()).toThrow('Tree empty');
+  });
+
+  it('should report whether a value was removed', () => {
+    const bst = new BinarySearchTree();
+    expect(bst.remove(1)).toBe(false);
+
+    bst.insert(2);
+    bst.insert(5);
+    expect(bst.remove(3)).toBe(false);
+    expect(bst.remove(5)).toBe(true);
+    expect(bst.max()).toBe(2);
+  });
+
+  it('should match a sorted array under random inserts and removes with duplicates', () => {
+    let state = 12345;
+    const random = (n: number): number => {
+      state = (state * 16807) % 2147483647;
+      return state % n;
+    };
+
+    const bst = new BinarySearchTree();
+    const expected: number[] = [];
+
+    for (let step = 0; step < 5000; step++) {
+      if (expected.length > 0 && random(3) === 0) {
+        const value = expected[random(expected.length)];
+        expected.splice(expected.indexOf(value), 1);
+        expect(bst.remove(value)).toBe(true);
+      } else {
+        const value = random(20);
+        expected.push(value);
+        bst.insert(value);
+      }
+
+      if (expected.length > 0) {
+        expect(bst.min()).toBe(Math.min(...expected));
+        expect(bst.max()).toBe(Math.max(...expected));
+      }
+    }
+  });
 });

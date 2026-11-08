@@ -14,8 +14,8 @@ import { Asset } from '../../src/strategy/asset';
  * Demonstrates how to compose the Negative Volume Index (NVI) and its EMA baseline
  * into an illustrative volume trend signal.
  *
- * Generates a BUY action when NVI < EMA (illustrative trend entry), a SELL action when
- * NVI > EMA, and HOLD otherwise.
+ * Generates a BUY action when NVI > EMA (the conventional bullish reading), a
+ * SELL action when NVI < EMA, and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
  * @param asset asset object.
@@ -32,9 +32,9 @@ export function nviStrategy(asset: Asset, config: NVIConfig = {}): Action[] {
   const actions = new Array<Action>(result.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (result[i] < nviEma[i]) {
+    if (result[i] > nviEma[i]) {
       actions[i] = Action.BUY;
-    } else if (result[i] > nviEma[i]) {
+    } else if (result[i] < nviEma[i]) {
       actions[i] = Action.SELL;
     } else {
       actions[i] = Action.HOLD;

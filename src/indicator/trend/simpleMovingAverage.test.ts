@@ -22,4 +22,14 @@ describe('Simple Moving Average (SMA)', () => {
 
     deepStrictEqual(actual, expected);
   });
+
+  it('should average a window of zeros to exactly 0', () => {
+    const actual = sma([0.1, 0.2, 0.3, 0.7, 0, 0, 0, 0], { period: 4 });
+    deepStrictEqual(actual.slice(7), [0]);
+  });
+
+  it('should recover after a NaN leaves the window', () => {
+    const actual = sma([2, NaN, 4, 6, 8], { period: 2 });
+    deepStrictEqual(actual, [2, NaN, NaN, 5, 7]);
+  });
 });

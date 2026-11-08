@@ -15,6 +15,8 @@ on:
 
 permissions:
   contents: write
+  # Required for npm trusted publishing (OIDC) and provenance.
+  id-token: write
 
 jobs:
   release:
@@ -28,7 +30,12 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v7
         with:
-          node-version: 20.x
+          # npm trusted publishing requires npm 11.5.1 or later.
+          node-version: 24.x
+          registry-url: https://registry.npmjs.org
+
+      - name: Ensure npm supports trusted and staged publishing
+        run: npm install -g npm@^11.20.0
 
       - name: Install dependencies
         run: npm ci
@@ -42,6 +49,19 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify package entry points exist
+        run: |
+          node -e '
+            const pkg = require("./package.json");
+            const fs = require("fs");
+            for (const field of ["main", "module", "types"]) {
+              if (!fs.existsSync(pkg[field])) {
+                console.error(`package.json ${field} (${pkg[field]}) does not exist`);
+                process.exit(1);
+              }
+            }
+          '
+
       - name: Configure git identity
         run: |
           git config user.name "github-actions[bot]"
@@ -53,6 +73,14 @@ jobs:
           NEW_VERSION=$(npm version "${{ inputs.bump }}" -m "Release v%s")
           echo "version=${NEW_VERSION#v}" >> "$GITHUB_OUTPUT"
           echo "tag=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+
+      # Stage before pushing, so a failed upload leaves nothing pushed and
+      # the workflow can simply be run again. The trusted publisher only
+      # allows staging: a maintainer must approve the staged version with
+      # 2FA (on npmjs.com, or `npm stage approve <stage-id>`) before it is
+      # published.
+      - name: Stage npm publish
+        run: npm stage publish . --provenance --access public
 
       - name: Push commit and tag
         run: git push origin HEAD:${{ github.event.repository.default_branch }} --follow-tags

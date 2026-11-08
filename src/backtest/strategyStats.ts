@@ -60,6 +60,11 @@ export function computeStrategyStats(
   for (const companyResult of companyResults) {
     const strategyResult = companyResult.strategyResults[0];
 
+    // A company with no strategy results has no best strategy to count.
+    if (strategyResult === undefined) {
+      continue;
+    }
+
     const strategyStats = statsMap.get(strategyResult.info.name);
     if (strategyStats !== undefined) {
       updateStrategyStats(strategyStats, strategyResult);
