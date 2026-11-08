@@ -37,4 +37,8 @@ describe('Relative Strength Index (RSI)', () => {
     const actual = rsi(flatClosings, { period: 2 });
     deepStrictEqual(actual, expected);
   });
+
+  it('should return no values for empty input', () => {
+    expect(rsi([])).toStrictEqual([]);
+  });
 });
