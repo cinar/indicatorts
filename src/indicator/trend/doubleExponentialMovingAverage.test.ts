@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { dema } from './doubleExponentialMovingAverage';
@@ -21,5 +23,12 @@ describe('Double Exponential Moving Average (DEMA)', () => {
 
     const actual = dema(values);
     deepStrictEqual(roundDigitsAll(2, actual), expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(
+      join(__dirname, 'testdata/doubleExponentialMovingAverage.csv')
+    );
+    assertColumn(dema(data.close), data.dema);
   });
 });

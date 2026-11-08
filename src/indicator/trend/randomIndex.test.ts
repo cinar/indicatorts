@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { kdj } from './randomIndex';
@@ -72,5 +74,13 @@ describe('Random Index (KDJ)', () => {
       deepStrictEqual(Number.isNaN(value), false);
       deepStrictEqual(value, 50);
     });
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/randomIndex.csv'));
+    const actual = kdj(data.high, data.low, data.close);
+    assertColumn(actual.k, data.k);
+    assertColumn(actual.d, data.d);
+    assertColumn(actual.j, data.j);
   });
 });

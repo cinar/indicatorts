@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { macd } from './movingAverageConvergenceDivergence';
@@ -33,5 +35,14 @@ describe('Moving Average Convergence Divergence (MACD)', () => {
     const actual = macd(closings);
     deepStrictEqual(roundDigitsAll(2, actual.macdLine), expectedMACD);
     deepStrictEqual(roundDigitsAll(2, actual.signalLine), expectedSignal);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(
+      join(__dirname, 'testdata/movingAverageConvergenceDivergence.csv')
+    );
+    const actual = macd(data.close);
+    assertColumn(actual.macdLine, data.macdLine);
+    assertColumn(actual.signalLine, data.signalLine);
   });
 });

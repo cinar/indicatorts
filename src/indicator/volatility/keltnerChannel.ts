@@ -33,10 +33,26 @@ export const KCDefaultConfig: Required<KCConfig> = {
  * on either side of an asset's price and can aid in determining the
  * direction of a trend.
  *
+ * ```
  * Middle Line = EMA(period, closings)
  * Upper Band = EMA(period, closings) + 2 * ATR(period, highs, lows, closings)
  * Lower Band = EMA(period, closings) - 2 * ATR(period, highs, lows, closings)
+ * ```
  *
+ * Warm-up: built on the exponential moving average and the average true
+ * range, which start from the first bar rather than the way TA-Lib does, so
+ * the early values can differ from other libraries. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ *
+ * @example
+ * ```TypeScript
+ * import { kc } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 20 };
+ * const { upper, middle, lower } = kc(highs, lows, closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const { upper, middle, lower } = keltnerChannel(highs, lows, closings, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

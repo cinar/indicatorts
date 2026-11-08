@@ -18,9 +18,21 @@ export const ROCDefaultConfig: Required<ROCConfig> = {
 /**
  * Price Rate of Change (ROC).
  *
+ * ```
  * ROC[i] = 0 when i < period
  * ROC[i] = (close[i] / close[i-period] - 1) * 100 when i >= period
+ * ```
  *
+ * @example
+ * ```TypeScript
+ * import { roc } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 3 };
+ * const result = roc(close, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = priceRateOfChange(close, defaultConfig);
+ * ```
  * @param values values array.
  * @return ROC values.
  */

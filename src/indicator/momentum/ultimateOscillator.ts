@@ -32,15 +32,31 @@ export const UODefaultConfig: Required<UOConfig> = {
 /**
  * Ultimate Oscillator (UO).
  *
+ * ```
  * BP = Closing - Min(Low, Prior Close)
  * TR = Max(High - Low, Abs(High - Prior Close), Abs(Low - Prior Close))
+ * ```
  *
+ * ```
  * Average7 = Sum(BP, 7) / Sum(TR, 7)
  * Average14 = Sum(BP, 14) / Sum(TR, 14)
  * Average28 = Sum(BP, 28) / Sum(TR, 28)
+ * ```
  *
+ * ```
  * UO = 100 * ((4 * Average7) + (2 * Average14) + Average28) / (4 + 2 + 1)
+ * ```
  *
+ * @example
+ * ```TypeScript
+ * import { uo } from 'indicatorts';
+ *
+ * const defaultConfig = { shortPeriod: 7, middlePeriod: 14, longPeriod: 28 };
+ * const result = uo(highs, lows, closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = ultimateOscillator(highs, lows, closings, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

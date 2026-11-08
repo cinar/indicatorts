@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { rsi } from './relativeStrengthIndex';
@@ -41,5 +43,10 @@ describe('Relative Strength Index (RSI)', () => {
 
   it('should return no values for empty input', () => {
     expect(rsi([])).toStrictEqual([]);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/relativeStrengthIndex.csv'));
+    assertColumn(rsi(data.close), data.rsi);
   });
 });

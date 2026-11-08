@@ -70,14 +70,21 @@ function periodsSinceExtreme(
 /**
  * Aroon Indicator. It is a technical indicator that is used to identify trend changes
  * in the price of a stock, as well as the strength of that trend. It consists of two
- * lines, Arron Up, and Aroon Down. The Aroon Up line measures the strength of the
- * uptrend, and the Aroon Down measures the strength of the downtrend. When Aroon Up
- * is above Aroon Down, it indicates bullish price, and when Aroon Down is above
- * Aroon Up, it indicates bearish price.
+ * lines, Aroon Up, and Aroon Down. The Aroon Up line measures the strength of the
+ * uptrend, and the Aroon Down measures the strength of the downtrend.
  *
+ * ```
  * Aroon Up = ((25 - Period Since Last 25 Period High) / 25) * 100
  * Aroon Down = ((25 - Period Since Last 25 Period Low) / 25) * 100
+ * ```
  *
+ * @example
+ * ```TypeScript
+ * import { aroon } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 25 };
+ * const { up, down } = aroon(highs, lows, defaultConfig);
+ * ```
  * @param highs highs values.
  * @param lows lows values.
  * @param config configuration.

@@ -217,6 +217,7 @@ describe('sortStrategyStats', () => {
       },
     ];
     expect(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-assignment -- deliberately invalid value
       sortStrategyStats(strategyStats, -1 as StrategyStatsSortBy, true)
     ).toStrictEqual([]);
   });

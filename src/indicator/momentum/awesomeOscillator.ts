@@ -23,9 +23,21 @@ export const AODefaultConfig: Required<AOConfig> = {
 /**
  * Awesome Oscillator (AO).
  *
+ * ```
  * Median Price = ((Low + High) / 2).
  * AO = 5-Period SMA - 34-Period SMA.
+ * ```
  *
+ * @example
+ * ```TypeScript
+ * import { ao } from 'indicatorts';
+ *
+ * const defaultConfig =  { fast: 5, slow: 34 };
+ * const result = ao(highs, lows, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = awesomeOscillator(highs, lows, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param config configuration.

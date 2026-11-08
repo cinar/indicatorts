@@ -18,6 +18,13 @@ import { Asset } from '../../src/strategy/asset';
  * SELL action when NVI < EMA, and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
+ * @example
+ * ```TypeScript
+ * import { nviStrategy } from './negativeVolumeIndexStrategy';
+ *
+ * const defaultConfig = { start: 1000, period: 255 };
+ * const actions = nviStrategy(asset, defaultConfig);
+ * ```
  * @param asset asset object.
  * @param config configuration.
  * @returns strategy actions.

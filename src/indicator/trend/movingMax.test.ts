@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { mmax } from './movingMax';
 
@@ -20,5 +22,10 @@ describe('Moving Max (MMAX)', () => {
 
     const actual = mmax(values);
     deepStrictEqual(actual, expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/movingMax.csv'));
+    assertColumn(mmax(data.close), data.mmax);
   });
 });

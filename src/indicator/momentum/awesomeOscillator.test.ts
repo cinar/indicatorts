@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { ao } from './awesomeOscillator';
@@ -25,5 +27,10 @@ describe('Awesome Oscillator (AO)', () => {
 
     const actual = ao(highs, lows);
     deepStrictEqual(roundDigitsAll(2, actual), expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/awesomeOscillator.csv'));
+    assertColumn(ao(data.high, data.low), data.ao);
   });
 });

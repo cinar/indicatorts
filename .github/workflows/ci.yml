@@ -32,6 +32,14 @@ jobs:
       - name: Run test
         run: npm test
 
+      - name: Check generated docs are up to date
+        run: |
+          npm run docs
+          git diff --exit-code -- '*README.md' || {
+            echo '::error::Generated docs are stale. Run "npm run docs" and commit the README changes.'
+            exit 1
+          }
+
       - name: Upload coverage to Codecov
         # Coverage is the same on every Node version, so upload it once.
         if: matrix.node-version == '24.x'

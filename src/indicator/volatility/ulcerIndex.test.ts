@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../index';
 import { ui } from './ulcerIndex';
 
@@ -26,5 +28,10 @@ describe('Ulcer Index (UI)', () => {
 
     const actual = ui(closings);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/ulcerIndex.csv'));
+    assertColumn(ui(data.close), data.ui);
   });
 });

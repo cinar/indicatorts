@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../index';
 import { cmf } from './chaikinMoneyFlow';
 
@@ -47,5 +49,10 @@ describe('Chaikin Money Flow (CMF)', () => {
       period: 2,
     });
     expect(roundDigitsAll(2, actual)).toStrictEqual([1, 0.5]);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/chaikinMoneyFlow.csv'));
+    assertColumn(cmf(data.high, data.low, data.close, data.volume), data.cmf);
   });
 });

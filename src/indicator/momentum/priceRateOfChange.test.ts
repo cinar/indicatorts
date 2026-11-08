@@ -1,4 +1,9 @@
+// Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
+// https://github.com/cinar/indicatorts
+
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { roc } from './priceRateOfChange';
@@ -18,5 +23,10 @@ describe('Price Rate of Change (ROC)', () => {
 
     const actual = roc(values);
     deepStrictEqual(roundDigitsAll(2, actual), expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/priceRateOfChange.csv'));
+    assertColumn(roc(data.close), data.roc);
   });
 });

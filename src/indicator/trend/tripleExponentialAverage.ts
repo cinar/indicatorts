@@ -24,11 +24,27 @@ export const TRIXDefaultConfig: Required<TRIXConfig> = {
  * as a momentum indicator. Like many oscillators, TRIX oscillates
  * around a zero line.
  *
+ * ```
  * EMA1 = EMA(period, values)
  * EMA2 = EMA(period, EMA1)
  * EMA3 = EMA(period, EMA2)
  * TRIX = (EMA3 - Previous EMA3) / Previous EMA3
+ * ```
  *
+ * Warm-up: built on the exponential moving average, which starts from the
+ * first value rather than from a simple moving average, so the early values
+ * can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ *
+ * @example
+ * ```TypeScript
+ * import { trix } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 4 };
+ * const result = trix(values, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = tripleExponentialAverage(values, defaultConfig);
+ * ```
  * @param values values array.
  * @param config configuration.
  * @returns trix values.

@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { mmin } from './movingMin';
 
@@ -20,5 +22,10 @@ describe('Moving Min (MMIN)', () => {
 
     const actual = mmin(values);
     deepStrictEqual(actual, expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/movingMin.csv'));
+    assertColumn(mmin(data.close), data.mmin);
   });
 });

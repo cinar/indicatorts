@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { qstick } from './qstick';
@@ -22,5 +24,10 @@ describe('Qstick', () => {
 
     const actual = qstick(openings, closings);
     deepStrictEqual(roundDigitsAll(2, actual), expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/qstick.csv'));
+    assertColumn(qstick(data.open, data.close), data.qstick);
   });
 });

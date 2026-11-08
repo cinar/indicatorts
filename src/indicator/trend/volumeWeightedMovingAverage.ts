@@ -23,8 +23,20 @@ export const VWMADefaultConfig: Required<VWMAConfig> = {
  * averaging the price data with an emphasis on volume, meaning areas
  * with higher volume will have a greater weight.
  *
+ * ```
  * VWMA = Sum(Price * Volume) / Sum(Volume) for a given Period.
+ * ```
  *
+ * @example
+ * ```TypeScript
+ * import { vwma } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 20 };
+ * const result = vwma(closings, volumes, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = volumeWeightedMovingAverage(closings, volumes, defaultConfig);
+ * ```
  * @param closings asset closings.
  * @param volumes asset volumes.
  * @param config configuration.
@@ -37,7 +49,10 @@ export function vwma(
 ): number[] {
   const { period } = { ...VWMADefaultConfig, ...config };
   const volumeSum = msum(volumes, { period });
-  const resultRaw = divide(msum(multiply(closings, volumes), { period }), volumeSum);
+  const resultRaw = divide(
+    msum(multiply(closings, volumes), { period }),
+    volumeSum
+  );
 
   // When the volume sum for a window is 0 (no trading volume), VWMA is
   // treated as 0 instead of NaN (0 / 0).

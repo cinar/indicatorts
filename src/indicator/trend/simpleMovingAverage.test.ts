@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { sma } from './simpleMovingAverage';
 
@@ -32,5 +34,10 @@ describe('Simple Moving Average (SMA)', () => {
   it('should recover after a NaN leaves the window', () => {
     const actual = sma([2, NaN, 4, 6, 8], { period: 2 });
     deepStrictEqual(actual, [2, NaN, NaN, 5, 7]);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/simpleMovingAverage.csv'));
+    assertColumn(sma(data.close), data.sma);
   });
 });

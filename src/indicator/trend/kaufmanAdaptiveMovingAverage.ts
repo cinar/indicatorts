@@ -22,9 +22,11 @@ export const KAMADefaultConfig: Required<KAMAConfig> = {
 /**
  * Kaufman's Adaptive Moving Average (KAMA).
  *
+ * ```
  * ER = abs(Close[i] - Close[i-period]) / Sum(abs(Close[j] - Close[j-1]), period)
  * SC = (ER * (fastSC - slowSC) + slowSC)^2
  * KAMA[i] = KAMA[i-1] + SC * (Close[i] - KAMA[i-1])
+ * ```
  *
  * fastSC = 2 / (fast + 1), and slowSC = 2 / (slow + 1). Until a full period
  * is available, the first `period` values are the input values themselves,
@@ -32,6 +34,16 @@ export const KAMADefaultConfig: Required<KAMAConfig> = {
  * `values[period - 1]`. When the price did not move over the window, the
  * efficiency ratio is 0 instead of NaN (0 / 0).
  *
+ * @example
+ * ```TypeScript
+ * import { kama } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 10, fast: 2, slow: 30 };
+ * const result = kama(closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = kaufmanAdaptiveMovingAverage(closings, defaultConfig);
+ * ```
  * @param values values array.
  * @param config configuration.
  * @return KAMA values.

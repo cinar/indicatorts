@@ -32,7 +32,9 @@ export const PSARDefaultConfig: Required<PSARConfig> = {
  * Parabolic SAR. It is a popular technical indicator for identifying the trend
  * and as a trailing stop.
  *
+ * ```
  * PSAR = PSAR[i - 1] - ((PSAR[i - 1] - EP) * AF)
+ * ```
  *
  * If the trend is Falling:
  *  - PSAR is the maximum of PSAR or the previous two high values.
@@ -51,6 +53,15 @@ export const PSARDefaultConfig: Required<PSARConfig> = {
  *
  * Based on video https://www.youtube.com/watch?v=MuEpGBAH7pw&t=0s.
  *
+ * Based on video [How to Calculate the PSAR Using Excel - Revised Version](https://www.youtube.com/watch?v=MuEpGBAH7pw&t=0s).
+ *
+ * @example
+ * ```TypeScript
+ * import { psar } from 'indicatorts';
+ *
+ * const defaultConfig = { step: 0.02, max: 0.2 };
+ * const { trends, psarResult } = psar(highs, lows, closings, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

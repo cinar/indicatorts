@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { Trend } from '../types';
@@ -106,5 +108,12 @@ describe('Parabolic SAR (SAR)', () => {
 
   it('should return no values for empty input', () => {
     expect(psar([], [], [])).toStrictEqual({ trends: [], psarResult: [] });
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/parabolicSar.csv'));
+    const actual = psar(data.high, data.low, data.close);
+    assertColumn(actual.trends, data.trends);
+    assertColumn(actual.psarResult, data.psarResult);
   });
 });

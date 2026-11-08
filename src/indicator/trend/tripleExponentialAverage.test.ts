@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../helper/numArray';
 import { trix } from './tripleExponentialAverage';
 
@@ -20,5 +22,13 @@ describe('Triple Exponential Average (TRIX)', () => {
 
     const actual = trix(values);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(
+      join(__dirname, 'testdata/tripleExponentialAverage.csv')
+    );
+    // TRIX is a ratio, so it is compared with more digits.
+    assertColumn(trix(data.close), data.trix, 6);
   });
 });

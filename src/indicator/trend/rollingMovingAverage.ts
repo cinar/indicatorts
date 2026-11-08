@@ -18,9 +18,26 @@ export const RMADefaultConfig: Required<RMAConfig> = {
 /**
  * Rolling moving average (RMA).
  *
+ * ```
  * R[0] to R[p-1] is SMA(values)
  * R[p] and after is R[i] = ((R[i-1]*(p-1)) + v[i]) / p
+ * ```
  *
+ * Warm-up: until `period` values are available, the result is the average
+ * of the values seen so far, so every index has a value. At index
+ * `period - 1` it equals the simple moving average of the first `period`
+ * values. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ *
+ * @example
+ * ```TypeScript
+ * import { rma } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 4 };
+ * const result = rma(values, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = rollingMovingAverage(values, defaultConfig);
+ * ```
  * @param values values array.
  * @param config configuration.
  * @returns RMA values.

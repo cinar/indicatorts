@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../helper/numArray';
 import { mfi } from './moneyFlowIndex';
 
@@ -79,5 +81,10 @@ describe('Money Flow Index (MFI)', () => {
 
     const actual = mfi(closings, closings, closings, volumes, { period: 3 });
     expect(actual.slice(6)).toStrictEqual([50]);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/moneyFlowIndex.csv'));
+    assertColumn(mfi(data.high, data.low, data.close, data.volume), data.mfi);
   });
 });

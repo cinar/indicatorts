@@ -24,16 +24,28 @@ export const MFIDefaultConfig: Required<MFIConfig> = {
  * to measure to identify overbought and oversold states. It is similar to
  * the Relative Strength Index (RSI), but it also uses the volume.
  *
+ * ```
  * Raw Money Flow = Typical Price * Volume
  * Positive Money Flow = Sum of Raw Money Flow where Typical Price rose
  * Negative Money Flow = Sum of Raw Money Flow where Typical Price fell
  * Money Ratio = Positive Money Flow / Negative Money Flow
  * Money Flow Index = 100 - (100 / (1 + Money Ratio))
+ * ```
  *
  * Bars whose typical price is unchanged from the previous bar, and the
  * first bar (which has no previous bar), contribute to neither flow.
  * When a window has no positive and no negative flow, the MFI is 50.
  *
+ * @example
+ * ```TypeScript
+ * import { mfi } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 14 };
+ * const result = mfi(highs, lows, closings, volumes, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = moneyFlowIndex(highs, lows, closings, volumes, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

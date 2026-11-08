@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { aroon } from './aroon';
@@ -66,5 +68,12 @@ describe('Aroon', () => {
     const actual = aroon(tHighs, tLows, { period: 3 });
     deepStrictEqual(roundDigitsAll(2, actual.up), expected);
     deepStrictEqual(roundDigitsAll(2, actual.down), expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/aroon.csv'));
+    const actual = aroon(data.high, data.low);
+    assertColumn(actual.up, data.up);
+    assertColumn(actual.down, data.down);
   });
 });

@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../helper/numArray';
 import { vpt } from './volumePriceTrend';
 
@@ -13,5 +15,10 @@ describe('Volume Price Trend (VPT)', () => {
 
     const actual = vpt(closings, volumes);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/volumePriceTrend.csv'));
+    assertColumn(vpt(data.close, data.volume), data.vpt);
   });
 });

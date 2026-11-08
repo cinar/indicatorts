@@ -24,11 +24,23 @@ export const CCIDefaultConfig: Required<CCIConfig> = {
  * used to help determine when an investment vehicle is reaching a
  * condition of being overbought or oversold.
  *
+ * ```
  * Moving Average = Sma(Period, Typical Price)
  * Mean Deviation = Sum(Abs(Typical Price[k] - Moving Average)) / Period
  *   for k over the current window, using the current window's moving average
  * CCI = (Typical Price - Moving Average) / (0.015 * Mean Deviation)
+ * ```
  *
+ * @example
+ * ```TypeScript
+ * import { cci } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 20 };
+ * const result = cci(highs, lows, closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = commodityChannelIndex(highs, lows, closings, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

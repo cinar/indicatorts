@@ -58,7 +58,8 @@ export function computeStrategyStats(
   const statsMap = new Map<string, StrategyStats>();
 
   for (const companyResult of companyResults) {
-    const strategyResult = companyResult.strategyResults[0];
+    const strategyResult = companyResult.strategyResults[0] as
+      StrategyResult | undefined;
 
     // A company with no strategy results has no best strategy to count.
     if (strategyResult === undefined) {

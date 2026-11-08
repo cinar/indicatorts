@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../index';
 import { obv } from './onBalanceVolume';
 
@@ -24,5 +26,10 @@ describe('On Balance Volume (OBV)', () => {
     expect(obv([10, 11, 11, 10], [100, 200, 300, 400])).toStrictEqual([
       0, 200, 200, -200,
     ]);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/onBalanceVolume.csv'));
+    assertColumn(obv(data.close, data.volume), data.obv);
   });
 });

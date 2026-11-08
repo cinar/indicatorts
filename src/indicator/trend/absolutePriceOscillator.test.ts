@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { apo } from './absolutePriceOscillator';
@@ -21,5 +23,12 @@ describe('Absolute Price Oscillator (APO)', () => {
 
     const actual = apo(values);
     deepStrictEqual(roundDigitsAll(2, actual), expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(
+      join(__dirname, 'testdata/absolutePriceOscillator.csv')
+    );
+    assertColumn(apo(data.close), data.apo);
   });
 });

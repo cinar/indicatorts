@@ -21,6 +21,13 @@ import {
  * regression over every bar, including future ones, so it would leak
  * future prices into earlier signals.
  *
+ * @example
+ * ```TypeScript
+ * import { cfoStrategy } from './chandeForecastOscillatorStrategy';
+ *
+ * const defaultConfig = { period: 4 };
+ * const actions = cfoStrategy(asset, defaultConfig);
+ * ```
  * @param asset asset object.
  * @param config configuration.
  * @return strategy actions.

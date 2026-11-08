@@ -1,0 +1,19 @@
+// For format details, see https://aka.ms/devcontainer.json.
+{
+  "name": "indicatorts",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:24",
+  "postCreateCommand": "npm ci",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "vitest.explorer"
+      ],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+      }
+    }
+  }
+}

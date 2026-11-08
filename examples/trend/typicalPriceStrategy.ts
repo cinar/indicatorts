@@ -13,6 +13,12 @@ import { typprice } from '../../src/indicator/trend/typicalPrice';
  * a SELL action when it decreases, and HOLD when unchanged.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
+ * @example
+ * ```TypeScript
+ * import { typpriceStrategy } from './typicalPriceStrategy';
+ *
+ * const actions = typpriceStrategy(asset);
+ * ```
  * @param asset asset object.
  * @return strategy actions.
  */

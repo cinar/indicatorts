@@ -13,8 +13,19 @@ import { msum } from '../trend/movingSum';
  * The Volume Price Trend (VPT) provides a correlation between the volume and
  * the price.
  *
+ * ```
  * VPT = Previous VPT + (Volume * (Current Closing - Previous Closing) / Previous Closing)
+ * ```
  *
+ * @example
+ * ```TypeScript
+ * import { vpt } from 'indicatorts';
+ *
+ * const result = vpt(closings, volumes);
+ *
+ * // Alternatively:
+ * // const result = volumePriceTrend(closings, volumes);
+ * ```
  * @param closings closing values.
  * @param volumes volume values.
  * @returns volume price trend values.

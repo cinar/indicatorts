@@ -20,11 +20,25 @@ export const TRIMADefaultConfig: Required<TRIMAConfig> = {
 /**
  * Trima function calculates the Triangular Moving Average (TRIMA).
  *
+ * ```
  * If period is even:
  *   TRIMA = SMA(period / 2, SMA((period / 2) + 1, values))
  * If period is odd:
  *   TRIMA = SMA((period + 1) / 2, SMA((period + 1) / 2, values))
+ * ```
  *
+ * Based on [Triangular Moving Average](https://tulipindicators.org/trima).
+ *
+ * @example
+ * ```TypeScript
+ * import { trima } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 4 };
+ * const result = trima(values, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = triangularMovingAverage(values, defaultConfig);
+ * ```
  * @param values values array.
  * @param config configuration.
  * @return trima values.

@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../helper/numArray';
 import { fi } from './forceIndex';
 
@@ -29,5 +31,10 @@ describe('Force Index (FI)', () => {
     // closings[0] * volumes[0] (900 * 100 = 90000).
     const actual = fi(closings, volumes, { period: 1 });
     expect(roundDigitsAll(2, actual)[0]).toBe(0);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/forceIndex.csv'));
+    assertColumn(fi(data.close, data.volume), data.fi);
   });
 });

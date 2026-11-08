@@ -10,5 +10,7 @@ What is the type of this change.
 
 # Checklist
 
-- [ ] My code adheres to the project's coding standards and includes comprehensive unit tests.
-- [ ] No external dependencies have been introduced.
+- [ ] My code adheres to the [contributing guidelines](../CONTRIBUTING.md) and includes comprehensive unit tests.
+- [ ] New indicators or strategies have a CSV reference data test, with expected values from an independent source.
+- [ ] Generated docs are up to date (`npm run docs`), and `npm run lint` and `npm test` pass.
+- [ ] No runtime dependencies have been introduced.

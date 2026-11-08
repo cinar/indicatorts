@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../helper/numArray';
 import { ab } from './accelerationBands';
 
@@ -30,5 +32,13 @@ describe('Acceleration Bands (AB)', () => {
     expect(roundDigitsAll(2, actual.upper)).toStrictEqual(expectedUpper);
     expect(roundDigitsAll(2, actual.middle)).toStrictEqual(expectedMiddle);
     expect(roundDigitsAll(2, actual.lower)).toStrictEqual(expectedLower);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/accelerationBands.csv'));
+    const actual = ab(data.high, data.low, data.close);
+    assertColumn(actual.upper, data.upper);
+    assertColumn(actual.middle, data.middle);
+    assertColumn(actual.lower, data.lower);
   });
 });

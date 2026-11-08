@@ -19,6 +19,13 @@ import {
  * finite side. No action is emitted until both sides have been observed.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
+ * @example
+ * ```TypeScript
+ * import { macdStrategy } from './macdStrategy';
+ *
+ * const defaultConfig = { fast: 12, slow: 26, signal: 9 };
+ * const actions = macdStrategy(asset, defaultConfig);
+ * ```
  * @param asset asset object.
  * @param config configuration.
  * @return strategy actions.

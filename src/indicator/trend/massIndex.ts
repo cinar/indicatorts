@@ -25,11 +25,27 @@ export const MIDefaultConfig: Required<MIConfig> = {
  * The Mass Index (MI) uses the high-low range to identify trend reversals
  * based on range expansions.
  *
+ * ```
  * Singe EMA = EMA(9, Highs - Lows)
  * Double EMA = EMA(9, Single EMA)
  * Ratio = Single EMA / Double EMA
  * MI = Sum(25, Ratio)
+ * ```
  *
+ * Warm-up: built on the exponential moving average, which starts from the
+ * first value rather than from a simple moving average, so the early values
+ * can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ *
+ * @example
+ * ```TypeScript
+ * import { mi } from 'indicatorts';
+ *
+ * const defaultConfig = { emaPeriod: 9, miPeriod: 25 };
+ * const result = mi(highs, lows, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = massIndex(highs, lows, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param config configuration.

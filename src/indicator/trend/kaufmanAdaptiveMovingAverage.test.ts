@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import {
   kama,
@@ -47,10 +49,19 @@ describe('Kaufman Adaptive Moving Average (KAMA)', () => {
     const expected = [0, 0, k2, k3, k4];
 
     expect(actual).toHaveLength(expected.length);
-    expected.forEach((value, i) => expect(actual[i]).toBeCloseTo(value, 12));
+    expected.forEach((value, i) => {
+      expect(actual[i]).toBeCloseTo(value, 12);
+    });
   });
 
   it('should be exported under its full name', () => {
     expect(kaufmanAdaptiveMovingAverage).toBe(kama);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(
+      join(__dirname, 'testdata/kaufmanAdaptiveMovingAverage.csv')
+    );
+    assertColumn(kama(data.close), data.kama);
   });
 });

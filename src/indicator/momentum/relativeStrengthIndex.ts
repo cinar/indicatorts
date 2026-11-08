@@ -22,9 +22,27 @@ export const RSIDefaultConfig: Required<RSIConfig> = {
  * recent price changes to evaluate overbought and oversold conditions
  * using the given window period.
  *
+ * ```
  * RS = Average Gain / Average Loss
  * RSI = 100 - (100 / (1 + RS))
+ * ```
  *
+ * Warm-up: the first bar counts as a gain and a loss of 0, so it is part of
+ * the first averaging window, and every index has a value. TA-Lib starts from
+ * the second bar (the first price change) and leaves the first `period`
+ * results empty, so the early values differ and converge over the following
+ * bars. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ *
+ * @example
+ * ```TypeScript
+ * import { rsi } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 14 };
+ * const result = rsi(closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = relativeStrengthIndex(closings, defaultConfig);
+ * ```
  * @param closings closing values.
  * @param config configuration.
  * @return rsi values.

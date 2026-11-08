@@ -21,13 +21,31 @@ export const TEMADefaultConfig: Required<TEMAConfig> = {
 /**
  * Tema calculates the Triple Exponential Moving Average (TEMA).
  *
+ * ```
  * TEMA = (3 * EMA1) - (3 * EMA2) + EMA3
  * EMA1 = EMA(values)
  * EMA2 = EMA(EMA1)
  * EMA3 = EMA(EMA2)
+ * ```
  *
- * @param period window period.
+ * Based on [Triple Exponential Moving Average (TEMA)](https://www.investopedia.com/terms/t/triple-exponential-moving-average.asp).
+ *
+ * Warm-up: built on the exponential moving average, which starts from the
+ * first value rather than from a simple moving average, so the early values
+ * can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ *
+ * @example
+ * ```TypeScript
+ * import { tema } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 2 };
+ * const result = tema(values, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = tripleExponentialMovingAverage(values, defaultConfig);
+ * ```
  * @param values values array.
+ * @param config configuration.
  * @return tema values.
  */
 export function tema(values: number[], config: TEMAConfig = {}): number[] {

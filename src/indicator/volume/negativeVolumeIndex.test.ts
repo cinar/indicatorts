@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../index';
 import { nvi } from './negativeVolumeIndex';
 
@@ -28,5 +30,10 @@ describe('Negative Volume Index (NVI)', () => {
     // 10% price change is applied.
     const actual = nvi([10, 11, 12.1], [100, 100, 90]);
     expect(roundDigitsAll(2, actual)).toStrictEqual([1000, 1000, 1100]);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/negativeVolumeIndex.csv'));
+    assertColumn(nvi(data.close, data.volume), data.nvi);
   });
 });

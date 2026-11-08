@@ -26,16 +26,30 @@ export const NVIDefaultConfig: Required<NVIConfig> = {
 
 /**
  * The Negative Volume Index (NVI) is a cumulative indicator using
- * the change in volume to decide when the smart money is active.
+ * the change in volume, which only changes on days when volume decreases.
  *
  * If Volume is less than Previous Volume:
  *
+ * ```
  *   NVI = Previous NVI + (((Closing - Previous Closing) / Previous Closing) * Previous NVI)
+ * ```
  *
  * Otherwise (Volume is greater than or equal to Previous Volume):
  *
+ * ```
  *   NVI = Previous NVI
+ * ```
  *
+ * @example
+ * ```TypeScript
+ * import { nvi } from 'indicatorts';
+ *
+ * const defaultConfig = { start: 1000, period: 255 };
+ * const result = nvi(closings, volumes, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = negativeVolumeIndex(closings, volumes, defaultConfig);
+ * ```
  * @param closings closing values.
  * @param volumes volume values.
  * @param config configuration.

@@ -8,10 +8,23 @@ import { divide, multiply, subtract } from '../../helper/numArray';
  * that uses volume and price to assess whether a stock is
  * being accumulated or distributed.
  *
+ * ```
  * MFM = ((Closing - Low) - (High - Closing)) / (High - Low)
  * MFV = MFM * Period Volume
  * AD = Previous AD + CMFV
+ * ```
  *
+ * Based on [Accumulation/Distribution Indicator (A/D)](https://www.investopedia.com/terms/a/accumulationdistribution.asp).
+ *
+ * @example
+ * ```TypeScript
+ * import { ad } from 'indicatorts';
+ *
+ * const result = ad(highs, lows, closings, volumes);
+ *
+ * // Alternatively:
+ * // const result = accumulationDistribution(highs, lows, closings, volumes);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

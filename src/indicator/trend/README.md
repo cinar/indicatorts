@@ -2,170 +2,62 @@
 
 Trend indicators measure the direction and strength of a trend.
 
-- [Trend Indicators](#trend-indicators)
-  - [Absolute Price Oscillator (APO)](#absolute-price-oscillator-apo)
-  - [Aroon](#aroon)
-  - [Balance of Power (BOP)](#balance-of-power-bop)
-  - [Chande Forecast Oscillator (CFO)](#chande-forecast-oscillator-cfo)
-  - [Commodity Channel Index (CCI)](#commodity-channel-index-cci)
-  - [Double Exponential Moving Average (DEMA)](#double-exponential-moving-average-dema)
-  - [Exponential Moving Average (EMA)](#exponential-moving-average-ema)
-  - [Kaufman's Adaptive Moving Average (KAMA)](#kaufmans-adaptive-moving-average-kama)
-  - [Mass Index (MI)](#mass-index-mi)
-  - [Moving Average Convergence Divergence (MACD)](#moving-average-convergence-divergence-macd)
-  - [Moving Max (MMAX)](#moving-max-mmax)
-  - [Moving Min (MMIN)](#moving-min-mmin)
-  - [Moving Sum (MSUM)](#moving-sum-msum)
-  - [Parabolic SAR (PSAR)](#parabolic-sar-psar)
-  - [Qstick](#qstick)
-  - [Random Index (KDJ)](#random-index-kdj)
-  - [Rolling Moving Average (RMA)](#rolling-moving-average-rma)
-  - [Simple Moving Average (SMA)](#simple-moving-average-sma)
-  - [Since Change](#since-change)
-  - [Triple Exponential Moving Average (TEMA)](#triple-exponential-moving-average-tema)
-  - [Triangular Moving Average (TRIMA)](#triangular-moving-average-trima)
-  - [Triple Exponential Average (TRIX)](#triple-exponential-average-trix)
-  - [Typical Price](#typical-price)
-  - [Volume Weighted Moving Average (VWMA)](#volume-weighted-moving-average-vwma)
-  - [Vortex Indicator](#vortex-indicator)
-  - [Disclaimer](#disclaimer)
-  - [License](#license)
-
 **NOTE:** All configuration objects for all indicators are optional. If no configuration object is passed, the default configuration will be used. Likewise, you may also partially pass a configuration object, and the default values will be used for the missing properties.
 
-## Absolute Price Oscillator (APO)
+The API reference below is generated from the JSDoc comments by [tsdoc-markdown](https://github.com/peterpeterparker/tsdoc-markdown); run `npm run docs` after changing them.
 
-The [absolutePriceOscillator](./absolutePriceOscillator.ts) function calculates a technical indicator that is used to follow trends. APO crossing above zero indicates bullish, while crossing below zero indicates bearish. Positive value is upward trend, while negative value is downward trend.
+<!-- TSDOC_START -->
 
-```
-Fast = Ema(fastPeriod, values)
-Slow = Ema(slowPeriod, values)
-APO = Fast - Slow
-```
+## Functions
 
-```TypeScript
-import { apo } from 'indicatorts';
+- [ema](#ema)
+- [apo](#apo)
+- [aroon](#aroon)
+- [bop](#bop)
+- [cfo](#cfo)
+- [mcfo](#mcfo)
+- [msum](#msum)
+- [sma](#sma)
+- [typprice](#typprice)
+- [cci](#cci)
+- [dema](#dema)
+- [kama](#kama)
+- [mi](#mi)
+- [macd](#macd)
+- [mmax](#mmax)
+- [mmin](#mmin)
+- [psar](#psar)
+- [qstick](#qstick)
+- [kdj](#kdj)
+- [rma](#rma)
+- [since](#since)
+- [trima](#trima)
+- [trix](#trix)
+- [tema](#tema)
+- [vwma](#vwma)
+- [vortex](#vortex)
 
-const defaultConfig = { fast: 14, slow: 30 };
-const result = apo(values, defaultConfig);
+### ema
 
-// Alternatively:
-// const result = absolutePriceOscillator(values, defaultConfig);
-```
+Exponential moving average (EMA).
 
-## Aroon
+Warm-up: the first value is used as the starting point
+(`result[0] = values[0]`), so every index has a value. TA-Lib and many
+other libraries start from the simple moving average of the first `period`
+values instead, and leave the first `period - 1` results empty, so the
+early values differ. The difference shrinks by a factor of
+`1 - 2 / (period + 1)` every bar. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
-The [Aroon](./aroon.ts) function calculates a technical indicator that is used to identify trend changes in the price of a stock, as well as the strength of that trend. It consists of two lines, Aroon Up, and Aroon Down. The Aroon Up line measures measures the strength of the uptrend, and the Aroon Down measures the strength of the downtrend. When Aroon Up is above Aroon Down, it indicates bullish price, and when Aroon Down is above Aroon Up, it indicates bearish price.
+| Function | Type                                                 |
+| -------- | ---------------------------------------------------- |
+| `ema`    | `(values: number[], config?: EMAConfig) => number[]` |
 
-```
-Aroon Up = ((25 - Period Since Last 25 Period High) / 25) * 100
-Aroon Down = ((25 - Period Since Last 25 Period Low) / 25) * 100
+Parameters:
 
-The lookback window covers the current bar plus the previous 25 bars.
-```
+- `values`: values array.
+- `config`: configuration.
 
-```TypeScript
-import { aroon } from 'indicatorts';
-
-const defaultConfig = { period: 25 };
-const { up, down } = aroon(highs, lows, defaultConfig);
-```
-
-## Balance of Power (BOP)
-
-The [BalanceOfPower](./balanceOfPower.ts) function calculates the strength of buying and selling pressure. Positive value indicates an upward trend, and negative value indicates a downward trend. Zero indicates a balance between the two.
-
-```
-BOP = (Closing - Opening) / (High - Low)
-```
-
-```Typescript
-import { bop } from 'indicatorts';
-
-const result = bop(openings, highs, lows, closings);
-
-// Alternatively:
-// const result = balanceOfPower(openings, highs, lows, closings);
-```
-
-## Chande Forecast Oscillator (CFO)
-
-The [chandeForecastOscillator](./chandeForecastOscillator.ts) developed by Tushar Chande The Forecast Oscillator plots the percentage difference between the closing price and the n-period linear regression forecasted price. The oscillator is above zero when the forecast price is greater than the closing price and less than zero if it is below.
-
-```
-R = Linreg(Closing)
-CFO = ((Closing - R) / Closing) * 100
-```
-
-Based on [Chande Forecast Oscillator Formula, Strategy](https://www.stockmaniacs.net/chande-forecast-oscillator/), [Forecast Oscillator
-](https://www.fmlabs.com/reference/default.htm?url=ForecastOscillator.htm), and [Least Squares Regression](https://www.mathsisfun.com/data/least-squares-regression.html).
-
-```TypeScript
-import { cfo } from 'indicatorts';
-
-const result = cfo(closings);
-
-// Alternatively:
-// const result = chandeForecastOscillator(closings);
-```
-
-There is also an oscillator for calculating the moving chande forecast oscillator.
-
-```TypeScript
-import { mcfo } from 'indicatorts';
-
-const defaultConfig = { period: 4 };
-const result = mcfo(closings, defaultConfig);
-
-// Alternatively:
-// const result = movingChandeForecastOscillator(closings, defaultConfig);
-```
-
-## Commodity Channel Index (CCI)
-
-The [commodityChannelIndex](./commodityChannelIndex.ts) is a momentum-based oscillator used to help determine when an investment vehicle is reaching a condition of being overbought or oversold.
-
-```
-Moving Average = Sma(Period, Typical Price)
-Mean Deviation = Sum(Abs(Typical Price - Moving Average)) / Period over the current window
-CCI = (Typical Price - Moving Average) / (0.015 * Mean Deviation)
-```
-
-```TypeScript
-import { cci } from 'indicatorts';
-
-const defaultConfig = { period: 20 };
-const result = cci(highs, lows, closings, defaultConfig);
-
-// Alternatively:
-// const result = commodityChannelIndex(highs, lows, closings, defaultConfig);
-```
-
-## Double Exponential Moving Average (DEMA)
-
-The [dema](./doubleExponentialMovingAverage.ts) function calculates the Double Exponential Moving Average (DEMA) for a given period.
-
-The double exponential moving average (DEMA) is a technical indicator introduced by Patrick Mulloy. The purpose is to reduce the amount of noise present in price charts used by technical traders. The DEMA uses two exponential moving averages (EMAs) to eliminate lag. It helps confirm uptrends when the price is above the average, and helps confirm downtrends when the price is below the average. When the price crosses the average that may signal a trend change.
-
-```
-DEMA = (2 * EMA(values)) - EMA(EMA(values))
-```
-
-```TypeScript
-import { dema } from 'indicatorts';
-
-const defaultConfig = { period: 12 };
-const result = dema(values, defaultConfig);
-
-// Alternatively:
-// const result = doubleExponentialMovingAverage(values, defaultConfig);
-```
-
-Based on [Double Exponential Moving Average (DEMA)](https://www.investopedia.com/terms/d/double-exponential-moving-average.asp).
-
-## Exponential Moving Average (EMA)
-
-The [ema](./exponentialMovingAverage.ts) function calculates the exponential moving average for a given period.
+Examples:
 
 ```TypeScript
 import { ema } from 'indicatorts';
@@ -177,97 +69,223 @@ const result = ema(values, defaultConfig);
 // const result = exponentialMovingAverage(values, defaultConfig);
 ```
 
-## Kaufman's Adaptive Moving Average (KAMA)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/exponentialMovingAverage.ts#L42)
 
-The [kama](./kaufmanAdaptiveMovingAverage.ts) function calculates Kaufman's Adaptive Moving Average, a moving average designed to account for market noise and volatility. Its sensitivity to price changes increases during trending periods and decreases during ranging periods. Until a full period is available, the first `period` values are the closings themselves.
+### apo
+
+Absolute Price Oscillator (APO) function calculates the difference between
+a fast and a slow exponential moving average of the values. It is positive
+when the fast EMA is above the slow EMA, and negative when it is below.
 
 ```
-ER = abs(Close[i] - Close[i-period]) / Sum(abs(Close[j] - Close[j-1]), period)
-SC = (ER * (fastSC - slowSC) + slowSC)^2
-KAMA[i] = KAMA[i-1] + SC * (Close[i] - KAMA[i-1])
+Fast = EMA(fastPeriod, values)
+Slow = EMA(slowPeriod, values)
+APO = Fast - Slow
 ```
+
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
+| Function | Type                                                 |
+| -------- | ---------------------------------------------------- |
+| `apo`    | `(values: number[], config?: APOConfig) => number[]` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Examples:
 
 ```TypeScript
-import { kama } from 'indicatorts';
+import { apo } from 'indicatorts';
 
-const defaultConfig = { period: 10, fast: 2, slow: 30 };
-const result = kama(closings, defaultConfig);
+const defaultConfig = { fast: 14, slow: 30 };
+const result = apo(values, defaultConfig);
 
 // Alternatively:
-// const result = kaufmanAdaptiveMovingAverage(closings, defaultConfig);
+// const result = absolutePriceOscillator(values, defaultConfig);
 ```
 
-## Mass Index (MI)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/absolutePriceOscillator.ts#L52)
 
-The [massIndex](./massIndex.ts) uses the high-low range to identify trend reversals based on range expansions.
+### aroon
+
+Aroon Indicator. It is a technical indicator that is used to identify trend changes
+in the price of a stock, as well as the strength of that trend. It consists of two
+lines, Aroon Up, and Aroon Down. The Aroon Up line measures the strength of the
+uptrend, and the Aroon Down measures the strength of the downtrend.
 
 ```
-Singe EMA = EMA(9, Highs - Lows)
-Double EMA = EMA(9, Single EMA)
-Ratio = Single EMA / Double EMA
-MI = Sum(25, Ratio)
+Aroon Up = ((25 - Period Since Last 25 Period High) / 25) * 100
+Aroon Down = ((25 - Period Since Last 25 Period Low) / 25) * 100
 ```
+
+| Function | Type                                                                     |
+| -------- | ------------------------------------------------------------------------ |
+| `aroon`  | `(highs: number[], lows: number[], config?: AroonConfig) => AroonResult` |
+
+Parameters:
+
+- `highs`: highs values.
+- `lows`: lows values.
+- `config`: configuration.
+
+Examples:
 
 ```TypeScript
-import { mi } from 'indicatorts';
+import { aroon } from 'indicatorts';
 
-const defaultConfig = { emaPeriod: 9, miPeriod: 25 };
-const result = mi(highs, lows, defaultConfig);
+const defaultConfig = { period: 25 };
+const { up, down } = aroon(highs, lows, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/aroon.ts#L93)
+
+### bop
+
+The Balance of Power (BOP) function calculates the strength of buying and
+selling pressure. Positive value indicates an upward trend, and negative
+value indicates a downward trend. Zero indicates a balance between
+the two.
+
+```
+BOP = (Closing - Opening) / (High - Low)
+```
+
+| Function | Type                                                                                    |
+| -------- | --------------------------------------------------------------------------------------- |
+| `bop`    | `(openings: number[], highs: number[], lows: number[], closings: number[]) => number[]` |
+
+Parameters:
+
+- `openings`: opening values.
+- `highs`: high values.
+- `lows`: low values.
+- `closings`: closing values.
+
+Examples:
+
+```TypeScript
+import { bop } from 'indicatorts';
+
+const result = bop(openings, highs, lows, closings);
 
 // Alternatively:
-// const result = massIndex(highs, lows, defaultConfig);
+// const result = balanceOfPower(openings, highs, lows, closings);
 ```
 
-## Moving Average Convergence Divergence (MACD)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/balanceOfPower.ts#L31)
 
-The [macd](./movingAverageConvergenceDivergence.ts) function calculates a trend-following momentum indicator that shows the relationship between two moving averages of price.
+### cfo
+
+The Chande Forecast Oscillator developed by Tushar Chande The Forecast
+Oscillator plots the percentage difference between the closing price and
+the n-period linear regression forecasted price. The oscillator is above
+zero when the forecast price is greater than the closing price and less
+than zero if it is below.
 
 ```
-MACD = 12-Period EMA - 26-Period EMA.
-Signal = 9-Period EMA of MACD.
+R = Linreg(Closing)
+CFO = ((Closing - R) / Closing) * 100
 ```
+
+WARNING: this computes a single linear regression over the _entire_
+input series — every returned value depends on all of `closings`,
+including bars after it. This makes cfo() unsuitable for point-in-time
+signals (e.g. backtesting), where it would leak future information.
+Use mcfo() (Moving Chande Forecast Oscillator) instead for a rolling,
+point-in-time-safe computation.
+
+Based on [Chande Forecast Oscillator Formula, Strategy](https://www.stockmaniacs.net/chande-forecast-oscillator/), [Forecast Oscillator](https://www.fmlabs.com/reference/default.htm?url=ForecastOscillator.htm), and [Least Squares Regression](https://www.mathsisfun.com/data/least-squares-regression.html).
+
+| Function | Type                               |
+| -------- | ---------------------------------- |
+| `cfo`    | `(closings: number[]) => number[]` |
+
+Parameters:
+
+- `closings`: closing values.
+
+Examples:
 
 ```TypeScript
-import { macd } from 'indicatorts';
+import { cfo } from 'indicatorts';
 
-const defaultConfig = { fast: 12, slow: 26, signal: 9 };
-const { macdLine, signalLine } = macd(closings);
+const result = cfo(closings);
 
 // Alternatively:
-// const { macdLine, signalLine } = movingAverageConvergenceDivergence(closings, defaultConfig);
+// const result = chandeForecastOscillator(closings);
 ```
 
-## Moving Max (MMAX)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/chandeForecastOscillator.ts#L48)
 
-The [mmax](./movingMax.ts) function gives the maximum value within the given moving period. It can be used to get the moving maximum closing price and other values.
+### mcfo
+
+Moving Chande Forecast Oscillator calculates based on
+the given period.
+
+The Chande Forecast Oscillator developed by Tushar Chande The Forecast
+Oscillator plots the percentage difference between the closing price and
+the n-period linear regression forecasted price. The oscillator is above
+zero when the forecast price is greater than the closing price and less
+than zero if it is below.
+
+```
+R = Linreg(Closing)
+CFO = ((Closing - R) / Closing) * 100
+```
+
+| Function | Type                                                    |
+| -------- | ------------------------------------------------------- |
+| `mcfo`   | `(closings: number[], config?: MCFOConfig) => number[]` |
+
+Parameters:
+
+- `closings`: closing values.
+- `config`: configuration.
+
+Examples:
 
 ```TypeScript
-import { mmax } from 'indicatorts';
+import { mcfo } from 'indicatorts';
 
 const defaultConfig = { period: 4 };
-const result = mmax(values, defaultConfig);
+const result = mcfo(closings, defaultConfig);
 
 // Alternatively:
-// const result = movingMax(values, defaultConfig);
+// const result = movingChandeForecastOscillator(closings, defaultConfig);
 ```
 
-## Moving Min (MMIN)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/chandeForecastOscillator.ts#L105)
 
-The [mmin](./movingMin.ts) function gives the minimum value within the given moving period. It can be used to get the moving minimum closing price and other values.
+### msum
 
-```TypeScript
-import { mmin } from 'indicatorts';
+Moving sum of the given values.
 
-const defaultConfig = { period: 4 };
-const result = mmin(values, defaultConfig);
+The sum is maintained incrementally, adding the incoming value and
+subtracting the outgoing one, which keeps it O(n). Two safeguards keep
+that running sum exact where it matters:
 
-// Alternatively:
-// const result = movingMin(values, defaultConfig);
-```
+- A window holding only zeros sums to exactly 0. Without this, the
+  floating point residue left by subtracting fractional values (for
+  example, 4.4e-16) survives, and callers that guard divisions with
+  `sum === 0` (VWAP, VWMA, CMF, MFI) would divide by it instead.
+- A non-finite value (NaN or Infinity) only affects the windows that
+  contain it. Subtracting it back out would leave NaN forever, so the
+  sum is recomputed from the window once that value leaves it.
 
-## Moving Sum (MSUM)
+| Function | Type                                                  |
+| -------- | ----------------------------------------------------- |
+| `msum`   | `(values: number[], config?: MSumConfig) => number[]` |
 
-The [msum](./movingSum.ts) function gives the sum value within the given moving period.
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Examples:
 
 ```TypeScript
 import { msum } from 'indicatorts';
@@ -279,97 +297,26 @@ const result = msum(values, defaultConfig);
 // const result = movingSum(values, defaultConfig);
 ```
 
-## Parabolic SAR (PSAR)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingSum.ts#L47)
 
-The [psar](./parabolicSar.ts) function calculates an identifier for the trend and the trailing stop.
+### sma
 
-```
-PSAR = PSAR[i - 1] - ((PSAR[i - 1] - EP) * AF)
-```
+Simple moving average (SMA). Until a full period is available, the
+average is taken over the values seen so far.
 
-If the trend is Falling:
+Built on msum, so a window of zeros averages to exactly 0, and a NaN or
+Infinity input only affects the windows that contain it.
 
-- PSAR is the maximum of PSAR or the previous two high values.
-- If the current high is greater than or equals to PSAR, use EP.
+| Function | Type                                                 |
+| -------- | ---------------------------------------------------- |
+| `sma`    | `(values: number[], config?: SMAConfig) => number[]` |
 
-If the trend is Rising:
+Parameters:
 
-- PSAR is the minimum of PSAR or the previous two low values.
-- If the current low is less than or equals to PSAR, use EP.
+- `values`: values array.
+- `config`: configuration.
 
-When EP is used, the trend reverses, EP is set to the current high (if now rising) or low (if now falling), and AF is reset to 0.02.
-
-Otherwise the trend stays the same, EP is set to the maximum of EP or the high (if rising) or the minimum of EP or the low (if falling), and when EP changes AF is incremented by 0.02, up to 0.20.
-
-Based on video [How to Calculate the PSAR Using Excel - Revised Version](https://www.youtube.com/watch?v=MuEpGBAH7pw&t=0s).
-
-```TypeScript
-import { psar } from 'indicatorts';
-
-const defaultConfig = { step: 0.02, max: 0.2 };
-const { trends, psarResult } = psar(highs, lows, closings, defaultConfig);
-```
-
-## Qstick
-
-The [qstick](./qstick.ts) function calculates the ratio of recent up and down bars.
-
-```
-QS = Sma(Closing - Opening)
-```
-
-```TypeScript
-import { qstick } from 'indicatorts';
-
-const defaultConfig = { period: 14 };
-const result = qstick(openings, closings, defaultConfig);
-```
-
-## Random Index (KDJ)
-
-The [kdj](./randomIndex.ts) function calculates the KDJ indicator, also known as the Random Index. KDJ is calculated similar to the Stochastic Oscillator with the difference of having the J line. It is used to analyze the trend and entry points.
-
-The K and D lines show if the asset is overbought when they crosses above 80%, and oversold when they crosses below 20%. The J line represents the divergence.
-
-```
-RSV = ((Closing - Min(Low, rPeriod)) / (Max(High, rPeriod) - Min(Low, rPeriod))) * 100
-K = Sma(RSV, kPeriod)
-D = Sma(K, dPeriod)
-J = (3 * K) - (2 * D)
-```
-
-```TypeScript
-import { kdj } from 'indicatorts';
-
-const defaultConfig = { rPeriod: 9, kPeriod: 3, dPeriod: 3 };
-const { k, d, j } = kdj(highs, lows, closings, defaultConfig);
-
-// Alternatively:
-// const { k, d, j } = randomIndex(highs, lows, closings, defaultConfig);
-```
-
-## Rolling Moving Average (RMA)
-
-The [rma](./rollingMovingAverage.ts) function calculates the rolling moving average for a given period.
-
-```
-R[0] to R[p-1] is SMA(values)
-R[p] and after is R[i] = ((R[i-1]*(p-1)) + v[i]) / p
-```
-
-```TypeScript
-import { rma } from 'indicatorts';
-
-const defaultConfig = { period: 4 };
-const result = rma(values, defaultConfig);
-
-// Alternatively:
-// const result = rollingMovingAverage(values, defaultConfig);
-```
-
-## Simple Moving Average (SMA)
-
-The [sma](./simpleMovingAverage.ts) function calculates the simple moving average for a given period.
+Examples:
 
 ```TypeScript
 import { sma } from 'indicatorts';
@@ -381,9 +328,472 @@ const result = sma(values);
 // const result = simpleMovingAverage(values, defaultConfig);
 ```
 
-## Since Change
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/simpleMovingAverage.ts#L41)
 
-The [since](./since.ts) function provides the number values since the last change.
+### typprice
+
+The Typical Price. It is another approximation of
+average price for each period and can be used as
+a filter for moving average systems.
+
+```
+TPI = (High + Low + Closing) / 3
+```
+
+| Function   | Type                                                                |
+| ---------- | ------------------------------------------------------------------- |
+| `typprice` | `(highs: number[], lows: number[], closings: number[]) => number[]` |
+
+Parameters:
+
+- `highs`: high values.
+- `lows`: low values.
+- `closings`: closing values.
+
+Examples:
+
+```TypeScript
+import { typprice } from 'indicatorts';
+
+const result = typprice(highs, lows, closings);
+
+// Alternatively:
+// const result = typicalPrice(highs, lows, closings);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/typicalPrice.ts#L29)
+
+### cci
+
+The Commodity Channel Index (CCI) is a momentum-based oscillator
+used to help determine when an investment vehicle is reaching a
+condition of being overbought or oversold.
+
+```
+Moving Average = Sma(Period, Typical Price)
+Mean Deviation = Sum(Abs(Typical Price[k] - Moving Average)) / Period
+  for k over the current window, using the current window's moving average
+CCI = (Typical Price - Moving Average) / (0.015 * Mean Deviation)
+```
+
+| Function | Type                                                                                    |
+| -------- | --------------------------------------------------------------------------------------- |
+| `cci`    | `(highs: number[], lows: number[], closings: number[], config?: CCIConfig) => number[]` |
+
+Parameters:
+
+- `highs`: high values.
+- `lows`: low values.
+- `closings`: closing values.
+- `config`: configuration.
+
+Returns:
+
+cci values.
+
+Examples:
+
+```TypeScript
+import { cci } from 'indicatorts';
+
+const defaultConfig = { period: 20 };
+const result = cci(highs, lows, closings, defaultConfig);
+
+// Alternatively:
+// const result = commodityChannelIndex(highs, lows, closings, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/commodityChannelIndex.ts#L50)
+
+### dema
+
+Dema calculates the Double Exponential Moving Average (DEMA).
+
+```
+DEMA = (2 * EMA(values)) - EMA(EMA(values))
+```
+
+Based on [Double Exponential Moving Average (DEMA)](https://www.investopedia.com/terms/d/double-exponential-moving-average.asp).
+
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
+| Function | Type                                                  |
+| -------- | ----------------------------------------------------- |
+| `dema`   | `(values: number[], config?: DEMAConfig) => number[]` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration
+
+Examples:
+
+```TypeScript
+import { dema } from 'indicatorts';
+
+const defaultConfig = { period: 12 };
+const result = dema(values, defaultConfig);
+
+// Alternatively:
+// const result = doubleExponentialMovingAverage(values, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/doubleExponentialMovingAverage.ts#L48)
+
+### kama
+
+Kaufman's Adaptive Moving Average (KAMA).
+
+```
+ER = abs(Close[i] - Close[i-period]) / Sum(abs(Close[j] - Close[j-1]), period)
+SC = (ER * (fastSC - slowSC) + slowSC)^2
+KAMA[i] = KAMA[i-1] + SC * (Close[i] - KAMA[i-1])
+```
+
+fastSC = 2 / (fast + 1), and slowSC = 2 / (slow + 1). Until a full period
+is available, the first `period` values are the input values themselves,
+and the first adaptive value (at index `period`) builds on
+`values[period - 1]`. When the price did not move over the window, the
+efficiency ratio is 0 instead of NaN (0 / 0).
+
+| Function | Type                                                  |
+| -------- | ----------------------------------------------------- |
+| `kama`   | `(values: number[], config?: KAMAConfig) => number[]` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { kama } from 'indicatorts';
+
+const defaultConfig = { period: 10, fast: 2, slow: 30 };
+const result = kama(closings, defaultConfig);
+
+// Alternatively:
+// const result = kaufmanAdaptiveMovingAverage(closings, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/kaufmanAdaptiveMovingAverage.ts#L51)
+
+### mi
+
+The Mass Index (MI) uses the high-low range to identify trend reversals
+based on range expansions.
+
+```
+Singe EMA = EMA(9, Highs - Lows)
+Double EMA = EMA(9, Single EMA)
+Ratio = Single EMA / Double EMA
+MI = Sum(25, Ratio)
+```
+
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
+| Function | Type                                                               |
+| -------- | ------------------------------------------------------------------ |
+| `mi`     | `(highs: number[], lows: number[], config?: MIConfig) => number[]` |
+
+Parameters:
+
+- `highs`: high values.
+- `lows`: low values.
+- `config`: configuration.
+
+Returns:
+
+mi values.
+
+Examples:
+
+```TypeScript
+import { mi } from 'indicatorts';
+
+const defaultConfig = { emaPeriod: 9, miPeriod: 25 };
+const result = mi(highs, lows, defaultConfig);
+
+// Alternatively:
+// const result = massIndex(highs, lows, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/massIndex.ts#L54)
+
+### macd
+
+Moving Average Convergence Divergence (MACD).
+
+```
+MACD = 12-Period EMA - 26-Period EMA.
+Signal = 9-Period EMA of MACD.
+```
+
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
+| Function | Type                                                      |
+| -------- | --------------------------------------------------------- |
+| `macd`   | `(closings: number[], config?: MACDConfig) => MACDResult` |
+
+Parameters:
+
+- `closings`: closing values.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { macd } from 'indicatorts';
+
+const defaultConfig = { fast: 12, slow: 26, signal: 9 };
+const { macdLine, signalLine } = macd(closings);
+
+// Alternatively:
+// const { macdLine, signalLine } = movingAverageConvergenceDivergence(closings, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingAverageConvergenceDivergence.ts#L59)
+
+### mmax
+
+Moving max for the given period.
+
+| Function | Type                                                  |
+| -------- | ----------------------------------------------------- |
+| `mmax`   | `(values: number[], config?: MMaxConfig) => number[]` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { mmax } from 'indicatorts';
+
+const defaultConfig = { period: 4 };
+const result = mmax(values, defaultConfig);
+
+// Alternatively:
+// const result = movingMax(values, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingMax.ts#L37)
+
+### mmin
+
+Moving min for the given period.
+
+| Function | Type                                                  |
+| -------- | ----------------------------------------------------- |
+| `mmin`   | `(values: number[], config?: MMinConfig) => number[]` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { mmin } from 'indicatorts';
+
+const defaultConfig = { period: 4 };
+const result = mmin(values, defaultConfig);
+
+// Alternatively:
+// const result = movingMin(values, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingMin.ts#L37)
+
+### psar
+
+Parabolic SAR. It is a popular technical indicator for identifying the trend
+and as a trailing stop.
+
+```
+PSAR = PSAR[i - 1] - ((PSAR[i - 1] - EP) * AF)
+```
+
+If the trend is Falling:
+
+- PSAR is the maximum of PSAR or the previous two high values.
+- If the current high is greather than or equals to PSAR, use EP.
+
+If the trend is Rising:
+
+- PSAR is the minimum of PSAR or the previous two low values.
+- If the current low is less than or equals to PSAR, use EP.
+
+When EP is used, the trend reverses, EP is set to the current high (if
+now rising) or low (if now falling), and AF is reset to 0.02.
+
+Otherwise the trend stays the same, EP is set to the maximum of EP or the
+high (if rising) or the minimum of EP or the low (if falling), and when EP
+changes AF is incremented by 0.02, up to 0.20.
+
+Based on video https://www.youtube.com/watch?v=MuEpGBAH7pw&t=0s.
+
+Based on video [How to Calculate the PSAR Using Excel - Revised Version](https://www.youtube.com/watch?v=MuEpGBAH7pw&t=0s).
+
+| Function | Type                                                                                       |
+| -------- | ------------------------------------------------------------------------------------------ |
+| `psar`   | `(highs: number[], lows: number[], closings: number[], config?: PSARConfig) => PSARResult` |
+
+Parameters:
+
+- `highs`: high values.
+- `lows`: low values.
+- `closings`: closing values.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { psar } from 'indicatorts';
+
+const defaultConfig = { step: 0.02, max: 0.2 };
+const { trends, psarResult } = psar(highs, lows, closings, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/parabolicSar.ts#L71)
+
+### qstick
+
+The Qstick function calculates the ratio of recent up and down bars.
+
+```
+QS = Sma(Closing - Opening)
+```
+
+| Function | Type                                                                          |
+| -------- | ----------------------------------------------------------------------------- |
+| `qstick` | `(openings: number[], closings: number[], config?: QstickConfig) => number[]` |
+
+Parameters:
+
+- `openings`: openinig values.
+- `closings`: closing values.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { qstick } from 'indicatorts';
+
+const defaultConfig = { period: 14 };
+const result = qstick(openings, closings, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/qstick.ts#L40)
+
+### kdj
+
+The kdj function calculates the KDJ indicator, also known as
+the Random Index. KDJ is calculated similar to the Stochastic
+Oscillator with the difference of having the J line. It is
+used to analyze the trend.
+
+The K and D lines show if the asset is overbought when they
+crosses above 80%, and oversold when they crosses below
+20%. The J line represents the divergence.
+
+```
+RSV = ((Closing - Min(Low, rPeriod))
+      / (Max(High, rPeriod) - Min(Low, rPeriod))) * 100
+K = Sma(RSV, kPeriod)
+D = Sma(K, dPeriod)
+J = (3 * K) - (2 * D)
+```
+
+| Function | Type                                                                                     |
+| -------- | ---------------------------------------------------------------------------------------- |
+| `kdj`    | `(highs: number[], lows: number[], closings: number[], config?: KDJConfig) => KDJResult` |
+
+Parameters:
+
+- `highs`: high values.
+- `lows`: low values.
+- `closings`: closing values.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { kdj } from 'indicatorts';
+
+const defaultConfig = { rPeriod: 9, kPeriod: 3, dPeriod: 3 };
+const { k, d, j } = kdj(highs, lows, closings, defaultConfig);
+
+// Alternatively:
+// const { k, d, j } = randomIndex(highs, lows, closings, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/randomIndex.ts#L70)
+
+### rma
+
+Rolling moving average (RMA).
+
+```
+R[0] to R[p-1] is SMA(values)
+R[p] and after is R[i] = ((R[i-1]*(p-1)) + v[i]) / p
+```
+
+Warm-up: until `period` values are available, the result is the average
+of the values seen so far, so every index has a value. At index
+`period - 1` it equals the simple moving average of the first `period`
+values. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
+| Function | Type                                                 |
+| -------- | ---------------------------------------------------- |
+| `rma`    | `(values: number[], config?: RMAConfig) => number[]` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Returns:
+
+RMA values.
+
+Examples:
+
+```TypeScript
+import { rma } from 'indicatorts';
+
+const defaultConfig = { period: 4 };
+const result = rma(values, defaultConfig);
+
+// Alternatively:
+// const result = rollingMovingAverage(values, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L45)
+
+### since
+
+Since value is changed.
+
+| Function | Type                             |
+| -------- | -------------------------------- |
+| `since`  | `(values: number[]) => number[]` |
+
+Parameters:
+
+- `values`: values array.
+
+Examples:
 
 ```TypeScript
 import { since } from 'indicatorts';
@@ -391,43 +801,31 @@ import { since } from 'indicatorts';
 const result = since(values);
 ```
 
-## Triple Exponential Moving Average (TEMA)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/since.ts#L16)
 
-The [tema](./tripleExponentialMovingAverage.ts) function calculates the Triple Exponential Moving Average (TEMA) for a given period.
+### trima
 
-The triple exponential moving average (TEMA) was designed to smooth value fluctuations, thereby making it easier to identify trends without the lag associated with traditional moving averages. It does this by taking multiple exponential moving averages (EMA) of the original EMA and subtracting out some of the lag.
-
-```
-TEMA = (3 * EMA1) - (3 * EMA2) + EMA3
-EMA1 = EMA(values)
-EMA2 = EMA(EMA1)
-EMA3 = EMA(EMA2)
-```
-
-```TypeScript
-import { tema } from 'indicatorts';
-
-const defaultConfig = { period: 2 };
-const result = tema(values, defaultConfig);
-
-// Alternatively:
-// const result = tripleExponentialMovingAverage(values, defaultConfig);
-```
-
-Based on [Triple Exponential Moving Average (TEMA)](https://www.investopedia.com/terms/t/triple-exponential-moving-average.asp).
-
-## Triangular Moving Average (TRIMA)
-
-The [trima](./triangularMovingAverage.ts) function calculates the Triangular Moving Average (TRIMA) for a given period.
-
-The Triangular Moving Average (TRIMA) is a weighted moving average putting more weight to the middle values.
+Trima function calculates the Triangular Moving Average (TRIMA).
 
 ```
 If period is even:
-   TRIMA = SMA(period / 2, SMA((period / 2) + 1, values))
+  TRIMA = SMA(period / 2, SMA((period / 2) + 1, values))
 If period is odd:
-   TRIMA = SMA((period + 1) / 2, SMA((period + 1) / 2, values))
+  TRIMA = SMA((period + 1) / 2, SMA((period + 1) / 2, values))
 ```
+
+Based on [Triangular Moving Average](https://tulipindicators.org/trima).
+
+| Function | Type                                                   |
+| -------- | ------------------------------------------------------ |
+| `trima`  | `(values: number[], config?: TRIMAConfig) => number[]` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Examples:
 
 ```TypeScript
 import { trima } from 'indicatorts';
@@ -439,11 +837,14 @@ const result = trima(values, defaultConfig);
 // const result = triangularMovingAverage(values, defaultConfig);
 ```
 
-Based on [Triangular Moving Average](https://tulipindicators.org/trima).
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/triangularMovingAverage.ts#L46)
 
-## Triple Exponential Average (TRIX)
+### trix
 
-The [trix](./tripleExponentialAverage.ts) indicator is an oscillator used to identify oversold and overbought markets, and it can also be used as a momentum indicator. Like many oscillators, TRIX oscillates around a zero line.
+Triple Exponential Average (TRIX) indicator is an oscillator used to
+identify oversold and overbought markets, and it can also be used
+as a momentum indicator. Like many oscillators, TRIX oscillates
+around a zero line.
 
 ```
 EMA1 = EMA(period, values)
@@ -451,6 +852,25 @@ EMA2 = EMA(period, EMA1)
 EMA3 = EMA(period, EMA2)
 TRIX = (EMA3 - Previous EMA3) / Previous EMA3
 ```
+
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
+| Function | Type                                                  |
+| -------- | ----------------------------------------------------- |
+| `trix`   | `(values: number[], config?: TRIXConfig) => number[]` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Returns:
+
+trix values.
+
+Examples:
 
 ```TypeScript
 import { trix } from 'indicatorts';
@@ -462,30 +882,73 @@ const result = trix(values, defaultConfig);
 // const result = tripleExponentialAverage(values, defaultConfig);
 ```
 
-## Typical Price
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialAverage.ts#L52)
 
-The [typicalPrice](./typicalPrice.ts) function calculates another approximation of average price for each period and can be used as a filter for moving average systems.
+### tema
+
+Tema calculates the Triple Exponential Moving Average (TEMA).
 
 ```
-Typical Price = (High + Low + Closing) / 3
+TEMA = (3 * EMA1) - (3 * EMA2) + EMA3
+EMA1 = EMA(values)
+EMA2 = EMA(EMA1)
+EMA3 = EMA(EMA2)
 ```
+
+Based on [Triple Exponential Moving Average (TEMA)](https://www.investopedia.com/terms/t/triple-exponential-moving-average.asp).
+
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
+| Function | Type                                                  |
+| -------- | ----------------------------------------------------- |
+| `tema`   | `(values: number[], config?: TEMAConfig) => number[]` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Examples:
 
 ```TypeScript
-import { typprice } from 'indicatorts';
+import { tema } from 'indicatorts';
 
-const result = typprice(highs, lows, closings);
+const defaultConfig = { period: 2 };
+const result = tema(values, defaultConfig);
 
 // Alternatively:
-// const result = typicalPrice(highs, lows, closings);
+// const result = tripleExponentialMovingAverage(values, defaultConfig);
 ```
 
-## Volume Weighted Moving Average (VWMA)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialMovingAverage.ts#L51)
 
-The [vwma](./volumeWeightedMovingAverage.ts) function calculates the Volume Weighted Moving Average (VWMA) averaging the price data with an emphasis on volume, meaning areas with higher volume will have a greater weight.
+### vwma
+
+The vwma function calculates the Volume Weighted Moving Average (VWMA)
+averaging the price data with an emphasis on volume, meaning areas
+with higher volume will have a greater weight.
 
 ```
 VWMA = Sum(Price * Volume) / Sum(Volume) for a given Period.
 ```
+
+| Function | Type                                                                       |
+| -------- | -------------------------------------------------------------------------- |
+| `vwma`   | `(closings: number[], volumes: number[], config?: VWMAConfig) => number[]` |
+
+Parameters:
+
+- `closings`: asset closings.
+- `volumes`: asset volumes.
+- `config`: configuration.
+
+Returns:
+
+vwma values.
+
+Examples:
 
 ```TypeScript
 import { vwma } from 'indicatorts';
@@ -497,23 +960,49 @@ const result = vwma(closings, volumes, defaultConfig);
 // const result = volumeWeightedMovingAverage(closings, volumes, defaultConfig);
 ```
 
-## Vortex Indicator
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/volumeWeightedMovingAverage.ts#L45)
 
-The [vortex](./vortex.ts) function provides two oscillators that capture positive and negative trend movement. A bullish signal triggers when the positive trend indicator crosses above the negative trend indicator or a key level. A bearish signal triggers when the negative trend indicator crosses above the positive trend indicator or a key level.
+### vortex
+
+Vortex Indicator. It provides two oscillators that capture positive and
+negative trend movement.
 
 ```
 +VM = Abs(Current High - Prior Low)
 -VM = Abs(Current Low - Prior High)
+```
 
+```
 +VM14 = 14-Period Sum of +VM
 -VM14 = 14-Period Sum of -VM
+```
 
+```
 TR = Max((High[i]-Low[i]), Abs(High[i]-Closing[i-1]), Abs(Low[i]-Closing[i-1]))
 TR14 = 14-Period Sum of TR
+```
 
+```
 +VI14 = +VM14 / TR14
 -VI14 = -VM14 / TR14
 ```
+
+Based on https://school.stockcharts.com/doku.php?id=technical_indicators:vortex_indicator
+
+Based on [Vortex Indicator](https://school.stockcharts.com/doku.php?id=technical_indicators:vortex_indicator)
+
+| Function | Type                                                                                           |
+| -------- | ---------------------------------------------------------------------------------------------- |
+| `vortex` | `(highs: number[], lows: number[], closings: number[], config?: VortexConfig) => VortexResult` |
+
+Parameters:
+
+- `highs`: high values.
+- `lows`: low values.
+- `closings`: closing values.
+- `config`: configuration.
+
+Examples:
 
 ```TypeScript
 import { vortex } from 'indicatorts';
@@ -522,7 +1011,569 @@ const defaultConfig = { period: 14 };
 const { plus, minus } = vortex(highs, lows, closings, defaultConfig);
 ```
 
-Based on [Vortex Indicator](https://school.stockcharts.com/doku.php?id=technical_indicators:vortex_indicator)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/vortex.ts#L77)
+
+## Constants
+
+- [EMADefaultConfig](#emadefaultconfig)
+- [APODefaultConfig](#apodefaultconfig)
+- [AroonDefaultConfig](#aroondefaultconfig)
+- [MCFODefaultConfig](#mcfodefaultconfig)
+- [MSumDefaultConfig](#msumdefaultconfig)
+- [SMADefaultConfig](#smadefaultconfig)
+- [CCIDefaultConfig](#ccidefaultconfig)
+- [DEMADefaultConfig](#demadefaultconfig)
+- [KAMADefaultConfig](#kamadefaultconfig)
+- [MIDefaultConfig](#midefaultconfig)
+- [MACDDefaultConfig](#macddefaultconfig)
+- [MMaxDefaultConfig](#mmaxdefaultconfig)
+- [MMinDefaultConfig](#mmindefaultconfig)
+- [PSARDefaultConfig](#psardefaultconfig)
+- [QstickDefaultConfig](#qstickdefaultconfig)
+- [KDJDefaultConfig](#kdjdefaultconfig)
+- [RMADefaultConfig](#rmadefaultconfig)
+- [TRIMADefaultConfig](#trimadefaultconfig)
+- [TRIXDefaultConfig](#trixdefaultconfig)
+- [TEMADefaultConfig](#temadefaultconfig)
+- [VWMADefaultConfig](#vwmadefaultconfig)
+- [VortexDefaultConfig](#vortexdefaultconfig)
+
+### EMADefaultConfig
+
+The default configuration of EMA.
+
+| Constant           | Type                  |
+| ------------------ | --------------------- |
+| `EMADefaultConfig` | `Required<EMAConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/exponentialMovingAverage.ts#L14)
+
+### APODefaultConfig
+
+The default configuration of APO.
+
+| Constant           | Type                  |
+| ------------------ | --------------------- |
+| `APODefaultConfig` | `Required<APOConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/absolutePriceOscillator.ts#L18)
+
+### AroonDefaultConfig
+
+The default configuration of Aroon.
+
+| Constant             | Type                    |
+| -------------------- | ----------------------- |
+| `AroonDefaultConfig` | `Required<AroonConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/aroon.ts#L29)
+
+### MCFODefaultConfig
+
+The default configuration of moving Chande forecast oscillator.
+
+| Constant            | Type                   |
+| ------------------- | ---------------------- |
+| `MCFODefaultConfig` | `Required<MCFOConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/chandeForecastOscillator.ts#L72)
+
+### MSumDefaultConfig
+
+The default configuration of moving sum.
+
+| Constant            | Type                   |
+| ------------------- | ---------------------- |
+| `MSumDefaultConfig` | `Required<MSumConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingSum.ts#L14)
+
+### SMADefaultConfig
+
+The default configuration of SMA.
+
+| Constant           | Type                  |
+| ------------------ | --------------------- |
+| `SMADefaultConfig` | `Required<SMAConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/simpleMovingAverage.ts#L16)
+
+### CCIDefaultConfig
+
+The default configuration of CCI.
+
+| Constant           | Type                  |
+| ------------------ | --------------------- |
+| `CCIDefaultConfig` | `Required<CCIConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/commodityChannelIndex.ts#L18)
+
+### DEMADefaultConfig
+
+The default configuration of DEMA.
+
+| Constant            | Type                   |
+| ------------------- | ---------------------- |
+| `DEMADefaultConfig` | `Required<DEMAConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/doubleExponentialMovingAverage.ts#L17)
+
+### KAMADefaultConfig
+
+The default configuration of KAMA.
+
+| Constant            | Type                   |
+| ------------------- | ---------------------- |
+| `KAMADefaultConfig` | `Required<KAMAConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/kaufmanAdaptiveMovingAverage.ts#L16)
+
+### MIDefaultConfig
+
+The default configuration of MI.
+
+| Constant          | Type                 |
+| ----------------- | -------------------- |
+| `MIDefaultConfig` | `Required<MIConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/massIndex.ts#L19)
+
+### MACDDefaultConfig
+
+The default configuration of MACD.
+
+| Constant            | Type                   |
+| ------------------- | ---------------------- |
+| `MACDDefaultConfig` | `Required<MACDConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingAverageConvergenceDivergence.ts#L27)
+
+### MMaxDefaultConfig
+
+The default configuration of MMax.
+
+| Constant            | Type                   |
+| ------------------- | ---------------------- |
+| `MMaxDefaultConfig` | `Required<MMaxConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingMax.ts#L16)
+
+### MMinDefaultConfig
+
+The default configuration of MMin.
+
+| Constant            | Type                   |
+| ------------------- | ---------------------- |
+| `MMinDefaultConfig` | `Required<MMinConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingMin.ts#L16)
+
+### PSARDefaultConfig
+
+The default configuration of parabolic SAR.
+
+| Constant            | Type                   |
+| ------------------- | ---------------------- |
+| `PSARDefaultConfig` | `Required<PSARConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/parabolicSar.ts#L26)
+
+### QstickDefaultConfig
+
+The default configuration of Qstick.
+
+| Constant              | Type                     |
+| --------------------- | ------------------------ |
+| `QstickDefaultConfig` | `Required<QstickConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/qstick.ts#L17)
+
+### KDJDefaultConfig
+
+The default configuration of KDJ.
+
+| Constant           | Type                  |
+| ------------------ | --------------------- |
+| `KDJDefaultConfig` | `Required<KDJConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/randomIndex.ts#L30)
+
+### RMADefaultConfig
+
+The default configuration of RMA.
+
+| Constant           | Type                  |
+| ------------------ | --------------------- |
+| `RMADefaultConfig` | `Required<RMAConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L14)
+
+### TRIMADefaultConfig
+
+The default configuration of TRIMA.
+
+| Constant             | Type                    |
+| -------------------- | ----------------------- |
+| `TRIMADefaultConfig` | `Required<TRIMAConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/triangularMovingAverage.ts#L16)
+
+### TRIXDefaultConfig
+
+The default configuration of TRIX.
+
+| Constant            | Type                   |
+| ------------------- | ---------------------- |
+| `TRIXDefaultConfig` | `Required<TRIXConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialAverage.ts#L17)
+
+### TEMADefaultConfig
+
+The default configuration of TEMA.
+
+| Constant            | Type                   |
+| ------------------- | ---------------------- |
+| `TEMADefaultConfig` | `Required<TEMAConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialMovingAverage.ts#L17)
+
+### VWMADefaultConfig
+
+The default configuration of VWMA.
+
+| Constant            | Type                   |
+| ------------------- | ---------------------- |
+| `VWMADefaultConfig` | `Required<VWMAConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/volumeWeightedMovingAverage.ts#L17)
+
+### VortexDefaultConfig
+
+The default configuration of vortex.
+
+| Constant              | Type                     |
+| --------------------- | ------------------------ |
+| `VortexDefaultConfig` | `Required<VortexConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/vortex.ts#L32)
+
+## Interfaces
+
+- [EMAConfig](#emaconfig)
+- [APOConfig](#apoconfig)
+- [AroonResult](#aroonresult)
+- [AroonConfig](#aroonconfig)
+- [MCFOConfig](#mcfoconfig)
+- [MSumConfig](#msumconfig)
+- [SMAConfig](#smaconfig)
+- [CCIConfig](#cciconfig)
+- [DEMAConfig](#demaconfig)
+- [KAMAConfig](#kamaconfig)
+- [MIConfig](#miconfig)
+- [MACDResult](#macdresult)
+- [MACDConfig](#macdconfig)
+- [MMaxConfig](#mmaxconfig)
+- [MMinConfig](#mminconfig)
+- [PSARResult](#psarresult)
+- [PSARConfig](#psarconfig)
+- [QstickConfig](#qstickconfig)
+- [KDJResult](#kdjresult)
+- [KDJConfig](#kdjconfig)
+- [RMAConfig](#rmaconfig)
+- [TRIMAConfig](#trimaconfig)
+- [TRIXConfig](#trixconfig)
+- [TEMAConfig](#temaconfig)
+- [VWMAConfig](#vwmaconfig)
+- [VortexResult](#vortexresult)
+- [VortexConfig](#vortexconfig)
+
+### EMAConfig
+
+Optional configuration of EMA parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/exponentialMovingAverage.ts#L7)
+
+### APOConfig
+
+Optional configuration of APO parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `fast`   | `number or undefined` |             |
+| `slow`   | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/absolutePriceOscillator.ts#L10)
+
+### AroonResult
+
+Aroon result.
+
+| Property | Type       | Description |
+| -------- | ---------- | ----------- |
+| `up`     | `number[]` |             |
+| `down`   | `number[]` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/aroon.ts#L14)
+
+### AroonConfig
+
+Optional configuration of Aroon parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/aroon.ts#L22)
+
+### MCFOConfig
+
+Optional configuration of moving Chande forecast oscillator parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/chandeForecastOscillator.ts#L65)
+
+### MSumConfig
+
+Optional configuration of moving sum parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingSum.ts#L7)
+
+### SMAConfig
+
+Optional configuration of SMA parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/simpleMovingAverage.ts#L9)
+
+### CCIConfig
+
+Optional configuration of CCI parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/commodityChannelIndex.ts#L11)
+
+### DEMAConfig
+
+Optional configuration of DEMA parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/doubleExponentialMovingAverage.ts#L10)
+
+### KAMAConfig
+
+Optional configuration of KAMA parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+| `fast`   | `number or undefined` |             |
+| `slow`   | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/kaufmanAdaptiveMovingAverage.ts#L7)
+
+### MIConfig
+
+Optional configuration of MI parameters.
+
+| Property    | Type                  | Description |
+| ----------- | --------------------- | ----------- |
+| `emaPeriod` | `number or undefined` |             |
+| `miPeriod`  | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/massIndex.ts#L11)
+
+### MACDResult
+
+Moving average convergence divergence (MACD) result object.
+
+| Property     | Type       | Description |
+| ------------ | ---------- | ----------- |
+| `macdLine`   | `number[]` |             |
+| `signalLine` | `number[]` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingAverageConvergenceDivergence.ts#L10)
+
+### MACDConfig
+
+Optional configuration of MACD parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `fast`   | `number or undefined` |             |
+| `slow`   | `number or undefined` |             |
+| `signal` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingAverageConvergenceDivergence.ts#L18)
+
+### MMaxConfig
+
+Optional configuration of MMax parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingMax.ts#L9)
+
+### MMinConfig
+
+Optional configuration of MMin parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingMin.ts#L9)
+
+### PSARResult
+
+Parabolic SAR result object.
+
+| Property     | Type       | Description |
+| ------------ | ---------- | ----------- |
+| `trends`     | `Trend[]`  |             |
+| `psarResult` | `number[]` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/parabolicSar.ts#L10)
+
+### PSARConfig
+
+Optional configuration of parabolic SAR parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `step`   | `number or undefined` |             |
+| `max`    | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/parabolicSar.ts#L18)
+
+### QstickConfig
+
+Optional configuration of Qstick parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/qstick.ts#L10)
+
+### KDJResult
+
+KDJ result.
+
+| Property | Type       | Description |
+| -------- | ---------- | ----------- |
+| `k`      | `number[]` |             |
+| `d`      | `number[]` |             |
+| `j`      | `number[]` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/randomIndex.ts#L12)
+
+### KDJConfig
+
+Optional configuration of KDJ parameters.
+
+| Property  | Type                  | Description |
+| --------- | --------------------- | ----------- |
+| `rPeriod` | `number or undefined` |             |
+| `kPeriod` | `number or undefined` |             |
+| `dPeriod` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/randomIndex.ts#L21)
+
+### RMAConfig
+
+Optional configuration of RMA parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L7)
+
+### TRIMAConfig
+
+Optional configuration of TRIMA parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/triangularMovingAverage.ts#L9)
+
+### TRIXConfig
+
+Optional configuration of TRIX parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialAverage.ts#L10)
+
+### TEMAConfig
+
+Optional configuration of TEMA parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialMovingAverage.ts#L10)
+
+### VWMAConfig
+
+Optional configuration of VWMA parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/volumeWeightedMovingAverage.ts#L10)
+
+### VortexResult
+
+Vortex result.
+
+| Property | Type       | Description |
+| -------- | ---------- | ----------- |
+| `plus`   | `number[]` |             |
+| `minus`  | `number[]` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/vortex.ts#L17)
+
+### VortexConfig
+
+Optional configuration of vortex parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/vortex.ts#L25)
+
+<!-- TSDOC_END -->
 
 ## Disclaimer
 

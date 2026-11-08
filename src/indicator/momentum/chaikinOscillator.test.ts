@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { co } from './chaikinOscillator';
@@ -39,5 +41,12 @@ describe('Chaikin Oscillator (CO)', () => {
     const actual = co(highs, lows, closings, volumes);
     deepStrictEqual(roundDigitsAll(2, actual.adResult), expectedAD);
     deepStrictEqual(roundDigitsAll(2, actual.coResult), expectedCMO);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/chaikinOscillator.csv'));
+    const actual = co(data.high, data.low, data.close, data.volume);
+    assertColumn(actual.adResult, data.adResult);
+    assertColumn(actual.coResult, data.coResult);
   });
 });

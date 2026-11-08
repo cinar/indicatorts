@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { msum } from './movingSum';
 
@@ -46,5 +48,10 @@ describe('Moving Sum (MSUM)', () => {
       -Infinity,
       13,
     ]);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/movingSum.csv'));
+    assertColumn(msum(data.close), data.msum);
   });
 });

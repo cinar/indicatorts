@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { bb } from './bollingerBands';
@@ -48,5 +50,13 @@ describe('Bollinger Bands Width (BBW)', () => {
     const actual = bbw(bbResult);
     deepStrictEqual(roundDigitsAll(2, actual.width), expectedwidth);
     deepStrictEqual(roundDigitsAll(2, actual.widthEma), expectedwidthEma);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/bollingerBandsWidth.csv'));
+    const actual = bbw(bb(data.close));
+    // The width is a ratio, so it is compared with more digits.
+    assertColumn(actual.width, data.width, 6);
+    assertColumn(actual.widthEma, data.widthEma, 6);
   });
 });

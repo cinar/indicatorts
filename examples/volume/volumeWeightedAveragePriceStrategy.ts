@@ -18,6 +18,13 @@ import { Asset } from '../../src/strategy/asset';
  * closing is above VWAP, and HOLD when equal.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
+ * @example
+ * ```TypeScript
+ * import { vwapStrategy } from './volumeWeightedAveragePriceStrategy';
+ *
+ * const defaultConfig = { period: 14 };
+ * const actions = vwapStrategy(asset, defaultConfig);
+ * ```
  * @param asset asset object.
  * @param config configuration.
  * @returns strategy actions.

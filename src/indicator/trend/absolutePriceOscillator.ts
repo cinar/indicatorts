@@ -21,15 +21,30 @@ export const APODefaultConfig: Required<APOConfig> = {
 };
 
 /**
- * Absolute Price Oscillator (APO) function calculates the technical indicator
- * that is used to follow trends. APO crossing above zero indicates bullish,
- * while crossing below zero indicates bearish. Positive value is upward
- * trend, while negative value is downward trend.
+ * Absolute Price Oscillator (APO) function calculates the difference between
+ * a fast and a slow exponential moving average of the values. It is positive
+ * when the fast EMA is above the slow EMA, and negative when it is below.
  *
+ * ```
  * Fast = EMA(fastPeriod, values)
  * Slow = EMA(slowPeriod, values)
  * APO = Fast - Slow
+ * ```
  *
+ * Warm-up: built on the exponential moving average, which starts from the
+ * first value rather than from a simple moving average, so the early values
+ * can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ *
+ * @example
+ * ```TypeScript
+ * import { apo } from 'indicatorts';
+ *
+ * const defaultConfig = { fast: 14, slow: 30 };
+ * const result = apo(values, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = absolutePriceOscillator(values, defaultConfig);
+ * ```
  * @param values values array.
  * @param config configuration.
  * @return apo array.

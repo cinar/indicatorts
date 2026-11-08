@@ -19,6 +19,13 @@ import {
  * No action is emitted until both sides have been observed.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
+ * @example
+ * ```TypeScript
+ * import { kdjStrategy } from './kdjStrategy';
+ *
+ * const defaultConfig = { rPeriod: 9, kPeriod: 3, dPeriod: 3 };
+ * const actions = kdjStrategy(asset, defaultConfig);
+ * ```
  * @param asset asset object.
  * @param config configuration.
  * @return strategy actions.

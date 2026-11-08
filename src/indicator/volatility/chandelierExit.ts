@@ -32,9 +32,25 @@ export const CEDefaultConfig: Required<CEConfig> = {
  * Chandelier Exit. It sets a trailing stop-loss based on the
  * Average True Range (ATR).
  *
+ * ```
  * Chandelier Exit Long = 22-Period Highest High - ATR(22) * 3
  * Chandelier Exit Short = 22-Period Lowest Low + ATR(22) * 3
+ * ```
  *
+ * Warm-up: built on the average true range, which includes the first bar
+ * in its first averaging window, so the early values can differ from other
+ * libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ *
+ * @example
+ * ```TypeScript
+ * import { ce } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 22 };
+ * const { long, short } = ce(highs, lows, closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const { long, short } = chandelierExit(highs, lows, closings, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

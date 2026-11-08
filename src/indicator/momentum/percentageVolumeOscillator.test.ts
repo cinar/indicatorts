@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { pvo } from './percentageVolumeOscillator';
@@ -105,5 +107,15 @@ describe('Percent Volume Oscillator (PVO)', () => {
     deepStrictEqual(roundDigitsAll(2, actual.pvoResult), expectedPVO);
     deepStrictEqual(roundDigitsAll(2, actual.signal), expectedSignal);
     deepStrictEqual(roundDigitsAll(2, actual.histogram), expectedHistogram);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(
+      join(__dirname, 'testdata/percentageVolumeOscillator.csv')
+    );
+    const actual = pvo(data.volume);
+    assertColumn(actual.pvoResult, data.pvoResult);
+    assertColumn(actual.signal, data.signal);
+    assertColumn(actual.histogram, data.histogram);
   });
 });

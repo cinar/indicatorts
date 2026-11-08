@@ -19,8 +19,10 @@ import {
  * zero when the forecast price is greater than the closing price and less
  * than zero if it is below.
  *
+ * ```
  * R = Linreg(Closing)
  * CFO = ((Closing - R) / Closing) * 100
+ * ```
  *
  * WARNING: this computes a single linear regression over the *entire*
  * input series — every returned value depends on all of `closings`,
@@ -29,6 +31,17 @@ import {
  * Use mcfo() (Moving Chande Forecast Oscillator) instead for a rolling,
  * point-in-time-safe computation.
  *
+ * Based on [Chande Forecast Oscillator Formula, Strategy](https://www.stockmaniacs.net/chande-forecast-oscillator/), [Forecast Oscillator](https://www.fmlabs.com/reference/default.htm?url=ForecastOscillator.htm), and [Least Squares Regression](https://www.mathsisfun.com/data/least-squares-regression.html).
+ *
+ * @example
+ * ```TypeScript
+ * import { cfo } from 'indicatorts';
+ *
+ * const result = cfo(closings);
+ *
+ * // Alternatively:
+ * // const result = chandeForecastOscillator(closings);
+ * ```
  * @param closings closing values.
  * @return cfo values.
  */
@@ -70,9 +83,21 @@ export const MCFODefaultConfig: Required<MCFOConfig> = {
  * zero when the forecast price is greater than the closing price and less
  * than zero if it is below.
  *
+ * ```
  * R = Linreg(Closing)
  * CFO = ((Closing - R) / Closing) * 100
+ * ```
  *
+ * @example
+ * ```TypeScript
+ * import { mcfo } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 4 };
+ * const result = mcfo(closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = movingChandeForecastOscillator(closings, defaultConfig);
+ * ```
  * @param closings closing values.
  * @param config configuration.
  * @return moving cfo.

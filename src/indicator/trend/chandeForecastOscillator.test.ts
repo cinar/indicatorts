@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { cfo, mcfo } from './chandeForecastOscillator';
@@ -30,5 +32,13 @@ describe('Chande Forecast Oscillator (CFO)', () => {
     const expected = [0, 0, 4.1667, 4.5, 2.6667, 1, 0, 0, 0, 0, 0, 0];
     const actual = mcfo(closings);
     deepStrictEqual(roundDigitsAll(4, actual), expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(
+      join(__dirname, 'testdata/chandeForecastOscillator.csv')
+    );
+    assertColumn(cfo(data.close), data.cfo);
+    assertColumn(mcfo(data.close), data.mcfo);
   });
 });

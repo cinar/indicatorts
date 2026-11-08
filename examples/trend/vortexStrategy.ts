@@ -16,6 +16,13 @@ import {
  * Generates a BUY action when +VI > -VI, a SELL action when +VI < -VI, and HOLD when equal.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
+ * @example
+ * ```TypeScript
+ * import { vortexStrategy } from './vortexStrategy';
+ *
+ * const defaultConfig = { period: 14 };
+ * const actions = vortexStrategy(asset, defaultConfig);
+ * ```
  * @param asset asset object.
  * @param config configuration.
  * @return strategy actions.

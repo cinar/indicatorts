@@ -35,9 +35,21 @@ export const StochDefaultConfig: Required<StochConfig> = {
  * location of the closing relative to high-low range over a
  * set number of periods.
  *
+ * ```
  * K = (Closing - Lowest Low) / (Highest High - Lowest Low) * 100
  * D = 3-Period SMA of K
+ * ```
  *
+ * @example
+ * ```TypeScript
+ * import { stoch } from 'indicatorts';
+ *
+ * const defaultConfig = { kPeriod: 14, dPeriod: 3 };
+ * const { k, d } = stoch(highs, lows, closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const { k, d } = stochasticOscillator(highs, lows, closings, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

@@ -9,8 +9,19 @@ import { divide, subtract } from '../../helper/numArray';
  * value indicates a downward trend. Zero indicates a balance between
  * the two.
  *
+ * ```
  * BOP = (Closing - Opening) / (High - Low)
+ * ```
  *
+ * @example
+ * ```TypeScript
+ * import { bop } from 'indicatorts';
+ *
+ * const result = bop(openings, highs, lows, closings);
+ *
+ * // Alternatively:
+ * // const result = balanceOfPower(openings, highs, lows, closings);
+ * ```
  * @param openings opening values.
  * @param highs high values.
  * @param lows low values.

@@ -17,6 +17,13 @@ import {
  * action when it breaks below the Lower Band, and HOLD while it is between them.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
+ * @example
+ * ```TypeScript
+ * import { abStrategy } from './accelerationBandsStrategy';
+ *
+ * const defaultConfig = { period: 20, multiplier: 4 };
+ * const actions = abStrategy(asset, defaultConfig);
+ * ```
  * @param asset asset object.
  * @param config configuration.
  * @return strategy actions.

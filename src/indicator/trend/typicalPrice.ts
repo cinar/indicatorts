@@ -8,8 +8,19 @@ import { add, divideBy } from '../../helper/numArray';
  * average price for each period and can be used as
  * a filter for moving average systems.
  *
+ * ```
  * TPI = (High + Low + Closing) / 3
+ * ```
  *
+ * @example
+ * ```TypeScript
+ * import { typprice } from 'indicatorts';
+ *
+ * const result = typprice(highs, lows, closings);
+ *
+ * // Alternatively:
+ * // const result = typicalPrice(highs, lows, closings);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
