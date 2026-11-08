@@ -46,4 +46,26 @@ describe('Linear Regressin', () => {
     const actual = movingLeastSquare(1, [0, 1, 2], [5, 7, 9]);
     deepStrictEqual(actual, { m: [0, 0, 0], b: [5, 7, 9] });
   });
+
+  it('should limit a NaN to the moving windows that contain it', () => {
+    // y = 2x + 1, with a NaN at x = 2.
+    const x = [0, 1, 2, 3, 4, 5];
+    const y = [1, 3, NaN, 7, 9, 11];
+
+    const actual = movingLeastSquare(2, x, y);
+
+    deepStrictEqual(actual.m.slice(0, 4), [0, 2, NaN, NaN]);
+    deepStrictEqual(roundDigitsAll(4, actual.m.slice(4)), [2, 2]);
+    deepStrictEqual(roundDigitsAll(4, actual.b.slice(4)), [1, 1]);
+  });
+
+  it('should limit an Infinity to the moving windows that contain it', () => {
+    const x = [0, 1, 2, 3, 4, 5];
+    const y = [1, 3, Infinity, 7, 9, 11];
+
+    const actual = movingLeastSquare(2, x, y);
+
+    expect(actual.m.slice(2, 4).every((v) => !Number.isFinite(v))).toBe(true);
+    deepStrictEqual(roundDigitsAll(4, actual.m.slice(4)), [2, 2]);
+  });
 });
