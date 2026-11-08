@@ -55,11 +55,12 @@ export function cci(
     for (let k = from; k <= i; k++) {
       sum += Math.abs(tp[k] - ma[i]);
     }
-    const md = sum / (i - from + 1);
+    const meanDeviation = sum / (i - from + 1);
 
     // When the mean deviation is 0 (a flat window, or a single bar), CCI
     // is treated as 0 instead of NaN (0 / 0).
-    result[i] = md === 0 ? 0 : (tp[i] - ma[i]) / (0.015 * md);
+    result[i] =
+      meanDeviation === 0 ? 0 : (tp[i] - ma[i]) / (0.015 * meanDeviation);
   }
 
   return result;

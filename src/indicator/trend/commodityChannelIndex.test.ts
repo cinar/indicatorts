@@ -39,14 +39,14 @@ describe('Commodity Channel Index (CCI)', () => {
   });
 
   it('should compute the mean deviation around the current window average (#586)', () => {
-    // high = low = close, so typical price = p. For the last window
+    // high = low = close, so typical price = prices. For the last window
     // [12, 13, 20], the average is 15 and the mean deviation around it is
     // 10 / 3, giving CCI = (20 - 15) / (0.015 * 10 / 3) = 100. Values from
     // index 2 onward match TA-Lib CCI(period=3).
-    const p = [10, 11, 12, 13, 20];
+    const prices = [10, 11, 12, 13, 20];
     const expected = [0, 66.67, 100, 100, 100];
 
-    const actual = cci(p, p, p, { period: 3 });
+    const actual = cci(prices, prices, prices, { period: 3 });
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 });

@@ -97,8 +97,9 @@ describe('Parabolic SAR (SAR)', () => {
     const actual = psar(upHighs, upLows, upLows);
     for (let i = 15; i < upHighs.length; i++) {
       const prev = actual.psarResult[i - 1];
-      const af = (actual.psarResult[i] - prev) / (upHighs[i - 1] - prev);
-      expect(af).toBeCloseTo(0.2, 10);
+      const acceleration =
+        (actual.psarResult[i] - prev) / (upHighs[i - 1] - prev);
+      expect(acceleration).toBeCloseTo(0.2, 10);
     }
   });
 });

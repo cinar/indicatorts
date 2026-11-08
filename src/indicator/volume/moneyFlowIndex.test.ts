@@ -51,14 +51,14 @@ describe('Money Flow Index (MFI)', () => {
   });
 
   it('should exclude bars with an unchanged typical price from both flows (#587)', () => {
-    // high = low = close, so typical price = tp. Bar 3 repeats the typical
+    // high = low = close, so typical price = prices. Bar 3 repeats the typical
     // price of bar 2, so its large volume counts as neither positive nor
     // negative flow. Values from index 3 onward match TA-Lib MFI(period=3).
-    const tp = [10, 11, 10, 10, 11];
+    const prices = [10, 11, 10, 10, 11];
     const volumes = [100, 100, 100, 1000, 100];
     const expected = [50, 100, 52.38, 52.38, 52.38];
 
-    const actual = mfi(tp, tp, tp, volumes, { period: 3 });
+    const actual = mfi(prices, prices, prices, volumes, { period: 3 });
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 
