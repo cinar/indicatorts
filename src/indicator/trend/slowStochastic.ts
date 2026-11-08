@@ -66,10 +66,10 @@ export function slowStochastic(
     ...config,
   };
   const fast = stochastic(values, { period, dPeriod: kPeriod });
-  const d = windowedSma(fast.d, dPeriod);
+  const dLine = windowedSma(fast.d, dPeriod);
 
   return {
-    k: maskNaN(fast.d, d),
-    d,
+    k: maskNaN(fast.d, dLine),
+    d: dLine,
   };
 }

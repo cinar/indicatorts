@@ -67,14 +67,14 @@ export function stochastic(
   const { period, dPeriod } = { ...StochasticDefaultConfig, ...config };
   const highest = windowedMax(values, period);
   const lowest = windowedMin(values, period);
-  const k = values.map(
+  const kLine = values.map(
     (value, i) =>
       safeDivide(value - lowest[i], highest[i] - lowest[i], 0.5) * 100
   );
-  const d = windowedSma(k, dPeriod);
+  const dLine = windowedSma(kLine, dPeriod);
 
   return {
-    k: maskNaN(k, d),
-    d,
+    k: maskNaN(kLine, dLine),
+    d: dLine,
   };
 }
