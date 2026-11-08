@@ -59,6 +59,8 @@ The [Aroon](./aroon.ts) function calculates a technical indicator that is used t
 ```
 Aroon Up = ((25 - Period Since Last 25 Period High) / 25) * 100
 Aroon Down = ((25 - Period Since Last 25 Period Low) / 25) * 100
+
+The lookback window covers the current bar plus the previous 25 bars.
 ```
 
 ```TypeScript
