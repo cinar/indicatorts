@@ -73,6 +73,7 @@ The following technical analysis indicators are supported by this package:
 - [Price Rate of Change (ROC)](src/indicator/momentum/README.md#price-rate-of-change-roc)
 - [Relative Strength Index (RSI)](src/indicator/momentum/README.md#relative-strength-index-rsi)
 - [Stochastic Oscillator (STOCH)](src/indicator/momentum/README.md#stochastic-oscillator-stoch)
+- [Ultimate Oscillator (UO)](src/indicator/momentum/README.md#ultimate-oscillator-uo)
 - [Williams R (WILLR)](src/indicator/momentum/README.md#williams-r-willr)
 
 ### Volatility Indicators

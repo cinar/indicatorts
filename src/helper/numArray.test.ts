@@ -149,6 +149,15 @@ describe('Number Array', () => {
     deepStrictEqual(actual, expected);
   });
 
+  it('should be able to compute min', () => {
+    const values1 = [1, 4, 6, 8];
+    const values2 = [2, 1, 1, 9];
+    const expected = [1, 1, 1, 8];
+
+    const actual = NumArray.min(values1, values2);
+    deepStrictEqual(actual, expected);
+  });
+
   it('should be able to round digits', () => {
     const value = 1.5182345;
     const digits = 4;

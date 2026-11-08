@@ -284,6 +284,15 @@ export function max(...values: number[][]): number[] {
 }
 
 /**
+ * Min value of rows.
+ * @param values values arrays.
+ * @return min rows.
+ */
+export function min(...values: number[][]): number[] {
+  return transpose(...values).map((row) => Math.min(...row));
+}
+
+/**
  * Rounds the value to given number of digits.
  * @param digits digits number.
  * @param value numeric value.

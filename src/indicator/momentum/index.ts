@@ -9,4 +9,5 @@ export * from './percentageVolumeOscillator';
 export * from './priceRateOfChange';
 export * from './relativeStrengthIndex';
 export * from './stochasticOscillator';
+export * from './ultimateOscillator';
 export * from './williamsR';
