@@ -21,4 +21,11 @@ describe('Negative Volume Index (NVI)', () => {
     const actual = nvi(closings, volumes);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
+
+  it('should keep the previous value when the volume is unchanged', () => {
+    // Volume is unchanged on bar 1 and falls on bar 2, so only bar 2's
+    // 10% price change is applied.
+    const actual = nvi([10, 11, 12.1], [100, 100, 90]);
+    expect(roundDigitsAll(2, actual)).toStrictEqual([1000, 1000, 1100]);
+  });
 });

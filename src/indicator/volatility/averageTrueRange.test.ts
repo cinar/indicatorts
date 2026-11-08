@@ -26,4 +26,16 @@ describe('Average True Range (ATR)', () => {
     expect(roundDigitsAll(2, actual.trLine)).toStrictEqual(expectedTr);
     expect(roundDigitsAll(2, actual.atrLine)).toStrictEqual(expectedAtr);
   });
+
+  it('should smooth the true range with Wilder smoothing once a full period is available', () => {
+    // TR = [2, 3, 2, 3, 3, 2]. The first full period averages to 7 / 3,
+    // after which ATR[i] = (ATR[i - 1] * (period - 1) + TR[i]) / period.
+    const wHighs = [10, 12, 11, 13, 15, 14];
+    const wLows = [8, 9, 9, 10, 12, 12];
+    const wClosings = [9, 11, 10, 12, 14, 13];
+    const expectedAtr = [2, 2.5, 2.33, 2.56, 2.7, 2.47];
+
+    const actual = atr(wHighs, wLows, wClosings, { period: 3 });
+    expect(roundDigitsAll(2, actual.atrLine)).toStrictEqual(expectedAtr);
+  });
 });

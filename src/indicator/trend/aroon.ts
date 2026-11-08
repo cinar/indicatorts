@@ -33,9 +33,9 @@ export const AroonDefaultConfig: Required<AroonConfig> = {
 /**
  * Computes, for each bar, the number of bars since the most recent
  * occurrence of the extreme (max or min) value within the trailing
- * `period`-bar window ending at that bar. During warmup (before `period`
- * bars have been seen) the window is `[0, i]`, matching the effective
- * window used by `mmax`/`mmin`. When there are ties for the extreme value
+ * window of `period + 1` bars ending at that bar (the current bar plus the
+ * previous `period` bars), so the result ranges from 0 to `period`. During
+ * warmup the window is `[0, i]`. When there are ties for the extreme value
  * within the window, the most recent occurrence is preferred.
  *
  * @param values input values.
@@ -52,7 +52,7 @@ function periodsSinceExtreme(
   const result = new Array<number>(values.length);
 
   for (let i = 0; i < values.length; i++) {
-    const from = Math.max(0, i - period + 1);
+    const from = Math.max(0, i - period);
     let extremeIndex = from;
 
     for (let j = from + 1; j <= i; j++) {

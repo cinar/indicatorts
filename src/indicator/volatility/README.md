@@ -44,8 +44,8 @@ const { upper, middle, lower } = ab(highs, lows, closings, defaultConfig);
 The [atr](./averageTrueRange.ts) function calculates a technical analysis indicator that measures market volatility by decomposing the entire range of stock prices for that period.
 
 ```
-TR = Max((High - Low), (High - Closing), (Closing - Low))
-ATR = 14-Period SMA TR
+TR = Max((High - Low), Abs(High - Previous Closing), Abs(Low - Previous Closing))
+ATR = 14-Period RMA TR (Wilder's smoothing)
 ```
 
 ```TypeScript
@@ -102,11 +102,11 @@ const { width, widthEma } = bbw(bbResult, defaultConfig);
 
 ## Chandelier Exit (CE)
 
-The [chandelierExit](./chandelierExit.ts) function sets a trailing stop-loss based on the Average True Value (ATR).
+The [chandelierExit](./chandelierExit.ts) function sets a trailing stop-loss based on the Average True Range (ATR).
 
 ```
-Chandelier Exit Long = 22-Period SMA High - ATR(22) * 3
-Chandelier Exit Short = 22-Period SMA Low + ATR(22) * 3
+Chandelier Exit Long = 22-Period Highest High - ATR(22) * 3
+Chandelier Exit Short = 22-Period Lowest Low + ATR(22) * 3
 ```
 
 ```TypeScript

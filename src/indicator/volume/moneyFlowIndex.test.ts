@@ -11,14 +11,14 @@ describe('Money Flow Index (MFI)', () => {
   const volumes = [100, 110, 80, 120, 90];
 
   it('should be able to compute with a config', () => {
-    const expected = [100, 100, 100, 100, 61.54];
+    const expected = [50, 100, 100, 100, 61.54];
 
     const actual = mfi(highs, lows, closings, volumes, { period: 2 });
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 
   it('should be able to compute without a config', () => {
-    const expected = [100, 100, 100, 100, 81.67];
+    const expected = [50, 100, 100, 100, 77.92];
 
     const actual = mfi(highs, lows, closings, volumes);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
@@ -37,7 +37,7 @@ describe('Money Flow Index (MFI)', () => {
     const rClosings = [90, 100, 80, 90, 95];
     const rVolumes = [1000, 1000, 100000, 1000, 1000];
 
-    const expectedWithConfig = [100, 100, 1.23, 1.11, 100];
+    const expectedWithConfig = [50, 100, 1.23, 1.11, 100];
     const actualWithConfig = mfi(rHighs, rLows, rClosings, rVolumes, {
       period: 2,
     });
@@ -45,8 +45,30 @@ describe('Money Flow Index (MFI)', () => {
       expectedWithConfig
     );
 
-    const expectedDefault = [100, 100, 2.32, 3.38, 4.48];
+    const expectedDefault = [50, 100, 1.23, 2.32, 3.44];
     const actualDefault = mfi(rHighs, rLows, rClosings, rVolumes);
     expect(roundDigitsAll(2, actualDefault)).toStrictEqual(expectedDefault);
+  });
+
+  it('should exclude bars with an unchanged typical price from both flows (#587)', () => {
+    // high = low = close, so typical price = prices. Bar 3 repeats the typical
+    // price of bar 2, so its large volume counts as neither positive nor
+    // negative flow. Values from index 3 onward match TA-Lib MFI(period=3).
+    const prices = [10, 11, 10, 10, 11];
+    const volumes = [100, 100, 100, 1000, 100];
+    const expected = [50, 100, 52.38, 52.38, 52.38];
+
+    const actual = mfi(prices, prices, prices, volumes, { period: 3 });
+    expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
+  });
+
+  it('should not count the first bar as positive flow', () => {
+    // The first bar has no previous bar, so only the falling second bar
+    // contributes, as negative flow.
+    const prices = [10, 9];
+    const expected = [50, 0];
+
+    const actual = mfi(prices, prices, prices, [100, 100], { period: 2 });
+    expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
 });
