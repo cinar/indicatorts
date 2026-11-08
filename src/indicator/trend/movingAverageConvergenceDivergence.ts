@@ -38,6 +38,10 @@ export const MACDDefaultConfig: Required<MACDConfig> = {
  * Signal = 9-Period EMA of MACD.
  * ```
  *
+ * Warm-up: built on the exponential moving average, which starts from the
+ * first value rather than from a simple moving average, so the early values
+ * can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ *
  * @title Moving Average Convergence Divergence (MACD)
  * @example
  * ```TypeScript

@@ -197,6 +197,21 @@ const lows = [1, 2, 3, 4];
 const result = ao(highs, lows);
 ```
 
+## Warm-up and seeding
+
+Indicators that smooth values recursively need a starting value. This library returns an output for every input index, so it starts at the first bar, while TA-Lib and several other libraries start from a simple average of the first `period` values and leave the earlier outputs empty. The formulas are otherwise the same, so the outputs converge, but the first values differ.
+
+| Building block | This library | TA-Lib |
+| --- | --- | --- |
+| [EMA](src/indicator/trend/README.md#exponential-moving-average-ema) | Starts from the first value: `ema[0] = values[0]` | Starts from the SMA of the first `period` values, at index `period - 1` |
+| [RMA](src/indicator/trend/README.md#rolling-moving-average-rma) (Wilder) | Average of the values so far until `period` values are available | Same |
+| [RSI](src/indicator/momentum/README.md#relative-strength-index-rsi) | Counts the first bar as a gain and loss of 0 | Starts from the second bar (the first price change) |
+| [ATR](src/indicator/volatility/README.md#average-true-range-atr) | Includes the first bar's true range (high minus low) | Starts from the second bar |
+
+The difference fades over time. For a 12-period EMA on the test data, it is 0.21 at the 12th bar, 0.03 at the 24th, and below 0.004 after the 36th. Indicators built on these blocks inherit the difference: DEMA, TEMA, TRIX, MACD, APO, PPO, PVO, Chaikin Oscillator, Mass Index, Bollinger Bands Width, Keltner Channel, Chandelier Exit, Projection Oscillator and Force Index. To compare with TA-Lib, skip the first few multiples of `period` values.
+
+Indicators without recursive smoothing, such as SMA, Bollinger Bands, Stochastic Oscillator, Williams %R, CCI and MFI, match TA-Lib from the first full window.
+
 ## License
 
 The source code is provided under the [MIT License](LICENSE.md).

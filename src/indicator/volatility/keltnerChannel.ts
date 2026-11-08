@@ -39,6 +39,10 @@ export const KCDefaultConfig: Required<KCConfig> = {
  * Lower Band = EMA(period, closings) - 2 * ATR(period, highs, lows, closings)
  * ```
  *
+ * Warm-up: built on the exponential moving average and the average true
+ * range, which start from the first bar rather than the way TA-Lib does, so
+ * the early values can differ from other libraries. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ *
  * @title Keltner Channel (KC)
  * @example
  * ```TypeScript

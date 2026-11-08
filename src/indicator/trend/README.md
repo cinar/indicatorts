@@ -47,6 +47,10 @@ Slow = EMA(slowPeriod, values)
 APO = Fast - Slow
 ```
 
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
 ```TypeScript
 function apo(values: number[], config?: APOConfig): number[]
 ```
@@ -320,6 +324,10 @@ DEMA = (2 * EMA(values)) - EMA(EMA(values))
 
 Based on [Double Exponential Moving Average (DEMA)](https://www.investopedia.com/terms/d/double-exponential-moving-average.asp).
 
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
 ```TypeScript
 function dema(values: number[], config?: DEMAConfig): number[]
 ```
@@ -356,6 +364,13 @@ Source: [doubleExponentialMovingAverage.ts](./doubleExponentialMovingAverage.ts)
 ## Exponential Moving Average (EMA)
 
 Exponential moving average (EMA).
+
+Warm-up: the first value is used as the starting point
+(`result[0] = values[0]`), so every index has a value. TA-Lib and many
+other libraries start from the simple moving average of the first `period`
+values instead, and leave the first `period - 1` results empty, so the
+early values differ. The difference shrinks by a factor of
+`1 - 2 / (period + 1)` every bar. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 ```TypeScript
 function ema(values: number[], config?: EMAConfig): number[]
@@ -453,6 +468,10 @@ Ratio = Single EMA / Double EMA
 MI = Sum(25, Ratio)
 ```
 
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
 ```TypeScript
 function mi(highs: number[], lows: number[], config?: MIConfig): number[]
 ```
@@ -496,6 +515,10 @@ Moving Average Convergence Divergence (MACD).
 MACD = 12-Period EMA - 26-Period EMA.
 Signal = 9-Period EMA of MACD.
 ```
+
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 ```TypeScript
 function macd(closings: number[], config?: MACDConfig): MACDResult
@@ -842,6 +865,11 @@ R[0] to R[p-1] is SMA(values)
 R[p] and after is R[i] = ((R[i-1]*(p-1)) + v[i]) / p
 ```
 
+Warm-up: until `period` values are available, the result is the average
+of the values seen so far, so every index has a value. At index
+`period - 1` it equals the simple moving average of the first `period`
+values. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
 ```TypeScript
 function rma(values: number[], config?: RMAConfig): number[]
 ```
@@ -1000,6 +1028,10 @@ EMA3 = EMA(period, EMA2)
 TRIX = (EMA3 - Previous EMA3) / Previous EMA3
 ```
 
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
 ```TypeScript
 function trix(values: number[], config?: TRIXConfig): number[]
 ```
@@ -1046,14 +1078,18 @@ EMA3 = EMA(EMA2)
 
 Based on [Triple Exponential Moving Average (TEMA)](https://www.investopedia.com/terms/t/triple-exponential-moving-average.asp).
 
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
 ```TypeScript
 function tema(values: number[], config?: TEMAConfig): number[]
 ```
 
-| Parameter | Type         | Description   |
-| --------- | ------------ | ------------- |
-| `values`  | `number[]`   | values array. |
-| `config`  | `TEMAConfig` |               |
+| Parameter | Type         | Description    |
+| --------- | ------------ | -------------- |
+| `values`  | `number[]`   | values array.  |
+| `config`  | `TEMAConfig` | configuration. |
 
 **Returns:** tema values.
 

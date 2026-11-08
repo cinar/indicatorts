@@ -36,6 +36,12 @@ export const ATRDefaultConfig: Required<ATRConfig> = {
  * ATR = RMA TR (Wilder's smoothing)
  * ```
  *
+ * Warm-up: the first bar's true range is its high minus its low (there is
+ * no previous closing), and it is part of the first averaging window, so
+ * every index has a value. TA-Lib starts from the second bar and leaves the
+ * first `period` results empty, so the early values differ and converge over
+ * the following bars. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ *
  * @title Average True Range (ATR)
  * @example
  * ```TypeScript

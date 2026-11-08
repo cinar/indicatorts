@@ -75,6 +75,10 @@ difference between fast and slow periods EMA of the A/D.
 CO = Ema(fastPeriod, AD) - Ema(slowPeriod, AD)
 ```
 
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
 ```TypeScript
 function co(highs: number[], lows: number[], closings: number[], volumes: number[], config?: COConfig): COResult
 ```
@@ -201,6 +205,10 @@ Signal = EMA(9, PVO)
 Histogram = PVO - Signal
 ```
 
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
 ```TypeScript
 function ppo(prices: number[], config?: PPOConfig): PPOResult
 ```
@@ -255,6 +263,10 @@ PVO = ((EMA(fastPeriod, volumes) - EMA(slowPeriod, volumes)) / EMA(longPeriod, v
 Signal = EMA(9, PVO)
 Histogram = PVO - Signal
 ```
+
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 ```TypeScript
 function pvo(volumes: number[], config?: PVOConfig): PVOResult
@@ -351,6 +363,12 @@ using the given window period.
 RS = Average Gain / Average Loss
 RSI = 100 - (100 / (1 + RS))
 ```
+
+Warm-up: the first bar counts as a gain and a loss of 0, so it is part of
+the first averaging window, and every index has a value. TA-Lib starts from
+the second bar (the first price change) and leaves the first `period`
+results empty, so the early values differ and converge over the following
+bars. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 ```TypeScript
 function rsi(closings: number[], config?: RSIConfig): number[]

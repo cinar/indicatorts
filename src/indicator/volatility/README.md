@@ -87,6 +87,12 @@ TR = Max((High - Low), Abs(High - Previous Closing), Abs(Low - Previous Closing)
 ATR = RMA TR (Wilder's smoothing)
 ```
 
+Warm-up: the first bar's true range is its high minus its low (there is
+no previous closing), and it is part of the first averaging window, so
+every index has a value. TA-Lib starts from the second bar and leaves the
+first `period` results empty, so the early values differ and converge over
+the following bars. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
 ```TypeScript
 function atr(highs: number[], lows: number[], closings: number[], config?: ATRConfig): ATRResult
 ```
@@ -141,6 +147,10 @@ during a period of low market volatity band width contracts.
 ```
 Band Width = (Upper Band - Lower Band) / Middle Band
 ```
+
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 ```TypeScript
 function bbw(bb: BBResult, config?: BBWConfig): BBWResult
@@ -244,6 +254,10 @@ Average True Range (ATR).
 Chandelier Exit Long = 22-Period Highest High - ATR(22) * 3
 Chandelier Exit Short = 22-Period Lowest Low + ATR(22) * 3
 ```
+
+Warm-up: built on the average true range, which includes the first bar
+in its first averaging window, so the early values can differ from other
+libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 ```TypeScript
 function ce(highs: number[], lows: number[], closings: number[], config?: CEConfig): CEResult
@@ -355,6 +369,10 @@ Upper Band = EMA(period, closings) + 2 * ATR(period, highs, lows, closings)
 Lower Band = EMA(period, closings) - 2 * ATR(period, highs, lows, closings)
 ```
 
+Warm-up: built on the exponential moving average and the average true
+range, which start from the first bar rather than the way TA-Lib does, so
+the early values can differ from other libraries. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
 ```TypeScript
 function kc(highs: number[], lows: number[], closings: number[], config?: KCConfig): KCResult
 ```
@@ -456,6 +474,10 @@ SPO = EMA(smooth, PO)
 
 Since the current high and low are part of the window, PO stays within
 0 to 100. When PU equals PL, PO is 50.
+
+Warm-up: built on the exponential moving average, which starts from the
+first value rather than from a simple moving average, so the early values
+can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 ```TypeScript
 function po(highs: number[], lows: number[], closings: number[], config?: POConfig): POResult

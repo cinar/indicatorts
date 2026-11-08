@@ -42,6 +42,10 @@ export const PVODefaultConfig: Required<PVOConfig> = {
  * Histogram = PVO - Signal
  * ```
  *
+ * Warm-up: built on the exponential moving average, which starts from the
+ * first value rather than from a simple moving average, so the early values
+ * can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ *
  * @title Percentage Volume Oscillator (PVO)
  * @example
  * ```TypeScript

@@ -23,7 +23,6 @@ import {
  *
  * const result = tr(highs, lows, closings);
  * ```
- * @param period window period.
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

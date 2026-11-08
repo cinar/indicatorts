@@ -50,6 +50,10 @@ export const PODefaultConfig: Required<POConfig> = {
  * Since the current high and low are part of the window, PO stays within
  * 0 to 100. When PU equals PL, PO is 50.
  *
+ * Warm-up: built on the exponential moving average, which starts from the
+ * first value rather than from a simple moving average, so the early values
+ * can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ *
  * @title Projection Oscillator (PO)
  * @example
  * ```TypeScript
