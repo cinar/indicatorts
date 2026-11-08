@@ -12,8 +12,17 @@ import {
 /**
  * True Range (TR).
  *
+ * ```
  * TR = Max((High - Low), Abs(High - Closing[-1]), Abs(Low - Closing[-1]))
+ * ```
  *
+ * @title True Range (TR)
+ * @example
+ * ```TypeScript
+ * import { tr } from 'indicatorts';
+ *
+ * const result = tr(highs, lows, closings);
+ * ```
  * @param period window period.
  * @param highs high values.
  * @param lows low values.

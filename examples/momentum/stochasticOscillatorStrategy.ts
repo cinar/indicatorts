@@ -17,6 +17,14 @@ import {
  * and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
+ * @title Stochastic Oscillator Strategy
+ * @example
+ * ```TypeScript
+ * import { stochStrategy } from './stochasticOscillatorStrategy';
+ *
+ * const defaultConfig = { kPeriod: 14, dPeriod: 3 };
+ * const actions = stochStrategy(asset, defaultConfig);
+ * ```
  * @param asset asset object.
  * @param config configuration.
  * @return strategy actions.

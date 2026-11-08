@@ -35,8 +35,23 @@ export const BBWDefaultConfig: Required<BBWConfig> = {
  * During a period of rising price volatity the band width widens, and
  * during a period of low market volatity band width contracts.
  *
+ * ```
  * Band Width = (Upper Band - Lower Band) / Middle Band
+ * ```
  *
+ * @title Bollinger Band Width (BBW)
+ * @example
+ * ```TypeScript
+ * import { bb, bbw } from 'indicatorts';
+ *
+ * const bbResult = bb(closings);
+ *
+ * const defaultConfig = { period: 90 };
+ * const { width, widthEma } = bbw(bbResult, defaultConfig);
+ *
+ * // Alternatively:
+ * // const { width, widthEma } = bollingerBandsWidth(bbResult, defaultConfig);
+ * ```
  * @param bb bollinger bands.
  * @param config configuration.
  * @return bollinger bands width result.

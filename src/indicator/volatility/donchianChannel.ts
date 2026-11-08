@@ -36,10 +36,23 @@ export const DCDefaultConfig: Required<DCConfig> = {
  * an asset, and the area between the upper and lower bands
  * represents the Donchian Channel.
  *
+ * ```
  * Upper Channel = Mmax(closings, { period })
  * Lower Channel = Mmin(closings, { period })
  * Middle Channel = (Upper Channel + Lower Channel) / 2
+ * ```
  *
+ * @title Donchian Channel (DC)
+ * @example
+ * ```TypeScript
+ * import { dc } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 4 };
+ * const { upper, middle, lower } = dc(closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const { upper, middle, lower } = donchianChannel(closings, defaultConfig);
+ * ```
  * @param closings closing values.
  * @param config configuration.
  * @returns dc result.

@@ -24,6 +24,17 @@ export const SMADefaultConfig: Required<SMAConfig> = {
  * Built on msum, so a window of zeros averages to exactly 0, and a NaN or
  * Infinity input only affects the windows that contain it.
  *
+ * @title Simple Moving Average (SMA)
+ * @example
+ * ```TypeScript
+ * import { sma } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 2 };
+ * const result = sma(values);
+ *
+ * // Alternatively:
+ * // const result = simpleMovingAverage(values, defaultConfig);
+ * ```
  * @param values values array.
  * @param config configuration.
  * @return SMA values.

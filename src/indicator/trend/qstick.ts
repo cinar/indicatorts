@@ -21,8 +21,18 @@ export const QstickDefaultConfig: Required<QstickConfig> = {
 /**
  * The Qstick function calculates the ratio of recent up and down bars.
  *
+ * ```
  * QS = Sma(Closing - Opening)
+ * ```
  *
+ * @title Qstick
+ * @example
+ * ```TypeScript
+ * import { qstick } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 14 };
+ * const result = qstick(openings, closings, defaultConfig);
+ * ```
  * @param openings openinig values.
  * @param closings closing values.
  * @param config configuration.

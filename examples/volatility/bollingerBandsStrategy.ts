@@ -17,6 +17,14 @@ import {
  * asset closing < Lower Band, and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
+ * @title Bollinger Bands Strategy
+ * @example
+ * ```TypeScript
+ * import { bbStrategy } from './bollingerBandsStrategy';
+ *
+ * const defaultConfig = { period: 20 };
+ * const actions = bbStrategy(asset, defaultConfig);
+ * ```
  * @param asset asset object.
  * @param config configuration.
  * @return strategy actions.

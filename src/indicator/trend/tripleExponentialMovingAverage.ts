@@ -21,11 +21,26 @@ export const TEMADefaultConfig: Required<TEMAConfig> = {
 /**
  * Tema calculates the Triple Exponential Moving Average (TEMA).
  *
+ * ```
  * TEMA = (3 * EMA1) - (3 * EMA2) + EMA3
  * EMA1 = EMA(values)
  * EMA2 = EMA(EMA1)
  * EMA3 = EMA(EMA2)
+ * ```
  *
+ * Based on [Triple Exponential Moving Average (TEMA)](https://www.investopedia.com/terms/t/triple-exponential-moving-average.asp).
+ *
+ * @title Triple Exponential Moving Average (TEMA)
+ * @example
+ * ```TypeScript
+ * import { tema } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 2 };
+ * const result = tema(values, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = tripleExponentialMovingAverage(values, defaultConfig);
+ * ```
  * @param period window period.
  * @param values values array.
  * @return tema values.

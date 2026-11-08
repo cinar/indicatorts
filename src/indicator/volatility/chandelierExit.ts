@@ -32,9 +32,22 @@ export const CEDefaultConfig: Required<CEConfig> = {
  * Chandelier Exit. It sets a trailing stop-loss based on the
  * Average True Range (ATR).
  *
+ * ```
  * Chandelier Exit Long = 22-Period Highest High - ATR(22) * 3
  * Chandelier Exit Short = 22-Period Lowest Low + ATR(22) * 3
+ * ```
  *
+ * @title Chandelier Exit (CE)
+ * @example
+ * ```TypeScript
+ * import { ce } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 22 };
+ * const { long, short } = ce(highs, lows, closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const { long, short } = chandelierExit(highs, lows, closings, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

@@ -4,13 +4,25 @@
 import { checkSameLength } from '../../helper/numArray';
 
 /**
- * On-Balance Volume (OBV). It is a technical trading momentum indicator that
- * uses volume flow to predict changes in stock price.
+ * On-Balance Volume (OBV). It is a cumulative momentum indicator that adds
+ * the volume on up days and subtracts it on down days.
  *
+ * ```
  *                   volume, if Closing > Closing-Prev
  * OBV = OBV-Prev +       0, if Closing = Closing-Prev
  *                  -volume, if Closing < Closing-Prev
+ * ```
  *
+ * @title On-Balance Volume (OBV)
+ * @example
+ * ```TypeScript
+ * import {obv} from 'indicatorts';
+ *
+ * const result = obv(closings, volumes);
+ *
+ * // Alternatively:
+ * // const result = onBalanceVolume(closings, volumes);
+ * ```
  * @param closings closing values.
  * @param volumes volume values.
  * @return obv values.

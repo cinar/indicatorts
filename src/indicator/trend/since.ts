@@ -3,6 +3,14 @@
 
 /**
  * Since value is changed.
+ *
+ * @title Since Change
+ * @example
+ * ```TypeScript
+ * import { since } from 'indicatorts';
+ *
+ * const result = since(values);
+ * ```
  * @param values values array.
  * @return since changed.
  */

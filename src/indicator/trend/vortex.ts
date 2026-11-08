@@ -35,25 +35,40 @@ export const VortexDefaultConfig: Required<VortexConfig> = {
 
 /**
  * Vortex Indicator. It provides two oscillators that capture positive and
- * negative trend movement. A bullish signal triggers when the positive
- * trend indicator crosses above the negative trend indicator or a key
- * level. A bearish signal triggers when the negative trend indicator
- * crosses above the positive trend indicator or a key level.
+ * negative trend movement.
  *
+ * ```
  * +VM = Abs(Current High - Prior Low)
  * -VM = Abs(Current Low - Prior High)
+ * ```
  *
+ * ```
  * +VM14 = 14-Period Sum of +VM
  * -VM14 = 14-Period Sum of -VM
+ * ```
  *
+ * ```
  * TR = Max((High[i]-Low[i]), Abs(High[i]-Closing[i-1]), Abs(Low[i]-Closing[i-1]))
  * TR14 = 14-Period Sum of TR
+ * ```
  *
+ * ```
  * +VI14 = +VM14 / TR14
  * -VI14 = -VM14 / TR14
+ * ```
  *
  * Based on https://school.stockcharts.com/doku.php?id=technical_indicators:vortex_indicator
  *
+ * Based on [Vortex Indicator](https://school.stockcharts.com/doku.php?id=technical_indicators:vortex_indicator)
+ *
+ * @title Vortex Indicator
+ * @example
+ * ```TypeScript
+ * import { vortex } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 14 };
+ * const { plus, minus } = vortex(highs, lows, closings, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

@@ -19,6 +19,14 @@ import {
  * Generates a BUY action when VWMA > SMA, a SELL action when VWMA < SMA, and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
+ * @title Volume Weighted Moving Average (VWMA) Strategy
+ * @example
+ * ```TypeScript
+ * import { vwmaStrategy } from './vwmaStrategy';
+ *
+ * const defaultConfig = { period: 20 };
+ * const actions = vwmaStrategy(asset, defaultConfig);
+ * ```
  * @param asset asset object.
  * @param config configuration.
  * @returns strategy actions.

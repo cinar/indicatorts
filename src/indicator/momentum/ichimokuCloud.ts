@@ -1,7 +1,7 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
-import {checkSameLength, shiftLeftBy,} from '../../helper/numArray';
+import { checkSameLength, shiftLeftBy } from '../../helper/numArray';
 
 /**
  * Ichimoku cloud result object.
@@ -13,31 +13,31 @@ import {checkSameLength, shiftLeftBy,} from '../../helper/numArray';
  * and is not reflected in the array shape/indexing itself.
  */
 export interface IchimokuCloudResult {
-    tenkan: number[];
-    kijun: number[];
-    ssa: number[];
-    ssb: number[];
-    laggingSpan: number[];
+  tenkan: number[];
+  kijun: number[];
+  ssa: number[];
+  ssb: number[];
+  laggingSpan: number[];
 }
 
 /**
  * Optional configuration of Ichimoku cloud parameters.
  */
 export interface IchimokuCloudConfig {
-    short?: number;
-    medium?: number;
-    long?: number;
-    close?: number;
+  short?: number;
+  medium?: number;
+  long?: number;
+  close?: number;
 }
 
 /**
  * The default configuration of Ichimoku cloud.
  */
 export const IchimokuCloudDefaultConfig: Required<IchimokuCloudConfig> = {
-    short: 9,
-    medium: 26,
-    long: 52,
-    close: 26,
+  short: 9,
+  medium: 26,
+  long: 52,
+  close: 26,
 };
 
 /**
@@ -48,23 +48,30 @@ export const IchimokuCloudDefaultConfig: Required<IchimokuCloudConfig> = {
  * @param lows
  * @param projection
  */
-const averagePriceReducer = ({period, highs, lows, projection = 0}: {
-    period: number,
-    highs: number[],
-    lows: number[],
-    projection?: number
-}) => (acc: number[], _: number, i: number) => {
+const averagePriceReducer =
+  ({
+    period,
+    highs,
+    lows,
+    projection = 0,
+  }: {
+    period: number;
+    highs: number[];
+    lows: number[];
+    projection?: number;
+  }) =>
+  (acc: number[], _: number, i: number) => {
     if (i < period - 1) {
       acc.push(0);
       return acc;
     }
-    const from = i + 1 - period
-    const to = i - projection + 1
-    const max = Math.max(...highs.slice(from, to))
-    const min = Math.min(...lows.slice(from, to))
-    acc.push((max + min) / 2)
-    return acc
-}
+    const from = i + 1 - period;
+    const to = i - projection + 1;
+    const max = Math.max(...highs.slice(from, to));
+    const min = Math.min(...lows.slice(from, to));
+    acc.push((max + min) / 2);
+    return acc;
+  };
 
 /**
  * Tenkan-sen (Conversion Line) = (9-Period High + 9-Period Low) / 2
@@ -73,12 +80,19 @@ const averagePriceReducer = ({period, highs, lows, projection = 0}: {
  * @param lows low values.
  * @param short short period.
  */
-const calculateTenkanSen = ({highs, lows, short}: {
-    highs: number[],
-    lows: number[],
-    short: number
-}) => highs.reduce(averagePriceReducer({period: short, highs, lows}), [] as Array<number>)
-
+const calculateTenkanSen = ({
+  highs,
+  lows,
+  short,
+}: {
+  highs: number[];
+  lows: number[];
+  short: number;
+}) =>
+  highs.reduce<Array<number>>(
+    averagePriceReducer({ period: short, highs, lows }),
+    []
+  );
 
 /**
  * Kijun-sen (Conversion Line) = (26-Period High + 26-Period Low) / 2
@@ -87,11 +101,19 @@ const calculateTenkanSen = ({highs, lows, short}: {
  * @param lows low values.
  * @param medium mediym period.
  */
-const calculateKijunSen = ({highs, lows, medium}: {
-    highs: number[],
-    lows: number[],
-    medium: number
-}) => highs.reduce(averagePriceReducer({period: medium, highs, lows}), [] as Array<number>)
+const calculateKijunSen = ({
+  highs,
+  lows,
+  medium,
+}: {
+  highs: number[];
+  lows: number[];
+  medium: number;
+}) =>
+  highs.reduce<Array<number>>(
+    averagePriceReducer({ period: medium, highs, lows }),
+    []
+  );
 
 /**
  * Senkou Span A (Leading Span A) = (Tenkan-sen Line + Kijun-sen) / 2
@@ -104,10 +126,13 @@ const calculateKijunSen = ({highs, lows, medium}: {
  * @param tenkanSen Tenkan-sen values.
  * @param kijunSen Kijun-sen values.
  */
-const calculateSenkouSpanA = ({tenkanSen, kijunSen}: {
-    tenkanSen: number[],
-    kijunSen: number[],
-}) => kijunSen.map((k, i) => (k + tenkanSen[i]) / 2)
+const calculateSenkouSpanA = ({
+  tenkanSen,
+  kijunSen,
+}: {
+  tenkanSen: number[];
+  kijunSen: number[];
+}) => kijunSen.map((k, i) => (k + tenkanSen[i]) / 2);
 
 /**
  * Senkou Span B (Leading Span B) = (52-Period High + 52-Period Low) / 2
@@ -121,22 +146,32 @@ const calculateSenkouSpanA = ({tenkanSen, kijunSen}: {
  * @param lows low values.
  * @param long long period.
  */
-const calculateSenkouSpanB = ({highs, lows, long}: {
-    highs: number[],
-    lows: number[],
-    long: number,
-}) => highs.reduce(averagePriceReducer({period: long, highs, lows}), [] as Array<number>)
+const calculateSenkouSpanB = ({
+  highs,
+  lows,
+  long,
+}: {
+  highs: number[];
+  lows: number[];
+  long: number;
+}) =>
+  highs.reduce<Array<number>>(
+    averagePriceReducer({ period: long, highs, lows }),
+    []
+  );
 
 /**
  * Ichimoku Cloud. Also known as Ichimoku Kinko Hyo, is a versatile indicator
- * that defines support and resistence, identifies trend direction, gauges
- * momentum, and provides trading signals.
+ * that describes support and resistance levels, trend direction, and
+ * momentum.
  *
+ * ```
  * Tenkan-sen (Conversion Line) = (9-Period High + 9-Period Low) / 2
  * Kijun-sen (Base Line) = (26-Period High + 26-Period Low) / 2
  * Senkou Span A (Leading Span A) = (Conversion Line + Base Line) / 2, conventionally plotted 26 periods in the future
  * Senkou Span B (Leading Span B) = (52-Period High + 52-Period Low) / 2, conventionally plotted 26 periods in the future
  * Chikou Span (Lagging Span) = Closing plotted 26 periods in the past.
+ * ```
  *
  * All five arrays returned (`tenkan`, `kijun`, `ssa`, `ssb`, `laggingSpan`) are
  * the same length as the input (`highs`/`lows`/`closings`). `tenkan`, `kijun`,
@@ -151,6 +186,14 @@ const calculateSenkouSpanB = ({highs, lows, long}: {
  * Because it contains future closings, it must not be used to generate
  * signals at bar i; compare `closings[i]` with `closings[i - close]` instead.
  *
+ * @title Ichimoku Cloud
+ * @example
+ * ```TypeScript
+ * import { ichimokuCloud } from 'indicatorts';
+ *
+ * const defaultConfig = { short: 9, medium: 26, long: 52, close: 26 };
+ * const { tenkan, kijun, ssa, ssb, laggingSpan } = ichimokuCloud(highs, lows, closings, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
@@ -158,26 +201,26 @@ const calculateSenkouSpanB = ({highs, lows, long}: {
  * @return ichimoku cloud result object.
  */
 export function ichimokuCloud(
-    highs: number[],
-    lows: number[],
-    closings: number[],
-    config: IchimokuCloudConfig = {}
+  highs: number[],
+  lows: number[],
+  closings: number[],
+  config: IchimokuCloudConfig = {}
 ): IchimokuCloudResult {
-    checkSameLength(highs, lows, closings);
+  checkSameLength(highs, lows, closings);
 
-    const {short, medium, long, close} = {
-        ...IchimokuCloudDefaultConfig,
-        ...config,
-    };
+  const { short, medium, long, close } = {
+    ...IchimokuCloudDefaultConfig,
+    ...config,
+  };
 
-    const tenkan = calculateTenkanSen({highs, lows, short})
-    const kijun = calculateKijunSen({highs, lows, medium})
+  const tenkan = calculateTenkanSen({ highs, lows, short });
+  const kijun = calculateKijunSen({ highs, lows, medium });
 
-    return {
-        tenkan,
-        kijun,
-        ssa: calculateSenkouSpanA({tenkanSen: tenkan, kijunSen: kijun}),
-        ssb: calculateSenkouSpanB({highs, lows, long}),
-        laggingSpan: shiftLeftBy(close, closings),
-    };
+  return {
+    tenkan,
+    kijun,
+    ssa: calculateSenkouSpanA({ tenkanSen: tenkan, kijunSen: kijun }),
+    ssb: calculateSenkouSpanB({ highs, lows, long }),
+    laggingSpan: shiftLeftBy(close, closings),
+  };
 }

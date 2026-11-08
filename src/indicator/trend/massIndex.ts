@@ -25,11 +25,24 @@ export const MIDefaultConfig: Required<MIConfig> = {
  * The Mass Index (MI) uses the high-low range to identify trend reversals
  * based on range expansions.
  *
+ * ```
  * Singe EMA = EMA(9, Highs - Lows)
  * Double EMA = EMA(9, Single EMA)
  * Ratio = Single EMA / Double EMA
  * MI = Sum(25, Ratio)
+ * ```
  *
+ * @title Mass Index (MI)
+ * @example
+ * ```TypeScript
+ * import { mi } from 'indicatorts';
+ *
+ * const defaultConfig = { emaPeriod: 9, miPeriod: 25 };
+ * const result = mi(highs, lows, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = massIndex(highs, lows, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param config configuration.

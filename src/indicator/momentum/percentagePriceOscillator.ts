@@ -36,10 +36,23 @@ export const PPODefaultConfig: Required<PPOConfig> = {
  * It is used to indicate the ups and downs based on the price. A breakout is
  * confirmed when PPO is positive.
  *
+ * ```
  * PVO = ((EMA(fastPeriod, prices) - EMA(slowPeriod, prices)) / EMA(longPeriod, prices)) * 100
  * Signal = EMA(9, PVO)
  * Histogram = PVO - Signal
+ * ```
  *
+ * @title Percentage Price Oscillator (PPO)
+ * @example
+ * ```TypeScript
+ * import { ppo } from 'indicatorts';
+ *
+ * const defaultConfig = { fast: 12, slow: 26, signal: 9 };
+ * const { ppoResult, signal, histogram } = ppo(prices, defaultConfig);
+ *
+ * // Alternatively:
+ * // const { ppoResult, signal, histogram } = percentagePriceOscillator(prices, defaultConfig);
+ * ```
  * @param prices price values.
  * @param config configuration.
  * @returns oscillator result.

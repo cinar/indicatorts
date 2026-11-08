@@ -31,9 +31,22 @@ export const ATRDefaultConfig: Required<ATRConfig> = {
  * measures market volatility by decomposing the entire range of stock
  * prices for that period.
  *
+ * ```
  * TR = Max((High - Low), Abs(High - Previous Closing), Abs(Low - Previous Closing))
  * ATR = RMA TR (Wilder's smoothing)
+ * ```
  *
+ * @title Average True Range (ATR)
+ * @example
+ * ```TypeScript
+ * import { atr } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 14 };
+ * const { trLine, atrLine } = atr(highs, lows, closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const { trLine, atrLine } = averageTrueRange(highs, lows, closings, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

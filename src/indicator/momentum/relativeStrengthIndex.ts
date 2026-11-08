@@ -22,9 +22,22 @@ export const RSIDefaultConfig: Required<RSIConfig> = {
  * recent price changes to evaluate overbought and oversold conditions
  * using the given window period.
  *
+ * ```
  * RS = Average Gain / Average Loss
  * RSI = 100 - (100 / (1 + RS))
+ * ```
  *
+ * @title Relative Strength Index (RSI)
+ * @example
+ * ```TypeScript
+ * import { rsi } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 14 };
+ * const result = rsi(closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = relativeStrengthIndex(closings, defaultConfig);
+ * ```
  * @param closings closing values.
  * @param config configuration.
  * @return rsi values.

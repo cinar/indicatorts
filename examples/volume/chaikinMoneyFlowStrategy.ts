@@ -17,6 +17,14 @@ import { Asset } from '../../src/strategy/asset';
  * CMF < 0 (selling pressure), and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
+ * @title Chaikin Money Flow Strategy
+ * @example
+ * ```TypeScript
+ * import { cmfStrategy } from './chaikinMoneyFlowStrategy';
+ *
+ * const defaultConfig = { period: 20 };
+ * const actions = cmfStrategy(asset, defaultConfig);
+ * ```
  * @param asset asset object.
  * @param config configuration.
  * @returns strategy actions.

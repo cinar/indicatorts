@@ -22,10 +22,21 @@ export const WillrDefaultConfig: Required<WillrConfig> = {
 /**
  * Williams R. Determine overbought and oversold.
  *
+ * ```
  * WR = (Highest High - Closing) / (Highest High - Lowest Low) * -100.
+ * ```
  *
- * Buy when -80 and below. Sell when -20 and above.
+ * @title Williams R (WILLR)
+ * @example
+ * ```TypeScript
+ * import { willr } from 'indicatorts';
  *
+ * const defaultConfig = { period: 14 };
+ * const result = willr(highs, lows, closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = williamsR(highs, lows, closings, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

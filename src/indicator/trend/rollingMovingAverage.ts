@@ -18,9 +18,22 @@ export const RMADefaultConfig: Required<RMAConfig> = {
 /**
  * Rolling moving average (RMA).
  *
+ * ```
  * R[0] to R[p-1] is SMA(values)
  * R[p] and after is R[i] = ((R[i-1]*(p-1)) + v[i]) / p
+ * ```
  *
+ * @title Rolling Moving Average (RMA)
+ * @example
+ * ```TypeScript
+ * import { rma } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 4 };
+ * const result = rma(values, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = rollingMovingAverage(values, defaultConfig);
+ * ```
  * @param values values array.
  * @param config configuration.
  * @returns RMA values.

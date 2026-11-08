@@ -17,6 +17,14 @@ import { Asset } from '../../src/strategy/asset';
  * when MFI <= 20 (oversold threshold), and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
+ * @title Money Flow Index Strategy
+ * @example
+ * ```TypeScript
+ * import { mfiStrategy } from './moneyFlowIndexStrategy';
+ *
+ * const defaultConfig = { period: 14 };
+ * const actions = mfiStrategy(asset, defaultConfig);
+ * ```
  * @param asset asset object.
  * @param config configuration.
  * @return strategy actions.

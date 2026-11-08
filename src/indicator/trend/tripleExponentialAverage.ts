@@ -24,11 +24,24 @@ export const TRIXDefaultConfig: Required<TRIXConfig> = {
  * as a momentum indicator. Like many oscillators, TRIX oscillates
  * around a zero line.
  *
+ * ```
  * EMA1 = EMA(period, values)
  * EMA2 = EMA(period, EMA1)
  * EMA3 = EMA(period, EMA2)
  * TRIX = (EMA3 - Previous EMA3) / Previous EMA3
+ * ```
  *
+ * @title Triple Exponential Average (TRIX)
+ * @example
+ * ```TypeScript
+ * import { trix } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 4 };
+ * const result = trix(values, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = tripleExponentialAverage(values, defaultConfig);
+ * ```
  * @param values values array.
  * @param config configuration.
  * @returns trix values.

@@ -31,10 +31,23 @@ export const BBDefaultConfig: Required<BBConfig> = {
 /**
  * Bollinger Bands.
  *
+ * ```
  * Middle Band = 20-Period SMA.
  * Upper Band = 20-Period SMA + 2 (20-Period Std)
  * Lower Band = 20-Period SMA - 2 (20-Period Std)
+ * ```
  *
+ * @title Bollinger Bands (BB)
+ * @example
+ * ```TypeScript
+ * import { bb } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 20 };
+ * const { upper, middle, lower } = bb(closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const { upper, middle, lower } = bollingerBands(closings, defaultConfig);
+ * ```
  * @param closings closing values.
  * @param config configuration.
  * @return bollinger bands.

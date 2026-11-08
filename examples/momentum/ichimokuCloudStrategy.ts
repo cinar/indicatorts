@@ -17,6 +17,14 @@ import {
  * and HOLD when Leading Span A == Leading Span B.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
+ * @title Ichimoku Cloud Strategy
+ * @example
+ * ```TypeScript
+ * import { ichimokuCloudStrategy } from './ichimokuCloudStrategy';
+ *
+ * const defaultConfig = { short: 9, medium: 26, long: 52, close: 26 };
+ * const actions = ichimokuCloudStrategy(asset, defaultConfig);
+ * ```
  * @param asset asset object.
  * @param config configuration.
  * @return strategy actions.

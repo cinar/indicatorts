@@ -37,18 +37,31 @@ export const KDJDefaultConfig: Required<KDJConfig> = {
  * The kdj function calculates the KDJ indicator, also known as
  * the Random Index. KDJ is calculated similar to the Stochastic
  * Oscillator with the difference of having the J line. It is
- * used to analyze the trend and entry points.
+ * used to analyze the trend.
  *
  * The K and D lines show if the asset is overbought when they
  * crosses above 80%, and oversold when they crosses below
  * 20%. The J line represents the divergence.
  *
+ * ```
  * RSV = ((Closing - Min(Low, rPeriod))
  *       / (Max(High, rPeriod) - Min(Low, rPeriod))) * 100
  * K = Sma(RSV, kPeriod)
  * D = Sma(K, dPeriod)
  * J = (3 * K) - (2 * D)
+ * ```
  *
+ * @title Random Index (KDJ)
+ * @example
+ * ```TypeScript
+ * import { kdj } from 'indicatorts';
+ *
+ * const defaultConfig = { rPeriod: 9, kPeriod: 3, dPeriod: 3 };
+ * const { k, d, j } = kdj(highs, lows, closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const { k, d, j } = randomIndex(highs, lows, closings, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

@@ -40,14 +40,27 @@ export const PODefaultConfig: Required<POConfig> = {
  * bar along the slope of the moving linear regression of the highs (and
  * lows), obtained through the least squares method.
  *
+ * ```
  * PU = Max(High[i - k] + k * Slope(period, high)) for k = 0 .. period - 1
  * PL = Min(Low[i - k] + k * Slope(period, low)) for k = 0 .. period - 1
  * PO = 100 * (Closing - PL) / (PU - PL)
  * SPO = EMA(smooth, PO)
+ * ```
  *
  * Since the current high and low are part of the window, PO stays within
  * 0 to 100. When PU equals PL, PO is 50.
  *
+ * @title Projection Oscillator (PO)
+ * @example
+ * ```TypeScript
+ * import { po } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 14, smooth: 3 };
+ * const { poResult, spoResult } = po(highs, lows, closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const { poResult, spoResult } = projectionOscillator(highs, lows, closings, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

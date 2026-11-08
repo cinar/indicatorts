@@ -4,6 +4,9 @@
 import { subtract } from '../../helper/numArray';
 import { ema } from './exponentialMovingAverage';
 
+/**
+ * Moving average convergence divergence (MACD) result object.
+ */
 export interface MACDResult {
   macdLine: number[];
   signalLine: number[];
@@ -30,9 +33,22 @@ export const MACDDefaultConfig: Required<MACDConfig> = {
 /**
  * Moving Average Convergence Divergence (MACD).
  *
+ * ```
  * MACD = 12-Period EMA - 26-Period EMA.
  * Signal = 9-Period EMA of MACD.
+ * ```
  *
+ * @title Moving Average Convergence Divergence (MACD)
+ * @example
+ * ```TypeScript
+ * import { macd } from 'indicatorts';
+ *
+ * const defaultConfig = { fast: 12, slow: 26, signal: 9 };
+ * const { macdLine, signalLine } = macd(closings);
+ *
+ * // Alternatively:
+ * // const { macdLine, signalLine } = movingAverageConvergenceDivergence(closings, defaultConfig);
+ * ```
  * @param closings closing values.
  * @param config configuration.
  * @return macd result.

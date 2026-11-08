@@ -19,6 +19,18 @@ export const MMinDefaultConfig: Required<MMinConfig> = {
 
 /**
  * Moving min for the given period.
+ *
+ * @title Moving Min (MMIN)
+ * @example
+ * ```TypeScript
+ * import { mmin } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 4 };
+ * const result = mmin(values, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = movingMin(values, defaultConfig);
+ * ```
  * @param values values array.
  * @param config configuration.
  * @return moving min.

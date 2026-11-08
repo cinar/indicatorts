@@ -22,8 +22,21 @@ export const VWAPDefaultConfig: Required<VWAPConfig> = {
  * The Volume Weighted Average Price (VWAP) provides the average price
  * the asset has traded.
  *
+ * ```
  * VWAP = Sum(Closing * Volume) / Sum(Volume)
+ * ```
  *
+ * @title Volume Weighted Average Price (VWAP)
+ * @example
+ * ```TypeScript
+ * import { vwap } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 14 };
+ * const result = vwap(closings, volumes, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = volumeWeightedAveragePrice(closings, volumes, defaultConfig);
+ * ```
  * @param closings closing values.
  * @param volumes volume values.
  * @param config configuration.
@@ -36,7 +49,10 @@ export function vwap(
 ): number[] {
   const { period } = { ...VWAPDefaultConfig, ...config };
   const volumeSum = msum(volumes, { period });
-  const resultRaw = divide(msum(multiply(closings, volumes), { period }), volumeSum);
+  const resultRaw = divide(
+    msum(multiply(closings, volumes), { period }),
+    volumeSum
+  );
 
   // When the volume sum for a window is 0 (no trading volume), VWAP is
   // treated as 0 instead of NaN (0 / 0).

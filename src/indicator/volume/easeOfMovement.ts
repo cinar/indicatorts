@@ -28,11 +28,24 @@ export const EMVDefaultConfig: Required<EMVConfig> = {
  * The Ease of Movement (EMV) is a volume based oscillator measuring
  * the ease of price movement.
  *
+ * ```
  * Distance Moved = ((High + Low) / 2) - ((Priod High + Prior Low) /2)
  * Box Ratio = ((Volume / 100000000) / (High - Low))
  * EMV(1) = Distance Moved / Box Ratio
  * EMV(14) = SMA(14, EMV(1))
+ * ```
  *
+ * @title Ease of Movement (EMV)
+ * @example
+ * ```TypeScript
+ * import { emv } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 14 };
+ * const result = emv(highs, lows, volumes, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = easeOfMovement(highs, lows, volumes, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param volumes volume values.

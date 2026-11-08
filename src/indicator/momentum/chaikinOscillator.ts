@@ -34,10 +34,22 @@ export const CODefaultConfig: Required<COConfig> = {
  * Accumulation/Distribution (A/D) using the Moving Average
  * Convergence Divergence (MACD) formula. It takes the
  * difference between fast and slow periods EMA of the A/D.
- * Cross above the A/D line indicates bullish.
  *
+ * ```
  * CO = Ema(fastPeriod, AD) - Ema(slowPeriod, AD)
+ * ```
  *
+ * @title Chaikin Oscillator (CO)
+ * @example
+ * ```TypeScript
+ * import { co } from 'indicatorts';
+ *
+ * const defaultConfig =  { fast: 3, slow: 10 };
+ * const { adResult, coResult } = co(highs, lows, closings, volumes, defaultConfig);
+ *
+ * // Alternatively:
+ * // const { adResult, coResult } = chaikinOscillator(highs, lows, closings, volumes, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

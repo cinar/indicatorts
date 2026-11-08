@@ -22,8 +22,21 @@ export const FIDefaultConfig: Required<FIConfig> = {
  * The Force Index (FI) uses the closing price and the volume to assess
  * the power behind a move and identify turning points.
  *
+ * ```
  * Force Index = EMA(period, (Current - Previous) * Volume)
+ * ```
  *
+ * @title Force Index (FI)
+ * @example
+ * ```TypeScript
+ * import { fi } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 13 };
+ * const result = fi(closings, volumes, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = forceIndex(closings, volumes, defaultConfig);
+ * ```
  * @param closings closing values.
  * @param volumes volume values.
  * @param config configuration.

@@ -16,6 +16,14 @@ import {
  * Generates a BUY action when %R <= -80, a SELL action when %R >= -20, and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
+ * @title Williams R Strategy
+ * @example
+ * ```TypeScript
+ * import { willRStrategy } from './williamsRStrategy';
+ *
+ * const defaultConfig = { period: 14 };
+ * const actions = willRStrategy(asset, defaultConfig);
+ * ```
  * @param asset asset object.
  * @param config configuration.
  * @return strategy actions.

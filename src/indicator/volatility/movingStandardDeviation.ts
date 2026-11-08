@@ -20,6 +20,17 @@ export const MSTDDefaultConfig: Required<MSTDConfig> = {
 /**
  * Moving strandard deviation function.
  *
+ * @title Moving Standard Deviation (MSTD)
+ * @example
+ * ```TypeScript
+ * import { mstd } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 4 };
+ * const result = mstd(values, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = movingStandardDeviation(values, defaultConfig);
+ * ```
  * @param values value array.
  * @param config configuration.
  * @return std values.

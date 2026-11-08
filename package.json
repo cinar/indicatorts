@@ -14,6 +14,7 @@
     "build-cjs": "esbuild src/index.ts --bundle --outdir=dist/cjs --platform=node --format=cjs --minify --sourcemap",
     "build-types": "tsc -p tsconfig.build.json --emitDeclarationOnly --declaration --outDir dist/types",
     "lint": "eslint .",
+    "docs": "node scripts/generateDocs.mjs",
     "fix": "prettier --ignore-path .gitignore --write . ; eslint --fix .",
     "test": "vitest run"
   },

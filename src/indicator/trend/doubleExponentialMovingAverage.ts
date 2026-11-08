@@ -21,8 +21,23 @@ export const DEMADefaultConfig: Required<DEMAConfig> = {
 /**
  * Dema calculates the Double Exponential Moving Average (DEMA).
  *
+ * ```
  * DEMA = (2 * EMA(values)) - EMA(EMA(values))
+ * ```
  *
+ * Based on [Double Exponential Moving Average (DEMA)](https://www.investopedia.com/terms/d/double-exponential-moving-average.asp).
+ *
+ * @title Double Exponential Moving Average (DEMA)
+ * @example
+ * ```TypeScript
+ * import { dema } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 12 };
+ * const result = dema(values, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = doubleExponentialMovingAverage(values, defaultConfig);
+ * ```
  * @param values values array.
  * @param config configuration
  * @return dema values.

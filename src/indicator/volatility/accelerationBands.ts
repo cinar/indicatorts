@@ -41,10 +41,23 @@ export const ABDefaultConfig: Required<ABConfig> = {
  * Acceleration Bands. Plots upper and lower envelope bands
  * around a simple moving average.
  *
+ * ```
  * Upper Band = SMA(High * (1 + 4 * (High - Low) / (High + Low)))
  * Middle Band = SMA(Closing)
  * Lower Band = SMA(Low * (1 - 4 * (High - Low) / (High + Low)))
+ * ```
  *
+ * @title Acceleration Bands (AB)
+ * @example
+ * ```TypeScript
+ * import { ab } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 20, multiplier: 4 };
+ * const { upper, middle, lower } = ab(highs, lows, closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const { upper, middle, lower } = accelerationBands(highs, lows, closings, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.

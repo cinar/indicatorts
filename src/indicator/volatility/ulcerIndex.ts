@@ -30,11 +30,24 @@ export const UIDefaultConfig: Required<UIConfig> = {
  * as the price moves farther away from a recent high and falls as the price
  * rises to new highs.
  *
+ * ```
  * High Closings = Max(period, Closings)
  * Percentage Drawdown = 100 * ((Closings - High Closings) / High Closings)
  * Squared Average = Sma(period, Percent Drawdown * Percent Drawdown)
  * Ulcer Index = Sqrt(Squared Average)
+ * ```
  *
+ * @title Ulcer Index (UI)
+ * @example
+ * ```TypeScript
+ * import { ui } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 14 };
+ * const result = ulcerIndex(closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = ulcerIndex(closings, defaultConfig);
+ * ```
  * @param closings closing values.
  * @param config configuration.
  * @returns ui values.

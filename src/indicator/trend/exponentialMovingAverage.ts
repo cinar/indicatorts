@@ -17,6 +17,18 @@ export const EMADefaultConfig: Required<EMAConfig> = {
 
 /**
  * Exponential moving average (EMA).
+ *
+ * @title Exponential Moving Average (EMA)
+ * @example
+ * ```TypeScript
+ * import { ema } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 12 };
+ * const result = ema(values, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = exponentialMovingAverage(values, defaultConfig);
+ * ```
  * @param values values array.
  * @param config configuration.
  * @return EMA values.

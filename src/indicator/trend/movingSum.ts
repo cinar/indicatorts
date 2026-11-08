@@ -30,6 +30,17 @@ export const MSumDefaultConfig: Required<MSumConfig> = {
  *   contain it. Subtracting it back out would leave NaN forever, so the
  *   sum is recomputed from the window once that value leaves it.
  *
+ * @title Moving Sum (MSUM)
+ * @example
+ * ```TypeScript
+ * import { msum } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 4 };
+ * const result = msum(values, defaultConfig);
+ *
+ * // Alternatively:
+ * // const result = movingSum(values, defaultConfig);
+ * ```
  * @param values values array.
  * @param config configuration.
  * @return sum values.

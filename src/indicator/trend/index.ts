@@ -1,6 +1,14 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
+/**
+ * Trend indicators measure the direction and strength of a trend.
+ *
+ * **NOTE:** All configuration objects for all indicators are optional. If no configuration object is passed, the default configuration will be used. Likewise, you may also partially pass a configuration object, and the default values will be used for the missing properties.
+ *
+ * @module Trend Indicators
+ */
+
 export * from './absolutePriceOscillator';
 export * from './aroon';
 export * from './balanceOfPower';

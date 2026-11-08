@@ -36,10 +36,23 @@ export const PVODefaultConfig: Required<PVOConfig> = {
  * It is used to indicate the ups and downs based on the volume. A breakout is
  * confirmed when PVO is positive.
  *
+ * ```
  * PVO = ((EMA(fastPeriod, volumes) - EMA(slowPeriod, volumes)) / EMA(longPeriod, volumes)) * 100
  * Signal = EMA(9, PVO)
  * Histogram = PVO - Signal
+ * ```
  *
+ * @title Percentage Volume Oscillator (PVO)
+ * @example
+ * ```TypeScript
+ * import { pvo } from 'indicatorts';
+ *
+ * const defaultConfig = { fast: 12, slow: 26, signal: 9 };
+ * const { pvoResult, signal, histogram } = pvo(volumes, defaultConfig);
+ *
+ * // Alternatively:
+ * // const { pvoResult, signal, histogram } = percentageVolumeOscillator(volumes, defaultConfig);
+ * ```
  * @param volumes volume values.
  * @param config configuration.
  * @returns oscillator result.

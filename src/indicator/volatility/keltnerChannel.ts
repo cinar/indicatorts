@@ -33,10 +33,23 @@ export const KCDefaultConfig: Required<KCConfig> = {
  * on either side of an asset's price and can aid in determining the
  * direction of a trend.
  *
+ * ```
  * Middle Line = EMA(period, closings)
  * Upper Band = EMA(period, closings) + 2 * ATR(period, highs, lows, closings)
  * Lower Band = EMA(period, closings) - 2 * ATR(period, highs, lows, closings)
+ * ```
  *
+ * @title Keltner Channel (KC)
+ * @example
+ * ```TypeScript
+ * import { kc } from 'indicatorts';
+ *
+ * const defaultConfig = { period: 20 };
+ * const { upper, middle, lower } = kc(highs, lows, closings, defaultConfig);
+ *
+ * // Alternatively:
+ * // const { upper, middle, lower } = keltnerChannel(highs, lows, closings, defaultConfig);
+ * ```
  * @param highs high values.
  * @param lows low values.
  * @param closings closing values.
