@@ -1,5 +1,5 @@
 const js = require('@eslint/js');
-const tsPlugin = require('@typescript-eslint/eslint-plugin');
+const tseslint = require('typescript-eslint');
 const globals = require('globals');
 const prettierConfig = require('eslint-config-prettier');
 
@@ -8,7 +8,7 @@ module.exports = [
     ignores: ['dist/**', 'coverage/**', 'eslint.config.js'],
   },
   js.configs.recommended,
-  ...tsPlugin.configs['flat/recommended'],
+  ...tseslint.configs.recommended,
   {
     languageOptions: {
       sourceType: 'module',

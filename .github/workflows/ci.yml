@@ -5,6 +5,9 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x, 24.x, 26.x]
     permissions:
       contents: read
       # Lets the Codecov upload authenticate with OIDC instead of a token.
@@ -18,7 +21,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v7
         with:
-          node-version: 24.x
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
         run: npm ci
@@ -30,6 +33,8 @@ jobs:
         run: npm test
 
       - name: Upload coverage to Codecov
+        # Coverage is the same on every Node version, so upload it once.
+        if: matrix.node-version == '24.x'
         uses: codecov/codecov-action@v7
         with:
           # main is a protected branch, so Codecov rejects tokenless uploads
