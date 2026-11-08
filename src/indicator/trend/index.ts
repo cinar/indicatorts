@@ -8,6 +8,7 @@ export * from './chandeForecastOscillator';
 export * from './commodityChannelIndex';
 export * from './doubleExponentialMovingAverage';
 export * from './exponentialMovingAverage';
+export * from './kaufmanAdaptiveMovingAverage';
 export * from './massIndex';
 export * from './movingAverageConvergenceDivergence';
 export * from './movingMax';

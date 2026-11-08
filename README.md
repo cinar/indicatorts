@@ -47,6 +47,7 @@ The following technical analysis indicators are supported by this package:
 - [Commodity Channel Index (CCI)](src/indicator/trend/README.md#commodity-channel-index-cci)
 - [Double Exponential Moving Average (DEMA)](src/indicator/trend/README.md#double-exponential-moving-average-dema)
 - [Exponential Moving Average (EMA)](src/indicator/trend/README.md#exponential-moving-average-ema)
+- [Kaufman's Adaptive Moving Average (KAMA)](src/indicator/trend/README.md#kaufmans-adaptive-moving-average-kama)
 - [Mass Index (MI)](src/indicator/trend/README.md#mass-index-mi)
 - [Moving Average Convergence Divergence (MACD)](src/indicator/trend/README.md#moving-average-convergence-divergence-macd)
 - [Moving Max (MMAX)](src/indicator/trend/README.md#moving-max-mmax)
