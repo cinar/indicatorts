@@ -13,7 +13,7 @@ Indicator TS is a TypeScript module providing pure technical analysis mathematic
 
 _This is a TypeScript implementation of the [Indicator Go](https://github.com/cinar/indicator) Golang module._
 
-> **Maintenance status:** This project is no longer actively developed, and new features are not planned. I will still do my best to review issues and pull requests as quickly as I can to keep the project current. It is provided as is under the [MIT License](LICENSE.md).
+> **Maintenance status:** This project is no longer actively developed, and new features are not planned. I will do my best to review issues and pull requests. It is provided as is under the [MIT License](LICENSE.md).
 
 ## ⚠️ Legal Disclaimers & Risk Disclosures
 
