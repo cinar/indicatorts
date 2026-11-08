@@ -26,6 +26,12 @@ export const KAMADefaultConfig: Required<KAMAConfig> = {
  * SC = (ER * (fastSC - slowSC) + slowSC)^2
  * KAMA[i] = KAMA[i-1] + SC * (Close[i] - KAMA[i-1])
  *
+ * fastSC = 2 / (fast + 1), and slowSC = 2 / (slow + 1). Until a full period
+ * is available, the first `period` values are the input values themselves,
+ * and the first adaptive value (at index `period`) builds on
+ * `values[period - 1]`. When the price did not move over the window, the
+ * efficiency ratio is 0 instead of NaN (0 / 0).
+ *
  * @param values values array.
  * @param config configuration.
  * @return KAMA values.
@@ -33,6 +39,11 @@ export const KAMADefaultConfig: Required<KAMAConfig> = {
 export function kama(values: number[], config: KAMAConfig = {}): number[] {
   const { period, fast, slow } = { ...KAMADefaultConfig, ...config };
   const result = new Array<number>(values.length);
+
+  if (values.length === 0) {
+    return result;
+  }
+
   const fastSC = 2 / (fast + 1);
   const slowSC = 2 / (slow + 1);
 

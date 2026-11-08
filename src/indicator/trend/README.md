@@ -10,6 +10,7 @@ Trend indicators measure the direction and strength of a trend.
   - [Commodity Channel Index (CCI)](#commodity-channel-index-cci)
   - [Double Exponential Moving Average (DEMA)](#double-exponential-moving-average-dema)
   - [Exponential Moving Average (EMA)](#exponential-moving-average-ema)
+  - [Kaufman's Adaptive Moving Average (KAMA)](#kaufmans-adaptive-moving-average-kama)
   - [Mass Index (MI)](#mass-index-mi)
   - [Moving Average Convergence Divergence (MACD)](#moving-average-convergence-divergence-macd)
   - [Moving Max (MMAX)](#moving-max-mmax)
@@ -174,6 +175,26 @@ const result = ema(values, defaultConfig);
 
 // Alternatively:
 // const result = exponentialMovingAverage(values, defaultConfig);
+```
+
+## Kaufman's Adaptive Moving Average (KAMA)
+
+The [kama](./kaufmanAdaptiveMovingAverage.ts) function calculates Kaufman's Adaptive Moving Average, a moving average designed to account for market noise and volatility. Its sensitivity to price changes increases during trending periods and decreases during ranging periods. Until a full period is available, the first `period` values are the closings themselves.
+
+```
+ER = abs(Close[i] - Close[i-period]) / Sum(abs(Close[j] - Close[j-1]), period)
+SC = (ER * (fastSC - slowSC) + slowSC)^2
+KAMA[i] = KAMA[i-1] + SC * (Close[i] - KAMA[i-1])
+```
+
+```TypeScript
+import { kama } from 'indicatorts';
+
+const defaultConfig = { period: 10, fast: 2, slow: 30 };
+const result = kama(closings, defaultConfig);
+
+// Alternatively:
+// const result = kaufmanAdaptiveMovingAverage(closings, defaultConfig);
 ```
 
 ## Mass Index (MI)
