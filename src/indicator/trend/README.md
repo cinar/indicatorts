@@ -112,10 +112,10 @@ const result = cfo(closings);
 There is also an oscillator for calculating the moving chande forecast oscillator.
 
 ```TypeScript
-import { mfco } from 'indicatorts';
+import { mcfo } from 'indicatorts';
 
 const defaultConfig = { period: 4 };
-const result = mfco(closings, defaultConfig);
+const result = mcfo(closings, defaultConfig);
 
 // Alternatively:
 // const result = movingChandeForecastOscillator(closings, defaultConfig);
