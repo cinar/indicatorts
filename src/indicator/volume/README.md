@@ -105,9 +105,13 @@ The [moneyFlowIndex](./moneyFlowIndex.ts) function analyzes both the closing pri
 
 ```
 Raw Money Flow = Typical Price * Volume
+Positive Money Flow = Sum of Raw Money Flow where Typical Price rose
+Negative Money Flow = Sum of Raw Money Flow where Typical Price fell
 Money Ratio = Positive Money Flow / Negative Money Flow
 Money Flow Index = 100 - (100 / (1 + Money Ratio))
 ```
+
+Bars with an unchanged typical price, and the first bar, count toward neither flow.
 
 ```TypeScript
 import { mfi } from 'indicatorts';
@@ -124,13 +128,13 @@ const result = mfi(highs, lows, closings, volumes, defaultConfig);
 The [negativeVolumeIndex](./negativeVolumeIndex.ts) function calculates a cumulative indicator using the change in volume to decide when the smart money is active.
 
 ```
-If Volume is greater than Previous Volume:
-
-    NVI = Previous NVI
-
-Otherwise:
+If Volume is less than Previous Volume:
 
     NVI = Previous NVI + (((Closing - Previous Closing) / Previous Closing) * Previous NVI)
+
+Otherwise (Volume is greater than or equal to Previous Volume):
+
+    NVI = Previous NVI
 ```
 
 ```TypeScript

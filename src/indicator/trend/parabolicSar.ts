@@ -42,14 +42,12 @@ export const PSARDefaultConfig: Required<PSARConfig> = {
  *  - PSAR is the minimum of PSAR or the previous two low values.
  *  - If the current low is less than or equals to PSAR, use EP.
  *
- * If PSAR is greater than the closing, trend is falling, and the EP
- * is set to the minimum of EP or the low.
+ * When EP is used, the trend reverses, EP is set to the current high (if
+ * now rising) or low (if now falling), and AF is reset to 0.02.
  *
- * If PSAR is lower than or equals to the closing, trend is rising, and the EP
- * is set to the maximum of EP or the high.
- *
- * If the trend is the same, and AF is less than 0.20, increment it by 0.02.
- * If the trend is not the same, set AF to 0.02.
+ * Otherwise the trend stays the same, EP is set to the maximum of EP or the
+ * high (if rising) or the minimum of EP or the low (if falling), and when EP
+ * changes AF is incremented by 0.02, up to 0.20.
  *
  * Based on video https://www.youtube.com/watch?v=MuEpGBAH7pw&t=0s.
  *
@@ -83,40 +81,44 @@ export function psar(
   for (let i = 1; i < psarResult.length; i++) {
     psarResult[i] = psarResult[i - 1] - (psarResult[i - 1] - ep) * af;
 
+    let reversed: boolean;
+
     if (trends[i - 1] === Trend.FALLING) {
       psarResult[i] = Math.max(psarResult[i], highs[i - 1]);
       if (i > 1) {
         psarResult[i] = Math.max(psarResult[i], highs[i - 2]);
       }
 
-      if (highs[i] >= psarResult[i]) {
-        psarResult[i] = ep;
-      }
+      reversed = highs[i] >= psarResult[i];
     } else {
       psarResult[i] = Math.min(psarResult[i], lows[i - 1]);
       if (i > 1) {
         psarResult[i] = Math.min(psarResult[i], lows[i - 2]);
       }
 
-      if (lows[i] <= psarResult[i]) {
-        psarResult[i] = ep;
-      }
+      reversed = lows[i] <= psarResult[i];
     }
 
-    const prevEp = ep;
-
-    if (psarResult[i] > closings[i]) {
-      trends[i] = Trend.FALLING;
-      ep = Math.min(ep, lows[i]);
-    } else {
-      trends[i] = Trend.RISING;
-      ep = Math.max(ep, highs[i]);
-    }
-
-    if (trends[i] !== trends[i - 1]) {
+    if (reversed) {
+      // The price penetrated the SAR, so the trend reverses, the SAR is
+      // set to the prior extreme point, and the extreme point and the
+      // acceleration factor start over for the new trend.
+      psarResult[i] = ep;
+      trends[i] =
+        trends[i - 1] === Trend.FALLING ? Trend.RISING : Trend.FALLING;
+      ep = trends[i] === Trend.RISING ? highs[i] : lows[i];
       af = step;
-    } else if (prevEp !== ep && af < max) {
-      af += step;
+    } else {
+      trends[i] = trends[i - 1];
+      const newEp =
+        trends[i] === Trend.RISING
+          ? Math.max(ep, highs[i])
+          : Math.min(ep, lows[i]);
+
+      if (newEp !== ep) {
+        ep = newEp;
+        af = Math.min(af + step, max);
+      }
     }
   }
 
