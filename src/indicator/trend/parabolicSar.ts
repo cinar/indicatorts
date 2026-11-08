@@ -95,10 +95,9 @@ export function psar(
 
       reversed = highs[i] >= psarResult[i];
     } else {
-      psarResult[i] = Math.min(psarResult[i], lows[i - 1]);
-      if (i > 1) {
-        psarResult[i] = Math.min(psarResult[i], lows[i - 2]);
-      }
+      // The first bar always starts a falling trend, so a rising trend
+      // can only be continuing from i >= 2, and lows[i - 2] exists.
+      psarResult[i] = Math.min(psarResult[i], lows[i - 1], lows[i - 2]);
 
       reversed = lows[i] <= psarResult[i];
     }

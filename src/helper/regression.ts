@@ -104,7 +104,9 @@ export function movingLeastSquare(
       n = period;
     }
 
-    if (i > 0) {
+    // A window of a single point (the first bar, or any bar when period
+    // is 1) would otherwise divide 0 by 0.
+    if (n > 1) {
       m[i] = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
       b[i] = (sumY - m[i] * sumX) / n;
     } else {

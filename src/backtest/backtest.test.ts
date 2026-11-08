@@ -92,4 +92,20 @@ describe('compareStrategyResultsByGainDesc', () => {
     expect(combined[0]).toBe(normalResult);
     expect(combined[1]).toBe(emptyResult);
   });
+
+  it('should order an undefined gain below a real gain in either argument order', () => {
+    const emptyResult = backtest(newEmptyAsset(), [
+      { name: 'Empty Strategy', strategy: () => [] },
+    ])[0];
+    const normalResult = backtest(newNormalAsset(), [
+      { name: 'Buy Strategy', strategy: buyOnFirstDayStrategy },
+    ])[0];
+
+    expect(
+      compareStrategyResultsByGainDesc(emptyResult, normalResult)
+    ).toBeGreaterThan(0);
+    expect(
+      compareStrategyResultsByGainDesc(normalResult, emptyResult)
+    ).toBeLessThan(0);
+  });
 });
