@@ -14,7 +14,9 @@ import {
  * into an illustrative momentum crossover signal.
  *
  * Generates a BUY action when %K crosses above %D and %K <= 20, a SELL action when
- * %K crosses below %D and %K >= 80, and HOLD otherwise.
+ * %K crosses below %D and %K >= 80, and HOLD otherwise. Equal and non-finite
+ * values produce HOLD without changing the last strictly unequal, finite side.
+ * No action is emitted until both sides have been observed.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
  * @param asset asset object.
@@ -29,16 +31,31 @@ export function kdjStrategy(asset: Asset, config: KDJConfig = {}): Action[] {
     asset.closings,
     strategyConfig
   );
-  const actions = new Array<Action>(kdjResult.k.length);
+  const actions = new Array<Action>(kdjResult.k.length).fill(Action.HOLD);
+  let lastSide = Action.HOLD;
 
   for (let i = 0; i < actions.length; i++) {
-    if (kdjResult.k[i] > kdjResult.d[i] && kdjResult.k[i] <= 20) {
-      actions[i] = Action.BUY;
-    } else if (kdjResult.k[i] < kdjResult.d[i] && kdjResult.k[i] >= 80) {
-      actions[i] = Action.SELL;
-    } else {
-      actions[i] = Action.HOLD;
+    const currentK = kdjResult.k[i];
+    const currentD = kdjResult.d[i];
+
+    if (
+      !Number.isFinite(currentK) ||
+      !Number.isFinite(currentD) ||
+      currentK === currentD
+    ) {
+      continue;
     }
+
+    const side = currentK > currentD ? Action.BUY : Action.SELL;
+    const crossed = lastSide !== Action.HOLD && side !== lastSide;
+
+    if (crossed && side === Action.BUY && currentK <= 20) {
+      actions[i] = Action.BUY;
+    } else if (crossed && side === Action.SELL && currentK >= 80) {
+      actions[i] = Action.SELL;
+    }
+
+    lastSide = side;
   }
 
   return actions;
