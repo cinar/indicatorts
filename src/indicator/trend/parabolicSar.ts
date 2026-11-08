@@ -116,10 +116,16 @@ export function psar(
     if (reversed) {
       // The price penetrated the SAR, so the trend reverses, the SAR is
       // set to the prior extreme point, and the extreme point and the
-      // acceleration factor start over for the new trend.
-      psarResult[i] = ep;
+      // acceleration factor start over for the new trend. As in Wilder's
+      // definition (and TA-Lib), the new SAR is kept outside the current
+      // and previous bars' range: above their highs for a falling trend,
+      // below their lows for a rising trend.
       trends[i] =
         trends[i - 1] === Trend.FALLING ? Trend.RISING : Trend.FALLING;
+      psarResult[i] =
+        trends[i] === Trend.FALLING
+          ? Math.max(ep, highs[i], highs[i - 1])
+          : Math.min(ep, lows[i], lows[i - 1]);
       ep = trends[i] === Trend.RISING ? highs[i] : lows[i];
       af = step;
     } else {

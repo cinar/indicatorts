@@ -110,6 +110,38 @@ describe('Parabolic SAR (SAR)', () => {
     expect(psar([], [], [])).toStrictEqual({ trends: [], psarResult: [] });
   });
 
+  it('should keep the SAR outside the current and previous bars on a reversal', () => {
+    // Wilder's rule, also used by TA-Lib: after a reversal to a falling
+    // trend the SAR is at or above the two bars' highs, and after a
+    // reversal to a rising trend it is at or below their lows.
+    const data = readCsv(join(__dirname, 'testdata/parabolicSar.csv'));
+    const { trends, psarResult } = psar(data.high, data.low, data.close);
+    let falling = 0;
+    let rising = 0;
+
+    for (let i = 2; i < trends.length; i++) {
+      if (trends[i] === trends[i - 1]) {
+        continue;
+      }
+
+      if (trends[i] === Trend.FALLING) {
+        falling++;
+        expect(psarResult[i]).toBeGreaterThanOrEqual(
+          Math.max(data.high[i], data.high[i - 1])
+        );
+      } else {
+        rising++;
+        expect(psarResult[i]).toBeLessThanOrEqual(
+          Math.min(data.low[i], data.low[i - 1])
+        );
+      }
+    }
+
+    // The reference data has reversals in both directions.
+    expect(falling).toBeGreaterThan(0);
+    expect(rising).toBeGreaterThan(0);
+  });
+
   it('should match the reference data', () => {
     const data = readCsv(join(__dirname, 'testdata/parabolicSar.csv'));
     const actual = psar(data.high, data.low, data.close);
