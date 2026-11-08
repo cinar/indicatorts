@@ -34,8 +34,8 @@ jobs:
           node-version: 24.x
           registry-url: https://registry.npmjs.org
 
-      - name: Ensure npm supports trusted publishing
-        run: npm install -g npm@^11.5.1
+      - name: Ensure npm supports trusted and staged publishing
+        run: npm install -g npm@^11.20.0
 
       - name: Install dependencies
         run: npm ci
@@ -74,10 +74,13 @@ jobs:
           echo "version=${NEW_VERSION#v}" >> "$GITHUB_OUTPUT"
           echo "tag=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
-      # Publish before pushing, so a failed publish leaves nothing pushed
-      # and the workflow can simply be run again.
-      - name: Publish to npm
-        run: npm publish --provenance --access public
+      # Stage before pushing, so a failed upload leaves nothing pushed and
+      # the workflow can simply be run again. The trusted publisher only
+      # allows staging: a maintainer must approve the staged version with
+      # 2FA (on npmjs.com, or `npm stage approve <stage-id>`) before it is
+      # published.
+      - name: Stage npm publish
+        run: npm stage publish . --provenance --access public
 
       - name: Push commit and tag
         run: git push origin HEAD:${{ github.event.repository.default_branch }} --follow-tags
