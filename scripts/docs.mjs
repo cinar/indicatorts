@@ -13,6 +13,7 @@ import { generateDocumentation } from 'tsdoc-markdown';
 const CATEGORIES = [
   'src/indicator/momentum',
   'src/indicator/trend',
+  'src/indicator/valuation',
   'src/indicator/volatility',
   'src/indicator/volume',
   'examples/momentum',
