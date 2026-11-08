@@ -15,6 +15,8 @@ on:
 
 permissions:
   contents: write
+  # Required for npm trusted publishing (OIDC) and provenance.
+  id-token: write
 
 jobs:
   release:
@@ -28,7 +30,12 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v7
         with:
-          node-version: 20.x
+          # npm trusted publishing requires npm 11.5.1 or later.
+          node-version: 24.x
+          registry-url: https://registry.npmjs.org
+
+      - name: Ensure npm supports trusted publishing
+        run: npm install -g npm@^11.5.1
 
       - name: Install dependencies
         run: npm ci
@@ -53,6 +60,11 @@ jobs:
           NEW_VERSION=$(npm version "${{ inputs.bump }}" -m "Release v%s")
           echo "version=${NEW_VERSION#v}" >> "$GITHUB_OUTPUT"
           echo "tag=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+
+      # Publish before pushing, so a failed publish leaves nothing pushed
+      # and the workflow can simply be run again.
+      - name: Publish to npm
+        run: npm publish --provenance --access public
 
       - name: Push commit and tag
         run: git push origin HEAD:${{ github.event.repository.default_branch }} --follow-tags
