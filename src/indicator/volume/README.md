@@ -128,13 +128,13 @@ const result = mfi(highs, lows, closings, volumes, defaultConfig);
 The [negativeVolumeIndex](./negativeVolumeIndex.ts) function calculates a cumulative indicator using the change in volume to decide when the smart money is active.
 
 ```
-If Volume is greater than Previous Volume:
-
-    NVI = Previous NVI
-
-Otherwise:
+If Volume is less than Previous Volume:
 
     NVI = Previous NVI + (((Closing - Previous Closing) / Previous Closing) * Previous NVI)
+
+Otherwise (Volume is greater than or equal to Previous Volume):
+
+    NVI = Previous NVI
 ```
 
 ```TypeScript
