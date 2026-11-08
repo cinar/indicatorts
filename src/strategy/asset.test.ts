@@ -2,8 +2,7 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
-import { Asset } from './asset';
-import { concatAssets, newAssetWithLength } from './asset';
+import { Asset, concatAssets, newAssetWithLength } from './asset';
 
 describe('Asset object', () => {
   it('should be able to provide a new asset with length', () => {

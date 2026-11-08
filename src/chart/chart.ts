@@ -26,6 +26,22 @@ export interface DataSet {
 }
 
 /**
+ * Style at given index.
+ * @param dataSet data set.
+ * @param index at index.
+ * @return at style.
+ */
+function styleAtIndex(dataSet: DataSet, index: number): string {
+  if (dataSet.style === undefined) {
+    return DEFAULT_STYLE;
+  } else if (Array.isArray(dataSet.style)) {
+    return dataSet.style[index] ?? DEFAULT_STYLE;
+  } else {
+    return dataSet.style;
+  }
+}
+
+/**
  * Chart object.
  */
 export class Chart {
@@ -122,7 +138,7 @@ export class Chart {
         const y = height - this.yScaler.scale(dataSet.values[i]);
 
         if (i > 0) {
-          this.context.strokeStyle = this.styleAtIndex(dataSet, i);
+          this.context.strokeStyle = styleAtIndex(dataSet, i);
           this.context.beginPath();
           this.context.moveTo(lastX, lastY);
           this.context.lineTo(x, y);
@@ -132,22 +148,6 @@ export class Chart {
         lastX = x;
         lastY = y;
       }
-    }
-  }
-
-  /**
-   * Style at given index.
-   * @param dataSet data set.
-   * @param index at index.
-   * @return at style.
-   */
-  private styleAtIndex(dataSet: DataSet, index: number): string {
-    if (dataSet.style === undefined) {
-      return DEFAULT_STYLE;
-    } else if (Array.isArray(dataSet.style)) {
-      return dataSet.style[index] ?? DEFAULT_STYLE;
-    } else {
-      return dataSet.style;
     }
   }
 
@@ -185,12 +185,9 @@ export class Chart {
 
     for (const dataSet of this.dataSets.values()) {
       if (index >= 0 && index < dataSet.values.length) {
-        const text =
-          dataSet.legend +
-          ' ' +
-          roundDigits(2, dataSet.values[index]).toString();
+        const text = `${dataSet.legend} ${roundDigits(2, dataSet.values[index])}`;
 
-        this.context.fillStyle = this.styleAtIndex(dataSet, index);
+        this.context.fillStyle = styleAtIndex(dataSet, index);
         this.context.fillText(text, xOffset, this.canvas.height - LEGEND_GAP);
 
         xOffset += this.context.measureText(text).width + LEGEND_GAP;

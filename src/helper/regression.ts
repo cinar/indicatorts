@@ -49,12 +49,12 @@ export function leastSquare(x: number[], y: number[]): LeastSquareResult {
   }
 
   const n = x.length;
-  const m = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-  const b = (sumY - m * sumX) / n;
+  const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+  const intercept = (sumY - slope * sumX) / n;
 
   return {
-    m,
-    b,
+    m: slope,
+    b: intercept,
   };
 }
 
@@ -80,8 +80,8 @@ export function movingLeastSquare(
 ): MovingLeastSquareResult {
   checkSameLength(x, y);
 
-  const m = new Array<number>(x.length);
-  const b = new Array<number>(x.length);
+  const slope = new Array<number>(x.length);
+  const intercept = new Array<number>(x.length);
 
   let sumX = 0;
   let sumX2 = 0;
@@ -124,19 +124,19 @@ export function movingLeastSquare(
     // A window of a single point (the first bar, or any bar when period
     // is 1) would otherwise divide 0 by 0.
     if (n > 1) {
-      m[i] = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-      b[i] = (sumY - m[i] * sumX) / n;
+      slope[i] = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+      intercept[i] = (sumY - slope[i] * sumX) / n;
     } else {
       // With a single point in the window, the least squares fit
       // degenerates to the horizontal line through that point.
-      m[i] = 0;
-      b[i] = y[i];
+      slope[i] = 0;
+      intercept[i] = y[i];
     }
   }
 
   return {
-    m,
-    b,
+    m: slope,
+    b: intercept,
   };
 }
 
