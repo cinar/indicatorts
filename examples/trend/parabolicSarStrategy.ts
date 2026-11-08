@@ -11,6 +11,16 @@ import {
 import { Trend } from '../../src/indicator/types';
 
 /**
+ * The action for each trend. Typed as a Record so the compiler requires
+ * every trend to be mapped.
+ */
+const TREND_ACTIONS: Record<Trend, Action> = {
+  [Trend.FALLING]: Action.SELL,
+  [Trend.STABLE]: Action.HOLD,
+  [Trend.RISING]: Action.BUY,
+};
+
+/**
  * Demonstrates how to compose Parabolic SAR (PSAR) trend directions into
  * an illustrative trend-following signal.
  *
@@ -26,16 +36,7 @@ export function psarStrategy(asset: Asset, config: PSARConfig = {}): Action[] {
   const strategyConfig = { ...PSARDefaultConfig, ...config };
   const result = psar(asset.highs, asset.lows, asset.closings, strategyConfig);
 
-  return result.trends.map((trend) => {
-    switch (trend) {
-      case Trend.FALLING:
-        return Action.SELL;
-      case Trend.RISING:
-        return Action.BUY;
-      case Trend.STABLE:
-        return Action.HOLD;
-    }
-  });
+  return result.trends.map((trend) => TREND_ACTIONS[trend]);
 }
 
 // Export full name
