@@ -1,6 +1,7 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
+import { describe, it } from 'vitest';
 import { deepStrictEqual } from 'assert';
 import { Asset } from '../../src/strategy/asset';
 import { Action } from '../../src/strategy/action';

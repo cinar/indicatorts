@@ -1,6 +1,7 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
+import { describe, it, expect } from 'vitest';
 import { Action, applyActions, reverseActions } from './action';
 
 describe('reverseActions', () => {

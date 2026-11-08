@@ -1,6 +1,7 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
+import { describe, it, expect, afterEach, vi } from 'vitest';
 import { deepStrictEqual } from 'assert';
 import {
   macd,
@@ -13,20 +14,12 @@ import {
   movingAverageConvergenceDivergenceStrategy,
 } from './macdStrategy';
 
-jest.mock('../../src/indicator/trend/movingAverageConvergenceDivergence');
+vi.mock('../../src/indicator/trend/movingAverageConvergenceDivergence', {
+  spy: true,
+});
 
 describe('Moving Average Convergence Divergence (MACD) example strategy', () => {
-  beforeEach(() => {
-    jest
-      .mocked(macd)
-      .mockImplementation(
-        jest.requireActual<{ macd: typeof macd }>(
-          '../../src/indicator/trend/movingAverageConvergenceDivergence'
-        ).macd
-      );
-  });
-
-  afterEach(() => jest.resetAllMocks());
+  afterEach(() => vi.resetAllMocks());
 
   it('emits only crossover actions with custom periods', () => {
     const asset = newAssetWithLength(9);
@@ -47,7 +40,7 @@ describe('Moving Average Convergence Divergence (MACD) example strategy', () => 
 
   it('uses the default periods and preserves the full-name alias', () => {
     const asset = newAssetWithLength(6);
-    const calculateMACD = jest.mocked(macd).mockReturnValue({
+    const calculateMACD = vi.mocked(macd).mockReturnValue({
       macdLine: [-1, -0.5, 0.5, 1, 0, -1],
       signalLine: [0, 0, 0, 0, 0, 0],
     });
@@ -97,7 +90,7 @@ describe('Moving Average Convergence Divergence (MACD) example strategy', () => 
   it.each([{ line: [1, 2, 3] }, { line: [-1, -2, -3] }])(
     'does not signal merely because the line stays on one side: $line',
     ({ line }) => {
-      jest.mocked(macd).mockReturnValue({
+      vi.mocked(macd).mockReturnValue({
         macdLine: line,
         signalLine: [0, 0, 0],
       });
@@ -111,7 +104,7 @@ describe('Moving Average Convergence Divergence (MACD) example strategy', () => 
   );
 
   it('holds on equality and signals when the lines move apart', () => {
-    jest.mocked(macd).mockReturnValue({
+    vi.mocked(macd).mockReturnValue({
       macdLine: [-1, 0, 1, 1, 0, -1, -1],
       signalLine: [0, 0, 0, 0, 0, 0, 0],
     });
@@ -139,7 +132,7 @@ describe('Moving Average Convergence Divergence (MACD) example strategy', () => 
       expected: [Action.HOLD, Action.SELL, Action.HOLD, Action.HOLD],
     },
   ])('does not signal on a same-side touch: $line', ({ line, expected }) => {
-    jest.mocked(macd).mockReturnValue({
+    vi.mocked(macd).mockReturnValue({
       macdLine: line,
       signalLine: line.map(() => 0),
     });
@@ -148,7 +141,7 @@ describe('Moving Average Convergence Divergence (MACD) example strategy', () => 
   });
 
   it('waits for a strict side after leading equal and non-finite values', () => {
-    jest.mocked(macd).mockReturnValue({
+    vi.mocked(macd).mockReturnValue({
       macdLine: [NaN, 0, 0, 1, 0, -1],
       signalLine: [0, 0, 0, 0, 0, 0],
     });
@@ -166,7 +159,7 @@ describe('Moving Average Convergence Divergence (MACD) example strategy', () => 
   it.each([NaN, Infinity, -Infinity])(
     'preserves the last strict side across a non-finite MACD value: %s',
     (value) => {
-      jest.mocked(macd).mockReturnValue({
+      vi.mocked(macd).mockReturnValue({
         macdLine: [-1, value, 1, -1],
         signalLine: [0, 0, 0, 0],
       });
@@ -183,7 +176,7 @@ describe('Moving Average Convergence Divergence (MACD) example strategy', () => 
   it.each([NaN, Infinity, -Infinity])(
     'preserves the last strict side across a non-finite signal value: %s',
     (value) => {
-      jest.mocked(macd).mockReturnValue({
+      vi.mocked(macd).mockReturnValue({
         macdLine: [-1, -1, 1, -1],
         signalLine: [0, value, 0, 0],
       });

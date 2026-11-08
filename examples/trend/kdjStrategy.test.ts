@@ -1,19 +1,24 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
+import {
+  describe,
+  it,
+  expect,
+  afterEach,
+  vi,
+  type MockedFunction,
+} from 'vitest';
 import { deepStrictEqual } from 'assert';
 import { kdj, KDJDefaultConfig } from '../../src/indicator/trend/randomIndex';
 import { Action } from '../../src/strategy/action';
 import { Asset, newAssetWithLength } from '../../src/strategy/asset';
 import { kdjStrategy } from './kdjStrategy';
 
-jest.mock('../../src/indicator/trend/randomIndex');
+vi.mock('../../src/indicator/trend/randomIndex', { spy: true });
 
-function mockKDJ(
-  kLine: number[],
-  dLine: number[]
-): jest.MockedFunction<typeof kdj> {
-  return jest
+function mockKDJ(kLine: number[], dLine: number[]): MockedFunction<typeof kdj> {
+  return vi
     .mocked(kdj)
     .mockReturnValue({ k: kLine, d: dLine, j: kLine.map(() => 0) });
 }
@@ -26,17 +31,7 @@ function holdsExcept(
 }
 
 describe('Random Index (KDJ) example strategy', () => {
-  beforeEach(() => {
-    jest
-      .mocked(kdj)
-      .mockImplementation(
-        jest.requireActual<{ kdj: typeof kdj }>(
-          '../../src/indicator/trend/randomIndex'
-        ).kdj
-      );
-  });
-
-  afterEach(() => jest.resetAllMocks());
+  afterEach(() => vi.resetAllMocks());
 
   it('emits only crossover actions on real KDJ output', () => {
     const closings = Array.from(

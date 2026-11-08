@@ -5,6 +5,6 @@ name = "javascript"
 enabled = true
 
   [analyzers.meta]
-  environment = ["nodejs", "browser", "jest"]
+  environment = ["nodejs", "browser", "vitest"]
   module_system = "es-modules"
   dialect = "typescript"
