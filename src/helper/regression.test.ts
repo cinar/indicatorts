@@ -41,4 +41,9 @@ describe('Linear Regressin', () => {
     const actual = linearRegressionUsingLeastSquare(x, y);
     deepStrictEqual(roundDigitsAll(4, actual), expected);
   });
+
+  it('should fit a horizontal line for a moving period of 1', () => {
+    const actual = movingLeastSquare(1, [0, 1, 2], [5, 7, 9]);
+    deepStrictEqual(actual, { m: [0, 0, 0], b: [5, 7, 9] });
+  });
 });

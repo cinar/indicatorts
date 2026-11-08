@@ -165,4 +165,21 @@ describe('sortCompanyResults', () => {
       sortCompanyResults(companyResults, -1 as CompanyResultSortBy, true)
     ).toStrictEqual([]);
   });
+
+  it('should sort companies without strategy results first by strategy', () => {
+    const companyResults: CompanyResult[] = [
+      newCompanyResult('BBB', [newStrategyResult('RSI', 0.2, Action.SELL)]),
+      newCompanyResult('AAA', []),
+      newCompanyResult('CCC', [newStrategyResult('AO', 0.1, Action.BUY)]),
+      newCompanyResult('DDD', []),
+    ];
+
+    const sorted = sortCompanyResults(
+      companyResults,
+      CompanyResultSortBy.STRATEGY,
+      true
+    ).map((result) => result.companyInfo.symbol);
+
+    expect(sorted).toStrictEqual(['AAA', 'DDD', 'CCC', 'BBB']);
+  });
 });

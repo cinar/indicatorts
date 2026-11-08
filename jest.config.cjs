@@ -11,4 +11,13 @@ module.exports = {
     '!**/*.test.ts',
     '!**/index.ts',
   ],
+  // Fail the test run if coverage drops below its current level.
+  coverageThreshold: {
+    global: {
+      statements: 100,
+      branches: 100,
+      functions: 100,
+      lines: 100,
+    },
+  },
 };

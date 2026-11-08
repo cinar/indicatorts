@@ -34,8 +34,6 @@ export function psarStrategy(asset: Asset, config: PSARConfig = {}): Action[] {
         return Action.BUY;
       case Trend.STABLE:
         return Action.HOLD;
-      default:
-        return Action.HOLD;
     }
   });
 }
