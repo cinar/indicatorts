@@ -12,6 +12,15 @@ describe('Date helpers', () => {
     expect(actual).toBe(expected);
   });
 
+  it.each([
+    { date: new Date(2021, 11, 23, 0, 0), expected: '2021-12-23' },
+    { date: new Date(2021, 11, 23, 23, 59), expected: '2021-12-23' },
+    { date: new Date(2021, 0, 5), expected: '2021-01-05' },
+    { date: new Date(2021, 11, 31, 23, 59), expected: '2021-12-31' },
+  ])('should use the local calendar day: $expected', ({ date, expected }) => {
+    expect(toISODateString(date)).toBe(expected);
+  });
+
   it('should be able to compute later', () => {
     const date = new Date(2021, 11, 23);
     const days = 1;
