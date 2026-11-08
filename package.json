@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/cinar/indicatorts.git"
+    "url": "git+https://github.com/cinar/indicatorts.git"
   },
   "keywords": [
     "analysis",
