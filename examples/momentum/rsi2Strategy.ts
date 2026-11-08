@@ -13,7 +13,6 @@ import { rsi } from '../../src/indicator/momentum/relativeStrengthIndex';
  * a SELL action when 2-period RSI > 90 (illustrating an overbought threshold), and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
- * @title RSI 2 Strategy
  * @example
  * ```TypeScript
  * import { rsi2Strategy } from './rsi2Strategy';

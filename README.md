@@ -45,70 +45,70 @@ The following technical analysis indicators are supported by this package:
 
 ### Trend Indicators
 
-- [Absolute Price Oscillator (APO)](src/indicator/trend/README.md#absolute-price-oscillator-apo)
+- [Absolute Price Oscillator (APO)](src/indicator/trend/README.md#apo)
 - [Aroon Indicator](src/indicator/trend/README.md#aroon)
-- [Balance of Power (BOP)](src/indicator/trend/README.md#balance-of-power-bop)
-- [Chande Forecast Oscillator (CFO)](src/indicator/trend/README.md#chande-forecast-oscillator-cfo)
-- [Commodity Channel Index (CCI)](src/indicator/trend/README.md#commodity-channel-index-cci)
-- [Double Exponential Moving Average (DEMA)](src/indicator/trend/README.md#double-exponential-moving-average-dema)
-- [Exponential Moving Average (EMA)](src/indicator/trend/README.md#exponential-moving-average-ema)
-- [Kaufman's Adaptive Moving Average (KAMA)](src/indicator/trend/README.md#kaufmans-adaptive-moving-average-kama)
-- [Mass Index (MI)](src/indicator/trend/README.md#mass-index-mi)
-- [Moving Average Convergence Divergence (MACD)](src/indicator/trend/README.md#moving-average-convergence-divergence-macd)
-- [Moving Max (MMAX)](src/indicator/trend/README.md#moving-max-mmax)
-- [Moving Min (MMIN)](src/indicator/trend/README.md#moving-min-mmin)
-- [Moving Sum (MSUM)](src/indicator/trend/README.md#moving-sum-msum)
-- [Parabolic SAR (PSAR)](src/indicator/trend/README.md#parabolic-sar-psar)
+- [Balance of Power (BOP)](src/indicator/trend/README.md#bop)
+- [Chande Forecast Oscillator (CFO)](src/indicator/trend/README.md#cfo)
+- [Commodity Channel Index (CCI)](src/indicator/trend/README.md#cci)
+- [Double Exponential Moving Average (DEMA)](src/indicator/trend/README.md#dema)
+- [Exponential Moving Average (EMA)](src/indicator/trend/README.md#ema)
+- [Kaufman's Adaptive Moving Average (KAMA)](src/indicator/trend/README.md#kama)
+- [Mass Index (MI)](src/indicator/trend/README.md#mi)
+- [Moving Average Convergence Divergence (MACD)](src/indicator/trend/README.md#macd)
+- [Moving Max (MMAX)](src/indicator/trend/README.md#mmax)
+- [Moving Min (MMIN)](src/indicator/trend/README.md#mmin)
+- [Moving Sum (MSUM)](src/indicator/trend/README.md#msum)
+- [Parabolic SAR (PSAR)](src/indicator/trend/README.md#psar)
 - [Qstick](src/indicator/trend/README.md#qstick)
-- [Random Index (KDJ)](src/indicator/trend/README.md#random-index-kdj)
-- [Rolling Moving Average (RMA)](src/indicator/trend/README.md#rolling-moving-average-rma)
-- [Simple Moving Average (SMA)](src/indicator/trend/README.md#simple-moving-average-sma)
-- [Since Change](src/indicator/trend/README.md#since-change)
-- [Triple Exponential Moving Average (TEMA)](src/indicator/trend/README.md#triple-exponential-moving-average-tema)
-- [Triangular Moving Average (TRIMA)](src/indicator/trend/README.md#triangular-moving-average-trima)
-- [Triple Exponential Average (TRIX)](src/indicator/trend/README.md#triple-exponential-average-trix)
-- [Typical Price](src/indicator/trend/README.md#typical-price)
-- [Volume Weighted Moving Average (VWMA)](src/indicator/trend/README.md#volume-weighted-moving-average-vwma)
-- [Vortex Indicator](src/indicator/trend/README.md#vortex-indicator)
+- [Random Index (KDJ)](src/indicator/trend/README.md#kdj)
+- [Rolling Moving Average (RMA)](src/indicator/trend/README.md#rma)
+- [Simple Moving Average (SMA)](src/indicator/trend/README.md#sma)
+- [Since Change](src/indicator/trend/README.md#since)
+- [Triple Exponential Moving Average (TEMA)](src/indicator/trend/README.md#tema)
+- [Triangular Moving Average (TRIMA)](src/indicator/trend/README.md#trima)
+- [Triple Exponential Average (TRIX)](src/indicator/trend/README.md#trix)
+- [Typical Price](src/indicator/trend/README.md#typprice)
+- [Volume Weighted Moving Average (VWMA)](src/indicator/trend/README.md#vwma)
+- [Vortex Indicator](src/indicator/trend/README.md#vortex)
 
 ### Momentum Indicators
 
-- [Awesome Oscillator (AO)](src/indicator/momentum/README.md#awesome-oscillator-ao)
-- [Chaikin Oscillator (CO)](src/indicator/momentum/README.md#chaikin-oscillator-co)
-- [Ichimoku Cloud](src/indicator/momentum/README.md#ichimoku-cloud)
-- [Percentage Price Oscillator (PPO)](src/indicator/momentum/README.md#percentage-price-oscillator-ppo)
-- [Percentage Volume Oscillator (PVO)](src/indicator/momentum/README.md#percentage-volume-oscillator-pvo)
-- [Price Rate of Change (ROC)](src/indicator/momentum/README.md#price-rate-of-change-roc)
-- [Relative Strength Index (RSI)](src/indicator/momentum/README.md#relative-strength-index-rsi)
-- [Stochastic Oscillator (STOCH)](src/indicator/momentum/README.md#stochastic-oscillator-stoch)
-- [Ultimate Oscillator (UO)](src/indicator/momentum/README.md#ultimate-oscillator-uo)
-- [Williams R (WILLR)](src/indicator/momentum/README.md#williams-r-willr)
+- [Awesome Oscillator (AO)](src/indicator/momentum/README.md#ao)
+- [Chaikin Oscillator (CO)](src/indicator/momentum/README.md#co)
+- [Ichimoku Cloud](src/indicator/momentum/README.md#ichimokucloud)
+- [Percentage Price Oscillator (PPO)](src/indicator/momentum/README.md#ppo)
+- [Percentage Volume Oscillator (PVO)](src/indicator/momentum/README.md#pvo)
+- [Price Rate of Change (ROC)](src/indicator/momentum/README.md#roc)
+- [Relative Strength Index (RSI)](src/indicator/momentum/README.md#rsi)
+- [Stochastic Oscillator (STOCH)](src/indicator/momentum/README.md#stoch)
+- [Ultimate Oscillator (UO)](src/indicator/momentum/README.md#uo)
+- [Williams R (WILLR)](src/indicator/momentum/README.md#willr)
 
 ### Volatility Indicators
 
-- [Acceleration Bands (AB)](src/indicator/volatility/README.md#acceleration-bands-ab)
-- [Average True Range (ATR)](src/indicator/volatility/README.md#average-true-range-atr)
-- [Bollinger Bands (BB)](src/indicator/volatility/README.md#bollinger-bands-bb)
-- [Bollinger Band Width (BBW)](src/indicator/volatility/README.md#bollinger-band-width-bbw)
-- [Chandelier Exit (CE)](src/indicator/volatility/README.md#chandelier-exit-ce)
-- [Donchian Channel (DC)](src/indicator/volatility/README.md#donchian-channel-dc)
-- [Keltner Channel (KC)](src/indicator/volatility/README.md#keltner-channel-kc)
-- [Moving Standard Deviation (MSTD)](src/indicator/volatility/README.md#moving-standard-deviation-mstd)
-- [Projection Oscillator (PO)](src/indicator/volatility/README.md#projection-oscillator-po)
-- [True Range (TR)](src/indicator/volatility/README.md#true-range-tr)
-- [Ulcer Index (UI)](src/indicator/volatility/README.md#ulcer-index-ui)
+- [Acceleration Bands (AB)](src/indicator/volatility/README.md#ab)
+- [Average True Range (ATR)](src/indicator/volatility/README.md#atr)
+- [Bollinger Bands (BB)](src/indicator/volatility/README.md#bb)
+- [Bollinger Band Width (BBW)](src/indicator/volatility/README.md#bbw)
+- [Chandelier Exit (CE)](src/indicator/volatility/README.md#ce)
+- [Donchian Channel (DC)](src/indicator/volatility/README.md#dc)
+- [Keltner Channel (KC)](src/indicator/volatility/README.md#kc)
+- [Moving Standard Deviation (MSTD)](src/indicator/volatility/README.md#mstd)
+- [Projection Oscillator (PO)](src/indicator/volatility/README.md#po)
+- [True Range (TR)](src/indicator/volatility/README.md#tr)
+- [Ulcer Index (UI)](src/indicator/volatility/README.md#ui)
 
 ### Volume Indicators
 
-- [Accumulation/Distribution (AD)](src/indicator/volume/README.md#accumulationdistribution-ad)
-- [Chaikin Money Flow (CMF)](src/indicator/volume/README.md#chaikin-money-flow-cmf)
-- [Ease of Movement (EMV)](src/indicator/volume/README.md#ease-of-movement-emv)
-- [Force Index (FI)](src/indicator/volume/README.md#force-index-fi)
-- [Money Flow Index (MFI)](src/indicator/volume/README.md#money-flow-index-mfi)
-- [Negative Volume Index (NVI)](src/indicator/volume/README.md#negative-volume-index-nvi)
-- [On-Balance Volume (OBV)](src/indicator/volume/README.md#on-balance-volume-obv)
-- [Volume Price Trend (VPT)](src/indicator/volume/README.md#volume-price-trend-vpt)
-- [Volume Weighted Average Price (VWAP)](src/indicator/volume/README.md#volume-weighted-average-price-vwap)
+- [Accumulation/Distribution (AD)](src/indicator/volume/README.md#ad)
+- [Chaikin Money Flow (CMF)](src/indicator/volume/README.md#cmf)
+- [Ease of Movement (EMV)](src/indicator/volume/README.md#emv)
+- [Force Index (FI)](src/indicator/volume/README.md#fi)
+- [Money Flow Index (MFI)](src/indicator/volume/README.md#mfi)
+- [Negative Volume Index (NVI)](src/indicator/volume/README.md#nvi)
+- [On-Balance Volume (OBV)](src/indicator/volume/README.md#obv)
+- [Volume Price Trend (VPT)](src/indicator/volume/README.md#vpt)
+- [Volume Weighted Average Price (VWAP)](src/indicator/volume/README.md#vwap)
 
 ## Strategy Primitives & Execution Abstractions
 
@@ -138,10 +138,10 @@ Pre-baked illustrative strategies are organized in the [`examples/`](examples) d
 > ```
 
 - **Baseline Strategy:** [Buy and Hold Strategy](examples/buyAndHoldStrategy.ts)
-- **Momentum Strategy Examples:** [Awesome Oscillator](examples/momentum/README.md#awesome-oscillator-strategy), [Ichimoku Cloud](examples/momentum/README.md#ichimoku-cloud-strategy), [RSI 2](examples/momentum/README.md#rsi-2-strategy), [Stochastic Oscillator](examples/momentum/README.md#stochastic-oscillator-strategy), [Williams R](examples/momentum/README.md#williams-r-strategy)
-- **Trend Strategy Examples:** [APO](examples/trend/README.md#absolute-price-oscillator-strategy), [Aroon](examples/trend/README.md#aroon-strategy), [BOP](examples/trend/README.md#balance-of-power-strategy), [CFO](examples/trend/README.md#chande-forecast-oscillator-strategy), [KDJ](examples/trend/README.md#kdj-strategy), [MACD](examples/trend/README.md#macd-strategy), [Parabolic SAR](examples/trend/README.md#parabolic-sar-strategy), [Typical Price](examples/trend/README.md#typical-price-strategy), [VWMA](examples/trend/README.md#volume-weighted-moving-average-vwma-strategy), [Vortex](examples/trend/README.md#vortex-strategy)
-- **Volatility Strategy Examples:** [Acceleration Bands](examples/volatility/README.md#acceleration-bands-strategy), [Bollinger Bands](examples/volatility/README.md#bollinger-bands-strategy), [Projection Oscillator](examples/volatility/README.md#projection-oscillator-strategy)
-- **Volume Strategy Examples:** [Chaikin Money Flow](examples/volume/README.md#chaikin-money-flow-strategy), [Ease of Movement](examples/volume/README.md#ease-of-movement-strategy), [Force Index](examples/volume/README.md#force-index-strategy), [Money Flow Index](examples/volume/README.md#money-flow-index-strategy), [Negative Volume Index](examples/volume/README.md#negative-volume-index-strategy), [VWAP](examples/volume/README.md#volume-weighted-average-price-strategy)
+- **Momentum Strategy Examples:** [Awesome Oscillator](examples/momentum/README.md#aostrategy), [Ichimoku Cloud](examples/momentum/README.md#ichimokucloudstrategy), [RSI 2](examples/momentum/README.md#rsi2strategy), [Stochastic Oscillator](examples/momentum/README.md#stochstrategy), [Williams R](examples/momentum/README.md#willrstrategy)
+- **Trend Strategy Examples:** [APO](examples/trend/README.md#apostrategy), [Aroon](examples/trend/README.md#aroonstrategy), [BOP](examples/trend/README.md#bopstrategy), [CFO](examples/trend/README.md#cfostrategy), [KDJ](examples/trend/README.md#kdjstrategy), [MACD](examples/trend/README.md#macdstrategy), [Parabolic SAR](examples/trend/README.md#psarstrategy), [Typical Price](examples/trend/README.md#typpricestrategy), [VWMA](examples/trend/README.md#vwmastrategy), [Vortex](examples/trend/README.md#vortexstrategy)
+- **Volatility Strategy Examples:** [Acceleration Bands](examples/volatility/README.md#abstrategy), [Bollinger Bands](examples/volatility/README.md#bbstrategy), [Projection Oscillator](examples/volatility/README.md#postrategy)
+- **Volume Strategy Examples:** [Chaikin Money Flow](examples/volume/README.md#cmfstrategy), [Ease of Movement](examples/volume/README.md#emvstrategy), [Force Index](examples/volume/README.md#fistrategy), [Money Flow Index](examples/volume/README.md#mfistrategy), [Negative Volume Index](examples/volume/README.md#nvistrategy), [VWAP](examples/volume/README.md#vwapstrategy)
 
 ## Backtest Framework
 
@@ -201,12 +201,12 @@ const result = ao(highs, lows);
 
 Indicators that smooth values recursively need a starting value. This library returns an output for every input index, so it starts at the first bar, while TA-Lib and several other libraries start from a simple average of the first `period` values and leave the earlier outputs empty. The formulas are otherwise the same, so the outputs converge, but the first values differ.
 
-| Building block | This library | TA-Lib |
-| --- | --- | --- |
-| [EMA](src/indicator/trend/README.md#exponential-moving-average-ema) | Starts from the first value: `ema[0] = values[0]` | Starts from the SMA of the first `period` values, at index `period - 1` |
-| [RMA](src/indicator/trend/README.md#rolling-moving-average-rma) (Wilder) | Average of the values so far until `period` values are available | Same |
-| [RSI](src/indicator/momentum/README.md#relative-strength-index-rsi) | Counts the first bar as a gain and loss of 0 | Starts from the second bar (the first price change) |
-| [ATR](src/indicator/volatility/README.md#average-true-range-atr) | Includes the first bar's true range (high minus low) | Starts from the second bar |
+| Building block                                    | This library                                                     | TA-Lib                                                                  |
+| ------------------------------------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [EMA](src/indicator/trend/README.md#ema)          | Starts from the first value: `ema[0] = values[0]`                | Starts from the SMA of the first `period` values, at index `period - 1` |
+| [RMA](src/indicator/trend/README.md#rma) (Wilder) | Average of the values so far until `period` values are available | Same                                                                    |
+| [RSI](src/indicator/momentum/README.md#rsi)       | Counts the first bar as a gain and loss of 0                     | Starts from the second bar (the first price change)                     |
+| [ATR](src/indicator/volatility/README.md#atr)     | Includes the first bar's true range (high minus low)             | Starts from the second bar                                              |
 
 The difference fades over time. For a 12-period EMA on the test data, it is 0.21 at the 12th bar, 0.03 at the 24th, and below 0.004 after the 36th. Indicators built on these blocks inherit the difference: DEMA, TEMA, TRIX, MACD, APO, PPO, PVO, Chaikin Oscillator, Mass Index, Bollinger Bands Width, Keltner Channel, Chandelier Exit, Projection Oscillator and Force Index. To compare with TA-Lib, skip the first few multiples of `period` values.
 

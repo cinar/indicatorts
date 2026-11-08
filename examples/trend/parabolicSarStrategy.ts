@@ -28,7 +28,6 @@ const TREND_ACTIONS: Record<Trend, Action> = {
  * the trend is FALLING, and HOLD when STABLE.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
- * @title Parabolic SAR Strategy
  * @example
  * ```TypeScript
  * import { psarStrategy } from './parabolicSarStrategy';

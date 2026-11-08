@@ -26,7 +26,6 @@ export const WillrDefaultConfig: Required<WillrConfig> = {
  * WR = (Highest High - Closing) / (Highest High - Lowest Low) * -100.
  * ```
  *
- * @title Williams R (WILLR)
  * @example
  * ```TypeScript
  * import { willr } from 'indicatorts';

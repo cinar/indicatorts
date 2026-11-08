@@ -37,7 +37,6 @@ export const UIDefaultConfig: Required<UIConfig> = {
  * Ulcer Index = Sqrt(Squared Average)
  * ```
  *
- * @title Ulcer Index (UI)
  * @example
  * ```TypeScript
  * import { ui } from 'indicatorts';

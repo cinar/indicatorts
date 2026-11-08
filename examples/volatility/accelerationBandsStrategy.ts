@@ -17,7 +17,6 @@ import {
  * action when it breaks below the Lower Band, and HOLD while it is between them.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
- * @title Acceleration Bands Strategy
  * @example
  * ```TypeScript
  * import { abStrategy } from './accelerationBandsStrategy';

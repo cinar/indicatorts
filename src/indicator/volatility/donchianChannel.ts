@@ -42,7 +42,6 @@ export const DCDefaultConfig: Required<DCConfig> = {
  * Middle Channel = (Upper Channel + Lower Channel) / 2
  * ```
  *
- * @title Donchian Channel (DC)
  * @example
  * ```TypeScript
  * import { dc } from 'indicatorts';

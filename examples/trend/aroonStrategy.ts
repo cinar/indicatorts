@@ -16,7 +16,6 @@ import {
  * Generates a BUY action when Aroon Up > Aroon Down, SELL when Aroon Down > Aroon Up, and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
- * @title Aroon Strategy
  * @example
  * ```TypeScript
  * import { aroonStrategy } from './aroonStrategy';

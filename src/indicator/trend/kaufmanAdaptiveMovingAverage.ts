@@ -34,7 +34,6 @@ export const KAMADefaultConfig: Required<KAMAConfig> = {
  * `values[period - 1]`. When the price did not move over the window, the
  * efficiency ratio is 0 instead of NaN (0 / 0).
  *
- * @title Kaufman's Adaptive Moving Average (KAMA)
  * @example
  * ```TypeScript
  * import { kama } from 'indicatorts';

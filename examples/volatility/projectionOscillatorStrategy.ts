@@ -17,7 +17,6 @@ import {
  * Generates a BUY action when PO > Smoothed PO, a SELL action when PO < Smoothed PO, and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
- * @title Projection Oscillator Strategy
  * @example
  * ```TypeScript
  * import { poStrategy } from './projectionOscillatorStrategy';

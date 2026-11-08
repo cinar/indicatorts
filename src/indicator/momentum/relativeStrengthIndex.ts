@@ -33,7 +33,6 @@ export const RSIDefaultConfig: Required<RSIConfig> = {
  * results empty, so the early values differ and converge over the following
  * bars. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
  *
- * @title Relative Strength Index (RSI)
  * @example
  * ```TypeScript
  * import { rsi } from 'indicatorts';

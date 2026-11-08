@@ -21,7 +21,6 @@ import {
  * regression over every bar, including future ones, so it would leak
  * future prices into earlier signals.
  *
- * @title Chande Forecast Oscillator Strategy
  * @example
  * ```TypeScript
  * import { cfoStrategy } from './chandeForecastOscillatorStrategy';

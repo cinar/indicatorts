@@ -18,7 +18,6 @@ import { Asset } from '../../src/strategy/asset';
  * closing is above VWAP, and HOLD when equal.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
- * @title Volume Weighted Average Price Strategy
  * @example
  * ```TypeScript
  * import { vwapStrategy } from './volumeWeightedAveragePriceStrategy';

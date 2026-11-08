@@ -186,7 +186,6 @@ const calculateSenkouSpanB = ({
  * Because it contains future closings, it must not be used to generate
  * signals at bar i; compare `closings[i]` with `closings[i - close]` instead.
  *
- * @title Ichimoku Cloud
  * @example
  * ```TypeScript
  * import { ichimokuCloud } from 'indicatorts';

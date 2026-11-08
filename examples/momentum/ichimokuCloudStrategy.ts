@@ -17,7 +17,6 @@ import {
  * and HOLD when Leading Span A == Leading Span B.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
- * @title Ichimoku Cloud Strategy
  * @example
  * ```TypeScript
  * import { ichimokuCloudStrategy } from './ichimokuCloudStrategy';

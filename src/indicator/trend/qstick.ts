@@ -25,7 +25,6 @@ export const QstickDefaultConfig: Required<QstickConfig> = {
  * QS = Sma(Closing - Opening)
  * ```
  *
- * @title Qstick
  * @example
  * ```TypeScript
  * import { qstick } from 'indicatorts';

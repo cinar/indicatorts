@@ -47,7 +47,6 @@ export const ABDefaultConfig: Required<ABConfig> = {
  * Lower Band = SMA(Low * (1 - 4 * (High - Low) / (High + Low)))
  * ```
  *
- * @title Acceleration Bands (AB)
  * @example
  * ```TypeScript
  * import { ab } from 'indicatorts';

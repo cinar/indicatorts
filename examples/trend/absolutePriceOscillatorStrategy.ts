@@ -16,7 +16,6 @@ import {
  * Generates a BUY action when APO > 0, SELL when APO < 0, and HOLD when APO == 0.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
- * @title Absolute Price Oscillator Strategy
  * @example
  * ```TypeScript
  * import { apoStrategy } from './absolutePriceOscillatorStrategy';

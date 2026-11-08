@@ -36,7 +36,6 @@ export const MIDefaultConfig: Required<MIConfig> = {
  * first value rather than from a simple moving average, so the early values
  * can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
  *
- * @title Mass Index (MI)
  * @example
  * ```TypeScript
  * import { mi } from 'indicatorts';

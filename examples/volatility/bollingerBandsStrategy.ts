@@ -17,7 +17,6 @@ import {
  * asset closing < Lower Band, and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
- * @title Bollinger Bands Strategy
  * @example
  * ```TypeScript
  * import { bbStrategy } from './bollingerBandsStrategy';

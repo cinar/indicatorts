@@ -27,7 +27,6 @@ export const VWMADefaultConfig: Required<VWMAConfig> = {
  * VWMA = Sum(Price * Volume) / Sum(Volume) for a given Period.
  * ```
  *
- * @title Volume Weighted Moving Average (VWMA)
  * @example
  * ```TypeScript
  * import { vwma } from 'indicatorts';

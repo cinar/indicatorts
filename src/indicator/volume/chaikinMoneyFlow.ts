@@ -28,7 +28,6 @@ export const CMFDefaultConfig: Required<CMFConfig> = {
  * Chaikin Money Flow = Sum(20, Money Flow Volume) / Sum(20, Volume)
  * ```
  *
- * @title Chaikin Money Flow (CMF)
  * @example
  * ```TypeScript
  * import { cmf } from 'indicatorts';

@@ -47,7 +47,6 @@ export const UODefaultConfig: Required<UOConfig> = {
  * UO = 100 * ((4 * Average7) + (2 * Average14) + Average28) / (4 + 2 + 1)
  * ```
  *
- * @title Ultimate Oscillator (UO)
  * @example
  * ```TypeScript
  * import { uo } from 'indicatorts';

@@ -51,7 +51,6 @@ export const KDJDefaultConfig: Required<KDJConfig> = {
  * J = (3 * K) - (2 * D)
  * ```
  *
- * @title Random Index (KDJ)
  * @example
  * ```TypeScript
  * import { kdj } from 'indicatorts';

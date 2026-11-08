@@ -55,7 +55,6 @@ export const PSARDefaultConfig: Required<PSARConfig> = {
  *
  * Based on video [How to Calculate the PSAR Using Excel - Revised Version](https://www.youtube.com/watch?v=MuEpGBAH7pw&t=0s).
  *
- * @title Parabolic SAR (PSAR)
  * @example
  * ```TypeScript
  * import { psar } from 'indicatorts';

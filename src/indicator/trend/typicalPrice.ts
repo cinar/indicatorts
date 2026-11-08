@@ -12,7 +12,6 @@ import { add, divideBy } from '../../helper/numArray';
  * TPI = (High + Low + Closing) / 3
  * ```
  *
- * @title Typical Price
  * @example
  * ```TypeScript
  * import { typprice } from 'indicatorts';

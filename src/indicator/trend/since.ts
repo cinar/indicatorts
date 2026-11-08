@@ -4,7 +4,6 @@
 /**
  * Since value is changed.
  *
- * @title Since Change
  * @example
  * ```TypeScript
  * import { since } from 'indicatorts';

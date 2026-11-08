@@ -40,7 +40,6 @@ export const NVIDefaultConfig: Required<NVIConfig> = {
  *   NVI = Previous NVI
  * ```
  *
- * @title Negative Volume Index (NVI)
  * @example
  * ```TypeScript
  * import { nvi } from 'indicatorts';

@@ -41,7 +41,6 @@ export const CEDefaultConfig: Required<CEConfig> = {
  * in its first averaging window, so the early values can differ from other
  * libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
  *
- * @title Chandelier Exit (CE)
  * @example
  * ```TypeScript
  * import { ce } from 'indicatorts';

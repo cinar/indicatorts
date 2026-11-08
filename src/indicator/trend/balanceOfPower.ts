@@ -13,7 +13,6 @@ import { divide, subtract } from '../../helper/numArray';
  * BOP = (Closing - Opening) / (High - Low)
  * ```
  *
- * @title Balance of Power (BOP)
  * @example
  * ```TypeScript
  * import { bop } from 'indicatorts';

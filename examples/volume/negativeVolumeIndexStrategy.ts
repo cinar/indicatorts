@@ -18,7 +18,6 @@ import { Asset } from '../../src/strategy/asset';
  * SELL action when NVI < EMA, and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
- * @title Negative Volume Index Strategy
  * @example
  * ```TypeScript
  * import { nviStrategy } from './negativeVolumeIndexStrategy';

@@ -36,7 +36,6 @@ export const MFIDefaultConfig: Required<MFIConfig> = {
  * first bar (which has no previous bar), contribute to neither flow.
  * When a window has no positive and no negative flow, the MFI is 50.
  *
- * @title Money Flow Index (MFI)
  * @example
  * ```TypeScript
  * import { mfi } from 'indicatorts';

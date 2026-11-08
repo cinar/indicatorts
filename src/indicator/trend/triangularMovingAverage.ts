@@ -29,7 +29,6 @@ export const TRIMADefaultConfig: Required<TRIMAConfig> = {
  *
  * Based on [Triangular Moving Average](https://tulipindicators.org/trima).
  *
- * @title Triangular Moving Average (TRIMA)
  * @example
  * ```TypeScript
  * import { trima } from 'indicatorts';

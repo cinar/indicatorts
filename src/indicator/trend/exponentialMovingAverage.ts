@@ -25,7 +25,6 @@ export const EMADefaultConfig: Required<EMAConfig> = {
  * early values differ. The difference shrinks by a factor of
  * `1 - 2 / (period + 1)` every bar. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
  *
- * @title Exponential Moving Average (EMA)
  * @example
  * ```TypeScript
  * import { ema } from 'indicatorts';

@@ -16,7 +16,6 @@ import {
  * TR = Max((High - Low), Abs(High - Closing[-1]), Abs(Low - Closing[-1]))
  * ```
  *
- * @title True Range (TR)
  * @example
  * ```TypeScript
  * import { tr } from 'indicatorts';

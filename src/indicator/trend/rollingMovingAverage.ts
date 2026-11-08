@@ -28,7 +28,6 @@ export const RMADefaultConfig: Required<RMAConfig> = {
  * `period - 1` it equals the simple moving average of the first `period`
  * values. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
  *
- * @title Rolling Moving Average (RMA)
  * @example
  * ```TypeScript
  * import { rma } from 'indicatorts';

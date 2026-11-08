@@ -16,7 +16,6 @@ import { divide, multiply, subtract } from '../../helper/numArray';
  *
  * Based on [Accumulation/Distribution Indicator (A/D)](https://www.investopedia.com/terms/a/accumulationdistribution.asp).
  *
- * @title Accumulation/Distribution (A/D)
  * @example
  * ```TypeScript
  * import { ad } from 'indicatorts';

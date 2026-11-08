@@ -78,7 +78,6 @@ function periodsSinceExtreme(
  * Aroon Down = ((25 - Period Since Last 25 Period Low) / 25) * 100
  * ```
  *
- * @title Aroon
  * @example
  * ```TypeScript
  * import { aroon } from 'indicatorts';

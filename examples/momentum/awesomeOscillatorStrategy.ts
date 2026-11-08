@@ -16,7 +16,6 @@ import {
  * Generates a BUY action when AO > 0, SELL when AO < 0, and HOLD when AO == 0.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
- * @title Awesome Oscillator Strategy
  * @example
  * ```TypeScript
  * import { aoStrategy } from './awesomeOscillatorStrategy';

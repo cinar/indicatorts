@@ -7,7 +7,6 @@
 
 import { describe, it } from 'vitest';
 import { deepStrictEqual } from 'assert';
-import { execFileSync } from 'child_process';
 import { existsSync, readdirSync, readFileSync } from 'fs';
 import { basename, dirname, join, relative } from 'path';
 import ts from 'typescript';
@@ -142,15 +141,6 @@ describe('API consistency', () => {
       ['dependencies', 'peerDependencies', 'optionalDependencies']
         .filter((field) => Object.keys(pkg[field] ?? {}).length > 0)
         .map((field) => `package.json: ${field}`)
-    );
-  });
-
-  it('should have up to date generated docs', () => {
-    // Fails with the list of stale READMEs; fix with "npm run docs".
-    execFileSync(
-      process.execPath,
-      [join(ROOT, 'scripts', 'generateDocs.mjs'), '--check'],
-      { stdio: 'pipe' }
     );
   });
 

@@ -23,7 +23,6 @@ export const ROCDefaultConfig: Required<ROCConfig> = {
  * ROC[i] = (close[i] / close[i-period] - 1) * 100 when i >= period
  * ```
  *
- * @title Price Rate of Change (ROC)
  * @example
  * ```TypeScript
  * import { roc } from 'indicatorts';

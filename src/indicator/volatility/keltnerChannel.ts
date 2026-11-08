@@ -43,7 +43,6 @@ export const KCDefaultConfig: Required<KCConfig> = {
  * range, which start from the first bar rather than the way TA-Lib does, so
  * the early values can differ from other libraries. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
  *
- * @title Keltner Channel (KC)
  * @example
  * ```TypeScript
  * import { kc } from 'indicatorts';

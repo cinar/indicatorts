@@ -12,7 +12,6 @@ import { bop } from '../../src/indicator/trend/balanceOfPower';
  * Generates a BUY action when BOP > 0, SELL when BOP < 0, and HOLD when BOP == 0.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
- * @title Balance of Power Strategy
  * @example
  * ```TypeScript
  * import { bopStrategy } from './balanceOfPowerStrategy';

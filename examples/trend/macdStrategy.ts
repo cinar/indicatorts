@@ -19,7 +19,6 @@ import {
  * finite side. No action is emitted until both sides have been observed.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
- * @title MACD Strategy
  * @example
  * ```TypeScript
  * import { macdStrategy } from './macdStrategy';

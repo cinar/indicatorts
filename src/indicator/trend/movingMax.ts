@@ -20,7 +20,6 @@ export const MMaxDefaultConfig: Required<MMaxConfig> = {
 /**
  * Moving max for the given period.
  *
- * @title Moving Max (MMAX)
  * @example
  * ```TypeScript
  * import { mmax } from 'indicatorts';

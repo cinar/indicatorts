@@ -31,7 +31,6 @@ export const CCIDefaultConfig: Required<CCIConfig> = {
  * CCI = (Typical Price - Moving Average) / (0.015 * Mean Deviation)
  * ```
  *
- * @title Commodity Channel Index (CCI)
  * @example
  * ```TypeScript
  * import { cci } from 'indicatorts';

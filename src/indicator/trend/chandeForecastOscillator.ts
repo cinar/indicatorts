@@ -33,7 +33,6 @@ import {
  *
  * Based on [Chande Forecast Oscillator Formula, Strategy](https://www.stockmaniacs.net/chande-forecast-oscillator/), [Forecast Oscillator](https://www.fmlabs.com/reference/default.htm?url=ForecastOscillator.htm), and [Least Squares Regression](https://www.mathsisfun.com/data/least-squares-regression.html).
  *
- * @title Chande Forecast Oscillator (CFO)
  * @example
  * ```TypeScript
  * import { cfo } from 'indicatorts';

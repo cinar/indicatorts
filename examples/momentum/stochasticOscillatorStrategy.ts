@@ -17,7 +17,6 @@ import {
  * and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
- * @title Stochastic Oscillator Strategy
  * @example
  * ```TypeScript
  * import { stochStrategy } from './stochasticOscillatorStrategy';

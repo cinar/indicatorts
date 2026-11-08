@@ -50,13 +50,12 @@ Every TypeScript file starts with:
 
 ### Documentation
 
-The README files under `src/indicator/<category>/` and `examples/<category>/` are generated from JSDoc by [`scripts/generateDocs.mjs`](scripts/generateDocs.mjs). Do not edit them by hand. Instead, document the code:
+The API reference in the README files under `src/indicator/<category>/` and `examples/<category>/` is generated from JSDoc by [tsdoc-markdown](https://github.com/peterpeterparker/tsdoc-markdown). The generated part is between the `<!-- TSDOC_START -->` and `<!-- TSDOC_END -->` markers; do not edit it by hand. The introduction above the markers and the footer below them are written by hand. Document the code instead:
 
 - Every exported declaration has a JSDoc comment.
-- The main function of each module has a `@title` tag with the README section title, a description, the formula in a fenced code block, `@example` usage, and `@param`/`@return` tags.
-- Configuration options and result fields are picked up from the `Config`/`DefaultConfig`/`Result` declarations automatically.
+- The main function of each module starts with the indicator's full name, then has a description, the formula in a fenced code block, `@example` usage, and `@param`/`@return` tags.
 
-Run `npm run docs` and commit the regenerated README files. `npm test` fails if they are out of date.
+Run `npm run docs` and commit the regenerated README files. CI fails if they are out of date.
 
 Documentation, comments, commit messages and pull request descriptions are technical and descriptive: what a value measures and how it is computed. This is an educational library, not investment advice, so avoid prescriptive or buy/sell framing such as "indicates bullish" or "buy when".
 
@@ -93,7 +92,7 @@ Keep the small hand-written tests as well. They cover configuration handling and
 
 ### API consistency
 
-[`src/testing/apiConsistency.test.ts`](src/testing/apiConsistency.test.ts) checks the conventions above: copyright headers, JSDoc on exports, no runtime dependencies, `index.ts` exports, test and CSV files, strategy registration and up-to-date generated docs. It discovers new files automatically.
+[`src/testing/apiConsistency.test.ts`](src/testing/apiConsistency.test.ts) checks the conventions above: copyright headers, JSDoc on exports, no runtime dependencies, `index.ts` exports, test and CSV files, strategy registration. It discovers new files automatically.
 
 ## Pull requests
 

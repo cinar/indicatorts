@@ -40,7 +40,6 @@ export const StochDefaultConfig: Required<StochConfig> = {
  * D = 3-Period SMA of K
  * ```
  *
- * @title Stochastic Oscillator (STOCH)
  * @example
  * ```TypeScript
  * import { stoch } from 'indicatorts';

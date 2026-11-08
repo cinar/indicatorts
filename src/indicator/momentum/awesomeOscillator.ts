@@ -28,7 +28,6 @@ export const AODefaultConfig: Required<AOConfig> = {
  * AO = 5-Period SMA - 34-Period SMA.
  * ```
  *
- * @title Awesome Oscillator (AO)
  * @example
  * ```TypeScript
  * import { ao } from 'indicatorts';

@@ -17,7 +17,6 @@ import { msum } from '../trend/movingSum';
  * VPT = Previous VPT + (Volume * (Current Closing - Previous Closing) / Previous Closing)
  * ```
  *
- * @title Volume Price Trend (VPT)
  * @example
  * ```TypeScript
  * import { vpt } from 'indicatorts';

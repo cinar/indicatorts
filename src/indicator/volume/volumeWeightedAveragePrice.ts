@@ -26,7 +26,6 @@ export const VWAPDefaultConfig: Required<VWAPConfig> = {
  * VWAP = Sum(Closing * Volume) / Sum(Volume)
  * ```
  *
- * @title Volume Weighted Average Price (VWAP)
  * @example
  * ```TypeScript
  * import { vwap } from 'indicatorts';

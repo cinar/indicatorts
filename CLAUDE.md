@@ -15,11 +15,11 @@ Technical analysis indicators, example strategies and a backtest framework in Ty
   - `Boolean(x)` instead of `!!x` (JS-0066).
   - Named imports instead of `import * as x` (JS-C1003).
   - ESLint must pass too, but it does not catch all of these.
-- **Generated docs.** `src/indicator/*/README.md` and `examples/*/README.md` are generated from JSDoc by `npm run docs`; edit the JSDoc, never those READMEs.
+- **Generated docs.** The API reference between the `TSDOC_START`/`TSDOC_END` markers in `src/indicator/*/README.md` and `examples/*/README.md` is generated from JSDoc by `npm run docs` (tsdoc-markdown); edit the JSDoc, never the generated part.
 
 ## New indicator checklist
 
-1. `src/indicator/<category>/<camelCaseName>.ts` with the copyright header, `<Name>Config`/`<Name>DefaultConfig`, and JSDoc on every export. The main function's JSDoc has `@title`, a description, a fenced formula, `@example`, `@param` and `@return`.
+1. `src/indicator/<category>/<camelCaseName>.ts` with the copyright header, `<Name>Config`/`<Name>DefaultConfig`, and JSDoc on every export. The main function's JSDoc starts with the indicator's full name, then has a description, a fenced formula, `@example`, `@param` and `@return`.
 2. Reuse `src/helper` and existing indicators instead of reimplementing them.
 3. Export it from the category `index.ts` and add it to the root `README.md` list.
 4. `<camelCaseName>.test.ts` with edge-case tests plus a `should match the reference data` test against `testdata/<camelCaseName>.csv`.

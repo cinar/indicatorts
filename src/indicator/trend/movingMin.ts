@@ -20,7 +20,6 @@ export const MMinDefaultConfig: Required<MMinConfig> = {
 /**
  * Moving min for the given period.
  *
- * @title Moving Min (MMIN)
  * @example
  * ```TypeScript
  * import { mmin } from 'indicatorts';

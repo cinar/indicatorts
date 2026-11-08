@@ -35,7 +35,6 @@ export const EMVDefaultConfig: Required<EMVConfig> = {
  * EMV(14) = SMA(14, EMV(1))
  * ```
  *
- * @title Ease of Movement (EMV)
  * @example
  * ```TypeScript
  * import { emv } from 'indicatorts';

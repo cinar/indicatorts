@@ -61,7 +61,6 @@ export const VortexDefaultConfig: Required<VortexConfig> = {
  *
  * Based on [Vortex Indicator](https://school.stockcharts.com/doku.php?id=technical_indicators:vortex_indicator)
  *
- * @title Vortex Indicator
  * @example
  * ```TypeScript
  * import { vortex } from 'indicatorts';

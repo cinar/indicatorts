@@ -13,7 +13,6 @@ import { checkSameLength } from '../../helper/numArray';
  *                  -volume, if Closing < Closing-Prev
  * ```
  *
- * @title On-Balance Volume (OBV)
  * @example
  * ```TypeScript
  * import {obv} from 'indicatorts';

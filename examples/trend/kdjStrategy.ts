@@ -19,7 +19,6 @@ import {
  * No action is emitted until both sides have been observed.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
- * @title KDJ Strategy
  * @example
  * ```TypeScript
  * import { kdjStrategy } from './kdjStrategy';

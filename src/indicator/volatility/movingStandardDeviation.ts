@@ -20,7 +20,6 @@ export const MSTDDefaultConfig: Required<MSTDConfig> = {
 /**
  * Moving strandard deviation function.
  *
- * @title Moving Standard Deviation (MSTD)
  * @example
  * ```TypeScript
  * import { mstd } from 'indicatorts';

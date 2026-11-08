@@ -37,7 +37,6 @@ export const BBDefaultConfig: Required<BBConfig> = {
  * Lower Band = 20-Period SMA - 2 (20-Period Std)
  * ```
  *
- * @title Bollinger Bands (BB)
  * @example
  * ```TypeScript
  * import { bb } from 'indicatorts';
