@@ -79,7 +79,9 @@ function newChart(): { chart: InstanceType<typeof Chart>; canvas: FakeCanvas } {
 }
 
 describe('Chart', () => {
-  afterEach(() => elements.clear());
+  afterEach(() => {
+    elements.clear();
+  });
 
   it('should throw when the canvas element is not found', () => {
     expect(() => new Chart('missing')).toThrow('Canvas element not found');

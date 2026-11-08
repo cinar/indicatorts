@@ -163,6 +163,7 @@ describe('sortCompanyResults', () => {
       newCompanyResult('AAA', [newStrategyResult('MACD', 0.3, Action.HOLD)]),
     ];
     expect(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-assignment -- deliberately invalid value
       sortCompanyResults(companyResults, -1 as CompanyResultSortBy, true)
     ).toStrictEqual([]);
   });

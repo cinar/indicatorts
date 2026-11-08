@@ -79,8 +79,12 @@ export class Chart {
     this.yScaler = new NumScaler(DEFAULT_RANGE, DEFAULT_RANGE);
     this.xFocus = NO_FOCUS;
 
-    this.canvas.addEventListener('mousemove', (ev) => this.onMouseMove(ev));
-    this.canvas.addEventListener('mouseout', () => this.onMouseOut());
+    this.canvas.addEventListener('mousemove', (ev) => {
+      this.onMouseMove(ev);
+    });
+    this.canvas.addEventListener('mouseout', () => {
+      this.onMouseOut();
+    });
   }
 
   /**

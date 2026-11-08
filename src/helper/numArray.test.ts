@@ -230,9 +230,11 @@ describe('Number Array', () => {
   });
 
   it('should throw when values have different lengths', () => {
-    expect(() => checkSameLength([1, 2], [1, 2], [1])).toThrow(
-      'values length at 2 not 2'
-    );
-    expect(() => checkSameLength()).not.toThrow();
+    expect(() => {
+      checkSameLength([1, 2], [1, 2], [1]);
+    }).toThrow('values length at 2 not 2');
+    expect(() => {
+      checkSameLength();
+    }).not.toThrow();
   });
 });
