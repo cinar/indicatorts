@@ -15,7 +15,7 @@
     "build-types": "tsc -p tsconfig.build.json --emitDeclarationOnly --declaration --outDir dist/types",
     "lint": "eslint .",
     "fix": "prettier --ignore-path .gitignore --write . ; eslint --fix .",
-    "test": "jest"
+    "test": "vitest run"
   },
   "repository": {
     "type": "git",
@@ -51,17 +51,17 @@
   "homepage": "https://github.com/cinar/indicatorts#readme",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/jest": "^30.0.0",
+    "@types/node": "^24.19.2",
     "@typescript-eslint/eslint-plugin": "^8.68.0",
     "@typescript-eslint/parser": "^8.68.0",
+    "@vitest/coverage-v8": "^5.1.0",
     "esbuild": "^0.28.1",
     "eslint": "^10.10.0",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^17.12.0",
-    "jest": "^30.5.0",
     "prettier": "^3.2.5",
-    "ts-jest": "^29.4.12",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "^5.1.0"
   },
   "overrides": {
     "glob": "^14.0.4",

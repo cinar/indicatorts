@@ -1,3 +1,4 @@
+import { describe, it } from 'vitest';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { roc } from './priceRateOfChange';

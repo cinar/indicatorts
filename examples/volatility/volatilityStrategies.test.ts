@@ -1,6 +1,7 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
+import { describe, it, expect, vi } from 'vitest';
 import { ab } from '../../src/indicator/volatility/accelerationBands';
 import { bb } from '../../src/indicator/volatility/bollingerBands';
 import { po } from '../../src/indicator/volatility/projectionOscillator';
@@ -16,24 +17,33 @@ import {
   projectionOscillatorStrategy,
 } from './projectionOscillatorStrategy';
 
-jest.mock('../../src/indicator/volatility/accelerationBands', () => {
-  const actual = jest.requireActual(
-    '../../src/indicator/volatility/accelerationBands'
-  );
-  return { ...actual, ab: jest.fn() };
-});
-jest.mock('../../src/indicator/volatility/bollingerBands', () => {
-  const actual = jest.requireActual(
-    '../../src/indicator/volatility/bollingerBands'
-  );
-  return { ...actual, bb: jest.fn() };
-});
-jest.mock('../../src/indicator/volatility/projectionOscillator', () => {
-  const actual = jest.requireActual(
-    '../../src/indicator/volatility/projectionOscillator'
-  );
-  return { ...actual, po: jest.fn() };
-});
+vi.mock(
+  '../../src/indicator/volatility/accelerationBands',
+  async (importOriginal) => ({
+    ...(await importOriginal<
+      typeof import('../../src/indicator/volatility/accelerationBands')
+    >()),
+    ab: vi.fn(),
+  })
+);
+vi.mock(
+  '../../src/indicator/volatility/bollingerBands',
+  async (importOriginal) => ({
+    ...(await importOriginal<
+      typeof import('../../src/indicator/volatility/bollingerBands')
+    >()),
+    bb: vi.fn(),
+  })
+);
+vi.mock(
+  '../../src/indicator/volatility/projectionOscillator',
+  async (importOriginal) => ({
+    ...(await importOriginal<
+      typeof import('../../src/indicator/volatility/projectionOscillator')
+    >()),
+    po: vi.fn(),
+  })
+);
 
 describe('Volatility example strategies', () => {
   // Closings above, below, and within bands of [9, 11], plus both edges.
@@ -46,7 +56,7 @@ describe('Volatility example strategies', () => {
   };
 
   it('acceleration bands: BUY on a break above the upper band, SELL below the lower band', () => {
-    jest.mocked(ab).mockReturnValue(bands);
+    vi.mocked(ab).mockReturnValue(bands);
     expect(abStrategy(asset)).toStrictEqual([
       Action.BUY,
       Action.SELL,
@@ -58,7 +68,7 @@ describe('Volatility example strategies', () => {
   });
 
   it('bollinger bands: SELL above the upper band, BUY below the lower band', () => {
-    jest.mocked(bb).mockReturnValue(bands);
+    vi.mocked(bb).mockReturnValue(bands);
     expect(bbStrategy(asset)).toStrictEqual([
       Action.SELL,
       Action.BUY,
@@ -70,9 +80,10 @@ describe('Volatility example strategies', () => {
   });
 
   it('projection oscillator: BUY when PO is above its smoothed value, SELL when below', () => {
-    jest
-      .mocked(po)
-      .mockReturnValue({ poResult: [60, 40, 50], spoResult: [50, 50, 50] });
+    vi.mocked(po).mockReturnValue({
+      poResult: [60, 40, 50],
+      spoResult: [50, 50, 50],
+    });
     expect(poStrategy(newAssetWithLength(3))).toStrictEqual([
       Action.BUY,
       Action.SELL,

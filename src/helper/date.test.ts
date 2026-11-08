@@ -1,6 +1,7 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
+import { describe, it, expect, vi } from 'vitest';
 import { daysAgo, daysLaterFrom, toISODateString, toMonthAndDay } from './date';
 
 describe('Date helpers', () => {
@@ -31,11 +32,11 @@ describe('Date helpers', () => {
   });
 
   it('should be able to compute days ago from today', () => {
-    jest.useFakeTimers({ now: new Date(2024, 2, 1, 12) });
+    vi.useFakeTimers({ now: new Date(2024, 2, 1, 12) });
     try {
       expect(daysAgo(1)).toStrictEqual(new Date(2024, 1, 29, 12));
     } finally {
-      jest.useRealTimers();
+      vi.useRealTimers();
     }
   });
 

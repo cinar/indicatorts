@@ -1,6 +1,7 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
+import { describe, it, expect, vi } from 'vitest';
 import { ao } from '../../src/indicator/momentum/awesomeOscillator';
 import { ichimokuCloud } from '../../src/indicator/momentum/ichimokuCloud';
 import { rsi } from '../../src/indicator/momentum/relativeStrengthIndex';
@@ -20,38 +21,52 @@ import {
 } from './stochasticOscillatorStrategy';
 import { williamsRStrategy, willRStrategy } from './williamsRStrategy';
 
-jest.mock('../../src/indicator/momentum/awesomeOscillator', () => {
-  const actual = jest.requireActual(
-    '../../src/indicator/momentum/awesomeOscillator'
-  );
-  return { ...actual, ao: jest.fn() };
-});
-jest.mock('../../src/indicator/momentum/ichimokuCloud', () => {
-  const actual = jest.requireActual(
-    '../../src/indicator/momentum/ichimokuCloud'
-  );
-  return { ...actual, ichimokuCloud: jest.fn() };
-});
-jest.mock('../../src/indicator/momentum/relativeStrengthIndex', () => {
-  const actual = jest.requireActual(
-    '../../src/indicator/momentum/relativeStrengthIndex'
-  );
-  return { ...actual, rsi: jest.fn() };
-});
-jest.mock('../../src/indicator/momentum/stochasticOscillator', () => {
-  const actual = jest.requireActual(
-    '../../src/indicator/momentum/stochasticOscillator'
-  );
-  return { ...actual, stoch: jest.fn() };
-});
-jest.mock('../../src/indicator/momentum/williamsR', () => {
-  const actual = jest.requireActual('../../src/indicator/momentum/williamsR');
-  return { ...actual, willr: jest.fn() };
-});
+vi.mock(
+  '../../src/indicator/momentum/awesomeOscillator',
+  async (importOriginal) => ({
+    ...(await importOriginal<
+      typeof import('../../src/indicator/momentum/awesomeOscillator')
+    >()),
+    ao: vi.fn(),
+  })
+);
+vi.mock(
+  '../../src/indicator/momentum/ichimokuCloud',
+  async (importOriginal) => ({
+    ...(await importOriginal<
+      typeof import('../../src/indicator/momentum/ichimokuCloud')
+    >()),
+    ichimokuCloud: vi.fn(),
+  })
+);
+vi.mock(
+  '../../src/indicator/momentum/relativeStrengthIndex',
+  async (importOriginal) => ({
+    ...(await importOriginal<
+      typeof import('../../src/indicator/momentum/relativeStrengthIndex')
+    >()),
+    rsi: vi.fn(),
+  })
+);
+vi.mock(
+  '../../src/indicator/momentum/stochasticOscillator',
+  async (importOriginal) => ({
+    ...(await importOriginal<
+      typeof import('../../src/indicator/momentum/stochasticOscillator')
+    >()),
+    stoch: vi.fn(),
+  })
+);
+vi.mock('../../src/indicator/momentum/williamsR', async (importOriginal) => ({
+  ...(await importOriginal<
+    typeof import('../../src/indicator/momentum/williamsR')
+  >()),
+  willr: vi.fn(),
+}));
 
 describe('Momentum example strategies', () => {
   it('awesome oscillator: BUY above 0, SELL below 0', () => {
-    jest.mocked(ao).mockReturnValue([1, -1, 0]);
+    vi.mocked(ao).mockReturnValue([1, -1, 0]);
     expect(aoStrategy(newAssetWithLength(3))).toStrictEqual([
       Action.BUY,
       Action.SELL,
@@ -61,7 +76,7 @@ describe('Momentum example strategies', () => {
   });
 
   it('ichimoku cloud: BUY when Senkou A is above Senkou B, SELL when below', () => {
-    jest.mocked(ichimokuCloud).mockReturnValue({
+    vi.mocked(ichimokuCloud).mockReturnValue({
       tenkan: [0, 0, 0],
       kijun: [0, 0, 0],
       ssa: [2, 1, 1],
@@ -76,7 +91,7 @@ describe('Momentum example strategies', () => {
   });
 
   it('rsi 2: BUY below 10, SELL above 90, using a period of 2', () => {
-    jest.mocked(rsi).mockReturnValue([5, 95, 10, 90, 50]);
+    vi.mocked(rsi).mockReturnValue([5, 95, 10, 90, 50]);
     expect(rsi2Strategy(newAssetWithLength(5))).toStrictEqual([
       Action.BUY,
       Action.SELL,
@@ -84,11 +99,11 @@ describe('Momentum example strategies', () => {
       Action.HOLD,
       Action.HOLD,
     ]);
-    expect(jest.mocked(rsi).mock.calls[0][1]).toStrictEqual({ period: 2 });
+    expect(vi.mocked(rsi).mock.calls[0][1]).toStrictEqual({ period: 2 });
   });
 
   it('stochastic oscillator: SELL when both K and D >= 80, BUY when both <= 20', () => {
-    jest.mocked(stoch).mockReturnValue({
+    vi.mocked(stoch).mockReturnValue({
       k: [80, 20, 85, 15, 50],
       d: [80, 20, 50, 50, 50],
     });
@@ -103,7 +118,7 @@ describe('Momentum example strategies', () => {
   });
 
   it('williams r: BUY at or below -80, SELL at or above -20', () => {
-    jest.mocked(willr).mockReturnValue([-80, -20, -50]);
+    vi.mocked(willr).mockReturnValue([-80, -20, -50]);
     expect(willRStrategy(newAssetWithLength(3))).toStrictEqual([
       Action.BUY,
       Action.SELL,

@@ -1,6 +1,7 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
+import { describe, it, expect, vi } from 'vitest';
 import { apo } from '../../src/indicator/trend/absolutePriceOscillator';
 import { aroon } from '../../src/indicator/trend/aroon';
 import { bop } from '../../src/indicator/trend/balanceOfPower';
@@ -19,38 +20,47 @@ import { parabolicSARStrategy, psarStrategy } from './parabolicSarStrategy';
 import { typicalPriceStrategy, typpriceStrategy } from './typicalPriceStrategy';
 import { vortexStrategy } from './vortexStrategy';
 
-jest.mock('../../src/indicator/trend/absolutePriceOscillator', () => {
-  const actual = jest.requireActual(
-    '../../src/indicator/trend/absolutePriceOscillator'
-  );
-  return { ...actual, apo: jest.fn() };
-});
-jest.mock('../../src/indicator/trend/aroon', () => {
-  const actual = jest.requireActual('../../src/indicator/trend/aroon');
-  return { ...actual, aroon: jest.fn() };
-});
-jest.mock('../../src/indicator/trend/balanceOfPower', () => {
-  const actual = jest.requireActual('../../src/indicator/trend/balanceOfPower');
-  return { ...actual, bop: jest.fn() };
-});
-jest.mock('../../src/indicator/trend/parabolicSar', () => {
-  const actual = jest.requireActual('../../src/indicator/trend/parabolicSar');
-  return { ...actual, psar: jest.fn() };
-});
-jest.mock('../../src/indicator/trend/vortex', () => {
-  const actual = jest.requireActual('../../src/indicator/trend/vortex');
-  return { ...actual, vortex: jest.fn() };
-});
+vi.mock(
+  '../../src/indicator/trend/absolutePriceOscillator',
+  async (importOriginal) => ({
+    ...(await importOriginal<
+      typeof import('../../src/indicator/trend/absolutePriceOscillator')
+    >()),
+    apo: vi.fn(),
+  })
+);
+vi.mock('../../src/indicator/trend/aroon', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('../../src/indicator/trend/aroon')>()),
+  aroon: vi.fn(),
+}));
+vi.mock('../../src/indicator/trend/balanceOfPower', async (importOriginal) => ({
+  ...(await importOriginal<
+    typeof import('../../src/indicator/trend/balanceOfPower')
+  >()),
+  bop: vi.fn(),
+}));
+vi.mock('../../src/indicator/trend/parabolicSar', async (importOriginal) => ({
+  ...(await importOriginal<
+    typeof import('../../src/indicator/trend/parabolicSar')
+  >()),
+  psar: vi.fn(),
+}));
+vi.mock('../../src/indicator/trend/vortex', async (importOriginal) => ({
+  ...(await importOriginal<
+    typeof import('../../src/indicator/trend/vortex')
+  >()),
+  vortex: vi.fn(),
+}));
 
 describe('Trend example strategies', () => {
   it('apo: BUY above 0, SELL below 0, passing the fast and slow periods', () => {
-    jest.mocked(apo).mockReturnValue([1, -1, 0]);
+    vi.mocked(apo).mockReturnValue([1, -1, 0]);
     expect(apoStrategy(newAssetWithLength(3), { fast: 5 })).toStrictEqual([
       Action.BUY,
       Action.SELL,
       Action.HOLD,
     ]);
-    expect(jest.mocked(apo).mock.calls[0][1]).toStrictEqual({
+    expect(vi.mocked(apo).mock.calls[0][1]).toStrictEqual({
       fast: 5,
       slow: 30,
     });
@@ -58,9 +68,7 @@ describe('Trend example strategies', () => {
   });
 
   it('aroon: BUY when up is above down, SELL when below', () => {
-    jest
-      .mocked(aroon)
-      .mockReturnValue({ up: [80, 20, 50], down: [20, 80, 50] });
+    vi.mocked(aroon).mockReturnValue({ up: [80, 20, 50], down: [20, 80, 50] });
     expect(aroonStrategy(newAssetWithLength(3))).toStrictEqual([
       Action.BUY,
       Action.SELL,
@@ -69,7 +77,7 @@ describe('Trend example strategies', () => {
   });
 
   it('balance of power: BUY above 0, SELL below 0', () => {
-    jest.mocked(bop).mockReturnValue([0.5, -0.5, 0]);
+    vi.mocked(bop).mockReturnValue([0.5, -0.5, 0]);
     expect(bopStrategy(newAssetWithLength(3))).toStrictEqual([
       Action.BUY,
       Action.SELL,
@@ -79,7 +87,7 @@ describe('Trend example strategies', () => {
   });
 
   it('parabolic sar: BUY on a rising trend, SELL on a falling trend', () => {
-    jest.mocked(psar).mockReturnValue({
+    vi.mocked(psar).mockReturnValue({
       trends: [Trend.RISING, Trend.FALLING, Trend.STABLE],
       psarResult: [0, 0, 0],
     });
@@ -109,7 +117,7 @@ describe('Trend example strategies', () => {
   });
 
   it('vortex: BUY when plus is above minus, SELL when below', () => {
-    jest.mocked(vortex).mockReturnValue({ plus: [2, 1, 1], minus: [1, 2, 1] });
+    vi.mocked(vortex).mockReturnValue({ plus: [2, 1, 1], minus: [1, 2, 1] });
     expect(vortexStrategy(newAssetWithLength(3))).toStrictEqual([
       Action.BUY,
       Action.SELL,

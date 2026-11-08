@@ -1,6 +1,7 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
+import { describe, it, expect } from 'vitest';
 import { roundDigitsAll } from '../../helper/numArray';
 import { atr } from './averageTrueRange';
 

@@ -1,6 +1,9 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
+import { describe, it, expect, afterEach } from 'vitest';
+import { Chart } from './chart';
+
 /**
  * The tests run in Node, so they provide a minimal fake canvas and 2D
  * context that record the drawing calls the chart makes.
@@ -68,10 +71,6 @@ Object.assign(globalThis, {
   HTMLCanvasElement: FakeCanvas,
   document: { getElementById: (id: string) => elements.get(id) ?? null },
 });
-
-// Imported after the globals are in place.
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { Chart } = require('./chart') as typeof import('./chart');
 
 function newChart(): { chart: InstanceType<typeof Chart>; canvas: FakeCanvas } {
   const canvas = new FakeCanvas();
