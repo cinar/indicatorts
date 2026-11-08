@@ -35,6 +35,7 @@ class FakeContext {
     this.calls.push(['fillText', text, x, y, this.fillStyle]);
   }
   measureText(text: string): { width: number } {
+    this.calls.push(['measureText', text]);
     return { width: text.length * 10 };
   }
 
@@ -46,6 +47,7 @@ class FakeContext {
 class FakeCanvas {
   width = 200;
   height = 130;
+  left = 10;
   context: FakeContext | null = new FakeContext();
   listeners = new Map<string, (ev: { clientX: number }) => void>();
 
@@ -56,7 +58,7 @@ class FakeCanvas {
     this.listeners.set(type, listener);
   }
   getBoundingClientRect(): { left: number } {
-    return { left: 10 };
+    return { left: this.left };
   }
 }
 
