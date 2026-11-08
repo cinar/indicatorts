@@ -43,4 +43,12 @@ describe('Ease of Movement (EMV)', () => {
     const actual = emv(flatHighs, flatLows, zeroVolumes, { period: 2 });
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
+
+  it('should treat a bar with zero volume as no movement', () => {
+    const actual = emv([10, 11, 12], [9, 10, 11], [100, 0, 100], {
+      period: 2,
+    });
+    expect(actual.every((value) => Number.isFinite(value))).toBe(true);
+    expect(actual[1]).toBe(0);
+  });
 });
