@@ -97,10 +97,27 @@ export function movingLeastSquare(
     let n = i + 1;
 
     if (i >= period) {
-      sumX -= x[i - period];
-      sumX2 -= x[i - period] * x[i - period];
-      sumY -= y[i - period];
-      sumXY -= x[i - period] * y[i - period];
+      const outX = x[i - period];
+      const outY = y[i - period];
+
+      if (Number.isFinite(outX) && Number.isFinite(outY)) {
+        sumX -= outX;
+        sumX2 -= outX * outX;
+        sumY -= outY;
+        sumXY -= outX * outY;
+      } else {
+        // Subtracting a NaN or Infinity back out would leave NaN in the
+        // sums forever, so recompute them from the window instead. That
+        // keeps a non-finite value to the windows that contain it.
+        sumX = sumX2 = sumY = sumXY = 0;
+        for (let j = i - period + 1; j <= i; j++) {
+          sumX += x[j];
+          sumX2 += x[j] * x[j];
+          sumY += y[j];
+          sumXY += x[j] * y[j];
+        }
+      }
+
       n = period;
     }
 
