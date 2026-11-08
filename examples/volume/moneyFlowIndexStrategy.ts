@@ -13,8 +13,8 @@ import { Asset } from '../../src/strategy/asset';
  * Demonstrates how to compose the Money Flow Index (MFI) into an illustrative
  * volume-weighted overbought/oversold signal.
  *
- * Generates a SELL action when MFI >= 80 (overbought threshold), and a BUY action
- * when MFI < 80.
+ * Generates a SELL action when MFI >= 80 (overbought threshold), a BUY action
+ * when MFI <= 20 (oversold threshold), and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
  * @param asset asset object.
@@ -34,8 +34,10 @@ export function mfiStrategy(asset: Asset, config: MFIConfig = {}): Action[] {
   return result.map((value) => {
     if (value >= 80) {
       return Action.SELL;
-    } else {
+    } else if (value <= 20) {
       return Action.BUY;
+    } else {
+      return Action.HOLD;
     }
   });
 }

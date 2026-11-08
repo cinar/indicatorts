@@ -165,4 +165,19 @@ describe('sortStrategyStats', () => {
       ascending.map((s) => s.score).reverse()
     );
   });
+
+  it('should return no stats for an unknown sort order', () => {
+    const strategyStats: StrategyStats[] = [
+      {
+        strategyInfo: { name: 'A', strategy: () => [] },
+        score: 1,
+        minGain: 0,
+        maxGain: 0,
+        averageGain: 0,
+      },
+    ];
+    expect(
+      sortStrategyStats(strategyStats, -1 as StrategyStatsSortBy, true)
+    ).toStrictEqual([]);
+  });
 });

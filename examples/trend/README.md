@@ -107,7 +107,7 @@ const actions = typpriceStrategy(asset);
 
 ## Volume Weighted Moving Average (VWMA) Strategy
 
-The [vwmaStrategy](./vwmaStrategy.ts) demonstrates how to combine SMA and VWMA indicators into a moving average crossover signal, providing a BUY action when VWMA is above SMA, and a SELL action when VWMA is below SMA.
+The [vwmaStrategy](./vwmaStrategy.ts) demonstrates how to combine SMA and VWMA indicators into a moving average position signal, providing a BUY action on every bar where VWMA is above SMA, and a SELL action on every bar where VWMA is below SMA. It is not a crossover signal; see the MACD strategy for one.
 
 ```TypeScript
 import { vwmaStrategy } from '../examples/trend/vwmaStrategy';

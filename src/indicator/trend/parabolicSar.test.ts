@@ -102,4 +102,8 @@ describe('Parabolic SAR (SAR)', () => {
       expect(acceleration).toBeCloseTo(0.2, 10);
     }
   });
+
+  it('should return no values for empty input', () => {
+    expect(psar([], [], [])).toStrictEqual({ trends: [], psarResult: [] });
+  });
 });

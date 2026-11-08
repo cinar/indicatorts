@@ -4,6 +4,17 @@ This directory contains illustrative strategy implementations demonstrating how 
 
 > **Disclaimer:** All strategies provided in this directory are strictly educational, illustrative demonstrations. They are not intended for live trading, and do not constitute financial, investment, or trading advice. Past or hypothetical performance is no guarantee of future results.
 
+> **Note:** The example strategies are **not part of the `indicatorts` npm package**, so `import { macdStrategy } from 'indicatorts'` does not work. Copy the example you need into your own project, and import the indicators it uses from `indicatorts`. For example:
+>
+> ```TypeScript
+> import { Action, Asset, macd } from 'indicatorts';
+>
+> export function macdStrategy(asset: Asset): Action[] {
+>   const { macdLine, signalLine } = macd(asset.closings);
+>   // ... see examples/trend/macdStrategy.ts
+> }
+> ```
+
 ## Overview
 
 The examples demonstrate how to construct functions adhering to the `StrategyFunction` type signature:

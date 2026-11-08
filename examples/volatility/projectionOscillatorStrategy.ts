@@ -11,7 +11,8 @@ import {
 
 /**
  * Demonstrates how to compose the Projection Oscillator (PO) and smoothed PO
- * into an illustrative crossover signal.
+ * into an illustrative position signal. It emits an action on every bar based
+ * on which value is higher, not only on the bars where they cross.
  *
  * Generates a BUY action when PO > Smoothed PO, a SELL action when PO < Smoothed PO, and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.

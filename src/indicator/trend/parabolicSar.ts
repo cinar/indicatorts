@@ -72,6 +72,10 @@ export function psar(
   const trends = new Array<Trend>(highs.length);
   const psarResult = new Array<number>(highs.length);
 
+  if (highs.length === 0) {
+    return { trends, psarResult };
+  }
+
   trends[0] = Trend.FALLING;
   psarResult[0] = highs[0];
 

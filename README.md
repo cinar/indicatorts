@@ -117,6 +117,17 @@ The core engine provides lightweight, generic abstractions for price bar series 
 
 Pre-baked illustrative strategies are organized in the [`examples/`](examples) directory as pedagogical demonstrations showing how developers can consume indicator mathematics:
 
+> **Note:** The example strategies are **not part of the `indicatorts` npm package**, so `import { macdStrategy } from 'indicatorts'` does not work. Copy the example you need into your own project, and import the indicators it uses from `indicatorts`. For example:
+>
+> ```TypeScript
+> import { Action, Asset, macd } from 'indicatorts';
+>
+> export function macdStrategy(asset: Asset): Action[] {
+>   const { macdLine, signalLine } = macd(asset.closings);
+>   // ... see examples/trend/macdStrategy.ts
+> }
+> ```
+
 - **Baseline Strategy:** [Buy and Hold Strategy](examples/buyAndHoldStrategy.ts)
 - **Momentum Strategy Examples:** [Awesome Oscillator](examples/momentum/README.md#awesome-oscillator-strategy), [Ichimoku Cloud](examples/momentum/README.md#ichimoku-cloud-strategy), [RSI 2](examples/momentum/README.md#rsi-2-strategy), [Stochastic Oscillator](examples/momentum/README.md#stochastic-oscillator-strategy), [Williams R](examples/momentum/README.md#williams-r-strategy)
 - **Trend Strategy Examples:** [APO](examples/trend/README.md#absolute-price-oscillator-strategy), [Aroon](examples/trend/README.md#aroon-strategy), [BOP](examples/trend/README.md#balance-of-power-strategy), [CFO](examples/trend/README.md#chande-forecast-oscillator-strategy), [KDJ](examples/trend/README.md#kdj-strategy), [MACD](examples/trend/README.md#macd-strategy), [Parabolic SAR](examples/trend/README.md#parabolic-sar-strategy), [Typical Price](examples/trend/README.md#typical-price-strategy), [VWMA](examples/trend/README.md#volume-weighted-moving-average-vwma-strategy), [Vortex](examples/trend/README.md#vortex-strategy)

@@ -38,4 +38,13 @@ describe('Chaikin Money Flow (CMF)', () => {
     });
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
+
+  it('should treat a bar with no range as a zero money flow multiplier', () => {
+    // Bar 1 has high == low, so its volume counts toward the total but
+    // its money flow is 0, instead of NaN (0 / 0).
+    const actual = cmf([10, 11], [8, 11], [10, 11], [100, 100], {
+      period: 2,
+    });
+    expect(roundDigitsAll(2, actual)).toStrictEqual([1, 0.5]);
+  });
 });

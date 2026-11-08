@@ -180,11 +180,13 @@ The [projectionOscillator](./projectionOscillator.ts) calculates the Projection 
 Period defines the moving window to calculates the PO, and the smooth period defines the moving windows to take EMA of PO.
 
 ```
-PL = Min(period, (high + MLS(period, x, high)))
-PU = Max(period, (low + MLS(period, x, low)))
+PU = Max(High[i - k] + k * Slope(period, high)) for k = 0 .. period - 1
+PL = Min(Low[i - k] + k * Slope(period, low)) for k = 0 .. period - 1
 PO = 100 * (Closing - PL) / (PU - PL)
 SPO = EMA(smooth, PO)
 ```
+
+Each high and low in the window is projected forward to the current bar along the slope of the moving linear regression, so PO stays within 0 to 100. When PU equals PL, PO is 50.
 
 ```TypeScript
 import { po } from 'indicatorts';
