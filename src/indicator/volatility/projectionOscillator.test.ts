@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../helper/numArray';
 import { po } from './projectionOscillator';
 
@@ -56,5 +58,12 @@ describe('Projection Oscillator (PO)', () => {
     const flat = [10, 10, 10];
     const actual = po(flat, flat, flat, { period: 2 });
     expect(actual.poResult).toStrictEqual([50, 50, 50]);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/projectionOscillator.csv'));
+    const actual = po(data.high, data.low, data.close);
+    assertColumn(actual.poResult, data.poResult);
+    assertColumn(actual.spoResult, data.spoResult);
   });
 });

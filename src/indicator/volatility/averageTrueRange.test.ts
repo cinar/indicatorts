@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../helper/numArray';
 import { atr } from './averageTrueRange';
 
@@ -38,5 +40,12 @@ describe('Average True Range (ATR)', () => {
 
     const actual = atr(wHighs, wLows, wClosings, { period: 3 });
     expect(roundDigitsAll(2, actual.atrLine)).toStrictEqual(expectedAtr);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/averageTrueRange.csv'));
+    const actual = atr(data.high, data.low, data.close);
+    assertColumn(actual.trLine, data.trLine);
+    assertColumn(actual.atrLine, data.atrLine);
   });
 });

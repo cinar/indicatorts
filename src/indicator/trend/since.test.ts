@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { since } from './since';
 
@@ -16,5 +18,10 @@ describe('Since last change count', () => {
 
   it('should return an empty array for empty input', () => {
     expect(since([])).toStrictEqual([]);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/since.csv'));
+    assertColumn(since(data.volume), data.since);
   });
 });

@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { ema } from './exponentialMovingAverage';
@@ -27,5 +29,12 @@ describe('Exponential Moving Average (EMA)', () => {
     const actual = ema(values);
 
     deepStrictEqual(roundDigitsAll(3, actual), expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(
+      join(__dirname, 'testdata/exponentialMovingAverage.csv')
+    );
+    assertColumn(ema(data.close), data.ema);
   });
 });

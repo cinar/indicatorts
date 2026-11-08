@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { ad } from './accumulationDistribution';
@@ -32,5 +34,12 @@ describe('Accumulation/Distribution (A/D)', () => {
 
     const actual = ad(highs, lows, closings, volumes);
     deepStrictEqual(roundDigitsAll(2, actual), expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(
+      join(__dirname, 'testdata/accumulationDistribution.csv')
+    );
+    assertColumn(ad(data.high, data.low, data.close, data.volume), data.ad);
   });
 });

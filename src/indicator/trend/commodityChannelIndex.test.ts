@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../helper/numArray';
 import { cci } from './commodityChannelIndex';
 
@@ -49,5 +51,10 @@ describe('Commodity Channel Index (CCI)', () => {
 
     const actual = cci(prices, prices, prices, { period: 3 });
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/commodityChannelIndex.csv'));
+    assertColumn(cci(data.high, data.low, data.close), data.cci);
   });
 });

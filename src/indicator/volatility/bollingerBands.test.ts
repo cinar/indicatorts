@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { bb } from './bollingerBands';
@@ -62,5 +64,13 @@ describe('Bollinger Bands (BB)', () => {
     deepStrictEqual(roundDigitsAll(2, actual.upper), expectedUpper);
     deepStrictEqual(roundDigitsAll(2, actual.middle), expectedMiddle);
     deepStrictEqual(roundDigitsAll(2, actual.lower), expectedLower);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/bollingerBands.csv'));
+    const actual = bb(data.close);
+    assertColumn(actual.upper, data.upper);
+    assertColumn(actual.middle, data.middle);
+    assertColumn(actual.lower, data.lower);
   });
 });

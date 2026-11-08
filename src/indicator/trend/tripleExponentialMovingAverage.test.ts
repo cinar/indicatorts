@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { tema } from './tripleExponentialMovingAverage';
@@ -25,5 +27,12 @@ describe('Triple Exponential Moving Average (TEMA)', () => {
 
     const actual = tema(values);
     deepStrictEqual(roundDigitsAll(3, actual), expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(
+      join(__dirname, 'testdata/tripleExponentialMovingAverage.csv')
+    );
+    assertColumn(tema(data.close), data.tema);
   });
 });

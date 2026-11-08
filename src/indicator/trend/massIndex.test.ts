@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../helper/numArray';
 import { mi } from './massIndex';
 
@@ -55,5 +57,10 @@ describe('Mass Index (MI)', () => {
 
     expect(actual.some((value) => Number.isNaN(value))).toBe(false);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/massIndex.csv'));
+    assertColumn(mi(data.high, data.low), data.mi);
   });
 });

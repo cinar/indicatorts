@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../index';
 import { vwap } from './volumeWeightedAveragePrice';
 
@@ -42,5 +44,12 @@ describe('Volume Weighted Average Price (VWAP)', () => {
 
     const actual = vwap(closings, volumes, { period: 4 });
     expect(actual.slice(7)).toStrictEqual([0, 0]);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(
+      join(__dirname, 'testdata/volumeWeightedAveragePrice.csv')
+    );
+    assertColumn(vwap(data.close, data.volume), data.vwap);
   });
 });

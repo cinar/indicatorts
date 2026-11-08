@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { vwma } from './volumeWeightedMovingAverage';
@@ -33,5 +35,12 @@ describe('Volume Weighted Moving Average (VWMA)', () => {
 
     const actual = vwma(flatClosings, zeroVolumes, { period: 2 });
     deepStrictEqual(roundDigitsAll(2, actual), expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(
+      join(__dirname, 'testdata/volumeWeightedMovingAverage.csv')
+    );
+    assertColumn(vwma(data.close, data.volume), data.vwma);
   });
 });

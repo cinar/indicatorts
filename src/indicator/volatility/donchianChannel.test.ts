@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../index';
 import { dc } from './donchianChannel';
 
@@ -28,5 +30,13 @@ describe('Donchian Channel (DC)', () => {
     expect(roundDigitsAll(2, actual.upper)).toStrictEqual(expectedUpper);
     expect(roundDigitsAll(2, actual.middle)).toStrictEqual(expectedMiddle);
     expect(roundDigitsAll(2, actual.lower)).toStrictEqual(expectedLower);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/donchianChannel.csv'));
+    const actual = dc(data.close);
+    assertColumn(actual.upper, data.upper);
+    assertColumn(actual.middle, data.middle);
+    assertColumn(actual.lower, data.lower);
   });
 });

@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { typprice } from './typicalPrice';
@@ -16,5 +18,10 @@ describe('Typical Price', () => {
 
     const actual = typprice(highs, lows, closings);
     deepStrictEqual(roundDigitsAll(5, actual), expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/typicalPrice.csv'));
+    assertColumn(typprice(data.high, data.low, data.close), data.typprice);
   });
 });

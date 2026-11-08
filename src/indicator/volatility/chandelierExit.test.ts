@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../helper/numArray';
 import { ce } from './chandelierExit';
 
@@ -26,5 +28,12 @@ describe('Chandelier Exit (CE)', () => {
     const actual = ce(highs, lows, closings);
     expect(roundDigitsAll(2, actual.long)).toStrictEqual(expectedLong);
     expect(roundDigitsAll(2, actual.short)).toStrictEqual(expectedShort);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/chandelierExit.csv'));
+    const actual = ce(data.high, data.low, data.close);
+    assertColumn(actual.long, data.long);
+    assertColumn(actual.short, data.short);
   });
 });

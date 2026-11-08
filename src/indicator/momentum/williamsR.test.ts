@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { willr } from './williamsR';
@@ -57,5 +59,10 @@ describe('Williams R (WILLR)', () => {
       deepStrictEqual(Number.isNaN(value), false);
       deepStrictEqual(value, -50);
     });
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/williamsR.csv'));
+    assertColumn(willr(data.high, data.low, data.close), data.willr);
   });
 });

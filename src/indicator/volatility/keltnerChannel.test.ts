@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../helper/numArray';
 import { kc } from './keltnerChannel';
 
@@ -30,5 +32,13 @@ describe('Keltner Channel (KC)', () => {
     expect(roundDigitsAll(2, actual.middle)).toStrictEqual(expectedMiddle);
     expect(roundDigitsAll(2, actual.upper)).toStrictEqual(expectedUpper);
     expect(roundDigitsAll(2, actual.lower)).toStrictEqual(expectedLower);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/keltnerChannel.csv'));
+    const actual = kc(data.high, data.low, data.close);
+    assertColumn(actual.middle, data.middle);
+    assertColumn(actual.upper, data.upper);
+    assertColumn(actual.lower, data.lower);
   });
 });

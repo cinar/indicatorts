@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual, throws } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { uo } from './ultimateOscillator';
@@ -93,5 +95,10 @@ describe('Ultimate Oscillator (UO)', () => {
       longPeriod: 4,
     });
     deepStrictEqual(actual, [0, 0, 0, 0]);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/ultimateOscillator.csv'));
+    assertColumn(uo(data.high, data.low, data.close), data.uo);
   });
 });

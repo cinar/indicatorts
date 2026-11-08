@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { mstd } from './movingStandardDeviation';
@@ -21,5 +23,12 @@ describe('Standard deviation (MSTD)', () => {
 
     const actual = mstd(values);
     deepStrictEqual(roundDigitsAll(3, actual), expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(
+      join(__dirname, 'testdata/movingStandardDeviation.csv')
+    );
+    assertColumn(mstd(data.close), data.mstd);
   });
 });

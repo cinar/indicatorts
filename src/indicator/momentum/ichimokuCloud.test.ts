@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { ichimokuCloud } from './ichimokuCloud';
@@ -113,5 +115,15 @@ describe('Ichimoku Cloud', () => {
     const { laggingSpan } = ichimokuCloud(highs, lows, closings, { close: 2 });
 
     deepStrictEqual(roundDigitsAll(2, laggingSpan), [7.5, 3.5, 8, 0, 0]);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/ichimokuCloud.csv'));
+    const actual = ichimokuCloud(data.high, data.low, data.close);
+    assertColumn(actual.tenkan, data.tenkan);
+    assertColumn(actual.kijun, data.kijun);
+    assertColumn(actual.ssa, data.ssa);
+    assertColumn(actual.ssb, data.ssb);
+    assertColumn(actual.laggingSpan, data.laggingSpan);
   });
 });

@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { deepStrictEqual } from 'assert';
 import { roundDigitsAll } from '../../helper/numArray';
 import { vortex } from './vortex';
@@ -41,5 +43,12 @@ describe('Vortex Indicator', () => {
     const actual = vortex(flatHighs, flatLows, flatClosings, { period: 2 });
     deepStrictEqual(roundDigitsAll(5, actual.plus), expectedPlus);
     deepStrictEqual(roundDigitsAll(5, actual.minus), expectedMinus);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/vortex.csv'));
+    const actual = vortex(data.high, data.low, data.close);
+    assertColumn(actual.plus, data.plus);
+    assertColumn(actual.minus, data.minus);
   });
 });

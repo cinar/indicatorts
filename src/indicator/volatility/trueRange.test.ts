@@ -2,6 +2,8 @@
 // https://github.com/cinar/indicatorts
 
 import { describe, it, expect } from 'vitest';
+import { join } from 'path';
+import { assertColumn, readCsv } from '../../testing/csv';
 import { roundDigitsAll } from '../../helper/numArray';
 import { tr } from './trueRange';
 
@@ -15,5 +17,10 @@ describe('True Range (TR)', () => {
 
     const actual = tr(highs, lows, closings);
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
+  });
+
+  it('should match the reference data', () => {
+    const data = readCsv(join(__dirname, 'testdata/trueRange.csv'));
+    assertColumn(tr(data.high, data.low, data.close), data.tr);
   });
 });
