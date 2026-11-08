@@ -146,3 +146,30 @@ export function safeDivide(
 export function maskNaN(values: number[], mask: number[]): number[] {
   return values.map((value, i) => (Number.isNaN(mask[i]) ? NaN : value));
 }
+
+/**
+ * True range of each bar from the previous close, NaN for the first bar.
+ *
+ * ```
+ * TR = Max(High - Low, High - Previous Close, Previous Close - Low)
+ * ```
+ *
+ * @param highs high values.
+ * @param lows low values.
+ * @param closings closing values.
+ * @return true range values.
+ */
+export function trueRanges(
+  highs: number[],
+  lows: number[],
+  closings: number[]
+): number[] {
+  return highs.map((high, i) => {
+    if (i === 0) {
+      return NaN;
+    }
+
+    const previous = closings[i - 1];
+    return Math.max(high - lows[i], high - previous, previous - lows[i]);
+  });
+}
