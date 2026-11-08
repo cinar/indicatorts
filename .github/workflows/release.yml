@@ -1,6 +1,10 @@
 name: Release
 
 on:
+  # Weekly patch release of whatever has landed on the default branch. The
+  # check job below skips the release when nothing changed since the last tag.
+  schedule:
+    - cron: '0 9 * * 1' # Mondays 09:00 UTC
   workflow_dispatch:
     inputs:
       bump:
@@ -19,7 +23,36 @@ permissions:
   id-token: write
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      release: ${{ steps.changes.outputs.release }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Check for changes since the last release
+        id: changes
+        run: |
+          # A manual run always releases.
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "release=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || true)
+          if [ -n "$LATEST_TAG" ] && [ -z "$(git log --oneline "$LATEST_TAG"..HEAD)" ]; then
+            echo "No commits since $LATEST_TAG, skipping the release."
+            echo "release=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "release=true" >> "$GITHUB_OUTPUT"
+          fi
+
   release:
+    needs: check
+    if: needs.check.outputs.release == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -70,7 +103,8 @@ jobs:
       - name: Bump version and tag
         id: bump
         run: |
-          NEW_VERSION=$(npm version "${{ inputs.bump }}" -m "Release v%s")
+          # Scheduled runs have no inputs and release a patch version.
+          NEW_VERSION=$(npm version "${{ inputs.bump || 'patch' }}" -m "Release v%s")
           echo "version=${NEW_VERSION#v}" >> "$GITHUB_OUTPUT"
           echo "tag=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
