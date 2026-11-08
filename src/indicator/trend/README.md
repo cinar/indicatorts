@@ -124,7 +124,7 @@ The [commodityChannelIndex](./commodityChannelIndex.ts) is a momentum-based osci
 
 ```
 Moving Average = Sma(Period, Typical Price)
-Mean Deviation = Sma(Period, Abs(Typical Price - Moving Average))
+Mean Deviation = Sum(Abs(Typical Price - Moving Average)) / Period over the current window
 CCI = (Typical Price - Moving Average) / (0.015 * Mean Deviation)
 ```
 

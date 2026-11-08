@@ -105,9 +105,13 @@ The [moneyFlowIndex](./moneyFlowIndex.ts) function analyzes both the closing pri
 
 ```
 Raw Money Flow = Typical Price * Volume
+Positive Money Flow = Sum of Raw Money Flow where Typical Price rose
+Negative Money Flow = Sum of Raw Money Flow where Typical Price fell
 Money Ratio = Positive Money Flow / Negative Money Flow
 Money Flow Index = 100 - (100 / (1 + Money Ratio))
 ```
+
+Bars with an unchanged typical price, and the first bar, count toward neither flow.
 
 ```TypeScript
 import { mfi } from 'indicatorts';
