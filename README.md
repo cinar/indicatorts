@@ -144,6 +144,12 @@ The following technical analysis indicators are supported by this package:
 - [Volume Price Trend (VPT)](src/indicator/volume/README.md#vpt)
 - [Volume Weighted Average Price (VWAP)](src/indicator/volume/README.md#vwap)
 
+### Valuation Functions
+
+- [Future Value (FV)](src/indicator/valuation/README.md#fv)
+- [Net Present Value (NPV)](src/indicator/valuation/README.md#npv)
+- [Present Value (PV)](src/indicator/valuation/README.md#pv)
+
 ## Strategy Primitives & Execution Abstractions
 
 The core engine provides lightweight, generic abstractions for price bar series and trading signals:

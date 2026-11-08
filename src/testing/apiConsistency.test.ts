@@ -19,7 +19,13 @@ const COPYRIGHT = [
   '// https://github.com/cinar/indicatorts',
 ];
 
-const INDICATOR_CATEGORIES = ['momentum', 'trend', 'volatility', 'volume'];
+const INDICATOR_CATEGORIES = [
+  'momentum',
+  'trend',
+  'valuation',
+  'volatility',
+  'volume',
+];
 const STRATEGY_CATEGORIES = ['.', 'momentum', 'trend', 'volatility', 'volume'];
 
 /** Lists the files with the given extension under a directory, recursively. */
