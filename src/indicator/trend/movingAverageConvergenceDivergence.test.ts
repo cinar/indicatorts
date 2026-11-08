@@ -45,4 +45,17 @@ describe('Moving Average Convergence Divergence (MACD)', () => {
     assertColumn(actual.macdLine, data.macdLine);
     assertColumn(actual.signalLine, data.signalLine);
   });
+
+  it('should match TA-Lib with an SMA seed', () => {
+    // Expected values from TA-Lib 0.8.3 MACD(12, 26, 9). TA-Lib leaves the
+    // MACD line empty until the signal line starts; the 8 values before that
+    // were computed with the same formula and checked against TA-Lib's
+    // output where both exist.
+    const data = readCsv(
+      join(__dirname, 'testdata/movingAverageConvergenceDivergence.talib.csv')
+    );
+    const actual = macd(data.close, { seed: 'sma' });
+    assertColumn(actual.macdLine, data.macdLine);
+    assertColumn(actual.signalLine, data.signalLine);
+  });
 });

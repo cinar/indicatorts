@@ -3,12 +3,18 @@
 
 import { add, multiplyBy, subtract } from '../../helper/numArray';
 import { ema } from './exponentialMovingAverage';
+import { Seed } from '../types';
 
 /**
  * Optional configuration of TEMA parameters.
  */
 export interface TEMAConfig {
   period?: number;
+  /**
+   * How the averages start: `'first'` (default) starts from the first value,
+   * `'sma'` starts from a simple moving average, as TA-Lib does.
+   */
+  seed?: Seed;
 }
 
 /**
@@ -16,6 +22,7 @@ export interface TEMAConfig {
  */
 export const TEMADefaultConfig: Required<TEMAConfig> = {
   period: 2,
+  seed: 'first',
 };
 
 /**
@@ -32,7 +39,8 @@ export const TEMADefaultConfig: Required<TEMAConfig> = {
  *
  * Warm-up: built on the exponential moving average, which starts from the
  * first value rather than from a simple moving average, so the early values
- * can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ * can differ from other libraries such as TA-Lib. Set `seed: 'sma'` to start
+ * the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
  *
  * @example
  * ```TypeScript
@@ -49,10 +57,10 @@ export const TEMADefaultConfig: Required<TEMAConfig> = {
  * @return tema values.
  */
 export function tema(values: number[], config: TEMAConfig = {}): number[] {
-  const { period } = { ...TEMADefaultConfig, ...config };
-  const ema1 = ema(values, { period });
-  const ema2 = ema(ema1, { period });
-  const ema3 = ema(ema2, { period });
+  const { period, seed } = { ...TEMADefaultConfig, ...config };
+  const ema1 = ema(values, { period, seed });
+  const ema2 = ema(ema1, { period, seed });
+  const ema3 = ema(ema2, { period, seed });
 
   const result = add(subtract(multiplyBy(3, ema1), multiplyBy(3, ema2)), ema3);
 

@@ -118,4 +118,12 @@ describe('Percent Volume Oscillator (PVO)', () => {
     assertColumn(actual.signal, data.signal);
     assertColumn(actual.histogram, data.histogram);
   });
+
+  it('should match TA-Lib with an SMA seed', () => {
+    // Expected values from TA-Lib 0.8.3 PPO(12, 26, EMA) of the volumes.
+    const data = readCsv(
+      join(__dirname, 'testdata/percentageVolumeOscillator.talib.csv')
+    );
+    assertColumn(pvo(data.volume, { seed: 'sma' }).pvoResult, data.pvoResult);
+  });
 });

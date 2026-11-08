@@ -118,4 +118,12 @@ describe('Percent Price Oscillator (PPO)', () => {
     assertColumn(actual.signal, data.signal);
     assertColumn(actual.histogram, data.histogram);
   });
+
+  it('should match TA-Lib with an SMA seed', () => {
+    // Expected values from TA-Lib 0.8.3 PPO(12, 26, EMA).
+    const data = readCsv(
+      join(__dirname, 'testdata/percentagePriceOscillator.talib.csv')
+    );
+    assertColumn(ppo(data.close, { seed: 'sma' }).ppoResult, data.ppoResult);
+  });
 });

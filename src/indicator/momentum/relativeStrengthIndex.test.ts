@@ -49,4 +49,12 @@ describe('Relative Strength Index (RSI)', () => {
     const data = readCsv(join(__dirname, 'testdata/relativeStrengthIndex.csv'));
     assertColumn(rsi(data.close), data.rsi);
   });
+
+  it('should match TA-Lib with an SMA seed', () => {
+    // Expected values from TA-Lib 0.8.3 RSI(14).
+    const data = readCsv(
+      join(__dirname, 'testdata/relativeStrengthIndex.talib.csv')
+    );
+    assertColumn(rsi(data.close, { seed: 'sma' }), data.rsi);
+  });
 });

@@ -37,4 +37,12 @@ describe('Exponential Moving Average (EMA)', () => {
     );
     assertColumn(ema(data.close), data.ema);
   });
+
+  it('should match TA-Lib with an SMA seed', () => {
+    // Expected values from TA-Lib 0.8.3 EMA(12).
+    const data = readCsv(
+      join(__dirname, 'testdata/exponentialMovingAverage.talib.csv')
+    );
+    assertColumn(ema(data.close, { seed: 'sma' }), data.ema);
+  });
 });

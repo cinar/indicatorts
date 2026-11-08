@@ -46,7 +46,8 @@ Warm-up: the first value is used as the starting point
 other libraries start from the simple moving average of the first `period`
 values instead, and leave the first `period - 1` results empty, so the
 early values differ. The difference shrinks by a factor of
-`1 - 2 / (period + 1)` every bar. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+`1 - 2 / (period + 1)` every bar. Set `seed: 'sma'` to start from the
+simple moving average instead, as TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 | Function | Type                                                 |
 | -------- | ---------------------------------------------------- |
@@ -69,7 +70,7 @@ const result = ema(values, defaultConfig);
 // const result = exponentialMovingAverage(values, defaultConfig);
 ```
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/exponentialMovingAverage.ts#L42)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/exponentialMovingAverage.ts#L51)
 
 ### apo
 
@@ -85,7 +86,8 @@ APO = Fast - Slow
 
 Warm-up: built on the exponential moving average, which starts from the
 first value rather than from a simple moving average, so the early values
-can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+can differ from other libraries such as TA-Lib. Set `seed: 'sma'` to start
+the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 | Function | Type                                                 |
 | -------- | ---------------------------------------------------- |
@@ -108,7 +110,7 @@ const result = apo(values, defaultConfig);
 // const result = absolutePriceOscillator(values, defaultConfig);
 ```
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/absolutePriceOscillator.ts#L52)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/absolutePriceOscillator.ts#L60)
 
 ### aroon
 
@@ -417,7 +419,8 @@ Based on [Double Exponential Moving Average (DEMA)](https://www.investopedia.com
 
 Warm-up: built on the exponential moving average, which starts from the
 first value rather than from a simple moving average, so the early values
-can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+can differ from other libraries such as TA-Lib. Set `seed: 'sma'` to start
+the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 | Function | Type                                                  |
 | -------- | ----------------------------------------------------- |
@@ -440,7 +443,7 @@ const result = dema(values, defaultConfig);
 // const result = doubleExponentialMovingAverage(values, defaultConfig);
 ```
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/doubleExponentialMovingAverage.ts#L48)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/doubleExponentialMovingAverage.ts#L56)
 
 ### kama
 
@@ -536,7 +539,8 @@ Signal = 9-Period EMA of MACD.
 
 Warm-up: built on the exponential moving average, which starts from the
 first value rather than from a simple moving average, so the early values
-can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+can differ from other libraries such as TA-Lib. Set `seed: 'sma'` to start
+the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 | Function | Type                                                      |
 | -------- | --------------------------------------------------------- |
@@ -559,7 +563,7 @@ const { macdLine, signalLine } = macd(closings);
 // const { macdLine, signalLine } = movingAverageConvergenceDivergence(closings, defaultConfig);
 ```
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingAverageConvergenceDivergence.ts#L59)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingAverageConvergenceDivergence.ts#L67)
 
 ### mmax
 
@@ -752,7 +756,8 @@ R[p] and after is R[i] = ((R[i-1]*(p-1)) + v[i]) / p
 Warm-up: until `period` values are available, the result is the average
 of the values seen so far, so every index has a value. At index
 `period - 1` it equals the simple moving average of the first `period`
-values. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+values. Set `seed: 'sma'` to leave the results before that NaN instead,
+as TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 | Function | Type                                                 |
 | -------- | ---------------------------------------------------- |
@@ -779,7 +784,7 @@ const result = rma(values, defaultConfig);
 // const result = rollingMovingAverage(values, defaultConfig);
 ```
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L45)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L54)
 
 ### since
 
@@ -855,7 +860,8 @@ TRIX = (EMA3 - Previous EMA3) / Previous EMA3
 
 Warm-up: built on the exponential moving average, which starts from the
 first value rather than from a simple moving average, so the early values
-can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+can differ from other libraries such as TA-Lib. Set `seed: 'sma'` to start
+the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 | Function | Type                                                  |
 | -------- | ----------------------------------------------------- |
@@ -882,7 +888,7 @@ const result = trix(values, defaultConfig);
 // const result = tripleExponentialAverage(values, defaultConfig);
 ```
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialAverage.ts#L52)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialAverage.ts#L60)
 
 ### tema
 
@@ -899,7 +905,8 @@ Based on [Triple Exponential Moving Average (TEMA)](https://www.investopedia.com
 
 Warm-up: built on the exponential moving average, which starts from the
 first value rather than from a simple moving average, so the early values
-can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+can differ from other libraries such as TA-Lib. Set `seed: 'sma'` to start
+the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 | Function | Type                                                  |
 | -------- | ----------------------------------------------------- |
@@ -922,7 +929,7 @@ const result = tema(values, defaultConfig);
 // const result = tripleExponentialMovingAverage(values, defaultConfig);
 ```
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialMovingAverage.ts#L51)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialMovingAverage.ts#L59)
 
 ### vwma
 
@@ -1046,7 +1053,7 @@ The default configuration of EMA.
 | ------------------ | --------------------- |
 | `EMADefaultConfig` | `Required<EMAConfig>` |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/exponentialMovingAverage.ts#L14)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/exponentialMovingAverage.ts#L21)
 
 ### APODefaultConfig
 
@@ -1056,7 +1063,7 @@ The default configuration of APO.
 | ------------------ | --------------------- |
 | `APODefaultConfig` | `Required<APOConfig>` |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/absolutePriceOscillator.ts#L18)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/absolutePriceOscillator.ts#L24)
 
 ### AroonDefaultConfig
 
@@ -1116,7 +1123,7 @@ The default configuration of DEMA.
 | ------------------- | ---------------------- |
 | `DEMADefaultConfig` | `Required<DEMAConfig>` |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/doubleExponentialMovingAverage.ts#L17)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/doubleExponentialMovingAverage.ts#L23)
 
 ### KAMADefaultConfig
 
@@ -1146,7 +1153,7 @@ The default configuration of MACD.
 | ------------------- | ---------------------- |
 | `MACDDefaultConfig` | `Required<MACDConfig>` |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingAverageConvergenceDivergence.ts#L27)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingAverageConvergenceDivergence.ts#L33)
 
 ### MMaxDefaultConfig
 
@@ -1206,7 +1213,7 @@ The default configuration of RMA.
 | ------------------ | --------------------- |
 | `RMADefaultConfig` | `Required<RMAConfig>` |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L14)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L21)
 
 ### TRIMADefaultConfig
 
@@ -1226,7 +1233,7 @@ The default configuration of TRIX.
 | ------------------- | ---------------------- |
 | `TRIXDefaultConfig` | `Required<TRIXConfig>` |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialAverage.ts#L17)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialAverage.ts#L23)
 
 ### TEMADefaultConfig
 
@@ -1236,7 +1243,7 @@ The default configuration of TEMA.
 | ------------------- | ---------------------- |
 | `TEMADefaultConfig` | `Required<TEMAConfig>` |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialMovingAverage.ts#L17)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialMovingAverage.ts#L23)
 
 ### VWMADefaultConfig
 
@@ -1292,22 +1299,24 @@ The default configuration of vortex.
 
 Optional configuration of EMA parameters.
 
-| Property | Type                  | Description |
-| -------- | --------------------- | ----------- |
-| `period` | `number or undefined` |             |
+| Property | Type                  | Description                                                                                                                           |
+| -------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `period` | `number or undefined` |                                                                                                                                       |
+| `seed`   | `Seed or undefined`   | How the averages start: `'first'` (default) starts from the first value, `'sma'` starts from a simple moving average, as TA-Lib does. |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/exponentialMovingAverage.ts#L7)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/exponentialMovingAverage.ts#L9)
 
 ### APOConfig
 
 Optional configuration of APO parameters.
 
-| Property | Type                  | Description |
-| -------- | --------------------- | ----------- |
-| `fast`   | `number or undefined` |             |
-| `slow`   | `number or undefined` |             |
+| Property | Type                  | Description                                                                                                                           |
+| -------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `fast`   | `number or undefined` |                                                                                                                                       |
+| `slow`   | `number or undefined` |                                                                                                                                       |
+| `seed`   | `Seed or undefined`   | How the averages start: `'first'` (default) starts from the first value, `'sma'` starts from a simple moving average, as TA-Lib does. |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/absolutePriceOscillator.ts#L10)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/absolutePriceOscillator.ts#L11)
 
 ### AroonResult
 
@@ -1374,11 +1383,12 @@ Optional configuration of CCI parameters.
 
 Optional configuration of DEMA parameters.
 
-| Property | Type                  | Description |
-| -------- | --------------------- | ----------- |
-| `period` | `number or undefined` |             |
+| Property | Type                  | Description                                                                                                                           |
+| -------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `period` | `number or undefined` |                                                                                                                                       |
+| `seed`   | `Seed or undefined`   | How the averages start: `'first'` (default) starts from the first value, `'sma'` starts from a simple moving average, as TA-Lib does. |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/doubleExponentialMovingAverage.ts#L10)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/doubleExponentialMovingAverage.ts#L11)
 
 ### KAMAConfig
 
@@ -1412,19 +1422,20 @@ Moving average convergence divergence (MACD) result object.
 | `macdLine`   | `number[]` |             |
 | `signalLine` | `number[]` |             |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingAverageConvergenceDivergence.ts#L10)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingAverageConvergenceDivergence.ts#L11)
 
 ### MACDConfig
 
 Optional configuration of MACD parameters.
 
-| Property | Type                  | Description |
-| -------- | --------------------- | ----------- |
-| `fast`   | `number or undefined` |             |
-| `slow`   | `number or undefined` |             |
-| `signal` | `number or undefined` |             |
+| Property | Type                  | Description                                                                                                                           |
+| -------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `fast`   | `number or undefined` |                                                                                                                                       |
+| `slow`   | `number or undefined` |                                                                                                                                       |
+| `signal` | `number or undefined` |                                                                                                                                       |
+| `seed`   | `Seed or undefined`   | How the averages start: `'first'` (default) starts from the first value, `'sma'` starts from a simple moving average, as TA-Lib does. |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingAverageConvergenceDivergence.ts#L18)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/movingAverageConvergenceDivergence.ts#L19)
 
 ### MMaxConfig
 
@@ -1506,11 +1517,12 @@ Optional configuration of KDJ parameters.
 
 Optional configuration of RMA parameters.
 
-| Property | Type                  | Description |
-| -------- | --------------------- | ----------- |
-| `period` | `number or undefined` |             |
+| Property | Type                  | Description                                                                                                                           |
+| -------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `period` | `number or undefined` |                                                                                                                                       |
+| `seed`   | `Seed or undefined`   | How the averages start: `'first'` (default) starts from the first value, `'sma'` starts from a simple moving average, as TA-Lib does. |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L7)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L9)
 
 ### TRIMAConfig
 
@@ -1526,21 +1538,23 @@ Optional configuration of TRIMA parameters.
 
 Optional configuration of TRIX parameters.
 
-| Property | Type                  | Description |
-| -------- | --------------------- | ----------- |
-| `period` | `number or undefined` |             |
+| Property | Type                  | Description                                                                                                                           |
+| -------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `period` | `number or undefined` |                                                                                                                                       |
+| `seed`   | `Seed or undefined`   | How the averages start: `'first'` (default) starts from the first value, `'sma'` starts from a simple moving average, as TA-Lib does. |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialAverage.ts#L10)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialAverage.ts#L11)
 
 ### TEMAConfig
 
 Optional configuration of TEMA parameters.
 
-| Property | Type                  | Description |
-| -------- | --------------------- | ----------- |
-| `period` | `number or undefined` |             |
+| Property | Type                  | Description                                                                                                                           |
+| -------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `period` | `number or undefined` |                                                                                                                                       |
+| `seed`   | `Seed or undefined`   | How the averages start: `'first'` (default) starts from the first value, `'sma'` starts from a simple moving average, as TA-Lib does. |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialMovingAverage.ts#L10)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialMovingAverage.ts#L11)
 
 ### VWMAConfig
 

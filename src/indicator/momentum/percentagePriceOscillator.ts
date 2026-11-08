@@ -3,6 +3,7 @@
 
 import { divide, multiplyBy, subtract } from '../../helper/numArray';
 import { ema } from '../trend/exponentialMovingAverage';
+import { Seed } from '../types';
 
 /**
  * Percentage price oscillator result.
@@ -20,6 +21,11 @@ export interface PPOConfig {
   fast?: number;
   slow?: number;
   signal?: number;
+  /**
+   * How the averages start: `'first'` (default) starts from the first value,
+   * `'sma'` starts from a simple moving average, as TA-Lib does.
+   */
+  seed?: Seed;
 }
 
 /**
@@ -29,6 +35,7 @@ export const PPODefaultConfig: Required<PPOConfig> = {
   fast: 12,
   slow: 26,
   signal: 9,
+  seed: 'first',
 };
 
 /**
@@ -44,7 +51,8 @@ export const PPODefaultConfig: Required<PPOConfig> = {
  *
  * Warm-up: built on the exponential moving average, which starts from the
  * first value rather than from a simple moving average, so the early values
- * can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ * can differ from other libraries such as TA-Lib. Set `seed: 'sma'` to start
+ * the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
  *
  * @example
  * ```TypeScript
@@ -65,15 +73,16 @@ export function ppo(prices: number[], config: PPOConfig = {}): PPOResult {
     fast: fastPeriod,
     slow: slowPeriod,
     signal: signalPeriod,
+    seed,
   } = { ...PPODefaultConfig, ...config };
-  const fastEma = ema(prices, { period: fastPeriod });
-  const slowEma = ema(prices, { period: slowPeriod });
+  const fastEma = ema(prices, { period: fastPeriod, seed });
+  const slowEma = ema(prices, { period: slowPeriod, seed });
 
   const ppoResult = multiplyBy(
     100,
     divide(subtract(fastEma, slowEma), slowEma)
   );
-  const signal = ema(ppoResult, { period: signalPeriod });
+  const signal = ema(ppoResult, { period: signalPeriod, seed });
   const histogram = subtract(ppoResult, signal);
 
   return {

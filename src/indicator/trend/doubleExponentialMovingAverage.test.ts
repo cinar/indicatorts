@@ -31,4 +31,12 @@ describe('Double Exponential Moving Average (DEMA)', () => {
     );
     assertColumn(dema(data.close), data.dema);
   });
+
+  it('should match TA-Lib with an SMA seed', () => {
+    // Expected values from TA-Lib 0.8.3 DEMA(12).
+    const data = readCsv(
+      join(__dirname, 'testdata/doubleExponentialMovingAverage.talib.csv')
+    );
+    assertColumn(dema(data.close, { seed: 'sma' }), data.dema);
+  });
 });

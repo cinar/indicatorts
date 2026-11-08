@@ -3,6 +3,7 @@
 
 import { tr } from './trueRange';
 import { rma } from '../trend/rollingMovingAverage';
+import { Seed } from '../types';
 
 /**
  * Average true range result.
@@ -17,6 +18,11 @@ export interface ATRResult {
  */
 export interface ATRConfig {
   period?: number;
+  /**
+   * How the averages start: `'first'` (default) starts from the first value,
+   * `'sma'` starts from a simple moving average, as TA-Lib does.
+   */
+  seed?: Seed;
 }
 
 /**
@@ -24,6 +30,7 @@ export interface ATRConfig {
  */
 export const ATRDefaultConfig: Required<ATRConfig> = {
   period: 14,
+  seed: 'first',
 };
 
 /**
@@ -40,7 +47,8 @@ export const ATRDefaultConfig: Required<ATRConfig> = {
  * no previous closing), and it is part of the first averaging window, so
  * every index has a value. TA-Lib starts from the second bar and leaves the
  * first `period` results empty, so the early values differ and converge over
- * the following bars. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ * the following bars. Set `seed: 'sma'` to start
+ * the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
  *
  * @example
  * ```TypeScript
@@ -64,9 +72,14 @@ export function atr(
   closings: number[],
   config: ATRConfig = {}
 ): ATRResult {
-  const { period } = { ...ATRDefaultConfig, ...config };
+  const { period, seed } = { ...ATRDefaultConfig, ...config };
   const trLine = tr(highs, lows, closings);
-  const atrLine = rma(trLine, { period });
+
+  // With an SMA seed, the first bar, which has no previous closing, is left
+  // out of the average, as in TA-Lib.
+  const averaged =
+    seed === 'sma' ? trLine.map((value, i) => (i === 0 ? NaN : value)) : trLine;
+  const atrLine = rma(averaged, { period, seed });
 
   return {
     trLine,

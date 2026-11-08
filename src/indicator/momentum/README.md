@@ -158,7 +158,8 @@ Histogram = PVO - Signal
 
 Warm-up: built on the exponential moving average, which starts from the
 first value rather than from a simple moving average, so the early values
-can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+can differ from other libraries such as TA-Lib. Set `seed: 'sma'` to start
+the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 | Function | Type                                                  |
 | -------- | ----------------------------------------------------- |
@@ -185,7 +186,7 @@ const { ppoResult, signal, histogram } = ppo(prices, defaultConfig);
 // const { ppoResult, signal, histogram } = percentagePriceOscillator(prices, defaultConfig);
 ```
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentagePriceOscillator.ts#L63)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentagePriceOscillator.ts#L71)
 
 ### pvo
 
@@ -201,7 +202,8 @@ Histogram = PVO - Signal
 
 Warm-up: built on the exponential moving average, which starts from the
 first value rather than from a simple moving average, so the early values
-can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+can differ from other libraries such as TA-Lib. Set `seed: 'sma'` to start
+the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 | Function | Type                                                   |
 | -------- | ------------------------------------------------------ |
@@ -228,7 +230,7 @@ const { pvoResult, signal, histogram } = pvo(volumes, defaultConfig);
 // const { pvoResult, signal, histogram } = percentageVolumeOscillator(volumes, defaultConfig);
 ```
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentageVolumeOscillator.ts#L63)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentageVolumeOscillator.ts#L71)
 
 ### roc
 
@@ -276,7 +278,8 @@ Warm-up: the first bar counts as a gain and a loss of 0, so it is part of
 the first averaging window, and every index has a value. TA-Lib starts from
 the second bar (the first price change) and leaves the first `period`
 results empty, so the early values differ and converge over the following
-bars. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+bars. Set `seed: 'sma'` to start
+the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 | Function | Type                                                   |
 | -------- | ------------------------------------------------------ |
@@ -299,7 +302,7 @@ const result = rsi(closings, defaultConfig);
 // const result = relativeStrengthIndex(closings, defaultConfig);
 ```
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/relativeStrengthIndex.ts#L50)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/relativeStrengthIndex.ts#L58)
 
 ### stoch
 
@@ -465,7 +468,7 @@ The default configuration of PPO.
 | ------------------ | --------------------- |
 | `PPODefaultConfig` | `Required<PPOConfig>` |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentagePriceOscillator.ts#L28)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentagePriceOscillator.ts#L34)
 
 ### PVODefaultConfig
 
@@ -475,7 +478,7 @@ The default configuration of PVO.
 | ------------------ | --------------------- |
 | `PVODefaultConfig` | `Required<PVOConfig>` |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentageVolumeOscillator.ts#L28)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentageVolumeOscillator.ts#L34)
 
 ### ROCDefaultConfig
 
@@ -495,7 +498,7 @@ The default configuration of RSI.
 | ------------------ | --------------------- |
 | `RSIDefaultConfig` | `Required<RSIConfig>` |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/relativeStrengthIndex.ts#L16)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/relativeStrengthIndex.ts#L22)
 
 ### StochDefaultConfig
 
@@ -621,19 +624,20 @@ Percentage price oscillator result.
 | `signal`    | `number[]` |             |
 | `histogram` | `number[]` |             |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentagePriceOscillator.ts#L10)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentagePriceOscillator.ts#L11)
 
 ### PPOConfig
 
 Optional configuration of PPO parameters.
 
-| Property | Type                  | Description |
-| -------- | --------------------- | ----------- |
-| `fast`   | `number or undefined` |             |
-| `slow`   | `number or undefined` |             |
-| `signal` | `number or undefined` |             |
+| Property | Type                  | Description                                                                                                                           |
+| -------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `fast`   | `number or undefined` |                                                                                                                                       |
+| `slow`   | `number or undefined` |                                                                                                                                       |
+| `signal` | `number or undefined` |                                                                                                                                       |
+| `seed`   | `Seed or undefined`   | How the averages start: `'first'` (default) starts from the first value, `'sma'` starts from a simple moving average, as TA-Lib does. |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentagePriceOscillator.ts#L19)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentagePriceOscillator.ts#L20)
 
 ### PVOResult
 
@@ -645,19 +649,20 @@ Percentage volume oscillator result.
 | `signal`    | `number[]` |             |
 | `histogram` | `number[]` |             |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentageVolumeOscillator.ts#L10)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentageVolumeOscillator.ts#L11)
 
 ### PVOConfig
 
 Optional configuration of PVO parameters.
 
-| Property | Type                  | Description |
-| -------- | --------------------- | ----------- |
-| `fast`   | `number or undefined` |             |
-| `slow`   | `number or undefined` |             |
-| `signal` | `number or undefined` |             |
+| Property | Type                  | Description                                                                                                                           |
+| -------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `fast`   | `number or undefined` |                                                                                                                                       |
+| `slow`   | `number or undefined` |                                                                                                                                       |
+| `signal` | `number or undefined` |                                                                                                                                       |
+| `seed`   | `Seed or undefined`   | How the averages start: `'first'` (default) starts from the first value, `'sma'` starts from a simple moving average, as TA-Lib does. |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentageVolumeOscillator.ts#L19)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/percentageVolumeOscillator.ts#L20)
 
 ### ROCConfig
 
@@ -673,11 +678,12 @@ Optional configuration of ROC parameters.
 
 Optional configuration of RSI parameters.
 
-| Property | Type                  | Description |
-| -------- | --------------------- | ----------- |
-| `period` | `number or undefined` |             |
+| Property | Type                  | Description                                                                                                                           |
+| -------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `period` | `number or undefined` |                                                                                                                                       |
+| `seed`   | `Seed or undefined`   | How the averages start: `'first'` (default) starts from the first value, `'sma'` starts from a simple moving average, as TA-Lib does. |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/relativeStrengthIndex.ts#L9)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/relativeStrengthIndex.ts#L10)
 
 ### StochResult
 

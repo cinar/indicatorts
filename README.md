@@ -208,7 +208,24 @@ Indicators that smooth values recursively need a starting value. This library re
 | [RSI](src/indicator/momentum/README.md#rsi)       | Counts the first bar as a gain and loss of 0                     | Starts from the second bar (the first price change)                     |
 | [ATR](src/indicator/volatility/README.md#atr)     | Includes the first bar's true range (high minus low)             | Starts from the second bar                                              |
 
-The difference fades over time. For a 12-period EMA on the test data, it is 0.21 at the 12th bar, 0.03 at the 24th, and below 0.004 after the 36th. Indicators built on these blocks inherit the difference: DEMA, TEMA, TRIX, MACD, APO, PPO, PVO, Chaikin Oscillator, Mass Index, Bollinger Bands Width, Keltner Channel, Chandelier Exit, Projection Oscillator and Force Index. To compare with TA-Lib, skip the first few multiples of `period` values.
+The difference fades over time. For a 12-period EMA on the test data, it is 0.21 at the 12th bar, 0.03 at the 24th, and below 0.004 after the 36th. Indicators built on these blocks inherit the difference: DEMA, TEMA, TRIX, MACD, APO, PPO, PVO, Chaikin Oscillator, Mass Index, Bollinger Bands Width, Keltner Channel, Chandelier Exit, Projection Oscillator and Force Index. Both conventions are supported. The building blocks and the indicators that TA-Lib also provides take a `seed` option: `'first'` (the default) is the behavior described above, and `'sma'` starts from a simple moving average and leaves the warm-up results `NaN`, as TA-Lib does. With `seed: 'sma'`, these match TA-Lib's output, which the tests check against reference data generated with TA-Lib:
+
+| Indicator                   | TA-Lib function                                            |
+| --------------------------- | ---------------------------------------------------------- |
+| `ema`, `dema`, `tema`       | `EMA`, `DEMA`, `TEMA`                                      |
+| `trix`                      | `TRIX` (TA-Lib returns a percentage, this library a ratio) |
+| `macd`, `apo`, `ppo`, `pvo` | `MACD`, `APO`, `PPO` (with an EMA)                         |
+| `rsi`, `atr`                | `RSI`, `ATR`                                               |
+| `rma`                       | Wilder smoothing, as used by `RSI` and `ATR`               |
+
+```TypeScript
+import { macd, rsi } from 'indicatorts';
+
+const { macdLine, signalLine } = macd(closings, { seed: 'sma' });
+const result = rsi(closings, { period: 14, seed: 'sma' });
+```
+
+The other indicators built on these blocks use the default. To compare them with other libraries, skip the first few multiples of `period` values.
 
 Indicators without recursive smoothing, such as SMA, Bollinger Bands, Stochastic Oscillator, Williams %R, CCI and MFI, match TA-Lib from the first full window.
 
