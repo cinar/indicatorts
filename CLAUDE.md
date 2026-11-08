@@ -14,6 +14,8 @@ Technical analysis indicators, example strategies and a backtest framework in Ty
   - No `process.exit()`; set `process.exitCode` or throw (JS-0263).
   - `Boolean(x)` instead of `!!x` (JS-0066).
   - Named imports instead of `import * as x` (JS-C1003).
+  - Descriptive names, not single letters, for variables other than loop indices (JS-C1002).
+  - No arithmetic used only for type conversion, such as `x * 1` (JS-0066).
   - ESLint must pass too, but it does not catch all of these.
 - **Generated docs.** The API reference between the `TSDOC_START`/`TSDOC_END` markers in `src/indicator/*/README.md` and `examples/*/README.md` is generated from JSDoc by `npm run docs` (tsdoc-markdown); edit the JSDoc, never the generated part.
 

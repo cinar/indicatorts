@@ -113,44 +113,46 @@ export function pivotPoint(
   };
 
   for (let i = 1; i < closings.length; i++) {
-    const h = highs[i - 1];
-    const l = lows[i - 1];
-    const c = closings[i - 1];
-    const range = h - l;
+    const high = highs[i - 1];
+    const low = lows[i - 1];
+    const close = closings[i - 1];
+    const range = high - low;
 
     if (method === 'camarilla') {
-      result.p[i] = (h + l + c) / 3;
-      result.r1[i] = c + (range * 1.1) / 12;
-      result.r2[i] = c + (range * 1.1) / 6;
-      result.r3[i] = c + (range * 1.1) / 4;
-      result.r4[i] = c + (range * 1.1) / 2;
-      result.s1[i] = c - (range * 1.1) / 12;
-      result.s2[i] = c - (range * 1.1) / 6;
-      result.s3[i] = c - (range * 1.1) / 4;
-      result.s4[i] = c - (range * 1.1) / 2;
+      result.p[i] = (high + low + close) / 3;
+      result.r1[i] = close + (range * 1.1) / 12;
+      result.r2[i] = close + (range * 1.1) / 6;
+      result.r3[i] = close + (range * 1.1) / 4;
+      result.r4[i] = close + (range * 1.1) / 2;
+      result.s1[i] = close - (range * 1.1) / 12;
+      result.s2[i] = close - (range * 1.1) / 6;
+      result.s3[i] = close - (range * 1.1) / 4;
+      result.s4[i] = close - (range * 1.1) / 2;
     } else if (method === 'fibonacci') {
-      const p = (h + l + c) / 3;
-      result.p[i] = p;
-      result.r1[i] = p + range * 0.382;
-      result.s1[i] = p - range * 0.382;
-      result.r2[i] = p + range * 0.618;
-      result.s2[i] = p - range * 0.618;
-      result.r3[i] = p + range;
-      result.s3[i] = p - range;
+      const pivot = (high + low + close) / 3;
+      result.p[i] = pivot;
+      result.r1[i] = pivot + range * 0.382;
+      result.s1[i] = pivot - range * 0.382;
+      result.r2[i] = pivot + range * 0.618;
+      result.s2[i] = pivot - range * 0.618;
+      result.r3[i] = pivot + range;
+      result.s3[i] = pivot - range;
     } else {
-      const p =
-        method === 'woodie' ? (h + l + 2 * openings[i]) / 4 : (h + l + c) / 3;
-      result.p[i] = p;
-      result.r1[i] = 2 * p - l;
-      result.s1[i] = 2 * p - h;
-      result.r2[i] = p + range;
-      result.s2[i] = p - range;
-      result.r3[i] = h + 2 * (p - l);
-      result.s3[i] = l - 2 * (h - p);
+      const pivot =
+        method === 'woodie'
+          ? (high + low + 2 * openings[i]) / 4
+          : (high + low + close) / 3;
+      result.p[i] = pivot;
+      result.r1[i] = 2 * pivot - low;
+      result.s1[i] = 2 * pivot - high;
+      result.r2[i] = pivot + range;
+      result.s2[i] = pivot - range;
+      result.r3[i] = high + 2 * (pivot - low);
+      result.s3[i] = low - 2 * (high - pivot);
 
       if (method === 'standard') {
-        result.r4[i] = h + 3 * (p - l);
-        result.s4[i] = l - 3 * (h - p);
+        result.r4[i] = high + 3 * (pivot - low);
+        result.s4[i] = low - 3 * (high - pivot);
       }
     }
   }

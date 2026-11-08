@@ -73,17 +73,29 @@ export const KSTDefaultConfig: Required<KSTConfig> = {
  * @return kst result.
  */
 export function kst(closings: number[], config: KSTConfig = {}): KSTResult {
-  const c = { ...KSTDefaultConfig, ...config };
+  const settings = { ...KSTDefaultConfig, ...config };
   const rcma = [
-    windowedSma(changeRatio(closings, c.rocPeriod1), c.smaPeriod1),
-    windowedSma(changeRatio(closings, c.rocPeriod2), c.smaPeriod2),
-    windowedSma(changeRatio(closings, c.rocPeriod3), c.smaPeriod3),
-    windowedSma(changeRatio(closings, c.rocPeriod4), c.smaPeriod4),
+    windowedSma(
+      changeRatio(closings, settings.rocPeriod1),
+      settings.smaPeriod1
+    ),
+    windowedSma(
+      changeRatio(closings, settings.rocPeriod2),
+      settings.smaPeriod2
+    ),
+    windowedSma(
+      changeRatio(closings, settings.rocPeriod3),
+      settings.smaPeriod3
+    ),
+    windowedSma(
+      changeRatio(closings, settings.rocPeriod4),
+      settings.smaPeriod4
+    ),
   ];
   const line = closings.map(
-    (_, i) => rcma[0][i] * 1 + rcma[1][i] * 2 + rcma[2][i] * 3 + rcma[3][i] * 4
+    (_, i) => rcma[0][i] + rcma[1][i] * 2 + rcma[2][i] * 3 + rcma[3][i] * 4
   );
-  const signal = windowedSma(line, c.signalPeriod);
+  const signal = windowedSma(line, settings.signalPeriod);
 
   return {
     kst: maskNaN(line, signal),
