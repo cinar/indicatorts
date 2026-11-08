@@ -1,16 +1,9 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
-import {
-  divide,
-  generateNumbers,
-  multiplyBy,
-  subtract,
-} from '../../helper/numArray';
-import { movingLinearRegressionUsingLeastSquare } from '../../helper/regression';
+import { checkSameLength, generateNumbers } from '../../helper/numArray';
+import { movingLeastSquare } from '../../helper/regression';
 import { ema } from '../trend/exponentialMovingAverage';
-import { mmax } from '../trend/movingMax';
-import { mmin } from '../trend/movingMin';
 
 /**
  * Projection oscillator result object.
@@ -43,13 +36,17 @@ export const PODefaultConfig: Required<POConfig> = {
  * Period defines the moving window to calculates the PO, and the smooth
  * period defines the moving windows to take EMA of PO.
  *
- * The highs and lows are projected using the fitted moving linear
- * regression line (m * x + b), obtained through the least squares method.
+ * Each high (and low) in the window is projected forward to the current
+ * bar along the slope of the moving linear regression of the highs (and
+ * lows), obtained through the least squares method.
  *
- * PU = Max(period, MLR(period, x, high))
- * PL = Min(period, MLR(period, x, low))
+ * PU = Max(High[i - k] + k * Slope(period, high)) for k = 0 .. period - 1
+ * PL = Min(Low[i - k] + k * Slope(period, low)) for k = 0 .. period - 1
  * PO = 100 * (Closing - PL) / (PU - PL)
  * SPO = EMA(smooth, PO)
+ *
+ * Since the current high and low are part of the window, PO stays within
+ * 0 to 100. When PU equals PL, PO is 50.
  *
  * @param highs high values.
  * @param lows low values.
@@ -63,21 +60,31 @@ export function po(
   closings: number[],
   config: POConfig = {}
 ): POResult {
+  checkSameLength(highs, lows, closings);
   const { period, smooth } = {
     ...PODefaultConfig,
     ...config,
   };
+
   const x = generateNumbers(0, closings.length, 1);
-  const vHighs = movingLinearRegressionUsingLeastSquare(period, x, highs);
-  const vLows = movingLinearRegressionUsingLeastSquare(period, x, lows);
+  const highSlopes = movingLeastSquare(period, x, highs).m;
+  const lowSlopes = movingLeastSquare(period, x, lows).m;
 
-  const pu = mmax(vHighs, { period });
-  const pl = mmin(vLows, { period });
+  const poResult = new Array<number>(closings.length);
 
-  const poResult = divide(
-    multiplyBy(100, subtract(closings, pl)),
-    subtract(pu, pl)
-  );
+  for (let i = 0; i < closings.length; i++) {
+    let upper = -Infinity;
+    let lower = Infinity;
+
+    for (let j = Math.max(0, i - period + 1); j <= i; j++) {
+      upper = Math.max(upper, highs[j] + highSlopes[i] * (i - j));
+      lower = Math.min(lower, lows[j] + lowSlopes[i] * (i - j));
+    }
+
+    poResult[i] =
+      upper === lower ? 50 : (100 * (closings[i] - lower)) / (upper - lower);
+  }
+
   const spoResult = ema(poResult, { period: smooth });
 
   return {

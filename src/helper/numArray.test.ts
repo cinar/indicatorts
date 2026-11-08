@@ -204,4 +204,11 @@ describe('Number Array', () => {
     const actual = NumArray.sqrt(values);
     deepStrictEqual(actual, expected);
   });
+
+  it('should throw when values have different lengths', () => {
+    expect(() => NumArray.checkSameLength([1, 2], [1, 2], [1])).toThrow(
+      'values length at 2 not 2'
+    );
+    expect(() => NumArray.checkSameLength()).not.toThrow();
+  });
 });

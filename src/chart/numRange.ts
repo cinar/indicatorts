@@ -59,11 +59,25 @@ export class NumRange {
   }
 
   /**
-   * From function returns the range of the values.
+   * From function returns the range of the values. Values that are not
+   * finite (such as NaN) are ignored. The range of no finite values is
+   * (Infinity, -Infinity), which leaves other ranges unchanged on merge.
    * @param values values array.
    * @return range of the values.
    */
   static from(values: number[]): NumRange {
-    return new NumRange(Math.min(...values), Math.max(...values));
+    // A loop instead of Math.min(...values), which throws a RangeError
+    // once the array exceeds the engine's argument limit.
+    let min = Infinity;
+    let max = -Infinity;
+
+    for (const value of values) {
+      if (Number.isFinite(value)) {
+        min = Math.min(min, value);
+        max = Math.max(max, value);
+      }
+    }
+
+    return new NumRange(min, max);
   }
 }

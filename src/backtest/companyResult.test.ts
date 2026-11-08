@@ -123,4 +123,63 @@ describe('sortCompanyResults', () => {
       'AAA',
     ]);
   });
+
+  it('should sort by symbol, name, strategy and last action', () => {
+    const companyResults: CompanyResult[] = [
+      newCompanyResult('BBB', [newStrategyResult('RSI', 0.2, Action.SELL)]),
+      newCompanyResult('CCC', [newStrategyResult('AO', 0.1, Action.BUY)]),
+      newCompanyResult('AAA', [newStrategyResult('MACD', 0.3, Action.HOLD)]),
+    ];
+    const symbols = (sortBy: CompanyResultSortBy, ascending = true) =>
+      sortCompanyResults(companyResults, sortBy, ascending).map(
+        (result) => result.companyInfo.symbol
+      );
+
+    expect(symbols(CompanyResultSortBy.SYMBOL)).toStrictEqual([
+      'AAA',
+      'BBB',
+      'CCC',
+    ]);
+    expect(symbols(CompanyResultSortBy.NAME, false)).toStrictEqual([
+      'CCC',
+      'BBB',
+      'AAA',
+    ]);
+    expect(symbols(CompanyResultSortBy.STRATEGY)).toStrictEqual([
+      'CCC',
+      'AAA',
+      'BBB',
+    ]);
+    expect(symbols(CompanyResultSortBy.ACTION)).toStrictEqual([
+      'BBB',
+      'AAA',
+      'CCC',
+    ]);
+  });
+
+  it('should return no results for an unknown sort order', () => {
+    const companyResults = [
+      newCompanyResult('AAA', [newStrategyResult('MACD', 0.3, Action.HOLD)]),
+    ];
+    expect(
+      sortCompanyResults(companyResults, -1 as CompanyResultSortBy, true)
+    ).toStrictEqual([]);
+  });
+
+  it('should sort companies without strategy results first by strategy', () => {
+    const companyResults: CompanyResult[] = [
+      newCompanyResult('BBB', [newStrategyResult('RSI', 0.2, Action.SELL)]),
+      newCompanyResult('AAA', []),
+      newCompanyResult('CCC', [newStrategyResult('AO', 0.1, Action.BUY)]),
+      newCompanyResult('DDD', []),
+    ];
+
+    const sorted = sortCompanyResults(
+      companyResults,
+      CompanyResultSortBy.STRATEGY,
+      true
+    ).map((result) => result.companyInfo.symbol);
+
+    expect(sorted).toStrictEqual(['AAA', 'DDD', 'CCC', 'BBB']);
+  });
 });

@@ -44,4 +44,25 @@ describe('NumRange', () => {
     strictEqual(range.getMin(), -1);
     strictEqual(range.getMax(), 7);
   });
+
+  it('should compute the range of a large array without overflowing the stack', () => {
+    const values = Array.from({ length: 500000 }, (_, i) => i % 1000);
+    values[1234] = -7;
+
+    const range = NumRange.from(values);
+    strictEqual(range.getMin(), -7);
+    strictEqual(range.getMax(), 999);
+  });
+
+  it('should ignore values that are not finite', () => {
+    const range = NumRange.from([NaN, 3, Infinity, -2, NaN]);
+    strictEqual(range.getMin(), -2);
+    strictEqual(range.getMax(), 3);
+  });
+
+  it('should leave other ranges unchanged when merged with an empty range', () => {
+    const merged = NumRange.merge([NumRange.from([]), new NumRange(1, 4)]);
+    strictEqual(merged.getMin(), 1);
+    strictEqual(merged.getMax(), 4);
+  });
 });

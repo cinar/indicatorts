@@ -12,4 +12,8 @@ describe('Since last change count', () => {
     const actual = since(values);
     deepStrictEqual(actual, expected);
   });
+
+  it('should return an empty array for empty input', () => {
+    expect(since([])).toStrictEqual([]);
+  });
 });

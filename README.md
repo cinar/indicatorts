@@ -13,6 +13,8 @@ Indicator TS is a TypeScript module providing pure technical analysis mathematic
 
 _This is a TypeScript implementation of the [Indicator Go](https://github.com/cinar/indicator) Golang module._
 
+> **Maintenance status:** This project is no longer actively developed. New features are not planned, and issues and pull requests may not be reviewed. It is provided as is under the [MIT License](LICENSE.md). If you need changes, you are welcome to fork it.
+
 ## ⚠️ Legal Disclaimers & Risk Disclosures
 
 ### 1. Educational and Research Purpose Only
@@ -45,6 +47,7 @@ The following technical analysis indicators are supported by this package:
 - [Commodity Channel Index (CCI)](src/indicator/trend/README.md#commodity-channel-index-cci)
 - [Double Exponential Moving Average (DEMA)](src/indicator/trend/README.md#double-exponential-moving-average-dema)
 - [Exponential Moving Average (EMA)](src/indicator/trend/README.md#exponential-moving-average-ema)
+- [Kaufman's Adaptive Moving Average (KAMA)](src/indicator/trend/README.md#kaufmans-adaptive-moving-average-kama)
 - [Mass Index (MI)](src/indicator/trend/README.md#mass-index-mi)
 - [Moving Average Convergence Divergence (MACD)](src/indicator/trend/README.md#moving-average-convergence-divergence-macd)
 - [Moving Max (MMAX)](src/indicator/trend/README.md#moving-max-mmax)
@@ -118,6 +121,17 @@ The core engine provides lightweight, generic abstractions for price bar series 
 
 Pre-baked illustrative strategies are organized in the [`examples/`](examples) directory as pedagogical demonstrations showing how developers can consume indicator mathematics:
 
+> **Note:** The example strategies are **not part of the `indicatorts` npm package**, so `import { macdStrategy } from 'indicatorts'` does not work. Copy the example you need into your own project, and import the indicators it uses from `indicatorts`. For example:
+>
+> ```TypeScript
+> import { Action, Asset, macd } from 'indicatorts';
+>
+> export function macdStrategy(asset: Asset): Action[] {
+>   const { macdLine, signalLine } = macd(asset.closings);
+>   // ... see examples/trend/macdStrategy.ts
+> }
+> ```
+
 - **Baseline Strategy:** [Buy and Hold Strategy](examples/buyAndHoldStrategy.ts)
 - **Momentum Strategy Examples:** [Awesome Oscillator](examples/momentum/README.md#awesome-oscillator-strategy), [Ichimoku Cloud](examples/momentum/README.md#ichimoku-cloud-strategy), [RSI 2](examples/momentum/README.md#rsi-2-strategy), [Stochastic Oscillator](examples/momentum/README.md#stochastic-oscillator-strategy), [Williams R](examples/momentum/README.md#williams-r-strategy)
 - **Trend Strategy Examples:** [APO](examples/trend/README.md#absolute-price-oscillator-strategy), [Aroon](examples/trend/README.md#aroon-strategy), [BOP](examples/trend/README.md#balance-of-power-strategy), [CFO](examples/trend/README.md#chande-forecast-oscillator-strategy), [KDJ](examples/trend/README.md#kdj-strategy), [MACD](examples/trend/README.md#macd-strategy), [Parabolic SAR](examples/trend/README.md#parabolic-sar-strategy), [Typical Price](examples/trend/README.md#typical-price-strategy), [VWMA](examples/trend/README.md#volume-weighted-moving-average-vwma-strategy), [Vortex](examples/trend/README.md#vortex-strategy)
@@ -176,17 +190,15 @@ const result = ao(highs, lows);
 
 ## License
 
-The source code is provided under the MIT License.
+The source code is provided under the [MIT License](LICENSE.md).
 
-```
-Copyright © 2022-2026 The Indicator Authors
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-```
+> Copyright © 2022-2026 The Indicator Authors
+>
+> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+>
+> The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+>
+> THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ## Trademarks
 

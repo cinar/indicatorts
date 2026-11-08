@@ -139,11 +139,17 @@ const calculateSenkouSpanB = ({highs, lows, long}: {
  * Chikou Span (Lagging Span) = Closing plotted 26 periods in the past.
  *
  * All five arrays returned (`tenkan`, `kijun`, `ssa`, `ssb`, `laggingSpan`) are
- * the same length as the input (`highs`/`lows`/`closings`), each representing
- * that indicator's value as of that bar. Senkou Span A/B are conventionally
- * *plotted* `medium` periods ahead of their bar on a chart, but that forward
- * projection is a display/rendering concern left to the caller -- it is not
- * baked into the shape of the returned `ssa`/`ssb` arrays.
+ * the same length as the input (`highs`/`lows`/`closings`). `tenkan`, `kijun`,
+ * `ssa` and `ssb` hold each indicator's value as of that bar, using only that
+ * bar and earlier ones. Senkou Span A/B are conventionally *plotted* `medium`
+ * periods ahead of their bar on a chart, but that forward projection is a
+ * display/rendering concern left to the caller -- it is not baked into the
+ * shape of the returned `ssa`/`ssb` arrays.
+ *
+ * `laggingSpan` is already shifted for plotting: `laggingSpan[i]` is the
+ * closing `close` bars *after* bar i, and the last `close` entries are 0.
+ * Because it contains future closings, it must not be used to generate
+ * signals at bar i; compare `closings[i]` with `closings[i - close]` instead.
  *
  * @param highs high values.
  * @param lows low values.

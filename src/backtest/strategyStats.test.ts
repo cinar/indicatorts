@@ -44,6 +44,45 @@ describe('computeStrategyStats', () => {
     expect(stats[0].maxGain).toBe(30);
     expect(stats[0].averageGain).toBe(20);
   });
+  it('should skip companies without strategy results', () => {
+    const companyResults: CompanyResult[] = [
+      {
+        companyInfo: {
+          symbol: 'SYM',
+          name: 'Company',
+          sector: 'Technology',
+          subIndustry: 'Software',
+        },
+        strategyResults: [],
+      },
+    ];
+
+    expect(computeStrategyStats(companyResults)).toStrictEqual([]);
+  });
+  it('should order strategies by how many companies they won, highest first', () => {
+    const company = (symbol: string, info: StrategyInfo): CompanyResult => ({
+      companyInfo: {
+        symbol,
+        name: symbol,
+        sector: 'Technology',
+        subIndustry: 'Software',
+      },
+      strategyResults: [{ info, gain: 0.1, lastAction: Action.HOLD }],
+    });
+    const rare: StrategyInfo = { name: 'Rare', strategy: () => [] };
+    const common: StrategyInfo = { name: 'Common', strategy: () => [] };
+
+    const stats = computeStrategyStats([
+      company('A', rare),
+      company('B', common),
+      company('C', common),
+    ]);
+
+    expect(stats.map((s) => [s.strategyInfo.name, s.score])).toStrictEqual([
+      ['Common', 2],
+      ['Rare', 1],
+    ]);
+  });
 });
 
 describe('sortStrategyStats', () => {
@@ -164,5 +203,20 @@ describe('sortStrategyStats', () => {
     expect(descending.map((s) => s.score)).toEqual(
       ascending.map((s) => s.score).reverse()
     );
+  });
+
+  it('should return no stats for an unknown sort order', () => {
+    const strategyStats: StrategyStats[] = [
+      {
+        strategyInfo: { name: 'A', strategy: () => [] },
+        score: 1,
+        minGain: 0,
+        maxGain: 0,
+        averageGain: 0,
+      },
+    ];
+    expect(
+      sortStrategyStats(strategyStats, -1 as StrategyStatsSortBy, true)
+    ).toStrictEqual([]);
   });
 });

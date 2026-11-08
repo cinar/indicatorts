@@ -71,4 +71,12 @@ describe('Money Flow Index (MFI)', () => {
     const actual = mfi(prices, prices, prices, [100, 100], { period: 2 });
     expect(roundDigitsAll(2, actual)).toStrictEqual(expected);
   });
+
+  it('should return to 50 once the window is flat', () => {
+    const closings = [10.13, 11.71, 10.37, 12.29, 12.29, 12.29, 12.29];
+    const volumes = [1234.5, 2234.7, 3311.1, 999.3, 1000, 1000, 1000];
+
+    const actual = mfi(closings, closings, closings, volumes, { period: 3 });
+    expect(actual.slice(6)).toStrictEqual([50]);
+  });
 });

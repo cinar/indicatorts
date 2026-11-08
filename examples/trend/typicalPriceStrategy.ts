@@ -20,7 +20,9 @@ export function typpriceStrategy(asset: Asset): Action[] {
   const result = typprice(asset.highs, asset.lows, asset.closings);
 
   const actions = new Array<Action>(result.length);
-  actions[0] = Action.HOLD;
+  if (actions.length > 0) {
+    actions[0] = Action.HOLD;
+  }
 
   for (let i = 1; i < actions.length; i++) {
     if (result[i] > result[i - 1]) {

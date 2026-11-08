@@ -69,6 +69,8 @@ Senkou Span B (Leading Span B) = (52-Period High + 52-Period Low) / 2 projected 
 Chikou Span (Lagging Span) = Closing plotted 26 periods in the past.
 ```
 
+The `tenkan`, `kijun`, `ssa` and `ssb` values at each bar only use that bar and earlier ones; Senkou Span A/B are not shifted forward, so shift them by 26 when plotting. The `laggingSpan` is already shifted for plotting: `laggingSpan[i]` is the closing 26 bars *after* bar `i` (the last 26 entries are 0). Since it contains future closings, do not use it to generate signals.
+
 ```TypeScript
 import { ichimokuCloud } from 'indicatorts';
 
