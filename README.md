@@ -50,26 +50,41 @@ The following technical analysis indicators are supported by this package:
 - [Balance of Power (BOP)](src/indicator/trend/README.md#bop)
 - [Chande Forecast Oscillator (CFO)](src/indicator/trend/README.md#cfo)
 - [Commodity Channel Index (CCI)](src/indicator/trend/README.md#cci)
+- [Detrended Price Oscillator (DPO)](src/indicator/trend/README.md#dpo)
 - [Double Exponential Moving Average (DEMA)](src/indicator/trend/README.md#dema)
 - [Exponential Moving Average (EMA)](src/indicator/trend/README.md#ema)
+- [Hull Moving Average (HMA)](src/indicator/trend/README.md#hma)
 - [Kaufman's Adaptive Moving Average (KAMA)](src/indicator/trend/README.md#kama)
+- [Know Sure Thing (KST)](src/indicator/trend/README.md#kst)
 - [Mass Index (MI)](src/indicator/trend/README.md#mi)
+- [McGinley Dynamic (MD)](src/indicator/trend/README.md#md)
 - [Moving Average Convergence Divergence (MACD)](src/indicator/trend/README.md#macd)
+- [Moving Average Envelope](src/indicator/trend/README.md#envelope)
 - [Moving Max (MMAX)](src/indicator/trend/README.md#mmax)
 - [Moving Min (MMIN)](src/indicator/trend/README.md#mmin)
 - [Moving Sum (MSUM)](src/indicator/trend/README.md#msum)
 - [Parabolic SAR (PSAR)](src/indicator/trend/README.md#psar)
+- [Pivot Point](src/indicator/trend/README.md#pivotpoint)
 - [Qstick](src/indicator/trend/README.md#qstick)
 - [Random Index (KDJ)](src/indicator/trend/README.md#kdj)
 - [Rolling Moving Average (RMA)](src/indicator/trend/README.md#rma)
+- [Schaff Trend Cycle (STC)](src/indicator/trend/README.md#stc)
 - [Simple Moving Average (SMA)](src/indicator/trend/README.md#sma)
 - [Since Change](src/indicator/trend/README.md#since)
+- [Slope](src/indicator/trend/README.md#slope)
+- [Slow Stochastic](src/indicator/trend/README.md#slowstochastic)
+- [Smoothed Moving Average (SMMA)](src/indicator/trend/README.md#smma)
+- [Stochastic](src/indicator/trend/README.md#stochastic)
+- [Tillson T3 Moving Average (T3)](src/indicator/trend/README.md#t3)
 - [Triple Exponential Moving Average (TEMA)](src/indicator/trend/README.md#tema)
 - [Triangular Moving Average (TRIMA)](src/indicator/trend/README.md#trima)
 - [Triple Exponential Average (TRIX)](src/indicator/trend/README.md#trix)
+- [True Strength Index (TSI)](src/indicator/trend/README.md#tsi)
 - [Typical Price](src/indicator/trend/README.md#typprice)
 - [Volume Weighted Moving Average (VWMA)](src/indicator/trend/README.md#vwma)
 - [Vortex Indicator](src/indicator/trend/README.md#vortex)
+- [Weighted Close](src/indicator/trend/README.md#weightedclose)
+- [Weighted Moving Average (WMA)](src/indicator/trend/README.md#wma)
 
 ### Momentum Indicators
 
@@ -228,6 +243,8 @@ const result = rsi(closings, { period: 14, seed: 'sma' });
 The other indicators built on these blocks use the default. To compare them with other libraries, skip the first few multiples of `period` values.
 
 Indicators without recursive smoothing, such as SMA, Bollinger Bands, Stochastic Oscillator, Williams %R, CCI and MFI, match TA-Lib from the first full window.
+
+The indicators ported from the [Go version](https://github.com/cinar/indicator) of this library, such as WMA, HMA, T3 and KST, follow its conventions instead: their exponential and Wilder averages start from a simple moving average, and the results that are not available yet are `NaN`. Each one documents its warm-up period, and the tests check them against reference data generated with the Go library.
 
 ## License
 

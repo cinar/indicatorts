@@ -20,22 +20,37 @@ The API reference below is generated from the JSDoc comments by [tsdoc-markdown]
 - [sma](#sma)
 - [typprice](#typprice)
 - [cci](#cci)
+- [dpo](#dpo)
 - [dema](#dema)
+- [envelope](#envelope)
+- [wma](#wma)
+- [hma](#hma)
 - [kama](#kama)
+- [kst](#kst)
 - [mi](#mi)
+- [md](#md)
 - [macd](#macd)
 - [mmax](#mmax)
 - [mmin](#mmin)
 - [psar](#psar)
+- [pivotPoint](#pivotpoint)
 - [qstick](#qstick)
 - [kdj](#kdj)
 - [rma](#rma)
+- [stochastic](#stochastic)
+- [stc](#stc)
 - [since](#since)
+- [slope](#slope)
+- [slowStochastic](#slowstochastic)
+- [smma](#smma)
+- [t3](#t3)
 - [trima](#trima)
 - [trix](#trix)
 - [tema](#tema)
+- [tsi](#tsi)
 - [vwma](#vwma)
 - [vortex](#vortex)
+- [weightedClose](#weightedclose)
 
 ### ema
 
@@ -407,6 +422,42 @@ const result = cci(highs, lows, closings, defaultConfig);
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/commodityChannelIndex.ts#L50)
 
+### dpo
+
+Detrended Price Oscillator (DPO). It subtracts a simple moving average,
+shifted back by `floor(period / 2) + 1` bars, from the price, which
+removes the longer-term trend and leaves the shorter cycles.
+
+```
+k = floor(period / 2) + 1
+DPO[i] = Price[i] - SMA(Price, period)[i - k]
+```
+
+Warm-up: the first `period - 1 + k` values are NaN.
+
+| Function | Type                                                   |
+| -------- | ------------------------------------------------------ |
+| `dpo`    | `(closings: number[], config?: DPOConfig) => number[]` |
+
+Parameters:
+
+- `closings`: closing values.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { dpo } from 'indicatorts';
+
+const defaultConfig = { period: 20 };
+const result = dpo(closings, defaultConfig);
+
+// Alternatively:
+// const result = detrendedPriceOscillator(closings, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/detrendedPriceOscillator.ts#L46)
+
 ### dema
 
 Dema calculates the Double Exponential Moving Average (DEMA).
@@ -444,6 +495,109 @@ const result = dema(values, defaultConfig);
 ```
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/doubleExponentialMovingAverage.ts#L56)
+
+### envelope
+
+Moving Average Envelope. It places an upper and a lower band at a fixed
+percentage above and below a moving average of the price.
+
+```
+Middle = MA(closings, period)
+Upper = Middle * (1 + percentage / 100)
+Lower = Middle * (1 - percentage / 100)
+```
+
+Warm-up: the first `period - 1` values are NaN.
+
+| Function   | Type                                                              |
+| ---------- | ----------------------------------------------------------------- |
+| `envelope` | `(closings: number[], config?: EnvelopeConfig) => EnvelopeResult` |
+
+Parameters:
+
+- `closings`: closing values.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { envelope } from 'indicatorts';
+
+const defaultConfig = { period: 20, percentage: 20, ma: 'sma' };
+const { upper, middle, lower } = envelope(closings, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/envelope.ts#L64)
+
+### wma
+
+Weighted Moving Average (WMA). It averages the last `period` values with
+linearly increasing weights, so the newest value has the weight `period`
+and the oldest has the weight 1.
+
+```
+WMA = (1 * V[i-period+1] + 2 * V[i-period+2] + ... + period * V[i]) / (period * (period + 1) / 2)
+```
+
+Warm-up: the first `period - 1` values are NaN.
+
+| Function | Type                                                 |
+| -------- | ---------------------------------------------------- |
+| `wma`    | `(values: number[], config?: WMAConfig) => number[]` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { wma } from 'indicatorts';
+
+const defaultConfig = { period: 20 };
+const result = wma(values, defaultConfig);
+
+// Alternatively:
+// const result = weightedMovingAverage(values, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/weightedMovingAverage.ts#L45)
+
+### hma
+
+Hull Moving Average (HMA). It combines weighted moving averages of two
+lengths and smooths their difference with a third, shorter one, which
+reduces the lag of the average.
+
+```
+HMA = WMA(2 * WMA(values, round(period / 2)) - WMA(values, period), round(sqrt(period)))
+```
+
+Warm-up: the first `period - 1 + round(sqrt(period)) - 1` values are NaN.
+
+| Function | Type                                                 |
+| -------- | ---------------------------------------------------- |
+| `hma`    | `(values: number[], config?: HMAConfig) => number[]` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { hma } from 'indicatorts';
+
+const defaultConfig = { period: 20 };
+const result = hma(values, defaultConfig);
+
+// Alternatively:
+// const result = hullMovingAverage(values, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/hullMovingAverage.ts#L45)
 
 ### kama
 
@@ -483,6 +637,47 @@ const result = kama(closings, defaultConfig);
 ```
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/kaufmanAdaptiveMovingAverage.ts#L51)
+
+### kst
+
+Know Sure Thing (KST). It is a weighted sum of four smoothed rates of
+change over increasing periods, with a simple moving average of the sum
+as the signal line. The rates of change are ratios, not percentages.
+
+```
+ROC(n) = (Close - Close n periods ago) / Close n periods ago
+RCMA1 = SMA(ROC(rocPeriod1), smaPeriod1)
+RCMA2 = SMA(ROC(rocPeriod2), smaPeriod2)
+RCMA3 = SMA(ROC(rocPeriod3), smaPeriod3)
+RCMA4 = SMA(ROC(rocPeriod4), smaPeriod4)
+KST = (RCMA1 * 1) + (RCMA2 * 2) + (RCMA3 * 3) + (RCMA4 * 4)
+Signal = SMA(KST, signalPeriod)
+```
+
+Warm-up: both outputs are NaN until the signal line has a value, which is
+the first `max(rocPeriod + smaPeriod - 1) + signalPeriod - 1` bars.
+
+| Function | Type                                                    |
+| -------- | ------------------------------------------------------- |
+| `kst`    | `(closings: number[], config?: KSTConfig) => KSTResult` |
+
+Parameters:
+
+- `closings`: closing values.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { kst } from 'indicatorts';
+
+const { kst: kstLine, signal } = kst(closings);
+
+// Alternatively:
+// const { kst: kstLine, signal } = knowSureThing(closings);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/knowSureThing.ts#L75)
 
 ### mi
 
@@ -527,6 +722,42 @@ const result = mi(highs, lows, defaultConfig);
 ```
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/massIndex.ts#L54)
+
+### md
+
+McGinley Dynamic (MD). It is a moving average whose smoothing adjusts to
+the speed of the price: the ratio of the price to the previous value,
+raised to the fourth power, scales the step toward the price.
+
+```
+MD[0] = Close[0]
+MD[i] = MD[i-1] + (Close[i] - MD[i-1]) / (period * (Close[i] / MD[i-1])^4)
+```
+
+A previous value of 0 restarts the average from the current close.
+
+| Function | Type                                                  |
+| -------- | ----------------------------------------------------- |
+| `md`     | `(closings: number[], config?: MDConfig) => number[]` |
+
+Parameters:
+
+- `closings`: closing values.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { md } from 'indicatorts';
+
+const defaultConfig = { period: 14 };
+const result = md(closings, defaultConfig);
+
+// Alternatively:
+// const result = mcGinleyDynamic(closings, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/mcGinleyDynamic.ts#L44)
 
 ### macd
 
@@ -671,6 +902,59 @@ const { trends, psarResult } = psar(highs, lows, closings, defaultConfig);
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/parabolicSar.ts#L71)
 
+### pivotPoint
+
+Pivot Point. It computes a pivot level and the resistance (R) and support
+(S) levels around it from the previous bar's high, low and close (and the
+current bar's open, for the Woodie method).
+
+```
+Standard:
+  P = (H + L + C) / 3
+  R1 = 2P - L, S1 = 2P - H
+  R2 = P + (H - L), S2 = P - (H - L)
+  R3 = H + 2(P - L), S3 = L - 2(H - P)
+  R4 = H + 3(P - L), S4 = L - 3(H - P)
+Woodie:
+  P = (H + L + 2 * Open) / 4, with R1 to R3 and S1 to S3 as in Standard
+Camarilla:
+  P = (H + L + C) / 3
+  R1..R4 = C + (H - L) * 1.1 / 12, / 6, / 4, / 2
+  S1..S4 = C - (H - L) * 1.1 / 12, / 6, / 4, / 2
+Fibonacci:
+  P = (H + L + C) / 3
+  R1..R3 = P + (H - L) * 0.382, 0.618, 1.000
+  S1..S3 = P - (H - L) * 0.382, 0.618, 1.000
+```
+
+H, L and C are the previous bar's high, low and close; Open is the
+current bar's open.
+
+Warm-up: the first value is NaN.
+
+| Function     | Type                                                                                                                       |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| `pivotPoint` | `(openings: number[], highs: number[], lows: number[], closings: number[], config?: PivotPointConfig) => PivotPointResult` |
+
+Parameters:
+
+- `openings`: opening values.
+- `highs`: high values.
+- `lows`: low values.
+- `closings`: closing values.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { pivotPoint } from 'indicatorts';
+
+const defaultConfig = { method: 'standard' };
+const { p, r1, s1 } = pivotPoint(openings, highs, lows, closings, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/pivotPoint.ts#L85)
+
 ### qstick
 
 The Qstick function calculates the ratio of recent up and down bars.
@@ -786,6 +1070,84 @@ const result = rma(values, defaultConfig);
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L54)
 
+### stochastic
+
+Stochastic of a single series. It places each value within the range of
+the last `period` values, on a 0 to 100 scale, and smooths it with a
+simple moving average. Unlike the Stochastic Oscillator (`stoch`), which
+uses the highs, lows and closings, it works on any one series, such as
+the MACD line in the Schaff Trend Cycle.
+
+```
+K = (Value - Min(Value, period)) / (Max(Value, period) - Min(Value, period)) * 100
+D = SMA(K, dPeriod)
+```
+
+A window whose values are all equal has no range; K is 50 there.
+
+Warm-up: the first `period + dPeriod - 2` values of both K and D are NaN.
+
+| Function     | Type                                                                |
+| ------------ | ------------------------------------------------------------------- |
+| `stochastic` | `(values: number[], config?: StochasticConfig) => StochasticResult` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { stochastic } from 'indicatorts';
+
+const defaultConfig = { period: 10, dPeriod: 3 };
+const { k, d } = stochastic(values, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/stochastic.ts#L63)
+
+### stc
+
+Schaff Trend Cycle (STC). It applies the single-series Stochastic twice to
+the difference of a fast and a slow exponential moving average, which
+bounds the MACD line to a 0 to 100 scale.
+
+```
+MACD = EMA(closings, fast) - EMA(closings, slow)
+%K1, %D1 = Stochastic(MACD, kPeriod, dPeriod)
+%K2, %D2 = Stochastic(%D1, kPeriod, dPeriod)
+STC = %D2
+```
+
+Both EMAs start from the simple moving average of their first values.
+
+Warm-up: the first `slow - 1 + 2 * (kPeriod + dPeriod - 2)` values are
+NaN.
+
+| Function | Type                                                   |
+| -------- | ------------------------------------------------------ |
+| `stc`    | `(closings: number[], config?: STCConfig) => number[]` |
+
+Parameters:
+
+- `closings`: closing values.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { stc } from 'indicatorts';
+
+const defaultConfig = { fast: 23, slow: 50, kPeriod: 10, dPeriod: 3 };
+const result = stc(closings, defaultConfig);
+
+// Alternatively:
+// const result = schaffTrendCycle(closings, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/schaffTrendCycle.ts#L58)
+
 ### since
 
 Since value is changed.
@@ -807,6 +1169,153 @@ const result = since(values);
 ```
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/since.ts#L16)
+
+### slope
+
+Slope. It is the change of the value over `period` bars, divided by the
+number of bars, that is, the average change per bar.
+
+```
+Slope = (V[i] - V[i - period]) / period
+```
+
+Warm-up: the first `period` values are NaN.
+
+| Function | Type                                                   |
+| -------- | ------------------------------------------------------ |
+| `slope`  | `(values: number[], config?: SlopeConfig) => number[]` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { slope } from 'indicatorts';
+
+const defaultConfig = { period: 14 };
+const result = slope(values, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/slope.ts#L41)
+
+### slowStochastic
+
+Slow Stochastic of a single series. It smooths the fast %K of the
+single-series Stochastic with a simple moving average, and smooths the
+result again to get %D.
+
+```
+Fast %K = (Value - Min(Value, period)) / (Max(Value, period) - Min(Value, period)) * 100
+Slow %K = SMA(Fast %K, kPeriod)
+Slow %D = SMA(Slow %K, dPeriod)
+```
+
+A window whose values are all equal has no range; Fast %K is 50 there.
+
+Warm-up: the first `period + kPeriod + dPeriod - 3` values of both
+outputs are NaN.
+
+| Function         | Type                                                                        |
+| ---------------- | --------------------------------------------------------------------------- |
+| `slowStochastic` | `(values: number[], config?: SlowStochasticConfig) => SlowStochasticResult` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { slowStochastic } from 'indicatorts';
+
+const defaultConfig = { period: 10, kPeriod: 3, dPeriod: 3 };
+const { k, d } = slowStochastic(values, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/slowStochastic.ts#L60)
+
+### smma
+
+Smoothed Moving Average (SMMA). It starts from the simple moving average
+of the first `period` values and then gives each new value a weight of
+`1 / period`. It is the rolling moving average (RMA) with an SMA seed.
+
+```
+SMMA[period - 1] = SMA(values[0..period-1])
+SMMA[i] = (SMMA[i-1] * (period - 1) + V[i]) / period
+```
+
+Warm-up: the first `period - 1` values are NaN.
+
+| Function | Type                                                  |
+| -------- | ----------------------------------------------------- |
+| `smma`   | `(values: number[], config?: SMMAConfig) => number[]` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { smma } from 'indicatorts';
+
+const defaultConfig = { period: 7 };
+const result = smma(values, defaultConfig);
+
+// Alternatively:
+// const result = smoothedMovingAverage(values, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/smoothedMovingAverage.ts#L46)
+
+### t3
+
+Tillson T3 Moving Average (T3). It chains six exponential moving averages
+and combines the last four with weights derived from the volume factor.
+The weights sum to 1, so a constant input is reproduced exactly.
+
+```
+EMA1 = EMA(closings, period), EMA2 = EMA(EMA1, period), ..., EMA6 = EMA(EMA5, period)
+c1 = -a^3
+c2 = 3a^2 + 3a^3
+c3 = -6a^2 - 3a - 3a^3
+c4 = 1 + 3a + 3a^2 + a^3
+T3 = c1 * EMA6 + c2 * EMA5 + c3 * EMA4 + c4 * EMA3
+```
+
+where `a` is the volume factor. Each EMA starts from the simple moving
+average of its first `period` values.
+
+Warm-up: the first `6 * (period - 1)` values are NaN.
+
+| Function | Type                                                  |
+| -------- | ----------------------------------------------------- |
+| `t3`     | `(closings: number[], config?: T3Config) => number[]` |
+
+Parameters:
+
+- `closings`: closing values.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { t3 } from 'indicatorts';
+
+const defaultConfig = { period: 5, volumeFactor: 0.7 };
+const result = t3(closings, defaultConfig);
+
+// Alternatively:
+// const result = tillsonT3(closings, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tillsonT3.ts#L55)
 
 ### trima
 
@@ -931,6 +1440,47 @@ const result = tema(values, defaultConfig);
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialMovingAverage.ts#L59)
 
+### tsi
+
+True Strength Index (TSI). It is the ratio of the double-smoothed price
+change to the double-smoothed absolute price change, on a -100 to 100
+scale.
+
+```
+PC = Close - Previous Close
+PCDS = EMA(EMA(PC, firstPeriod), secondPeriod)
+APCDS = EMA(EMA(Abs(PC), firstPeriod), secondPeriod)
+TSI = (PCDS / APCDS) * 100
+```
+
+Each EMA starts from the simple moving average of its first values. When
+the price has not changed at all, APCDS is 0 and TSI is 0.
+
+Warm-up: the first `firstPeriod + secondPeriod - 1` values are NaN.
+
+| Function | Type                                                   |
+| -------- | ------------------------------------------------------ |
+| `tsi`    | `(closings: number[], config?: TSIConfig) => number[]` |
+
+Parameters:
+
+- `closings`: closing values.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { tsi } from 'indicatorts';
+
+const defaultConfig = { firstPeriod: 25, secondPeriod: 13 };
+const result = tsi(closings, defaultConfig);
+
+// Alternatively:
+// const result = trueStrengthIndex(closings, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/trueStrengthIndex.ts#L54)
+
 ### vwma
 
 The vwma function calculates the Volume Weighted Moving Average (VWMA)
@@ -1020,6 +1570,35 @@ const { plus, minus } = vortex(highs, lows, closings, defaultConfig);
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/vortex.ts#L77)
 
+### weightedClose
+
+Weighted Close. It averages the high, the low and the close, counting the
+close twice.
+
+```
+Weighted Close = (High + Low + (Close * 2)) / 4
+```
+
+| Function        | Type                                                                |
+| --------------- | ------------------------------------------------------------------- |
+| `weightedClose` | `(highs: number[], lows: number[], closings: number[]) => number[]` |
+
+Parameters:
+
+- `highs`: high values.
+- `lows`: low values.
+- `closings`: closing values.
+
+Examples:
+
+```TypeScript
+import { weightedClose } from 'indicatorts';
+
+const result = weightedClose(highs, lows, closings);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/weightedClose.ts#L25)
+
 ## Constants
 
 - [EMADefaultConfig](#emadefaultconfig)
@@ -1029,19 +1608,33 @@ const { plus, minus } = vortex(highs, lows, closings, defaultConfig);
 - [MSumDefaultConfig](#msumdefaultconfig)
 - [SMADefaultConfig](#smadefaultconfig)
 - [CCIDefaultConfig](#ccidefaultconfig)
+- [DPODefaultConfig](#dpodefaultconfig)
 - [DEMADefaultConfig](#demadefaultconfig)
+- [EnvelopeDefaultConfig](#envelopedefaultconfig)
+- [WMADefaultConfig](#wmadefaultconfig)
+- [HMADefaultConfig](#hmadefaultconfig)
 - [KAMADefaultConfig](#kamadefaultconfig)
+- [KSTDefaultConfig](#kstdefaultconfig)
 - [MIDefaultConfig](#midefaultconfig)
+- [MDDefaultConfig](#mddefaultconfig)
 - [MACDDefaultConfig](#macddefaultconfig)
 - [MMaxDefaultConfig](#mmaxdefaultconfig)
 - [MMinDefaultConfig](#mmindefaultconfig)
 - [PSARDefaultConfig](#psardefaultconfig)
+- [PivotPointDefaultConfig](#pivotpointdefaultconfig)
 - [QstickDefaultConfig](#qstickdefaultconfig)
 - [KDJDefaultConfig](#kdjdefaultconfig)
 - [RMADefaultConfig](#rmadefaultconfig)
+- [StochasticDefaultConfig](#stochasticdefaultconfig)
+- [STCDefaultConfig](#stcdefaultconfig)
+- [SlopeDefaultConfig](#slopedefaultconfig)
+- [SlowStochasticDefaultConfig](#slowstochasticdefaultconfig)
+- [SMMADefaultConfig](#smmadefaultconfig)
+- [T3DefaultConfig](#t3defaultconfig)
 - [TRIMADefaultConfig](#trimadefaultconfig)
 - [TRIXDefaultConfig](#trixdefaultconfig)
 - [TEMADefaultConfig](#temadefaultconfig)
+- [TSIDefaultConfig](#tsidefaultconfig)
 - [VWMADefaultConfig](#vwmadefaultconfig)
 - [VortexDefaultConfig](#vortexdefaultconfig)
 
@@ -1115,6 +1708,16 @@ The default configuration of CCI.
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/commodityChannelIndex.ts#L18)
 
+### DPODefaultConfig
+
+The default configuration of DPO.
+
+| Constant           | Type                  |
+| ------------------ | --------------------- |
+| `DPODefaultConfig` | `Required<DPOConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/detrendedPriceOscillator.ts#L16)
+
 ### DEMADefaultConfig
 
 The default configuration of DEMA.
@@ -1124,6 +1727,36 @@ The default configuration of DEMA.
 | `DEMADefaultConfig` | `Required<DEMAConfig>` |
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/doubleExponentialMovingAverage.ts#L23)
+
+### EnvelopeDefaultConfig
+
+The default configuration of Envelope.
+
+| Constant                | Type                       |
+| ----------------------- | -------------------------- |
+| `EnvelopeDefaultConfig` | `Required<EnvelopeConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/envelope.ts#L35)
+
+### WMADefaultConfig
+
+The default configuration of WMA.
+
+| Constant           | Type                  |
+| ------------------ | --------------------- |
+| `WMADefaultConfig` | `Required<WMAConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/weightedMovingAverage.ts#L16)
+
+### HMADefaultConfig
+
+The default configuration of HMA.
+
+| Constant           | Type                  |
+| ------------------ | --------------------- |
+| `HMADefaultConfig` | `Required<HMAConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/hullMovingAverage.ts#L16)
 
 ### KAMADefaultConfig
 
@@ -1135,6 +1768,16 @@ The default configuration of KAMA.
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/kaufmanAdaptiveMovingAverage.ts#L16)
 
+### KSTDefaultConfig
+
+The default configuration of KST.
+
+| Constant           | Type                  |
+| ------------------ | --------------------- |
+| `KSTDefaultConfig` | `Required<KSTConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/knowSureThing.ts#L32)
+
 ### MIDefaultConfig
 
 The default configuration of MI.
@@ -1144,6 +1787,16 @@ The default configuration of MI.
 | `MIDefaultConfig` | `Required<MIConfig>` |
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/massIndex.ts#L19)
+
+### MDDefaultConfig
+
+The default configuration of McGinley Dynamic.
+
+| Constant          | Type                 |
+| ----------------- | -------------------- |
+| `MDDefaultConfig` | `Required<MDConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/mcGinleyDynamic.ts#L14)
 
 ### MACDDefaultConfig
 
@@ -1185,6 +1838,16 @@ The default configuration of parabolic SAR.
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/parabolicSar.ts#L26)
 
+### PivotPointDefaultConfig
+
+The default configuration of Pivot Point.
+
+| Constant                  | Type                         |
+| ------------------------- | ---------------------------- |
+| `PivotPointDefaultConfig` | `Required<PivotPointConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/pivotPoint.ts#L38)
+
 ### QstickDefaultConfig
 
 The default configuration of Qstick.
@@ -1214,6 +1877,66 @@ The default configuration of RMA.
 | `RMADefaultConfig` | `Required<RMAConfig>` |
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L21)
+
+### StochasticDefaultConfig
+
+The default configuration of Stochastic.
+
+| Constant                  | Type                         |
+| ------------------------- | ---------------------------- |
+| `StochasticDefaultConfig` | `Required<StochasticConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/stochastic.ts#L31)
+
+### STCDefaultConfig
+
+The default configuration of STC.
+
+| Constant           | Type                  |
+| ------------------ | --------------------- |
+| `STCDefaultConfig` | `Required<STCConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/schaffTrendCycle.ts#L20)
+
+### SlopeDefaultConfig
+
+The default configuration of Slope.
+
+| Constant             | Type                    |
+| -------------------- | ----------------------- |
+| `SlopeDefaultConfig` | `Required<SlopeConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/slope.ts#L16)
+
+### SlowStochasticDefaultConfig
+
+The default configuration of Slow Stochastic.
+
+| Constant                      | Type                             |
+| ----------------------------- | -------------------------------- |
+| `SlowStochasticDefaultConfig` | `Required<SlowStochasticConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/slowStochastic.ts#L27)
+
+### SMMADefaultConfig
+
+The default configuration of SMMA.
+
+| Constant            | Type                   |
+| ------------------- | ---------------------- |
+| `SMMADefaultConfig` | `Required<SMMAConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/smoothedMovingAverage.ts#L16)
+
+### T3DefaultConfig
+
+The default configuration of T3.
+
+| Constant          | Type                 |
+| ----------------- | -------------------- |
+| `T3DefaultConfig` | `Required<T3Config>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tillsonT3.ts#L17)
 
 ### TRIMADefaultConfig
 
@@ -1245,6 +1968,16 @@ The default configuration of TEMA.
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialMovingAverage.ts#L23)
 
+### TSIDefaultConfig
+
+The default configuration of TSI.
+
+| Constant           | Type                  |
+| ------------------ | --------------------- |
+| `TSIDefaultConfig` | `Required<TSIConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/trueStrengthIndex.ts#L18)
+
 ### VWMADefaultConfig
 
 The default configuration of VWMA.
@@ -1275,22 +2008,41 @@ The default configuration of vortex.
 - [MSumConfig](#msumconfig)
 - [SMAConfig](#smaconfig)
 - [CCIConfig](#cciconfig)
+- [DPOConfig](#dpoconfig)
 - [DEMAConfig](#demaconfig)
+- [EnvelopeResult](#enveloperesult)
+- [EnvelopeConfig](#envelopeconfig)
+- [WMAConfig](#wmaconfig)
+- [HMAConfig](#hmaconfig)
 - [KAMAConfig](#kamaconfig)
+- [KSTResult](#kstresult)
+- [KSTConfig](#kstconfig)
 - [MIConfig](#miconfig)
+- [MDConfig](#mdconfig)
 - [MACDResult](#macdresult)
 - [MACDConfig](#macdconfig)
 - [MMaxConfig](#mmaxconfig)
 - [MMinConfig](#mminconfig)
 - [PSARResult](#psarresult)
 - [PSARConfig](#psarconfig)
+- [PivotPointResult](#pivotpointresult)
+- [PivotPointConfig](#pivotpointconfig)
 - [QstickConfig](#qstickconfig)
 - [KDJResult](#kdjresult)
 - [KDJConfig](#kdjconfig)
 - [RMAConfig](#rmaconfig)
+- [StochasticResult](#stochasticresult)
+- [StochasticConfig](#stochasticconfig)
+- [STCConfig](#stcconfig)
+- [SlopeConfig](#slopeconfig)
+- [SlowStochasticResult](#slowstochasticresult)
+- [SlowStochasticConfig](#slowstochasticconfig)
+- [SMMAConfig](#smmaconfig)
+- [T3Config](#t3config)
 - [TRIMAConfig](#trimaconfig)
 - [TRIXConfig](#trixconfig)
 - [TEMAConfig](#temaconfig)
+- [TSIConfig](#tsiconfig)
 - [VWMAConfig](#vwmaconfig)
 - [VortexResult](#vortexresult)
 - [VortexConfig](#vortexconfig)
@@ -1379,6 +2131,16 @@ Optional configuration of CCI parameters.
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/commodityChannelIndex.ts#L11)
 
+### DPOConfig
+
+Optional configuration of DPO parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/detrendedPriceOscillator.ts#L9)
+
 ### DEMAConfig
 
 Optional configuration of DEMA parameters.
@@ -1389,6 +2151,50 @@ Optional configuration of DEMA parameters.
 | `seed`   | `Seed or undefined`   | How the averages start: `'first'` (default) starts from the first value, `'sma'` starts from a simple moving average, as TA-Lib does. |
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/doubleExponentialMovingAverage.ts#L11)
+
+### EnvelopeResult
+
+Envelope result object.
+
+| Property | Type       | Description |
+| -------- | ---------- | ----------- |
+| `upper`  | `number[]` |             |
+| `middle` | `number[]` |             |
+| `lower`  | `number[]` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/envelope.ts#L10)
+
+### EnvelopeConfig
+
+Optional configuration of Envelope parameters.
+
+| Property     | Type                          | Description                                                                                                                                  |
+| ------------ | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `period`     | `number or undefined`         |                                                                                                                                              |
+| `percentage` | `number or undefined`         | Distance of the bands from the middle line, in percent.                                                                                      |
+| `ma`         | `"sma" or "ema" or undefined` | Moving average of the middle line: `'sma'` (default) or `'ema'`. The EMA starts from the simple moving average of the first `period` values. |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/envelope.ts#L19)
+
+### WMAConfig
+
+Optional configuration of WMA parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/weightedMovingAverage.ts#L9)
+
+### HMAConfig
+
+Optional configuration of HMA parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/hullMovingAverage.ts#L9)
 
 ### KAMAConfig
 
@@ -1402,6 +2208,35 @@ Optional configuration of KAMA parameters.
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/kaufmanAdaptiveMovingAverage.ts#L7)
 
+### KSTResult
+
+KST result object.
+
+| Property | Type       | Description |
+| -------- | ---------- | ----------- |
+| `kst`    | `number[]` |             |
+| `signal` | `number[]` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/knowSureThing.ts#L9)
+
+### KSTConfig
+
+Optional configuration of KST parameters.
+
+| Property       | Type                  | Description |
+| -------------- | --------------------- | ----------- |
+| `rocPeriod1`   | `number or undefined` |             |
+| `rocPeriod2`   | `number or undefined` |             |
+| `rocPeriod3`   | `number or undefined` |             |
+| `rocPeriod4`   | `number or undefined` |             |
+| `smaPeriod1`   | `number or undefined` |             |
+| `smaPeriod2`   | `number or undefined` |             |
+| `smaPeriod3`   | `number or undefined` |             |
+| `smaPeriod4`   | `number or undefined` |             |
+| `signalPeriod` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/knowSureThing.ts#L17)
+
 ### MIConfig
 
 Optional configuration of MI parameters.
@@ -1412,6 +2247,16 @@ Optional configuration of MI parameters.
 | `miPeriod`  | `number or undefined` |             |
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/massIndex.ts#L11)
+
+### MDConfig
+
+Optional configuration of McGinley Dynamic parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/mcGinleyDynamic.ts#L7)
 
 ### MACDResult
 
@@ -1479,6 +2324,35 @@ Optional configuration of parabolic SAR parameters.
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/parabolicSar.ts#L18)
 
+### PivotPointResult
+
+Pivot point result object. The Woodie and Fibonacci methods define three
+levels on each side, so their r4 and s4 are NaN.
+
+| Property | Type       | Description |
+| -------- | ---------- | ----------- |
+| `p`      | `number[]` |             |
+| `r1`     | `number[]` |             |
+| `r2`     | `number[]` |             |
+| `r3`     | `number[]` |             |
+| `r4`     | `number[]` |             |
+| `s1`     | `number[]` |             |
+| `s2`     | `number[]` |             |
+| `s3`     | `number[]` |             |
+| `s4`     | `number[]` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/pivotPoint.ts#L16)
+
+### PivotPointConfig
+
+Optional configuration of Pivot Point parameters.
+
+| Property | Type                            | Description |
+| -------- | ------------------------------- | ----------- |
+| `method` | `PivotPointMethod or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/pivotPoint.ts#L31)
+
 ### QstickConfig
 
 Optional configuration of Qstick parameters.
@@ -1524,6 +2398,95 @@ Optional configuration of RMA parameters.
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L9)
 
+### StochasticResult
+
+Stochastic result object.
+
+| Property | Type       | Description |
+| -------- | ---------- | ----------- |
+| `k`      | `number[]` |             |
+| `d`      | `number[]` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/stochastic.ts#L15)
+
+### StochasticConfig
+
+Optional configuration of Stochastic parameters.
+
+| Property  | Type                  | Description |
+| --------- | --------------------- | ----------- |
+| `period`  | `number or undefined` |             |
+| `dPeriod` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/stochastic.ts#L23)
+
+### STCConfig
+
+Optional configuration of STC parameters.
+
+| Property  | Type                  | Description |
+| --------- | --------------------- | ----------- |
+| `fast`    | `number or undefined` |             |
+| `slow`    | `number or undefined` |             |
+| `kPeriod` | `number or undefined` |             |
+| `dPeriod` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/schaffTrendCycle.ts#L10)
+
+### SlopeConfig
+
+Optional configuration of Slope parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/slope.ts#L9)
+
+### SlowStochasticResult
+
+Slow Stochastic result object.
+
+| Property | Type       | Description |
+| -------- | ---------- | ----------- |
+| `k`      | `number[]` |             |
+| `d`      | `number[]` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/slowStochastic.ts#L10)
+
+### SlowStochasticConfig
+
+Optional configuration of Slow Stochastic parameters.
+
+| Property  | Type                  | Description |
+| --------- | --------------------- | ----------- |
+| `period`  | `number or undefined` |             |
+| `kPeriod` | `number or undefined` |             |
+| `dPeriod` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/slowStochastic.ts#L18)
+
+### SMMAConfig
+
+Optional configuration of SMMA parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/smoothedMovingAverage.ts#L9)
+
+### T3Config
+
+Optional configuration of T3 parameters.
+
+| Property       | Type                  | Description |
+| -------------- | --------------------- | ----------- |
+| `period`       | `number or undefined` |             |
+| `volumeFactor` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tillsonT3.ts#L9)
+
 ### TRIMAConfig
 
 Optional configuration of TRIMA parameters.
@@ -1556,6 +2519,17 @@ Optional configuration of TEMA parameters.
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/tripleExponentialMovingAverage.ts#L11)
 
+### TSIConfig
+
+Optional configuration of TSI parameters.
+
+| Property       | Type                  | Description |
+| -------------- | --------------------- | ----------- |
+| `firstPeriod`  | `number or undefined` |             |
+| `secondPeriod` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/trueStrengthIndex.ts#L10)
+
 ### VWMAConfig
 
 Optional configuration of VWMA parameters.
@@ -1586,6 +2560,20 @@ Optional configuration of vortex parameters.
 | `period` | `number or undefined` |             |
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/vortex.ts#L25)
+
+## Types
+
+- [PivotPointMethod](#pivotpointmethod)
+
+### PivotPointMethod
+
+Pivot point calculation method.
+
+| Type               | Type                                                   |
+| ------------------ | ------------------------------------------------------ |
+| `PivotPointMethod` | `'standard' or 'woodie' or 'camarilla' or 'fibonacci'` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/pivotPoint.ts#L9)
 
 <!-- TSDOC_END -->
 
