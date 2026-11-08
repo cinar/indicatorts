@@ -2,15 +2,20 @@
 // https://github.com/cinar/indicatorts
 
 import { deepStrictEqual } from 'assert';
-import * as randomIndex from '../../src/indicator/trend/randomIndex';
+import { kdj, KDJDefaultConfig } from '../../src/indicator/trend/randomIndex';
 import { Action } from '../../src/strategy/action';
 import { Asset, newAssetWithLength } from '../../src/strategy/asset';
 import { kdjStrategy } from './kdjStrategy';
 
-function mockKDJ(k: number[], d: number[]): jest.SpyInstance {
+jest.mock('../../src/indicator/trend/randomIndex');
+
+function mockKDJ(
+  kLine: number[],
+  dLine: number[]
+): jest.MockedFunction<typeof kdj> {
   return jest
-    .spyOn(randomIndex, 'kdj')
-    .mockReturnValue({ k, d, j: k.map(() => 0) });
+    .mocked(kdj)
+    .mockReturnValue({ k: kLine, d: dLine, j: kLine.map(() => 0) });
 }
 
 function holdsExcept(
@@ -21,7 +26,17 @@ function holdsExcept(
 }
 
 describe('Random Index (KDJ) example strategy', () => {
-  afterEach(() => jest.restoreAllMocks());
+  beforeEach(() => {
+    jest
+      .mocked(kdj)
+      .mockImplementation(
+        jest.requireActual<{ kdj: typeof kdj }>(
+          '../../src/indicator/trend/randomIndex'
+        ).kdj
+      );
+  });
+
+  afterEach(() => jest.resetAllMocks());
 
   it('emits only crossover actions on real KDJ output', () => {
     const closings = Array.from(
@@ -51,7 +66,7 @@ describe('Random Index (KDJ) example strategy', () => {
       asset.highs,
       asset.lows,
       asset.closings,
-      { ...randomIndex.KDJDefaultConfig, rPeriod: 5 }
+      { ...KDJDefaultConfig, rPeriod: 5 }
     );
   });
 
@@ -71,12 +86,12 @@ describe('Random Index (KDJ) example strategy', () => {
   );
 
   it.each([
-    { k: [10, 12, 15], d: [5, 5, 5] },
-    { k: [90, 92, 85], d: [95, 95, 95] },
+    { kLine: [10, 12, 15], dLine: [5, 5, 5] },
+    { kLine: [90, 92, 85], dLine: [95, 95, 95] },
   ])(
-    'does not signal merely because %K stays on one side in the zone: $k',
-    ({ k, d }) => {
-      mockKDJ(k, d);
+    'does not signal merely because %K stays on one side in the zone: $kLine',
+    ({ kLine, dLine }) => {
+      mockKDJ(kLine, dLine);
 
       deepStrictEqual(kdjStrategy(newAssetWithLength(3)), holdsExcept(3, {}));
     }
@@ -112,16 +127,19 @@ describe('Random Index (KDJ) example strategy', () => {
   });
 
   it.each([
-    { k: [10, 12, 10, 15], d: [12, 12, 12, 12], signal: Action.BUY },
-    { k: [90, 88, 90, 85], d: [88, 88, 88, 87], signal: Action.SELL },
-  ])('does not signal on a same-side touch: $k', ({ k, d, signal }) => {
-    mockKDJ(k, d);
+    { kLine: [10, 12, 10, 15], dLine: [12, 12, 12, 12], signal: Action.BUY },
+    { kLine: [90, 88, 90, 85], dLine: [88, 88, 88, 87], signal: Action.SELL },
+  ])(
+    'does not signal on a same-side touch: $kLine',
+    ({ kLine, dLine, signal }) => {
+      mockKDJ(kLine, dLine);
 
-    deepStrictEqual(
-      kdjStrategy(newAssetWithLength(4)),
-      holdsExcept(4, { 3: signal })
-    );
-  });
+      deepStrictEqual(
+        kdjStrategy(newAssetWithLength(4)),
+        holdsExcept(4, { 3: signal })
+      );
+    }
+  );
 
   it('does not treat the initial equal values as a crossover', () => {
     mockKDJ([50, 15, 85], [50, 10, 90]);

@@ -35,19 +35,23 @@ export function kdjStrategy(asset: Asset, config: KDJConfig = {}): Action[] {
   let lastSide = Action.HOLD;
 
   for (let i = 0; i < actions.length; i++) {
-    const k = kdjResult.k[i];
-    const d = kdjResult.d[i];
+    const currentK = kdjResult.k[i];
+    const currentD = kdjResult.d[i];
 
-    if (!Number.isFinite(k) || !Number.isFinite(d) || k === d) {
+    if (
+      !Number.isFinite(currentK) ||
+      !Number.isFinite(currentD) ||
+      currentK === currentD
+    ) {
       continue;
     }
 
-    const side = k > d ? Action.BUY : Action.SELL;
+    const side = currentK > currentD ? Action.BUY : Action.SELL;
     const crossed = lastSide !== Action.HOLD && side !== lastSide;
 
-    if (crossed && side === Action.BUY && k <= 20) {
+    if (crossed && side === Action.BUY && currentK <= 20) {
       actions[i] = Action.BUY;
-    } else if (crossed && side === Action.SELL && k >= 80) {
+    } else if (crossed && side === Action.SELL && currentK >= 80) {
       actions[i] = Action.SELL;
     }
 
