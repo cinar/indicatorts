@@ -62,5 +62,9 @@
     "prettier": "^3.2.5",
     "ts-jest": "^29.4.12",
     "typescript": "^5.4.5"
+  },
+  "overrides": {
+    "glob": "^14.0.4",
+    "minimatch": "^11.0.5"
   }
 }
