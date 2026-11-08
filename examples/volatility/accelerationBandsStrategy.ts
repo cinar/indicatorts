@@ -13,7 +13,8 @@ import {
  * Demonstrates how to compose Acceleration Bands (upper and lower bands) into
  * an illustrative breakout trading signal.
  *
- * Generates a BUY action when closing price >= Upper Band, and a SELL action otherwise.
+ * Generates a BUY action when the closing breaks above the Upper Band, a SELL
+ * action when it breaks below the Lower Band, and HOLD while it is between them.
  * Provided strictly as an illustrative example for educational and research purposes.
  *
  * @param asset asset object.
@@ -27,10 +28,12 @@ export function abStrategy(asset: Asset, config: ABConfig = {}): Action[] {
   const actions = new Array<Action>(result.upper.length);
 
   for (let i = 0; i < actions.length; i++) {
-    if (asset.closings[i] >= result.upper[i]) {
+    if (asset.closings[i] > result.upper[i]) {
       actions[i] = Action.BUY;
-    } else {
+    } else if (asset.closings[i] < result.lower[i]) {
       actions[i] = Action.SELL;
+    } else {
+      actions[i] = Action.HOLD;
     }
   }
 

@@ -12,7 +12,9 @@ import {
 
 /**
  * Demonstrates how to compose Volume Weighted Moving Average (VWMA) and
- * Simple Moving Average (SMA) into an illustrative moving average crossover signal.
+ * Simple Moving Average (SMA) into an illustrative moving average position
+ * signal. It emits an action on every bar based on which average is higher,
+ * not only on the bars where they cross.
  *
  * Generates a BUY action when VWMA > SMA, a SELL action when VWMA < SMA, and HOLD otherwise.
  * Provided strictly as an illustrative example for educational and research purposes.
