@@ -31,4 +31,12 @@ describe('Absolute Price Oscillator (APO)', () => {
     );
     assertColumn(apo(data.close), data.apo);
   });
+
+  it('should match TA-Lib with an SMA seed', () => {
+    // Expected values from TA-Lib 0.8.3 APO(14, 30, EMA).
+    const data = readCsv(
+      join(__dirname, 'testdata/absolutePriceOscillator.talib.csv')
+    );
+    assertColumn(apo(data.close, { seed: 'sma' }), data.apo);
+  });
 });

@@ -3,6 +3,7 @@
 
 import { subtract } from '../../helper/numArray';
 import { ema } from './exponentialMovingAverage';
+import { Seed } from '../types';
 
 /**
  * Moving average convergence divergence (MACD) result object.
@@ -19,6 +20,11 @@ export interface MACDConfig {
   fast?: number;
   slow?: number;
   signal?: number;
+  /**
+   * How the averages start: `'first'` (default) starts from the first value,
+   * `'sma'` starts from a simple moving average, as TA-Lib does.
+   */
+  seed?: Seed;
 }
 
 /**
@@ -28,6 +34,7 @@ export const MACDDefaultConfig: Required<MACDConfig> = {
   fast: 12,
   slow: 26,
   signal: 9,
+  seed: 'first',
 };
 
 /**
@@ -40,7 +47,8 @@ export const MACDDefaultConfig: Required<MACDConfig> = {
  *
  * Warm-up: built on the exponential moving average, which starts from the
  * first value rather than from a simple moving average, so the early values
- * can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ * can differ from other libraries such as TA-Lib. Set `seed: 'sma'` to start
+ * the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
  *
  * @example
  * ```TypeScript
@@ -57,15 +65,22 @@ export const MACDDefaultConfig: Required<MACDConfig> = {
  * @return macd result.
  */
 export function macd(closings: number[], config: MACDConfig = {}): MACDResult {
-  const { fast, slow, signal } = {
+  const { fast, slow, signal, seed } = {
     ...MACDDefaultConfig,
     ...config,
   };
-  const emaFast = ema(closings, { period: fast });
-  const emaSlow = ema(closings, { period: slow });
+
+  // With an SMA seed, the fast EMA is seeded over the bars that end where
+  // the slow EMA's seed ends, so both start at the same bar, as in TA-Lib.
+  const fastInput =
+    seed === 'sma'
+      ? closings.map((closing, i) => (i < slow - fast ? NaN : closing))
+      : closings;
+  const emaFast = ema(fastInput, { period: fast, seed });
+  const emaSlow = ema(closings, { period: slow, seed });
 
   const macdLine = subtract(emaFast, emaSlow);
-  const signalLine = ema(macdLine, { period: signal });
+  const signalLine = ema(macdLine, { period: signal, seed });
 
   return {
     macdLine,

@@ -101,7 +101,8 @@ Warm-up: the first bar's true range is its high minus its low (there is
 no previous closing), and it is part of the first averaging window, so
 every index has a value. TA-Lib starts from the second bar and leaves the
 first `period` results empty, so the early values differ and converge over
-the following bars. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+the following bars. Set `seed: 'sma'` to start
+the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
 
 | Function | Type                                                                                     |
 | -------- | ---------------------------------------------------------------------------------------- |
@@ -126,7 +127,7 @@ const { trLine, atrLine } = atr(highs, lows, closings, defaultConfig);
 // const { trLine, atrLine } = averageTrueRange(highs, lows, closings, defaultConfig);
 ```
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volatility/averageTrueRange.ts#L61)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volatility/averageTrueRange.ts#L69)
 
 ### mstd
 
@@ -478,7 +479,7 @@ The default configuration of ATR.
 | ------------------ | --------------------- |
 | `ATRDefaultConfig` | `Required<ATRConfig>` |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volatility/averageTrueRange.ts#L25)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volatility/averageTrueRange.ts#L31)
 
 ### MSTDDefaultConfig
 
@@ -613,17 +614,18 @@ Average true range result.
 | `trLine`  | `number[]` |             |
 | `atrLine` | `number[]` |             |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volatility/averageTrueRange.ts#L10)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volatility/averageTrueRange.ts#L11)
 
 ### ATRConfig
 
 Optional configuration of ATR parameters.
 
-| Property | Type                  | Description |
-| -------- | --------------------- | ----------- |
-| `period` | `number or undefined` |             |
+| Property | Type                  | Description                                                                                                                           |
+| -------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `period` | `number or undefined` |                                                                                                                                       |
+| `seed`   | `Seed or undefined`   | How the averages start: `'first'` (default) starts from the first value, `'sma'` starts from a simple moving average, as TA-Lib does. |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volatility/averageTrueRange.ts#L18)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volatility/averageTrueRange.ts#L19)
 
 ### MSTDConfig
 

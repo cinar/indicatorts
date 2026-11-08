@@ -31,4 +31,12 @@ describe('Triple Exponential Average (TRIX)', () => {
     // TRIX is a ratio, so it is compared with more digits.
     assertColumn(trix(data.close), data.trix, 6);
   });
+
+  it('should match TA-Lib with an SMA seed', () => {
+    // Expected values from TA-Lib 0.8.3 TRIX(4) divided by 100, since TA-Lib returns a percentage.
+    const data = readCsv(
+      join(__dirname, 'testdata/tripleExponentialAverage.talib.csv')
+    );
+    assertColumn(trix(data.close, { seed: 'sma' }), data.trix, 6);
+  });
 });

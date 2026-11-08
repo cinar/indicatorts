@@ -48,4 +48,15 @@ describe('Average True Range (ATR)', () => {
     assertColumn(actual.trLine, data.trLine);
     assertColumn(actual.atrLine, data.atrLine);
   });
+
+  it('should match TA-Lib with an SMA seed', () => {
+    // Expected values from TA-Lib 0.8.3 ATR(14).
+    const data = readCsv(
+      join(__dirname, 'testdata/averageTrueRange.talib.csv')
+    );
+    assertColumn(
+      atr(data.high, data.low, data.close, { seed: 'sma' }).atrLine,
+      data.atrLine
+    );
+  });
 });

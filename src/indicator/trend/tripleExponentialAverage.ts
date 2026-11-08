@@ -3,12 +3,18 @@
 
 import { divide, shiftRightAndFillBy, subtract } from '../../helper/numArray';
 import { ema } from './exponentialMovingAverage';
+import { Seed } from '../types';
 
 /**
  * Optional configuration of TRIX parameters.
  */
 export interface TRIXConfig {
   period?: number;
+  /**
+   * How the averages start: `'first'` (default) starts from the first value,
+   * `'sma'` starts from a simple moving average, as TA-Lib does.
+   */
+  seed?: Seed;
 }
 
 /**
@@ -16,6 +22,7 @@ export interface TRIXConfig {
  */
 export const TRIXDefaultConfig: Required<TRIXConfig> = {
   period: 4,
+  seed: 'first',
 };
 
 /**
@@ -33,7 +40,8 @@ export const TRIXDefaultConfig: Required<TRIXConfig> = {
  *
  * Warm-up: built on the exponential moving average, which starts from the
  * first value rather than from a simple moving average, so the early values
- * can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ * can differ from other libraries such as TA-Lib. Set `seed: 'sma'` to start
+ * the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
  *
  * @example
  * ```TypeScript
@@ -50,10 +58,10 @@ export const TRIXDefaultConfig: Required<TRIXConfig> = {
  * @returns trix values.
  */
 export function trix(values: number[], config: TRIXConfig = {}): number[] {
-  const { period } = { ...TRIXDefaultConfig, ...config };
-  const ema1 = ema(values, { period });
-  const ema2 = ema(ema1, { period });
-  const ema3 = ema(ema2, { period });
+  const { period, seed } = { ...TRIXDefaultConfig, ...config };
+  const ema1 = ema(values, { period, seed });
+  const ema2 = ema(ema1, { period, seed });
+  const ema3 = ema(ema2, { period, seed });
   const previous = shiftRightAndFillBy(1, ema3[0], ema3);
   const result = divide(subtract(ema3, previous), previous);
 

@@ -35,4 +35,12 @@ describe('Triple Exponential Moving Average (TEMA)', () => {
     );
     assertColumn(tema(data.close), data.tema);
   });
+
+  it('should match TA-Lib with an SMA seed', () => {
+    // Expected values from TA-Lib 0.8.3 TEMA(2).
+    const data = readCsv(
+      join(__dirname, 'testdata/tripleExponentialMovingAverage.talib.csv')
+    );
+    assertColumn(tema(data.close, { seed: 'sma' }), data.tema);
+  });
 });

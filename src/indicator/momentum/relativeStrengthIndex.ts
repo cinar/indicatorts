@@ -2,12 +2,18 @@
 // https://github.com/cinar/indicatorts
 
 import { rma } from '../trend/rollingMovingAverage';
+import { Seed } from '../types';
 
 /**
  * Optional configuration of RSI parameters.
  */
 export interface RSIConfig {
   period?: number;
+  /**
+   * How the averages start: `'first'` (default) starts from the first value,
+   * `'sma'` starts from a simple moving average, as TA-Lib does.
+   */
+  seed?: Seed;
 }
 
 /**
@@ -15,6 +21,7 @@ export interface RSIConfig {
  */
 export const RSIDefaultConfig: Required<RSIConfig> = {
   period: 14,
+  seed: 'first',
 };
 
 /**
@@ -31,7 +38,8 @@ export const RSIDefaultConfig: Required<RSIConfig> = {
  * the first averaging window, and every index has a value. TA-Lib starts from
  * the second bar (the first price change) and leaves the first `period`
  * results empty, so the early values differ and converge over the following
- * bars. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ * bars. Set `seed: 'sma'` to start
+ * the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
  *
  * @example
  * ```TypeScript
@@ -48,7 +56,7 @@ export const RSIDefaultConfig: Required<RSIConfig> = {
  * @return rsi values.
  */
 export function rsi(closings: number[], config: RSIConfig = {}): number[] {
-  const { period } = { ...RSIDefaultConfig, ...config };
+  const { period, seed } = { ...RSIDefaultConfig, ...config };
 
   if (closings.length === 0) {
     return [];
@@ -57,7 +65,9 @@ export function rsi(closings: number[], config: RSIConfig = {}): number[] {
   const gains = new Array<number>(closings.length);
   const losses = new Array<number>(closings.length);
 
-  gains[0] = losses[0] = 0;
+  // With an SMA seed, the first bar has no price change and is left out of
+  // the averages, as in TA-Lib.
+  gains[0] = losses[0] = seed === 'sma' ? NaN : 0;
 
   for (let i = 1; i < closings.length; i++) {
     const difference = closings[i] - closings[i - 1];
@@ -71,13 +81,13 @@ export function rsi(closings: number[], config: RSIConfig = {}): number[] {
     }
   }
 
-  const meanGains = rma(gains, { period });
-  const meanLosses = rma(losses, { period });
+  const meanGains = rma(gains, { period, seed });
+  const meanLosses = rma(losses, { period, seed });
 
   const rValue = new Array<number>(closings.length);
   const rsValue = new Array<number>(closings.length);
 
-  rValue[0] = rsValue[0] = 0;
+  rValue[0] = rsValue[0] = seed === 'sma' ? NaN : 0;
 
   for (let i = 1; i < closings.length; i++) {
     if (meanGains[i] === 0 && meanLosses[i] === 0) {

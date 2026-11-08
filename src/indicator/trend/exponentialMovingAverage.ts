@@ -1,11 +1,18 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
+import { smaSeeded } from '../../helper/smaSeeded';
+import { Seed } from '../types';
 /**
  * Optional configuration of EMA parameters.
  */
 export interface EMAConfig {
   period?: number;
+  /**
+   * How the averages start: `'first'` (default) starts from the first value,
+   * `'sma'` starts from a simple moving average, as TA-Lib does.
+   */
+  seed?: Seed;
 }
 
 /**
@@ -13,6 +20,7 @@ export interface EMAConfig {
  */
 export const EMADefaultConfig: Required<EMAConfig> = {
   period: 12,
+  seed: 'first',
 };
 
 /**
@@ -23,7 +31,8 @@ export const EMADefaultConfig: Required<EMAConfig> = {
  * other libraries start from the simple moving average of the first `period`
  * values instead, and leave the first `period - 1` results empty, so the
  * early values differ. The difference shrinks by a factor of
- * `1 - 2 / (period + 1)` every bar. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ * `1 - 2 / (period + 1)` every bar. Set `seed: 'sma'` to start from the
+ * simple moving average instead, as TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
  *
  * @example
  * ```TypeScript
@@ -40,13 +49,21 @@ export const EMADefaultConfig: Required<EMAConfig> = {
  * @return EMA values.
  */
 export function ema(values: number[], config: EMAConfig = {}): number[] {
-  const { period } = { ...EMADefaultConfig, ...config };
+  const { period, seed } = { ...EMADefaultConfig, ...config };
+  const kValue = 2 / (1 + period);
+  const mValue = 1 - kValue;
+
+  if (seed === 'sma') {
+    return smaSeeded(
+      values,
+      period,
+      (previous, value) => value * kValue + previous * mValue
+    );
+  }
+
   const result = new Array<number>(values.length);
 
   if (result.length > 0) {
-    const kValue = 2 / (1 + period);
-    const mValue = 1 - kValue;
-
     result[0] = values[0];
 
     for (let i = 1; i < result.length; i++) {

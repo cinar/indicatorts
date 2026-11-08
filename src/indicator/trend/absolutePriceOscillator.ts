@@ -3,6 +3,7 @@
 
 import { subtract } from '../../helper/numArray';
 import { ema } from './exponentialMovingAverage';
+import { Seed } from '../types';
 
 /**
  * Optional configuration of APO parameters.
@@ -10,6 +11,11 @@ import { ema } from './exponentialMovingAverage';
 export interface APOConfig {
   fast?: number;
   slow?: number;
+  /**
+   * How the averages start: `'first'` (default) starts from the first value,
+   * `'sma'` starts from a simple moving average, as TA-Lib does.
+   */
+  seed?: Seed;
 }
 
 /**
@@ -18,6 +24,7 @@ export interface APOConfig {
 export const APODefaultConfig: Required<APOConfig> = {
   fast: 14,
   slow: 30,
+  seed: 'first',
 };
 
 /**
@@ -33,7 +40,8 @@ export const APODefaultConfig: Required<APOConfig> = {
  *
  * Warm-up: built on the exponential moving average, which starts from the
  * first value rather than from a simple moving average, so the early values
- * can differ from other libraries such as TA-Lib. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ * can differ from other libraries such as TA-Lib. Set `seed: 'sma'` to start
+ * the way TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
  *
  * @example
  * ```TypeScript
@@ -50,12 +58,16 @@ export const APODefaultConfig: Required<APOConfig> = {
  * @return apo array.
  */
 export function apo(values: number[], config: APOConfig = {}): number[] {
-  const { fast: fastPeriod, slow: slowPeriod } = {
+  const {
+    fast: fastPeriod,
+    slow: slowPeriod,
+    seed,
+  } = {
     ...APODefaultConfig,
     ...config,
   };
-  const fast = ema(values, { period: fastPeriod });
-  const slow = ema(values, { period: slowPeriod });
+  const fast = ema(values, { period: fastPeriod, seed });
+  const slow = ema(values, { period: slowPeriod, seed });
   const result = subtract(fast, slow);
 
   return result;

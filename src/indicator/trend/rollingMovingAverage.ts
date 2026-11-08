@@ -1,11 +1,18 @@
 // Copyright (c) 2022-2026 The Indicator Authors. All rights reserved.
 // https://github.com/cinar/indicatorts
 
+import { smaSeeded } from '../../helper/smaSeeded';
+import { Seed } from '../types';
 /**
  * Optional configuration of RMA parameters.
  */
 export interface RMAConfig {
   period?: number;
+  /**
+   * How the averages start: `'first'` (default) starts from the first value,
+   * `'sma'` starts from a simple moving average, as TA-Lib does.
+   */
+  seed?: Seed;
 }
 
 /**
@@ -13,6 +20,7 @@ export interface RMAConfig {
  */
 export const RMADefaultConfig: Required<RMAConfig> = {
   period: 4,
+  seed: 'first',
 };
 
 /**
@@ -26,7 +34,8 @@ export const RMADefaultConfig: Required<RMAConfig> = {
  * Warm-up: until `period` values are available, the result is the average
  * of the values seen so far, so every index has a value. At index
  * `period - 1` it equals the simple moving average of the first `period`
- * values. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+ * values. Set `seed: 'sma'` to leave the results before that NaN instead,
+ * as TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
  *
  * @example
  * ```TypeScript
@@ -43,7 +52,16 @@ export const RMADefaultConfig: Required<RMAConfig> = {
  * @returns RMA values.
  */
 export function rma(values: number[], config: RMAConfig = {}): number[] {
-  const { period } = { ...RMADefaultConfig, ...config };
+  const { period, seed } = { ...RMADefaultConfig, ...config };
+
+  if (seed === 'sma') {
+    return smaSeeded(
+      values,
+      period,
+      (previous, value) => (previous * (period - 1) + value) / period
+    );
+  }
+
   const result = new Array<number>(values.length);
   let sum = 0;
 
