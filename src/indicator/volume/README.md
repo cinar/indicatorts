@@ -14,7 +14,10 @@ The API reference below is generated from the JSDoc comments by [tsdoc-markdown]
 - [cmf](#cmf)
 - [emv](#emv)
 - [fi](#fi)
+- [kvo](#kvo)
 - [mfi](#mfi)
+- [mfm](#mfm)
+- [mfv](#mfv)
 - [nvi](#nvi)
 - [obv](#obv)
 - [vpt](#vpt)
@@ -173,6 +176,53 @@ const result = fi(closings, volumes, defaultConfig);
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volume/forceIndex.ts#L48)
 
+### kvo
+
+Klinger Volume Oscillator (KVO). It signs the volume by the direction of
+the bar's high and low compared with the previous bar, and takes the
+difference of a short and a long exponential moving average of it, with
+an exponential moving average of the difference as the signal line.
+
+```
+Trend = +1 if High > Previous High and Low >= Previous Low
+        -1 if High <= Previous High and Low < Previous Low
+         0 otherwise
+VF = Volume * Trend
+KVO = EMA(VF, shortPeriod) - EMA(VF, longPeriod)
+Signal = EMA(KVO, signalPeriod)
+```
+
+The volume force starts at the second bar, and each EMA starts from the
+simple moving average of its first values.
+
+Warm-up: both outputs are NaN for the first
+`longPeriod + signalPeriod - 1` bars.
+
+| Function | Type                                                                                    |
+| -------- | --------------------------------------------------------------------------------------- |
+| `kvo`    | `(highs: number[], lows: number[], volumes: number[], config?: KVOConfig) => KVOResult` |
+
+Parameters:
+
+- `highs`: high values.
+- `lows`: low values.
+- `volumes`: volume values.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { kvo } from 'indicatorts';
+
+const defaultConfig = { shortPeriod: 34, longPeriod: 55, signalPeriod: 13 };
+const { kvo: kvoLine, signal } = kvo(highs, lows, volumes, defaultConfig);
+
+// Alternatively:
+// const { kvo: kvoLine, signal } = klingerVolumeOscillator(highs, lows, volumes, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volume/klingerVolumeOscillator.ts#L71)
+
 ### mfi
 
 The Money Flow Index (MFI) analyzes both the closing price and the volume
@@ -216,6 +266,74 @@ const result = mfi(highs, lows, closings, volumes, defaultConfig);
 ```
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volume/moneyFlowIndex.ts#L56)
+
+### mfm
+
+Money Flow Multiplier (MFM). It is the position of the close within the
+bar's range, on a -1 to 1 scale: -1 at the low, 0 at the middle and 1 at
+the high.
+
+```
+MFM = ((Close - Low) - (High - Close)) / (High - Low)
+```
+
+A bar without a range (high equal to low) has an MFM of 0.
+
+| Function | Type                                                                |
+| -------- | ------------------------------------------------------------------- |
+| `mfm`    | `(highs: number[], lows: number[], closings: number[]) => number[]` |
+
+Parameters:
+
+- `highs`: high values.
+- `lows`: low values.
+- `closings`: closing values.
+
+Examples:
+
+```TypeScript
+import { mfm } from 'indicatorts';
+
+const result = mfm(highs, lows, closings);
+
+// Alternatively:
+// const result = moneyFlowMultiplier(highs, lows, closings);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volume/moneyFlowMultiplier.ts#L32)
+
+### mfv
+
+Money Flow Volume (MFV). It is the volume weighted by the Money Flow
+Multiplier, the position of the close within the bar's range.
+
+```
+MFV = MFM * Volume
+```
+
+| Function | Type                                                                                   |
+| -------- | -------------------------------------------------------------------------------------- |
+| `mfv`    | `(highs: number[], lows: number[], closings: number[], volumes: number[]) => number[]` |
+
+Parameters:
+
+- `highs`: high values.
+- `lows`: low values.
+- `closings`: closing values.
+- `volumes`: volume values.
+
+Examples:
+
+```TypeScript
+import { mfv } from 'indicatorts';
+
+const result = mfv(highs, lows, closings, volumes);
+
+// Alternatively:
+// const result = moneyFlowVolume(highs, lows, closings, volumes);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volume/moneyFlowVolume.ts#L30)
 
 ### nvi
 
@@ -372,6 +490,7 @@ const result = vwap(closings, volumes, defaultConfig);
 - [CMFDefaultConfig](#cmfdefaultconfig)
 - [EMVDefaultConfig](#emvdefaultconfig)
 - [FIDefaultConfig](#fidefaultconfig)
+- [KVODefaultConfig](#kvodefaultconfig)
 - [MFIDefaultConfig](#mfidefaultconfig)
 - [NVIDefaultConfig](#nvidefaultconfig)
 - [VWAPDefaultConfig](#vwapdefaultconfig)
@@ -405,6 +524,16 @@ The default configuration of FI.
 | `FIDefaultConfig` | `Required<FIConfig>` |
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volume/forceIndex.ts#L17)
+
+### KVODefaultConfig
+
+The default configuration of KVO.
+
+| Constant           | Type                  |
+| ------------------ | --------------------- |
+| `KVODefaultConfig` | `Required<KVOConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volume/klingerVolumeOscillator.ts#L28)
 
 ### MFIDefaultConfig
 
@@ -441,6 +570,8 @@ The default configuration of VWAP.
 - [CMFConfig](#cmfconfig)
 - [EMVConfig](#emvconfig)
 - [FIConfig](#ficonfig)
+- [KVOResult](#kvoresult)
+- [KVOConfig](#kvoconfig)
 - [MFIConfig](#mficonfig)
 - [NVIConfig](#nviconfig)
 - [VWAPConfig](#vwapconfig)
@@ -474,6 +605,29 @@ Optional configuration of FI parameters.
 | `period` | `number or undefined` |             |
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volume/forceIndex.ts#L10)
+
+### KVOResult
+
+KVO result object.
+
+| Property | Type       | Description |
+| -------- | ---------- | ----------- |
+| `kvo`    | `number[]` |             |
+| `signal` | `number[]` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volume/klingerVolumeOscillator.ts#L11)
+
+### KVOConfig
+
+Optional configuration of KVO parameters.
+
+| Property       | Type                  | Description |
+| -------------- | --------------------- | ----------- |
+| `shortPeriod`  | `number or undefined` |             |
+| `longPeriod`   | `number or undefined` |             |
+| `signalPeriod` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/volume/klingerVolumeOscillator.ts#L19)
 
 ### MFIConfig
 
