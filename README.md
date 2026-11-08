@@ -112,16 +112,22 @@ The following technical analysis indicators are supported by this package:
 ### Volatility Indicators
 
 - [Acceleration Bands (AB)](src/indicator/volatility/README.md#ab)
+- [Annualized Historical Volatility (AHV)](src/indicator/volatility/README.md#ahv)
 - [Average True Range (ATR)](src/indicator/volatility/README.md#atr)
 - [Bollinger Bands (BB)](src/indicator/volatility/README.md#bb)
 - [Bollinger Band Width (BBW)](src/indicator/volatility/README.md#bbw)
 - [Chandelier Exit (CE)](src/indicator/volatility/README.md#ce)
+- [Choppiness Index (CHOP)](src/indicator/volatility/README.md#chop)
 - [Donchian Channel (DC)](src/indicator/volatility/README.md#dc)
+- [Historical Volatility (HV)](src/indicator/volatility/README.md#hv)
 - [Keltner Channel (KC)](src/indicator/volatility/README.md#kc)
 - [Moving Standard Deviation (MSTD)](src/indicator/volatility/README.md#mstd)
+- [Percent B (%B)](src/indicator/volatility/README.md#percentb)
 - [Projection Oscillator (PO)](src/indicator/volatility/README.md#po)
+- [Super Trend](src/indicator/volatility/README.md#supertrend)
 - [True Range (TR)](src/indicator/volatility/README.md#tr)
 - [Ulcer Index (UI)](src/indicator/volatility/README.md#ui)
+- [Z-Score](src/indicator/volatility/README.md#zscore)
 
 ### Volume Indicators
 
