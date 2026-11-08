@@ -11,6 +11,7 @@ Momentum indicators measure the speed of movement.
   - [Price Rate of Change (ROC)](#price-rate-of-change-roc)
   - [Relative Strength Index (RSI)](#relative-strength-index-rsi)
   - [Stochastic Oscillator (STOCH)](#stochastic-oscillator-stoch)
+  - [Ultimate Oscillator (UO)](#ultimate-oscillator-uo)
   - [Williams R (WILLR)](#williams-r-willr)
   - [Disclaimer](#disclaimer)
   - [License](#license)
@@ -174,6 +175,31 @@ const { k, d } = stoch(highs, lows, closings, defaultConfig);
 
 // Alternatively:
 // const { k, d } = stochasticOscillator(highs, lows, closings, defaultConfig);
+```
+
+## Ultimate Oscillator (UO)
+
+The [ultimateOscillator](./ultimateOscillator.ts) function calculates the Ultimate Oscillator across three timeframes (default 7, 14, 28) to measure price momentum.
+
+```
+BP = Closing - Min(Low, Prior Close)
+TR = Max(High - Low, Abs(High - Prior Close), Abs(Low - Prior Close))
+
+Average7 = Sum(BP, 7) / Sum(TR, 7)
+Average14 = Sum(BP, 14) / Sum(TR, 14)
+Average28 = Sum(BP, 28) / Sum(TR, 28)
+
+UO = 100 * ((4 * Average7) + (2 * Average14) + Average28) / (4 + 2 + 1)
+```
+
+```TypeScript
+import { uo } from 'indicatorts';
+
+const defaultConfig = { shortPeriod: 7, middlePeriod: 14, longPeriod: 28 };
+const result = uo(highs, lows, closings, defaultConfig);
+
+// Alternatively:
+// const result = ultimateOscillator(highs, lows, closings, defaultConfig);
 ```
 
 ## Williams R (WILLR)
