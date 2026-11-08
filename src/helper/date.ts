@@ -2,12 +2,27 @@
 // https://github.com/cinar/indicatorts
 
 /**
- * To ISO date string.
+ * To ISO date string. Formats the date's local calendar day as YYYY-MM-DD,
+ * consistent with the other date helpers, regardless of the timezone.
  * @param date date object.
  * @return ISO date.
  */
 export function toISODateString(date: Date): string {
-  return date.toISOString().substring(0, 10);
+  const pad = (value: number, length: number): string => {
+    let text = value.toString();
+    while (text.length < length) {
+      text = '0' + text;
+    }
+    return text;
+  };
+
+  return (
+    pad(date.getFullYear(), 4) +
+    '-' +
+    pad(date.getMonth() + 1, 2) +
+    '-' +
+    pad(date.getDate(), 2)
+  );
 }
 
 /**
