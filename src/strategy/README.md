@@ -6,6 +6,8 @@ This module provides the lightweight, generic abstractions and data structures f
   - [Asset](#asset)
     - [New Asset with Length](#new-asset-with-length)
     - [Concat Assets](#concat-assets)
+    - [Resample](#resample)
+    - [Align Resampled](#align-resampled)
   - [Strategy Function](#strategy-function)
   - [Action](#action)
     - [Reverse Actions](#reverse-actions)
@@ -49,6 +51,40 @@ The [concatAssets](./asset.ts) helper joins two `Asset` time series into a singl
 import { concatAssets } from 'indicatorts';
 
 const combined = concatAssets(asset1, asset2);
+```
+
+### Resample
+
+The [resample](./resample.ts) function aggregates the bars of an `Asset` into a coarser interval, such as 1-minute bars into 1-hour bars or daily bars into weekly bars. Each output bar takes the first open, the highest high, the lowest low, the last close and the sum of the volumes of its bucket, and is dated at the start of the bucket.
+
+```TypeScript
+import { resample } from 'indicatorts';
+
+const hourly = resample(minutes, { unit: 'hour' });
+const fourHour = resample(minutes, { unit: 'hour', size: 4 });
+const weekly = resample(daily, { unit: 'week' });
+const quarterly = resample(daily, { unit: 'month', size: 3 });
+```
+
+Bucket boundaries are in UTC:
+
+- `minute`, `hour` and `day` buckets are fixed durations counted from 1970-01-01 00:00 UTC, so 4-hour buckets start at 00:00, 04:00, 08:00 and so on.
+- `week` buckets start on Monday 00:00 UTC.
+- `month` buckets start on the first day of the month at 00:00 UTC; 3-month buckets start in January, April, July and October.
+
+Buckets without any bars, such as weekends and holidays, are left out. The dates must be in ascending order, otherwise an error is thrown. The last bucket may hold only part of its interval when the data ends inside it; the `dropLast` option leaves it out.
+
+### Align Resampled
+
+The [alignResampled](./resample.ts) function maps values computed on a resampled series, one per bucket, back onto the original dates, so that results at two intervals can be compared row by row. A bucket's value is assigned to the last original row of that bucket, the first row at which all of its bars are known, and is carried forward to the following rows. Rows before the first bucket ends are `NaN`.
+
+```TypeScript
+import { alignResampled, resample, sma } from 'indicatorts';
+
+const config = { unit: 'week' } as const;
+const weekly = resample(daily, config);
+const weeklySma = sma(weekly.closings, { period: 4 });
+const aligned = alignResampled(daily.dates, weeklySma, config);
 ```
 
 ## Strategy Function

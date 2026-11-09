@@ -157,6 +157,8 @@ The core engine provides lightweight, generic abstractions for price bar series 
 - [Asset](src/strategy/README.md#asset)
   - [New Asset with Length](src/strategy/README.md#new-asset-with-length)
   - [Concat Assets](src/strategy/README.md#concat-assets)
+  - [Resample](src/strategy/README.md#resample)
+  - [Align Resampled](src/strategy/README.md#align-resampled)
 - [Action](src/strategy/README.md#action)
   - [Reverse Actions](src/strategy/README.md#reverse-actions)
   - [Apply Actions](src/strategy/README.md#apply-actions)
