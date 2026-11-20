@@ -3,6 +3,7 @@
 
 export * from './absolutePriceOscillator';
 export * from './aroon';
+export * from './averageDirectionalIndex';
 export * from './balanceOfPower';
 export * from './chandeForecastOscillator';
 export * from './commodityChannelIndex';

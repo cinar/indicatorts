@@ -13,6 +13,8 @@ The API reference below is generated from the JSDoc comments by [tsdoc-markdown]
 - [ema](#ema)
 - [apo](#apo)
 - [aroon](#aroon)
+- [rma](#rma)
+- [adx](#adx)
 - [bop](#bop)
 - [cfo](#cfo)
 - [mcfo](#mcfo)
@@ -36,7 +38,6 @@ The API reference below is generated from the JSDoc comments by [tsdoc-markdown]
 - [pivotPoint](#pivotpoint)
 - [qstick](#qstick)
 - [kdj](#kdj)
-- [rma](#rma)
 - [stochastic](#stochastic)
 - [stc](#stc)
 - [since](#since)
@@ -159,6 +160,104 @@ const { up, down } = aroon(highs, lows, defaultConfig);
 ```
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/aroon.ts#L93)
+
+### rma
+
+Rolling moving average (RMA).
+
+```
+R[0] to R[p-1] is SMA(values)
+R[p] and after is R[i] = ((R[i-1]*(p-1)) + v[i]) / p
+```
+
+Warm-up: until `period` values are available, the result is the average
+of the values seen so far, so every index has a value. At index
+`period - 1` it equals the simple moving average of the first `period`
+values. Set `seed: 'sma'` to leave the results before that NaN instead,
+as TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
+
+| Function | Type                                                 |
+| -------- | ---------------------------------------------------- |
+| `rma`    | `(values: number[], config?: RMAConfig) => number[]` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Returns:
+
+RMA values.
+
+Examples:
+
+```TypeScript
+import { rma } from 'indicatorts';
+
+const defaultConfig = { period: 4 };
+const result = rma(values, defaultConfig);
+
+// Alternatively:
+// const result = rollingMovingAverage(values, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L54)
+
+### adx
+
+Average Directional Index (ADX). It measures the strength of a trend,
+regardless of its direction, from how far the highs and lows move beyond
+the previous bar's range. The plus and minus directional indicators
+(+DI and -DI) measure the upward and the downward movement separately.
+
+```
+Up Move = High - Previous High
+Down Move = Previous Low - Low
++DM = Up Move, if Up Move > Down Move and Up Move > 0, else 0
+-DM = Down Move, if Down Move > Up Move and Down Move > 0, else 0
+TR = Max(High - Low, Abs(High - Previous Close), Abs(Low - Previous Close))
+
++DI = 100 * RMA(+DM, period) / RMA(TR, period)
+-DI = 100 * RMA(-DM, period) / RMA(TR, period)
+DX = 100 * Abs(+DI - -DI) / (+DI + -DI)
+ADX = RMA(DX, period)
+```
+
+RMA is Wilder's smoothing, started from the average of the first `period`
+values (`seed: 'sma'`). The first bar has no previous bar, so its +DM, -DM
+and TR are 0. +DI and -DI start at index `period`, after `period` price
+changes, and ADX at index `2 * period - 1`; the earlier values are NaN.
+This matches TA-Lib's PLUS_DI, MINUS_DI and ADX.
+
+A smoothed true range of 0, as in a flat market, gives a +DI and -DI of 0,
+and a DX of 0 when both are 0.
+
+Based on [Average Directional Index](https://school.stockcharts.com/doku.php?id=technical_indicators:average_directional_index_adx)
+
+| Function | Type                                                                                     |
+| -------- | ---------------------------------------------------------------------------------------- |
+| `adx`    | `(highs: number[], lows: number[], closings: number[], config?: ADXConfig) => ADXResult` |
+
+Parameters:
+
+- `highs`: high values.
+- `lows`: low values.
+- `closings`: closing values.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { adx } from 'indicatorts';
+
+const defaultConfig = { period: 14 };
+const result = adx(highs, lows, closings, defaultConfig);
+
+// Alternatively:
+// const result = averageDirectionalIndex(highs, lows, closings, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/averageDirectionalIndex.ts#L102)
 
 ### bop
 
@@ -1028,48 +1127,6 @@ const { k, d, j } = kdj(highs, lows, closings, defaultConfig);
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/randomIndex.ts#L70)
 
-### rma
-
-Rolling moving average (RMA).
-
-```
-R[0] to R[p-1] is SMA(values)
-R[p] and after is R[i] = ((R[i-1]*(p-1)) + v[i]) / p
-```
-
-Warm-up: until `period` values are available, the result is the average
-of the values seen so far, so every index has a value. At index
-`period - 1` it equals the simple moving average of the first `period`
-values. Set `seed: 'sma'` to leave the results before that NaN instead,
-as TA-Lib does. See [Warm-up and seeding](https://github.com/cinar/indicatorts#warm-up-and-seeding).
-
-| Function | Type                                                 |
-| -------- | ---------------------------------------------------- |
-| `rma`    | `(values: number[], config?: RMAConfig) => number[]` |
-
-Parameters:
-
-- `values`: values array.
-- `config`: configuration.
-
-Returns:
-
-RMA values.
-
-Examples:
-
-```TypeScript
-import { rma } from 'indicatorts';
-
-const defaultConfig = { period: 4 };
-const result = rma(values, defaultConfig);
-
-// Alternatively:
-// const result = rollingMovingAverage(values, defaultConfig);
-```
-
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L54)
-
 ### stochastic
 
 Stochastic of a single series. It places each value within the range of
@@ -1604,6 +1661,8 @@ const result = weightedClose(highs, lows, closings);
 - [EMADefaultConfig](#emadefaultconfig)
 - [APODefaultConfig](#apodefaultconfig)
 - [AroonDefaultConfig](#aroondefaultconfig)
+- [RMADefaultConfig](#rmadefaultconfig)
+- [ADXDefaultConfig](#adxdefaultconfig)
 - [MCFODefaultConfig](#mcfodefaultconfig)
 - [MSumDefaultConfig](#msumdefaultconfig)
 - [SMADefaultConfig](#smadefaultconfig)
@@ -1624,7 +1683,6 @@ const result = weightedClose(highs, lows, closings);
 - [PivotPointDefaultConfig](#pivotpointdefaultconfig)
 - [QstickDefaultConfig](#qstickdefaultconfig)
 - [KDJDefaultConfig](#kdjdefaultconfig)
-- [RMADefaultConfig](#rmadefaultconfig)
 - [StochasticDefaultConfig](#stochasticdefaultconfig)
 - [STCDefaultConfig](#stcdefaultconfig)
 - [SlopeDefaultConfig](#slopedefaultconfig)
@@ -1667,6 +1725,26 @@ The default configuration of Aroon.
 | `AroonDefaultConfig` | `Required<AroonConfig>` |
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/aroon.ts#L29)
+
+### RMADefaultConfig
+
+The default configuration of RMA.
+
+| Constant           | Type                  |
+| ------------------ | --------------------- |
+| `RMADefaultConfig` | `Required<RMAConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L21)
+
+### ADXDefaultConfig
+
+The default configuration of average directional index.
+
+| Constant           | Type                  |
+| ------------------ | --------------------- |
+| `ADXDefaultConfig` | `Required<ADXConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/averageDirectionalIndex.ts#L27)
 
 ### MCFODefaultConfig
 
@@ -1868,16 +1946,6 @@ The default configuration of KDJ.
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/randomIndex.ts#L30)
 
-### RMADefaultConfig
-
-The default configuration of RMA.
-
-| Constant           | Type                  |
-| ------------------ | --------------------- |
-| `RMADefaultConfig` | `Required<RMAConfig>` |
-
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L21)
-
 ### StochasticDefaultConfig
 
 The default configuration of Stochastic.
@@ -2004,6 +2072,9 @@ The default configuration of vortex.
 - [APOConfig](#apoconfig)
 - [AroonResult](#aroonresult)
 - [AroonConfig](#aroonconfig)
+- [RMAConfig](#rmaconfig)
+- [ADXResult](#adxresult)
+- [ADXConfig](#adxconfig)
 - [MCFOConfig](#mcfoconfig)
 - [MSumConfig](#msumconfig)
 - [SMAConfig](#smaconfig)
@@ -2030,7 +2101,6 @@ The default configuration of vortex.
 - [QstickConfig](#qstickconfig)
 - [KDJResult](#kdjresult)
 - [KDJConfig](#kdjconfig)
-- [RMAConfig](#rmaconfig)
 - [StochasticResult](#stochasticresult)
 - [StochasticConfig](#stochasticconfig)
 - [STCConfig](#stcconfig)
@@ -2090,6 +2160,39 @@ Optional configuration of Aroon parameters.
 | `period` | `number or undefined` |             |
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/aroon.ts#L22)
+
+### RMAConfig
+
+Optional configuration of RMA parameters.
+
+| Property | Type                  | Description                                                                                                                           |
+| -------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `period` | `number or undefined` |                                                                                                                                       |
+| `seed`   | `Seed or undefined`   | How the averages start: `'first'` (default) starts from the first value, `'sma'` starts from a simple moving average, as TA-Lib does. |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L9)
+
+### ADXResult
+
+Average directional index result.
+
+| Property  | Type       | Description |
+| --------- | ---------- | ----------- |
+| `plusDi`  | `number[]` |             |
+| `minusDi` | `number[]` |             |
+| `adx`     | `number[]` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/averageDirectionalIndex.ts#L11)
+
+### ADXConfig
+
+Optional configuration of average directional index parameters.
+
+| Property | Type                  | Description |
+| -------- | --------------------- | ----------- |
+| `period` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/averageDirectionalIndex.ts#L20)
 
 ### MCFOConfig
 
@@ -2386,17 +2489,6 @@ Optional configuration of KDJ parameters.
 | `dPeriod` | `number or undefined` |             |
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/randomIndex.ts#L21)
-
-### RMAConfig
-
-Optional configuration of RMA parameters.
-
-| Property | Type                  | Description                                                                                                                           |
-| -------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `period` | `number or undefined` |                                                                                                                                       |
-| `seed`   | `Seed or undefined`   | How the averages start: `'first'` (default) starts from the first value, `'sma'` starts from a simple moving average, as TA-Lib does. |
-
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L9)
 
 ### StochasticResult
 

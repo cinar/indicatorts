@@ -47,6 +47,7 @@ The following technical analysis indicators are supported by this package:
 
 - [Absolute Price Oscillator (APO)](src/indicator/trend/README.md#apo)
 - [Aroon Indicator](src/indicator/trend/README.md#aroon)
+- [Average Directional Index (ADX)](src/indicator/trend/README.md#adx)
 - [Balance of Power (BOP)](src/indicator/trend/README.md#bop)
 - [Chande Forecast Oscillator (CFO)](src/indicator/trend/README.md#cfo)
 - [Commodity Channel Index (CCI)](src/indicator/trend/README.md#cci)
