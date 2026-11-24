@@ -12,7 +12,7 @@ import { safeDivide } from '../../helper/window';
  * IBS = (Close - Low) / (High - Low)
  * ```
  *
- * A bar without a range (high equal to low) has an IBS of 0.
+ * A bar without a range (high equal to low) has an IBS of 0.5.
  *
  * @example
  * ```TypeScript
@@ -35,7 +35,7 @@ export function ibs(
 ): number[] {
   checkSameLength(highs, lows, closings);
   return closings.map((closing, i) =>
-    safeDivide(closing - lows[i], highs[i] - lows[i], 0)
+    safeDivide(closing - lows[i], highs[i] - lows[i], 0.5)
   );
 }
 

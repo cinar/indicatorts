@@ -18,16 +18,16 @@ export const DPODefaultConfig: Required<DPOConfig> = {
 };
 
 /**
- * Detrended Price Oscillator (DPO). It subtracts a simple moving average,
- * shifted back by `floor(period / 2) + 1` bars, from the price, which
- * removes the longer-term trend and leaves the shorter cycles.
+ * Detrended Price Oscillator (DPO). It compares a past price with the current
+ * simple moving average, which removes the longer-term trend and leaves the
+ * shorter cycles.
  *
  * ```
  * k = floor(period / 2) + 1
- * DPO[i] = Price[i] - SMA(Price, period)[i - k]
+ * DPO[i] = Price[i - k] - SMA(Price, period)[i]
  * ```
  *
- * Warm-up: the first `period - 1 + k` values are NaN.
+ * Warm-up: the first `max(period - 1, k)` values are NaN.
  *
  * @example
  * ```TypeScript
@@ -45,12 +45,11 @@ export const DPODefaultConfig: Required<DPOConfig> = {
  */
 export function dpo(closings: number[], config: DPOConfig = {}): number[] {
   const { period } = { ...DPODefaultConfig, ...config };
-  const shifted = lag(
-    windowedSma(closings, period),
-    Math.floor(period / 2) + 1
-  );
+  const shift = Math.floor(period / 2) + 1;
+  const average = windowedSma(closings, period);
+  const shifted = lag(closings, shift);
 
-  return closings.map((closing, i) => closing - shifted[i]);
+  return average.map((value, i) => shifted[i] - value);
 }
 
 // Export full name

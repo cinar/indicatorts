@@ -9,7 +9,7 @@ import { ibs } from './internalBarStrength';
 describe('Internal Bar Strength (IBS)', () => {
   it('should place the close within the range', () => {
     expect(ibs([10, 10, 10], [0, 0, 10], [10, 2.5, 10])).toStrictEqual([
-      1, 0.25, 0,
+      1, 0.25, 0.5,
     ]);
   });
 
@@ -19,7 +19,7 @@ describe('Internal Bar Strength (IBS)', () => {
 
   it('should match the reference data', () => {
     // Expected values from the Go version of this library,
-    // github.com/cinar/indicator (commit 18a0b93), run on the same prices.
+    // github.com/cinar/indicator (commit 7017344), run on the same prices.
     const data = readCsv(join(__dirname, 'testdata/internalBarStrength.csv'));
     assertColumn(ibs(data.high, data.low, data.close), data.ibs, 4);
   });
