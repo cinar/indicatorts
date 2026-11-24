@@ -101,30 +101,46 @@ interface CompatCase {
   compute: (bars: CsvColumns) => number[][];
   scale?: number;
   fromBar?: number;
+  // Set for pre-existing indicators that emit values during warm-up rather
+  // than NaN (or, for MACD, emit macdLine before signalLine starts).
+  hasWarmupValues?: boolean;
 }
 
 /**
- * Compares an indicator output array against a TA-Lib reference column at
- * every bar where TA-Lib produces a finite value (starting at `fromBar`).
+ * Compares an indicator output array against a TA-Lib reference column.
+ * Unless `hasWarmupValues` is set, also asserts that warm-up bars where
+ * TA-Lib produces NaN are NaN in the actual output.
  *
  * @param column reference column name.
  * @param actual computed values.
  * @param expected TA-Lib reference values.
  * @param scale multiplier applied to actual values before comparison.
- * @param fromBar earliest bar index to compare.
+ * @param fromBar earliest bar index to compare finite values.
+ * @param hasWarmupValues whether the indicator emits values where TA-Lib emits NaN.
  */
 function assertMatchesTalib(
   column: string,
   actual: number[],
   expected: number[],
   scale = 1,
-  fromBar = 0
+  fromBar = 0,
+  hasWarmupValues = false
 ): void {
   expect(actual.length).toBe(expected.length);
 
   let compared = 0;
-  for (let i = fromBar; i < expected.length; i++) {
+  for (let i = 0; i < expected.length; i++) {
     if (Number.isNaN(expected[i])) {
+      if (!hasWarmupValues) {
+        expect(
+          Number.isNaN(actual[i]),
+          `${column} bar ${i}: expected NaN during warm-up, got ${actual[i]}`
+        ).toBe(true);
+      }
+      continue;
+    }
+
+    if (i < fromBar) {
       continue;
     }
 
@@ -152,6 +168,7 @@ const CASES: CompatCase[] = [
   {
     name: 'aroon',
     columns: ['AROON_UP', 'AROON_DOWN'],
+    hasWarmupValues: true,
     compute: (bars) => {
       const result = aroon(bars.high, bars.low, { period: 25 });
       return [result.up, result.down];
@@ -165,6 +182,7 @@ const CASES: CompatCase[] = [
   {
     name: 'cci',
     columns: ['CCI'],
+    hasWarmupValues: true,
     compute: (bars) => [cci(bars.high, bars.low, bars.close, { period: 20 })],
   },
   {
@@ -190,11 +208,13 @@ const CASES: CompatCase[] = [
   {
     name: 'kama',
     columns: ['KAMA'],
+    hasWarmupValues: true,
     compute: (bars) => [kama(bars.close, { period: 10, fast: 2, slow: 30 })],
   },
   {
     name: 'kdj',
     columns: ['KDJ_K', 'KDJ_D', 'KDJ_J'],
+    hasWarmupValues: true,
     compute: (bars) => {
       const result = kdj(bars.high, bars.low, bars.close, {
         rPeriod: 9,
@@ -214,8 +234,10 @@ const CASES: CompatCase[] = [
     },
   },
   {
+    // macdLine starts at slow - 1 (bar 25) rather than waiting for signalLine (bar 33).
     name: 'macd',
     columns: ['MACD', 'MACD_SIGNAL'],
+    hasWarmupValues: true,
     compute: (bars) => {
       const result = macd(bars.close, {
         fast: 12,
@@ -231,6 +253,7 @@ const CASES: CompatCase[] = [
     name: 'mi',
     columns: ['MASSI'],
     fromBar: 170,
+    hasWarmupValues: true,
     compute: (bars) => [
       mi(bars.high, bars.low, { emaPeriod: 9, miPeriod: 25 }),
     ],
@@ -238,26 +261,31 @@ const CASES: CompatCase[] = [
   {
     name: 'md',
     columns: ['MCGD'],
+    hasWarmupValues: true,
     compute: (bars) => [md(bars.close, { period: 14 })],
   },
   {
     name: 'mmax',
     columns: ['MAX'],
+    hasWarmupValues: true,
     compute: (bars) => [mmax(bars.close, { period: 14 })],
   },
   {
     name: 'mmin',
     columns: ['MIN'],
+    hasWarmupValues: true,
     compute: (bars) => [mmin(bars.close, { period: 14 })],
   },
   {
     name: 'msum',
     columns: ['SUM'],
+    hasWarmupValues: true,
     compute: (bars) => [msum(bars.close, { period: 14 })],
   },
   {
     name: 'qstick',
     columns: ['QSTICK'],
+    hasWarmupValues: true,
     compute: (bars) => [qstick(bars.open, bars.close, { period: 20 })],
   },
   {
@@ -280,6 +308,7 @@ const CASES: CompatCase[] = [
   {
     name: 'sma',
     columns: ['SMA'],
+    hasWarmupValues: true,
     compute: (bars) => [sma(bars.close, { period: 50 })],
   },
   {
@@ -315,6 +344,7 @@ const CASES: CompatCase[] = [
   {
     name: 'trima',
     columns: ['TRIMA'],
+    hasWarmupValues: true,
     compute: (bars) => [trima(bars.close, { period: 15 })],
   },
   {
@@ -336,6 +366,7 @@ const CASES: CompatCase[] = [
   {
     name: 'vwma',
     columns: ['VWMA'],
+    hasWarmupValues: true,
     compute: (bars) => [vwma(bars.close, bars.volume, { period: 20 })],
   },
   {
@@ -353,11 +384,13 @@ const CASES: CompatCase[] = [
   {
     name: 'ao',
     columns: ['AO'],
+    hasWarmupValues: true,
     compute: (bars) => [ao(bars.high, bars.low, { fast: 5, slow: 34 })],
   },
   {
     name: 'co',
     columns: ['ADOSC', 'AD'],
+    hasWarmupValues: true,
     compute: (bars) => {
       const result = co(bars.high, bars.low, bars.close, bars.volume, {
         fast: 3,
@@ -409,6 +442,7 @@ const CASES: CompatCase[] = [
   {
     name: 'ichimokuCloud',
     columns: ['ICH_CONV', 'ICH_BASE', 'ICH_SPANA', 'ICH_SPANB'],
+    hasWarmupValues: true,
     compute: (bars) => {
       const result = ichimokuCloud(bars.high, bars.low, bars.close, {
         short: 9,
@@ -448,6 +482,7 @@ const CASES: CompatCase[] = [
   {
     name: 'roc',
     columns: ['ROC'],
+    hasWarmupValues: true,
     compute: (bars) => [roc(bars.close, { period: 9 })],
   },
   {
@@ -458,6 +493,7 @@ const CASES: CompatCase[] = [
   {
     name: 'stoch',
     columns: ['STOCHF_K', 'STOCHF_D'],
+    hasWarmupValues: true,
     compute: (bars) => {
       const result = stoch(bars.high, bars.low, bars.close, {
         kPeriod: 14,
@@ -475,6 +511,7 @@ const CASES: CompatCase[] = [
   {
     name: 'uo',
     columns: ['ULTOSC'],
+    hasWarmupValues: true,
     compute: (bars) => [
       uo(bars.high, bars.low, bars.close, {
         shortPeriod: 7,
@@ -486,6 +523,7 @@ const CASES: CompatCase[] = [
   {
     name: 'willr',
     columns: ['WILLR'],
+    hasWarmupValues: true,
     compute: (bars) => [willr(bars.high, bars.low, bars.close, { period: 14 })],
   },
 
@@ -493,6 +531,7 @@ const CASES: CompatCase[] = [
   {
     name: 'ab',
     columns: ['ACC_UP', 'ACC_MID', 'ACC_LOW'],
+    hasWarmupValues: true,
     compute: (bars) => {
       const result = ab(bars.high, bars.low, bars.close, {
         period: 20,
@@ -512,11 +551,13 @@ const CASES: CompatCase[] = [
     name: 'bbw',
     columns: ['BBW'],
     scale: 100,
+    hasWarmupValues: true,
     compute: (bars) => [bbw(bb(bars.close, { period: 20 })).width],
   },
   {
     name: 'bb',
     columns: ['BB_UP', 'BB_MID', 'BB_LOW'],
+    hasWarmupValues: true,
     compute: (bars) => {
       const result = bb(bars.close, { period: 20 });
       return [result.upper, result.middle, result.lower];
@@ -530,6 +571,7 @@ const CASES: CompatCase[] = [
   {
     name: 'mstd',
     columns: ['STDDEV'],
+    hasWarmupValues: true,
     compute: (bars) => [mstd(bars.close, { period: 20 })],
   },
   {
@@ -540,6 +582,7 @@ const CASES: CompatCase[] = [
   {
     name: 'tr',
     columns: ['TRANGE'],
+    hasWarmupValues: true,
     compute: (bars) => [tr(bars.high, bars.low, bars.close)],
   },
   {
@@ -557,6 +600,7 @@ const CASES: CompatCase[] = [
   {
     name: 'cmf',
     columns: ['CMF'],
+    hasWarmupValues: true,
     compute: (bars) => [
       cmf(bars.high, bars.low, bars.close, bars.volume, { period: 20 }),
     ],
@@ -564,6 +608,7 @@ const CASES: CompatCase[] = [
   {
     name: 'emv',
     columns: ['EMV'],
+    hasWarmupValues: true,
     compute: (bars) => [emv(bars.high, bars.low, bars.volume, { period: 14 })],
   },
   {
@@ -571,11 +616,13 @@ const CASES: CompatCase[] = [
     name: 'fi',
     columns: ['EFI'],
     fromBar: 170,
+    hasWarmupValues: true,
     compute: (bars) => [fi(bars.close, bars.volume, { period: 13 })],
   },
   {
     name: 'mfi',
     columns: ['MFI'],
+    hasWarmupValues: true,
     compute: (bars) => [
       mfi(bars.high, bars.low, bars.close, bars.volume, { period: 14 }),
     ],
@@ -593,6 +640,7 @@ const CASES: CompatCase[] = [
   {
     name: 'vwap',
     columns: ['VWAP'],
+    hasWarmupValues: true,
     compute: (bars) => [vwap(bars.close, bars.volume, { period: 14 })],
   },
 ];
@@ -615,7 +663,8 @@ describe('TA-Lib 0.8.3 compatibility', () => {
               results[index],
               expected,
               testCase.scale,
-              testCase.fromBar
+              testCase.fromBar,
+              testCase.hasWarmupValues
             );
           });
         });

@@ -48,6 +48,8 @@ function smoothedStochastic(
 
   for (let i = 0; i < values.length; i++) {
     if (Number.isNaN(highest[i])) {
+      started = false;
+      smoothed = 0;
       continue;
     }
 
@@ -87,7 +89,7 @@ function smoothedStochastic(
  * `%K` value; when the window's maximum equals its minimum, the previous
  * smoothed value is kept (0 if there is none yet).
  *
- * Warm-up: the first `slow - 1 + 2 * (kPeriod - 1)` values are NaN.
+ * Warm-up: the first `max(fast, slow) - 1 + 2 * (kPeriod - 1)` values are NaN.
  *
  * @example
  * ```TypeScript

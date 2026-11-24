@@ -10,8 +10,15 @@ describe('Schaff Trend Cycle (STC)', () => {
   it('should leave the warm-up period NaN', () => {
     const closings = Array.from({ length: 12 }, (_, i) => 10 + (i % 3));
     const actual = stc(closings, { fast: 2, slow: 3, kPeriod: 3, dPeriod: 2 });
-    // slow - 1 + 2 * (kPeriod - 1) = 6
+    // max(fast, slow) - 1 + 2 * (kPeriod - 1) = 6
     expect(actual.findIndex(Number.isFinite)).toBe(6);
+  });
+
+  it('should use the larger EMA period for warm-up when fast exceeds slow', () => {
+    const closings = Array.from({ length: 16 }, (_, i) => 10 + (i % 3));
+    const actual = stc(closings, { fast: 10, slow: 3, kPeriod: 3, dPeriod: 2 });
+    // max(10, 3) - 1 + 2 * (3 - 1) = 13
+    expect(actual.findIndex(Number.isFinite)).toBe(13);
   });
 
   it('should carry forward the previous smoothed value on flat windows', () => {
