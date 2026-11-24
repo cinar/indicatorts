@@ -55,13 +55,13 @@ function streaks(closings: number[]): number[] {
  *
  * ```
  * Streak = consecutive closes up (+1, +2, ...) or down (-1, -2, ...), 0 when unchanged
- * PercentRank = percentage of the previous percentRankPeriod - 1 values of ROC(1) below the current ROC(1)
+ * PercentRank = percentage of the previous percentRankPeriod values of ROC(1) below the current ROC(1)
  * CRSI = (RSI(closings, rsiPeriod) + RSI(Streak, streakRsiPeriod) + PercentRank) / 3
  * ```
  *
  * Both RSIs start from a simple moving average (`seed: 'sma'`).
  *
- * Warm-up: the first `max(rsiPeriod, streakRsiPeriod + 1, percentRankPeriod)`
+ * Warm-up: the first `max(rsiPeriod, streakRsiPeriod + 1, percentRankPeriod + 1)`
  * values are NaN.
  *
  * @example
@@ -98,11 +98,11 @@ export function crsi(
   ].slice(0, closings.length);
   const percentRank = windowed(
     changeRatio(closings, 1),
-    percentRankPeriod,
+    percentRankPeriod + 1,
     (window) => {
       const current = window[window.length - 1];
       const below = window.filter((value) => value < current).length;
-      return (below * 100) / (percentRankPeriod - 1);
+      return (below * 100) / percentRankPeriod;
     }
   );
 

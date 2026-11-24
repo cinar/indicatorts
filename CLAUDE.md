@@ -29,6 +29,14 @@ Technical analysis indicators, example strategies and a backtest framework in Ty
 
 `src/testing/apiConsistency.test.ts` enforces most of this list.
 
+## Self-review before opening a PR
+
+Review the full `git diff` with fresh eyes before committing or opening a PR:
+
+- **TS array edge cases.** Do not assume Go's channel semantics carry over unchanged. Check recursive/stateful helpers for mid-series `NaN` gaps (reset state rather than blending across a gap), boundary or inverted config parameters (such as `fast > slow`), and exact warm-up `NaN` formulas in JSDoc.
+- **Stale cross-references.** When changing an indicator's implementation or removing an internal dependency, grep `src/` and `README.md` for doc mentions in untouched files and re-run `npm run docs`.
+- **Test assertion blind spots.** Check that compatibility and regression tests assert warm-up `NaN` bars (or explicitly document why an indicator emits values during warm-up) rather than silently skipping `NaN`s.
+
 ## Before finishing
 
 ```bash

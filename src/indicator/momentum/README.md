@@ -154,13 +154,13 @@ the one-bar rate of change.
 
 ```
 Streak = consecutive closes up (+1, +2, ...) or down (-1, -2, ...), 0 when unchanged
-PercentRank = percentage of the previous percentRankPeriod - 1 values of ROC(1) below the current ROC(1)
+PercentRank = percentage of the previous percentRankPeriod values of ROC(1) below the current ROC(1)
 CRSI = (RSI(closings, rsiPeriod) + RSI(Streak, streakRsiPeriod) + PercentRank) / 3
 ```
 
 Both RSIs start from a simple moving average (`seed: 'sma'`).
 
-Warm-up: the first `max(rsiPeriod, streakRsiPeriod + 1, percentRankPeriod)`
+Warm-up: the first `max(rsiPeriod, streakRsiPeriod + 1, percentRankPeriod + 1)`
 values are NaN.
 
 | Function | Type                                                          |
@@ -270,12 +270,13 @@ transformed value recursively.
 ```
 Price = (High + Low) / 2
 Value1 = 0.33 * 2 * ((Price - Min(Price, period)) / (Max(Price, period) - Min(Price, period)) - 0.5) + 0.67 * Value1[previous]
-Fisher = 0.5 * ln((1 + Value1) / (1 - Value1)) * 0.5 + 0.5 * Fisher[previous]
+Fisher = 0.5 * ln((1 + Value1) / (1 - Value1)) + 0.5 * Fisher[previous]
 ```
 
-`Value1` is clamped to -0.999 to 0.999. The previous `Value1` and
-`Fisher` start at 0. A window whose prices are all equal has no range,
-and its price is placed at the middle of the range (0.5).
+As in Ehlers's article and TA-Lib `FISHER`, `Value1` is set to 0.999 when
+it exceeds 0.99, and to -0.999 when it falls below -0.99. The previous
+`Value1` and `Fisher` start at 0. A window whose prices are all equal has
+no range, and its price is placed at the middle of the range (0.5).
 
 Warm-up: the first `period - 1` values are NaN.
 
@@ -298,7 +299,7 @@ const defaultConfig = { period: 10 };
 const result = ehlersFisher(highs, lows, defaultConfig);
 ```
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/ehlersFisher.ts#L52)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/ehlersFisher.ts#L55)
 
 ### elderRay
 
@@ -396,7 +397,7 @@ bar's high-low range, on a 0 to 1 scale: 0 at the low and 1 at the high.
 IBS = (Close - Low) / (High - Low)
 ```
 
-A bar without a range (high equal to low) has an IBS of 0.
+A bar without a range (high equal to low) has an IBS of 0.5.
 
 | Function | Type                                                                |
 | -------- | ------------------------------------------------------------------- |
@@ -910,7 +911,7 @@ The default configuration of Ehlers Fisher Transform.
 | --------------------------- | ------------------------------ |
 | `EhlersFisherDefaultConfig` | `Required<EhlersFisherConfig>` |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/ehlersFisher.ts#L18)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/ehlersFisher.ts#L20)
 
 ### ElderRayDefaultConfig
 
@@ -1137,7 +1138,7 @@ Optional configuration of Ehlers Fisher Transform parameters.
 | -------- | --------------------- | ----------- |
 | `period` | `number or undefined` |             |
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/ehlersFisher.ts#L11)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/momentum/ehlersFisher.ts#L13)
 
 ### ElderRayResult
 

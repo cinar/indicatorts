@@ -37,8 +37,8 @@ export const StochasticDefaultConfig: Required<StochasticConfig> = {
  * Stochastic of a single series. It places each value within the range of
  * the last `period` values, on a 0 to 100 scale, and smooths it with a
  * simple moving average. Unlike the Stochastic Oscillator (`stoch`), which
- * uses the highs, lows and closings, it works on any one series, such as
- * the MACD line in the Schaff Trend Cycle.
+ * uses the highs, lows and closings, it works on any single series, such as
+ * closing prices or another indicator's output.
  *
  * ```
  * K = (Value - Min(Value, period)) / (Max(Value, period) - Min(Value, period)) * 100

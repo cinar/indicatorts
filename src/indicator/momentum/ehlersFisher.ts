@@ -5,6 +5,8 @@ import { checkSameLength } from '../../helper/numArray';
 import { safeDivide, windowedMax, windowedMin } from '../../helper/window';
 import { FISHER_CLAMP } from './fisherTransform';
 
+const EHLERS_FISHER_LIMIT = 0.99;
+
 /**
  * Optional configuration of Ehlers Fisher Transform parameters.
  */
@@ -28,12 +30,13 @@ export const EhlersFisherDefaultConfig: Required<EhlersFisherConfig> = {
  * ```
  * Price = (High + Low) / 2
  * Value1 = 0.33 * 2 * ((Price - Min(Price, period)) / (Max(Price, period) - Min(Price, period)) - 0.5) + 0.67 * Value1[previous]
- * Fisher = 0.5 * ln((1 + Value1) / (1 - Value1)) * 0.5 + 0.5 * Fisher[previous]
+ * Fisher = 0.5 * ln((1 + Value1) / (1 - Value1)) + 0.5 * Fisher[previous]
  * ```
  *
- * `Value1` is clamped to -0.999 to 0.999. The previous `Value1` and
- * `Fisher` start at 0. A window whose prices are all equal has no range,
- * and its price is placed at the middle of the range (0.5).
+ * As in Ehlers's article and TA-Lib `FISHER`, `Value1` is set to 0.999 when
+ * it exceeds 0.99, and to -0.999 when it falls below -0.99. The previous
+ * `Value1` and `Fisher` start at 0. A window whose prices are all equal has
+ * no range, and its price is placed at the middle of the range (0.5).
  *
  * Warm-up: the first `period - 1` values are NaN.
  *
@@ -76,12 +79,14 @@ export function ehlersFisher(
       0.5
     );
 
-    value1 = Math.min(
-      FISHER_CLAMP,
-      Math.max(-FISHER_CLAMP, 0.33 * 2 * (normalized - 0.5) + 0.67 * value1)
-    );
-    previous =
-      0.5 * Math.log((1 + value1) / (1 - value1)) * 0.5 + 0.5 * previous;
+    value1 = 0.33 * 2 * (normalized - 0.5) + 0.67 * value1;
+    if (value1 > EHLERS_FISHER_LIMIT) {
+      value1 = FISHER_CLAMP;
+    } else if (value1 < -EHLERS_FISHER_LIMIT) {
+      value1 = -FISHER_CLAMP;
+    }
+
+    previous = 0.5 * Math.log((1 + value1) / (1 - value1)) + 0.5 * previous;
     result[i] = previous;
   }
 

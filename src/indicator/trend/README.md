@@ -37,10 +37,10 @@ The API reference below is generated from the JSDoc comments by [tsdoc-markdown]
 - [qstick](#qstick)
 - [kdj](#kdj)
 - [rma](#rma)
-- [stochastic](#stochastic)
 - [stc](#stc)
 - [since](#since)
 - [slope](#slope)
+- [stochastic](#stochastic)
 - [slowStochastic](#slowstochastic)
 - [smma](#smma)
 - [t3](#t3)
@@ -424,16 +424,16 @@ const result = cci(highs, lows, closings, defaultConfig);
 
 ### dpo
 
-Detrended Price Oscillator (DPO). It subtracts a simple moving average,
-shifted back by `floor(period / 2) + 1` bars, from the price, which
-removes the longer-term trend and leaves the shorter cycles.
+Detrended Price Oscillator (DPO). It compares a past price with the current
+simple moving average, which removes the longer-term trend and leaves the
+shorter cycles.
 
 ```
 k = floor(period / 2) + 1
-DPO[i] = Price[i] - SMA(Price, period)[i - k]
+DPO[i] = Price[i - k] - SMA(Price, period)[i]
 ```
 
-Warm-up: the first `period - 1 + k` values are NaN.
+Warm-up: the first `max(period - 1, k)` values are NaN.
 
 | Function | Type                                                   |
 | -------- | ------------------------------------------------------ |
@@ -1070,60 +1070,28 @@ const result = rma(values, defaultConfig);
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L54)
 
-### stochastic
-
-Stochastic of a single series. It places each value within the range of
-the last `period` values, on a 0 to 100 scale, and smooths it with a
-simple moving average. Unlike the Stochastic Oscillator (`stoch`), which
-uses the highs, lows and closings, it works on any one series, such as
-the MACD line in the Schaff Trend Cycle.
-
-```
-K = (Value - Min(Value, period)) / (Max(Value, period) - Min(Value, period)) * 100
-D = SMA(K, dPeriod)
-```
-
-A window whose values are all equal has no range; K is 50 there.
-
-Warm-up: the first `period + dPeriod - 2` values of both K and D are NaN.
-
-| Function     | Type                                                                |
-| ------------ | ------------------------------------------------------------------- |
-| `stochastic` | `(values: number[], config?: StochasticConfig) => StochasticResult` |
-
-Parameters:
-
-- `values`: values array.
-- `config`: configuration.
-
-Examples:
-
-```TypeScript
-import { stochastic } from 'indicatorts';
-
-const defaultConfig = { period: 10, dPeriod: 3 };
-const { k, d } = stochastic(values, defaultConfig);
-```
-
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/stochastic.ts#L63)
-
 ### stc
 
-Schaff Trend Cycle (STC). It applies the single-series Stochastic twice to
-the difference of a fast and a slow exponential moving average, which
-bounds the MACD line to a 0 to 100 scale.
+Schaff Trend Cycle (STC). It applies a stochastic normalization to MACD
+twice, smoothing the result of each pass exponentially, as in Doug Schaff's
+definition and TA-Lib `STC`.
 
 ```
 MACD = EMA(closings, fast) - EMA(closings, slow)
-%K1, %D1 = Stochastic(MACD, kPeriod, dPeriod)
-%K2, %D2 = Stochastic(%D1, kPeriod, dPeriod)
-STC = %D2
+%K1 = 100 * (MACD - Min(MACD, kPeriod)) / (Max(MACD, kPeriod) - Min(MACD, kPeriod))
+PF  = PF[previous] + factor * (%K1 - PF[previous])
+%K2 = 100 * (PF - Min(PF, kPeriod)) / (Max(PF, kPeriod) - Min(PF, kPeriod))
+STC = STC[previous] + factor * (%K2 - STC[previous])
+factor = 2 / (dPeriod + 1)
 ```
 
-Both EMAs start from the simple moving average of their first values.
+Both EMAs start from the simple moving average of the bars ending at the
+slow EMA's first value, as in TA-Lib `STC`. The default `dPeriod` of 3
+gives Schaff's factor of 0.5. Each smoothed series starts from its first
+`%K` value; when the window's maximum equals its minimum, the previous
+smoothed value is kept (0 if there is none yet).
 
-Warm-up: the first `slow - 1 + 2 * (kPeriod + dPeriod - 2)` values are
-NaN.
+Warm-up: the first `max(fast, slow) - 1 + 2 * (kPeriod - 1)` values are NaN.
 
 | Function | Type                                                   |
 | -------- | ------------------------------------------------------ |
@@ -1146,7 +1114,7 @@ const result = stc(closings, defaultConfig);
 // const result = schaffTrendCycle(closings, defaultConfig);
 ```
 
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/schaffTrendCycle.ts#L58)
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/schaffTrendCycle.ts#L108)
 
 ### since
 
@@ -1200,6 +1168,43 @@ const result = slope(values, defaultConfig);
 ```
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/slope.ts#L41)
+
+### stochastic
+
+Stochastic of a single series. It places each value within the range of
+the last `period` values, on a 0 to 100 scale, and smooths it with a
+simple moving average. Unlike the Stochastic Oscillator (`stoch`), which
+uses the highs, lows and closings, it works on any single series, such as
+closing prices or another indicator's output.
+
+```
+K = (Value - Min(Value, period)) / (Max(Value, period) - Min(Value, period)) * 100
+D = SMA(K, dPeriod)
+```
+
+A window whose values are all equal has no range; K is 50 there.
+
+Warm-up: the first `period + dPeriod - 2` values of both K and D are NaN.
+
+| Function     | Type                                                                |
+| ------------ | ------------------------------------------------------------------- |
+| `stochastic` | `(values: number[], config?: StochasticConfig) => StochasticResult` |
+
+Parameters:
+
+- `values`: values array.
+- `config`: configuration.
+
+Examples:
+
+```TypeScript
+import { stochastic } from 'indicatorts';
+
+const defaultConfig = { period: 10, dPeriod: 3 };
+const { k, d } = stochastic(values, defaultConfig);
+```
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/stochastic.ts#L63)
 
 ### slowStochastic
 
@@ -1625,9 +1630,9 @@ const result = weightedClose(highs, lows, closings);
 - [QstickDefaultConfig](#qstickdefaultconfig)
 - [KDJDefaultConfig](#kdjdefaultconfig)
 - [RMADefaultConfig](#rmadefaultconfig)
-- [StochasticDefaultConfig](#stochasticdefaultconfig)
 - [STCDefaultConfig](#stcdefaultconfig)
 - [SlopeDefaultConfig](#slopedefaultconfig)
+- [StochasticDefaultConfig](#stochasticdefaultconfig)
 - [SlowStochasticDefaultConfig](#slowstochasticdefaultconfig)
 - [SMMADefaultConfig](#smmadefaultconfig)
 - [T3DefaultConfig](#t3defaultconfig)
@@ -1878,16 +1883,6 @@ The default configuration of RMA.
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L21)
 
-### StochasticDefaultConfig
-
-The default configuration of Stochastic.
-
-| Constant                  | Type                         |
-| ------------------------- | ---------------------------- |
-| `StochasticDefaultConfig` | `Required<StochasticConfig>` |
-
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/stochastic.ts#L31)
-
 ### STCDefaultConfig
 
 The default configuration of STC.
@@ -1907,6 +1902,16 @@ The default configuration of Slope.
 | `SlopeDefaultConfig` | `Required<SlopeConfig>` |
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/slope.ts#L16)
+
+### StochasticDefaultConfig
+
+The default configuration of Stochastic.
+
+| Constant                  | Type                         |
+| ------------------------- | ---------------------------- |
+| `StochasticDefaultConfig` | `Required<StochasticConfig>` |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/stochastic.ts#L31)
 
 ### SlowStochasticDefaultConfig
 
@@ -2031,10 +2036,10 @@ The default configuration of vortex.
 - [KDJResult](#kdjresult)
 - [KDJConfig](#kdjconfig)
 - [RMAConfig](#rmaconfig)
-- [StochasticResult](#stochasticresult)
-- [StochasticConfig](#stochasticconfig)
 - [STCConfig](#stcconfig)
 - [SlopeConfig](#slopeconfig)
+- [StochasticResult](#stochasticresult)
+- [StochasticConfig](#stochasticconfig)
 - [SlowStochasticResult](#slowstochasticresult)
 - [SlowStochasticConfig](#slowstochasticconfig)
 - [SMMAConfig](#smmaconfig)
@@ -2398,28 +2403,6 @@ Optional configuration of RMA parameters.
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/rollingMovingAverage.ts#L9)
 
-### StochasticResult
-
-Stochastic result object.
-
-| Property | Type       | Description |
-| -------- | ---------- | ----------- |
-| `k`      | `number[]` |             |
-| `d`      | `number[]` |             |
-
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/stochastic.ts#L15)
-
-### StochasticConfig
-
-Optional configuration of Stochastic parameters.
-
-| Property  | Type                  | Description |
-| --------- | --------------------- | ----------- |
-| `period`  | `number or undefined` |             |
-| `dPeriod` | `number or undefined` |             |
-
-[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/stochastic.ts#L23)
-
 ### STCConfig
 
 Optional configuration of STC parameters.
@@ -2442,6 +2425,28 @@ Optional configuration of Slope parameters.
 | `period` | `number or undefined` |             |
 
 [Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/slope.ts#L9)
+
+### StochasticResult
+
+Stochastic result object.
+
+| Property | Type       | Description |
+| -------- | ---------- | ----------- |
+| `k`      | `number[]` |             |
+| `d`      | `number[]` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/stochastic.ts#L15)
+
+### StochasticConfig
+
+Optional configuration of Stochastic parameters.
+
+| Property  | Type                  | Description |
+| --------- | --------------------- | ----------- |
+| `period`  | `number or undefined` |             |
+| `dPeriod` | `number or undefined` |             |
+
+[Source](https://github.com/cinar/indicatorts/tree/main/src/indicator/trend/stochastic.ts#L23)
 
 ### SlowStochasticResult
 
